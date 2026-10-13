@@ -1,1 +1,1 @@
-this is about law system in BD
+We are making a easy and more understandable website for law booking system in bangladesh
