@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LawBD — Bangladeshi Legal Information & Lawyer Appointment Platform
 
 **LawBD** is a modern, responsive legal information and lawyer appointment platform designed to demystify the laws of Bangladesh and connect citizens with qualified, verified advocates tailored to their specific legal problems.
@@ -94,3 +95,6 @@
    ```bash
    npm run build
    ```
+=======
+We are making a easy and more understandable website for law booking system in bangladesh
+>>>>>>> bbacedfc8c07fff8b9890d90df2895c53883ed64
