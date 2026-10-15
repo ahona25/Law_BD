@@ -110,6 +110,7 @@ router.get('/audit-logs', (req, res) => {
   res.json({
     success: true,
     count: logs.length,
+
     logs: logs.slice(0, 50)
   });
 });
