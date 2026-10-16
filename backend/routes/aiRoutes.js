@@ -3,7 +3,6 @@ import { db } from '../db/database.js';
 
 const router = express.Router();
 
-// Knowledge grounding retrieval helper
 function retrieveRelevantLegalContext(query) {
   const q = query.toLowerCase();
   const laws = db.find('laws');
