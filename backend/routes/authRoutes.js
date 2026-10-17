@@ -6,7 +6,6 @@ import { authenticate } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Register new user
 router.post('/register', (req, res) => {
   try {
     const { name, email, password, role = 'client', phone, location, barCouncilNo } = req.body;
