@@ -9,7 +9,7 @@ export default function AppointmentPassModal({ appointment, onClose }) {
   const handlePrint = () => {
     window.print();
   };
-
+  
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="relative bg-white rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-200">
