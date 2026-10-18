@@ -5,7 +5,6 @@ import { ALL_30_LEGAL_CATEGORIES } from '../config/legalCategories.js';
 
 const router = express.Router();
 
-// Get legal categories with counts and full subcategories/incidents
 router.get('/categories', (req, res) => {
   const laws = db.find('laws');
   const categoryCounts = {};

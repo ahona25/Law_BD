@@ -97,7 +97,7 @@ router.get('/my', authenticate, (req, res) => {
   if (req.user.role === 'lawyer') {
     const lawyerProfile = db.findOne('lawyers', { user_id: req.user.id });
     if (lawyerProfile) {
-      appointments = db.find('appointments', { lawyer_id: lawyerProfile.id });
+      appointments = db.find('appointments', a => Number(a.lawyer_id) === Number(lawyerProfile.id));
     } else {
       appointments = db.find('appointments', a => a.lawyer_name === req.user.name);
     }
@@ -105,7 +105,7 @@ router.get('/my', authenticate, (req, res) => {
     appointments = db.find('appointments');
   } else {
     // Client
-    appointments = db.find('appointments', { client_id: req.user.id });
+    appointments = db.find('appointments', a => Number(a.client_id) === Number(req.user.id));
   }
 
   // Sort by date descending
@@ -127,10 +127,10 @@ router.get('/:id', authenticate, (req, res) => {
   }
 
   // Authorization check: client, lawyer, or admin
-  const isOwner = appointment.client_id === req.user.id;
+  const isOwner = Number(appointment.client_id) === Number(req.user.id);
   const isAdmin = req.user.role === 'admin';
   const lawyerProfile = db.findOne('lawyers', { user_id: req.user.id });
-  const isAssignedLawyer = lawyerProfile && appointment.lawyer_id === lawyerProfile.id;
+  const isAssignedLawyer = lawyerProfile && Number(appointment.lawyer_id) === Number(lawyerProfile.id);
 
   if (!isOwner && !isAdmin && !isAssignedLawyer) {
     return res.status(403).json({ success: false, error: 'Unauthorized to view this appointment pass' });
