@@ -25,7 +25,6 @@ router.get('/categories', (req, res) => {
   });
 });
 
-// List all laws with search and category filters
 router.get('/', (req, res) => {
   const { q, category, status, year, subcategory } = req.query;
   let laws = db.find('laws');
