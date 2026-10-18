@@ -78,7 +78,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get individual law detail
 router.get('/:id', optionalAuth, (req, res) => {
   const { id } = req.params;
   const law = db.findById('laws', id);
