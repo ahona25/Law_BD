@@ -85,7 +85,6 @@ router.get('/:id', optionalAuth, (req, res) => {
     return res.status(404).json({ success: false, error: 'Law not found' });
   }
 
-  // Check if saved by current user
   let isSaved = false;
   if (req.user) {
     const saved = db.findOne('saved_items', {
