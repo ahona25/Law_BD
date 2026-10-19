@@ -102,7 +102,6 @@ router.get('/:id', optionalAuth, (req, res) => {
   });
 });
 
-// Bookmark / Unbookmark a law
 router.post('/:id/bookmark', authenticate, (req, res) => {
   const { id } = req.params;
   const existing = db.findOne('saved_items', {
