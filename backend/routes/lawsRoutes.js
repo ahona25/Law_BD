@@ -197,7 +197,6 @@ router.put('/:id', authenticate, requireRole('admin'), (req, res) => {
   res.json({ success: true, message: 'Law updated successfully', law: updated });
 });
 
-// Admin: Mark law as repealed
 router.patch('/:id/repeal', authenticate, requireRole('admin'), (req, res) => {
   const { id } = req.params;
   const updated = db.update('laws', id, { status: 'repealed' });

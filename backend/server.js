@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 import { runSeeds } from './db/seed.js';
@@ -20,6 +21,7 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const frontendDist = path.join(__dirname, '../frontend/dist');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,6 +37,11 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Serve production frontend assets
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+}
 
 // Initialize seeds
 runSeeds();
@@ -61,6 +68,31 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Single Page Application (SPA) catch-all fallback for client-side routing
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+    return res.status(404).json({
+      success: false,
+      error: `API endpoint '${req.path}' not found`
+    });
+  }
+  const indexPath = path.join(frontendDist, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  return res.status(200).send(`
+    <html>
+      <head><title>Law_BD API Server</title></head>
+      <body style="font-family:sans-serif;padding:40px;background:#071A14;color:#F8FAF9;text-align:center;">
+        <h1 style="color:#10B981;">⚖️ Law_BD API Backend is Online</h1>
+        <p>The backend is active on port ${PORT}.</p>
+        <p>To access the full combined frontend, build it with <code>npm run build</code> or run in development mode with <code>npm run dev</code>.</p>
+        <p><a href="/api/health" style="color:#60A5FA;">Check API Health</a></p>
+      </body>
+    </html>
+  `);
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Unhandled Server Error:', err);
@@ -71,5 +103,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`⚖️ Law_BD Backend API Server is running on http://localhost:${PORT}`);
+  console.log(`⚖️ Law_BD Combined Server is running on http://localhost:${PORT}`);
+  console.log(`📡 API Endpoints available at http://localhost:${PORT}/api`);
+  console.log(`💻 Frontend application accessible at http://localhost:${PORT}`);
 });
