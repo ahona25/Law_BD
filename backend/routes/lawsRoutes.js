@@ -185,7 +185,6 @@ router.post('/', authenticate, requireRole('admin'), (req, res) => {
   }
 });
 
-// Admin: Edit law
 router.put('/:id', authenticate, requireRole('admin'), (req, res) => {
   const { id } = req.params;
   const existing = db.findById('laws', id);

@@ -8,11 +8,11 @@ const router = express.Router();
 router.get('/', authenticate, (req, res) => {
   let cases = [];
   if (req.user.role === 'client') {
-    cases = db.find('cases', { client_id: req.user.id });
+    cases = db.find('cases', c => Number(c.client_id) === Number(req.user.id));
   } else if (req.user.role === 'lawyer') {
     const lawyerProfile = db.findOne('lawyers', { user_id: req.user.id });
     if (lawyerProfile) {
-      cases = db.find('cases', { lawyer_id: lawyerProfile.id });
+      cases = db.find('cases', c => Number(c.lawyer_id) === Number(lawyerProfile.id));
     }
   } else if (req.user.role === 'admin') {
     cases = db.find('cases');
