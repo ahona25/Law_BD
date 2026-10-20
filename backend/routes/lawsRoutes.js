@@ -123,7 +123,6 @@ router.post('/:id/bookmark', authenticate, (req, res) => {
   }
 });
 
-// Admin: Add new law
 router.post('/', authenticate, requireRole('admin'), (req, res) => {
   try {
     const {
