@@ -70,7 +70,6 @@ export default function AuthModal({
     }
   };
 
-  // Handle Sign In Submit
   const handleSignIn = async (e) => {
     e.preventDefault();
     setError('');
