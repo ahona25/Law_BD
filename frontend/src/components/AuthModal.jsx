@@ -50,7 +50,6 @@ export default function AuthModal({
 
   if (!isOpen) return null;
 
-  // Handle Quick Demo Login for instant evaluation
   const handleQuickDemo = async (roleName) => {
     setError('');
     setLoading(true);
@@ -172,8 +171,8 @@ export default function AuthModal({
               type="button"
               onClick={() => { setActiveTab('signin'); setError(''); }}
               className={`py-2 rounded-xl transition-all ${activeTab === 'signin'
-                  ? 'bg-white text-bdGreen-950 shadow-sm'
-                  : 'text-slate-300 hover:text-white'
+                ? 'bg-white text-bdGreen-950 shadow-sm'
+                : 'text-slate-300 hover:text-white'
                 }`}
             >
               {lang === 'bn' ? 'সাইন ইন (Sign In)' : 'Sign In'}
@@ -182,8 +181,8 @@ export default function AuthModal({
               type="button"
               onClick={() => { setActiveTab('register'); setError(''); }}
               className={`py-2 rounded-xl transition-all ${activeTab === 'register'
-                  ? 'bg-white text-bdGreen-950 shadow-sm'
-                  : 'text-slate-300 hover:text-white'
+                ? 'bg-white text-bdGreen-950 shadow-sm'
+                : 'text-slate-300 hover:text-white'
                 }`}
             >
               {lang === 'bn' ? 'নতুন একাউন্ট (Register)' : 'Create Account'}
@@ -204,8 +203,8 @@ export default function AuthModal({
                 type="button"
                 onClick={() => setSelectedRole('client')}
                 className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${selectedRole === 'client'
-                    ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
-                    : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
+                  ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
+                  : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
                   }`}
               >
                 <div className={`p-2 rounded-xl shrink-0 ${selectedRole === 'client' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
@@ -226,8 +225,8 @@ export default function AuthModal({
                 type="button"
                 onClick={() => setSelectedRole('lawyer')}
                 className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${selectedRole === 'lawyer'
-                    ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
-                    : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
+                  ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
+                  : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
                   }`}
               >
                 <div className={`p-2 rounded-xl shrink-0 ${selectedRole === 'lawyer' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
@@ -269,8 +268,8 @@ export default function AuthModal({
                 disabled={loading}
                 onClick={() => handleQuickDemo('client')}
                 className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'client'
-                    ? 'bg-white border-emerald-500 text-bdGreen-950 shadow-xs'
-                    : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
+                  ? 'bg-white border-emerald-500 text-bdGreen-950 shadow-xs'
+                  : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
                   }`}
               >
                 <div className="flex items-center gap-2 truncate">
@@ -285,8 +284,8 @@ export default function AuthModal({
                 disabled={loading}
                 onClick={() => handleQuickDemo('lawyer')}
                 className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'lawyer'
-                    ? 'bg-bdGreen-800 border-bdGreen-900 text-white shadow-xs'
-                    : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
+                  ? 'bg-bdGreen-800 border-bdGreen-900 text-white shadow-xs'
+                  : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
                   }`}
               >
                 <div className="flex items-center gap-2 truncate">
