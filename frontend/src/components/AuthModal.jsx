@@ -378,6 +378,9 @@ export default function AuthModal({
                     <span>Bangladesh Bar Council Credentials</span>
                   </div>
 
+
+
+
                   <div>
                     <label className="block text-[11px] font-bold text-slate-700 mb-1">
                       Bar Council Sanad / Enrollment No.
