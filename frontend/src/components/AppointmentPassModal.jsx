@@ -9,11 +9,11 @@ export default function AppointmentPassModal({ appointment, onClose }) {
   const handlePrint = () => {
     window.print();
   };
-  
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="relative bg-white rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-200">
-        
+
         {/* Pass Actions Header (Non-printable) */}
         <div className="no-print bg-slate-900 text-white px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export default function AppointmentPassModal({ appointment, onClose }) {
 
         {/* Printable Ticket Pass Body */}
         <div className="printable-area p-8 bg-white text-slate-800">
-          
+
           {/* Ticket Header */}
           <div className="border-b-2 border-bdGreen-800 pb-5 mb-5 flex items-start justify-between">
             <div className="flex items-center gap-3">
@@ -130,6 +130,8 @@ export default function AppointmentPassModal({ appointment, onClose }) {
               </p>
             </div>
           </div>
+
+
 
           {/* QR & Security Seal Footer */}
           <div className="pt-4 border-t border-dashed border-slate-300 flex items-center justify-between">
