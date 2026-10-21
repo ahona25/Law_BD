@@ -32,7 +32,6 @@ export default function AuthModal({
   const [activeTab, setActiveTab] = useState(initialTab); // 'signin' | 'register'
   const [selectedRole, setSelectedRole] = useState(initialRole); // 'client' | 'lawyer'
 
-  // Sign In State
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
 
@@ -131,7 +130,7 @@ export default function AuthModal({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
       <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
-        
+
         {/* Top Decorative Header with Bangladesh National Flag Palette */}
         <div className="bg-gradient-to-r from-bdDark-950 via-bdGreen-900 to-bdGreen-950 text-white p-6 relative">
           <div className="absolute top-0 right-0 w-32 h-32 bg-bdRed-500/10 rounded-full blur-2xl pointer-events-none"></div>
@@ -172,22 +171,20 @@ export default function AuthModal({
             <button
               type="button"
               onClick={() => { setActiveTab('signin'); setError(''); }}
-              className={`py-2 rounded-xl transition-all ${
-                activeTab === 'signin'
+              className={`py-2 rounded-xl transition-all ${activeTab === 'signin'
                   ? 'bg-white text-bdGreen-950 shadow-sm'
                   : 'text-slate-300 hover:text-white'
-              }`}
+                }`}
             >
               {lang === 'bn' ? 'সাইন ইন (Sign In)' : 'Sign In'}
             </button>
             <button
               type="button"
               onClick={() => { setActiveTab('register'); setError(''); }}
-              className={`py-2 rounded-xl transition-all ${
-                activeTab === 'register'
+              className={`py-2 rounded-xl transition-all ${activeTab === 'register'
                   ? 'bg-white text-bdGreen-950 shadow-sm'
                   : 'text-slate-300 hover:text-white'
-              }`}
+                }`}
             >
               {lang === 'bn' ? 'নতুন একাউন্ট (Register)' : 'Create Account'}
             </button>
@@ -196,7 +193,7 @@ export default function AuthModal({
 
         {/* Modal Body */}
         <div className="p-6 space-y-5">
-          
+
           {/* Role Selection Tabs: Citizen/Client vs Advocate/Lawyer */}
           <div>
             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
@@ -206,15 +203,13 @@ export default function AuthModal({
               <button
                 type="button"
                 onClick={() => setSelectedRole('client')}
-                className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${
-                  selectedRole === 'client'
+                className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${selectedRole === 'client'
                     ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
                     : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
-                }`}
+                  }`}
               >
-                <div className={`p-2 rounded-xl shrink-0 ${
-                  selectedRole === 'client' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
-                }`}>
+                <div className={`p-2 rounded-xl shrink-0 ${selectedRole === 'client' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
+                  }`}>
                   <User className="w-4 h-4" />
                 </div>
                 <div>
@@ -230,15 +225,13 @@ export default function AuthModal({
               <button
                 type="button"
                 onClick={() => setSelectedRole('lawyer')}
-                className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${
-                  selectedRole === 'lawyer'
+                className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${selectedRole === 'lawyer'
                     ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
                     : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
-                }`}
+                  }`}
               >
-                <div className={`p-2 rounded-xl shrink-0 ${
-                  selectedRole === 'lawyer' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
-                }`}>
+                <div className={`p-2 rounded-xl shrink-0 ${selectedRole === 'lawyer' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
+                  }`}>
                   <Briefcase className="w-4 h-4" />
                 </div>
                 <div>
@@ -275,11 +268,10 @@ export default function AuthModal({
                 type="button"
                 disabled={loading}
                 onClick={() => handleQuickDemo('client')}
-                className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${
-                  selectedRole === 'client'
+                className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'client'
                     ? 'bg-white border-emerald-500 text-bdGreen-950 shadow-xs'
                     : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2 truncate">
                   <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -292,11 +284,10 @@ export default function AuthModal({
                 type="button"
                 disabled={loading}
                 onClick={() => handleQuickDemo('lawyer')}
-                className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${
-                  selectedRole === 'lawyer'
+                className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'lawyer'
                     ? 'bg-bdGreen-800 border-bdGreen-900 text-white shadow-xs'
                     : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2 truncate">
                   <Briefcase className="w-3.5 h-3.5 text-amber-300 shrink-0" />
