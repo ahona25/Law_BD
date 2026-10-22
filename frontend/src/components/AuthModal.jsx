@@ -91,7 +91,6 @@ export default function AuthModal({
     }
   };
 
-  // Handle Register Submit
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
