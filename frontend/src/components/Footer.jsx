@@ -39,6 +39,8 @@ export default function Footer() {
             </div>
           </div>
 
+
+
           {/* Quick Legal Areas */}
           <div>
             <h4 className="text-white font-semibold text-sm tracking-wider uppercase mb-4">
