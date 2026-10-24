@@ -114,6 +114,9 @@ export default function Footer() {
 
         </div>
 
+
+
+
         {/* Legal Disclaimer Box */}
         <div className="mt-12 p-4 rounded-xl bg-bdDark-950 border border-emerald-950/80 text-xs text-slate-400 leading-relaxed">
           <p className="font-semibold text-bdRed-400 mb-1">
