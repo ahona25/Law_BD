@@ -17,11 +17,11 @@ export default function SavedDrawer() {
       // Load laws and lawyers to match IDs
       api.getLaws().then(res => {
         if (res.success) setLawsData(res.laws);
-      }).catch(() => {});
+      }).catch(() => { });
 
       api.getLawyers().then(res => {
         if (res.success) setLawyersData(res.lawyers);
-      }).catch(() => {});
+      }).catch(() => { });
     }
   }, [isSavedDrawerOpen]);
 
@@ -40,7 +40,7 @@ export default function SavedDrawer() {
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-          
+
           {/* Header */}
           <div className="p-6 bg-bdGreen-800 text-white flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -68,27 +68,27 @@ export default function SavedDrawer() {
           <div className="flex border-b border-slate-200 bg-slate-50">
             <button
               onClick={() => setActiveTab('laws')}
-              className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 flex items-center justify-center gap-2 ${
-                activeTab === 'laws'
+              className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 flex items-center justify-center gap-2 ${activeTab === 'laws'
                   ? 'border-bdGreen-800 text-bdGreen-900 bg-white'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+                }`}
             >
               <Scale className="w-4 h-4 text-bdGreen-700" />
               <span>{lang === 'bn' ? 'সংরক্ষিত আইন' : 'Saved Laws'} ({savedLaws.length})</span>
             </button>
             <button
               onClick={() => setActiveTab('lawyers')}
-              className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 flex items-center justify-center gap-2 ${
-                activeTab === 'lawyers'
+              className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 flex items-center justify-center gap-2 ${activeTab === 'lawyers'
                   ? 'border-bdGreen-800 text-bdGreen-900 bg-white'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+                }`}
             >
               <User className="w-4 h-4 text-bdGreen-700" />
               <span>{lang === 'bn' ? 'সংরক্ষিত আইনজীবী' : 'Bookmarked Advocates'} ({savedLawyers.length})</span>
             </button>
           </div>
+
+
 
           {/* List Content */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
