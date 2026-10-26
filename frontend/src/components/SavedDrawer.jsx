@@ -69,8 +69,8 @@ export default function SavedDrawer() {
             <button
               onClick={() => setActiveTab('laws')}
               className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 flex items-center justify-center gap-2 ${activeTab === 'laws'
-                  ? 'border-bdGreen-800 text-bdGreen-900 bg-white'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-bdGreen-800 text-bdGreen-900 bg-white'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
             >
               <Scale className="w-4 h-4 text-bdGreen-700" />
@@ -79,8 +79,8 @@ export default function SavedDrawer() {
             <button
               onClick={() => setActiveTab('lawyers')}
               className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 flex items-center justify-center gap-2 ${activeTab === 'lawyers'
-                  ? 'border-bdGreen-800 text-bdGreen-900 bg-white'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-bdGreen-800 text-bdGreen-900 bg-white'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
             >
               <User className="w-4 h-4 text-bdGreen-700" />
@@ -140,6 +140,9 @@ export default function SavedDrawer() {
                   <p className="text-xs">Click the bookmark icon on any law to save it here for quick reference.</p>
                 </div>
               )
+
+
+
             ) : (
               matchedLawyers.length > 0 ? (
                 matchedLawyers.map((lawyer) => (
