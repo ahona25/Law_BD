@@ -132,6 +132,8 @@ export default function AppointmentPassModal({ appointment, onClose }) {
               <p className="text-slate-700 italic text-[11px] leading-relaxed">
                 "{appointment.problem_description}"
               </p>
+
+
             </div>
           </div>
 
