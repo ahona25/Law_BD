@@ -23,26 +23,26 @@ export default function AwarenessPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Terms');
 
-  // Checklist interactive checkboxes
   const [checkedItems, setCheckedItems] = useState({});
 
   useEffect(() => {
     api.getDictionary().then(res => {
       if (res.success) setDictionaryTerms(res.terms);
-    }).catch(() => {});
+    }).catch(() => { });
 
     api.getChecklists().then(res => {
       if (res.success) setChecklists(res.checklists);
-    }).catch(() => {});
+    }).catch(() => { });
 
     api.getArticles().then(res => {
       if (res.success) setArticles(res.articles);
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   const toggleCheck = (key) => {
     setCheckedItems(prev => ({ ...prev, [key]: !prev[key] }));
   };
+
 
   const filteredTerms = dictionaryTerms.filter(t => {
     const matchCat = activeCategory === 'All Terms' || t.category === activeCategory;
@@ -58,7 +58,7 @@ export default function AwarenessPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 text-xs font-bold text-bdGreen-800 uppercase tracking-wider mb-2">
@@ -77,11 +77,10 @@ export default function AwarenessPage() {
         <div className="flex border-b border-slate-200 mb-8 overflow-x-auto text-xs font-bold uppercase tracking-wider">
           <button
             onClick={() => setActiveTab('dictionary')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'dictionary'
-                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'dictionary'
+              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
           >
             <Scale className="w-4 h-4 text-bdGreen-700" />
             <span>Bilingual Legal Dictionary ({dictionaryTerms.length})</span>
@@ -89,11 +88,10 @@ export default function AwarenessPage() {
 
           <button
             onClick={() => setActiveTab('articles')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'articles'
-                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'articles'
+              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
           >
             <BookOpen className="w-4 h-4 text-bdGreen-700" />
             <span>Citizen Rights Articles ({articles.length})</span>
@@ -103,7 +101,7 @@ export default function AwarenessPage() {
         {/* Tab 1: Bilingual Legal Dictionary */}
         {activeTab === 'dictionary' && (
           <div className="space-y-6">
-            
+
             {/* Dictionary Search & Category Bar */}
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-4">
               <div className="relative">
@@ -122,11 +120,10 @@ export default function AwarenessPage() {
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
-                      activeCategory === cat
-                        ? 'bg-bdGreen-800 text-white'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                    }`}
+                    className={`px-3 py-1.5 rounded-lg font-medium transition-all ${activeCategory === cat
+                      ? 'bg-bdGreen-800 text-white'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
                   >
                     {cat}
                   </button>
