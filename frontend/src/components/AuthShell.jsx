@@ -24,13 +24,15 @@ export function AuthRoleTabs({ role, onChange }) {
         aria-selected={role === 'client'}
         onClick={() => onChange('client')}
         className={`py-2.5 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-2 ${role === 'client'
-            ? 'bg-white text-bdGreen-900 shadow-sm ring-1 ring-slate-200/80'
-            : 'text-slate-600 hover:text-slate-900'
+          ? 'bg-white text-bdGreen-900 shadow-sm ring-1 ring-slate-200/80'
+          : 'text-slate-600 hover:text-slate-900'
           }`}
       >
         <User className={`w-4 h-4 ${role === 'client' ? 'text-bdGreen-700' : 'text-slate-400'}`} />
         <span>{isBn ? 'নাগরিক / ক্লায়েন্ট' : 'Citizen / Client'}</span>
       </button>
+
+
 
       <button
         type="button"
@@ -38,8 +40,8 @@ export function AuthRoleTabs({ role, onChange }) {
         aria-selected={role === 'lawyer'}
         onClick={() => onChange('lawyer')}
         className={`py-2.5 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-2 ${role === 'lawyer'
-            ? 'bg-bdGreen-800 text-white shadow-sm'
-            : 'text-slate-600 hover:text-slate-900'
+          ? 'bg-bdGreen-800 text-white shadow-sm'
+          : 'text-slate-600 hover:text-slate-900'
           }`}
       >
         <Briefcase className={`w-4 h-4 ${role === 'lawyer' ? 'text-amber-300' : 'text-slate-400'}`} />
