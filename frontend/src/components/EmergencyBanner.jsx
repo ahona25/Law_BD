@@ -2,8 +2,12 @@ import React from 'react';
 import { PhoneCall, ShieldAlert, HeartHandshake, Laptop, AlertTriangle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
+
+
 export default function EmergencyBanner() {
   const { lang } = useLanguage();
+
+
 
   return (
     <div className="bg-gradient-to-r from-bdDark-900 via-bdGreen-900 to-bdDark-900 text-white text-xs border-b border-bdGreen-700/40 py-2 px-4 shadow-sm">
