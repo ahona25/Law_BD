@@ -106,6 +106,7 @@ export default function AppointmentPassModal({ appointment, onClose }) {
             </div>
           </div>
 
+
           {/* Client & Case Summary */}
           <div className="space-y-3 mb-6 text-xs">
             <div className="grid grid-cols-2 gap-4">
@@ -114,12 +115,15 @@ export default function AppointmentPassModal({ appointment, onClose }) {
                 <p className="font-semibold text-slate-900">{appointment.client_name}</p>
                 <p className="text-slate-500 text-[11px]">{appointment.client_phone || '01711223344'}</p>
               </div>
+
+
               <div>
                 <span className="text-slate-400 uppercase text-[10px] font-bold">Legal Domain:</span>
                 <p className="font-semibold text-slate-900">{appointment.case_category}</p>
                 <p className="text-emerald-700 text-[11px] font-medium">Payment Verified via {appointment.payment_method} (৳{appointment.fee_amount})</p>
               </div>
             </div>
+
 
             <div className="p-3 rounded-lg bg-emerald-50/50 border border-emerald-100">
               <span className="text-emerald-900 uppercase text-[10px] font-bold block mb-0.5">
