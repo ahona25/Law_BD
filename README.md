@@ -4,7 +4,6 @@
 **Law_BD** is a production-quality, full-stack digital legal assistance platform built specifically for the legal architecture of Bangladesh. It connects ordinary citizens, victims of harassment or crime, law students, and businesses with verified Bangladesh Bar Council enrolled advocates, provides plain-language explanations of statutory laws in both **বাংলা (Bengali)** and **English**, and offers smart incident triage and automated consultation booking.
 
 ---
-
 ## 🏛️ System Architecture
 
 - **Frontend**: React 18, Vite, Tailwind CSS, Lucide React, React Router v6.
