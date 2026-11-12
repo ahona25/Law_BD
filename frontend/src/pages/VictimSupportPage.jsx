@@ -46,6 +46,7 @@ export default function VictimSupportPage() {
     }
   }, [location.state, location.search]);
 
+
   const activeCategoryObj = ALL_30_LEGAL_CATEGORIES.find(c => c.id === selectedCategory) || ALL_30_LEGAL_CATEGORIES[0];
 
   const handleTriage = async (customText) => {
@@ -60,6 +61,8 @@ export default function VictimSupportPage() {
         urgencyStage,
         desiredOutcome
       });
+
+
       if (res.success) {
         setTriageResult(res);
       }
@@ -69,6 +72,7 @@ export default function VictimSupportPage() {
       setLoading(false);
     }
   };
+
 
   const sampleIncidents = [
     { label: 'জমি দখল ও জাল দলিল', text: 'আমার পৈত্রিক জমি একদল প্রভাবশালী লোক জোর করে দখল করে নিয়েছে এবং জাল বায়া দলিল তৈরি করেছে।' },
@@ -169,8 +173,8 @@ export default function VictimSupportPage() {
                       setIncidentText(prev => prev ? `${prev} Issue: ${sub}.` : `Seeking legal assistance regarding ${sub} under ${activeCategoryObj.name}.`);
                     }}
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${selectedSubcategory === sub
-                        ? 'bg-bdGreen-800 text-white'
-                        : 'bg-white border border-slate-200 text-slate-700 hover:border-emerald-400'
+                      ? 'bg-bdGreen-800 text-white'
+                      : 'bg-white border border-slate-200 text-slate-700 hover:border-emerald-400'
                       }`}
                   >
                     {sub}
