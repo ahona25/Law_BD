@@ -31,6 +31,7 @@ export default function EmergencyBanner() {
             <span>{lang === 'bn' ? 'আইনি সহায়তা:' : 'Govt Legal Aid:'} <strong>16430</strong> (Toll Free)</span>
           </a>
 
+
           <a
             href="tel:999"
             className="flex items-center gap-1.5 hover:text-bdRed-400 transition-colors font-medium text-emerald-200"
@@ -39,6 +40,7 @@ export default function EmergencyBanner() {
             <ShieldAlert className="w-3.5 h-3.5 text-bdRed-500" />
             <span>{lang === 'bn' ? 'জরুরি পুলিশ:' : 'Police:'} <strong>999</strong></span>
           </a>
+
 
           <a
             href="tel:109"
