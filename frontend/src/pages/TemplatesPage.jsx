@@ -70,8 +70,8 @@ export default function TemplatesPage() {
                   key={tpl.id}
                   onClick={() => setSelectedTemplate(tpl)}
                   className={`w-full p-4 rounded-2xl border text-left transition-all ${isSelected
-                      ? 'bg-bdGreen-800 text-white border-bdGreen-800 shadow-sm'
-                      : 'bg-white text-slate-800 border-slate-200 hover:border-emerald-400'
+                    ? 'bg-bdGreen-800 text-white border-bdGreen-800 shadow-sm'
+                    : 'bg-white text-slate-800 border-slate-200 hover:border-emerald-400'
                     }`}
 
                 >

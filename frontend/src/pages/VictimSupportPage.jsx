@@ -33,6 +33,7 @@ export default function VictimSupportPage() {
   const [loading, setLoading] = useState(false);
   const [triageResult, setTriageResult] = useState(null);
 
+
   useEffect(() => {
     if (location.state?.prefilledIncident) {
       setIncidentText(location.state.prefilledIncident);
@@ -81,7 +82,7 @@ export default function VictimSupportPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-bdRed-600 text-xs font-bold uppercase mb-3">
@@ -100,7 +101,7 @@ export default function VictimSupportPage() {
 
         {/* Input Box Card */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-10 space-y-6">
-          
+
           {/* Main 30 Categories & Subcategories Selector */}
           <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
             <div className="flex items-center justify-between">
@@ -167,11 +168,10 @@ export default function VictimSupportPage() {
                       setSelectedSubcategory(sub);
                       setIncidentText(prev => prev ? `${prev} Issue: ${sub}.` : `Seeking legal assistance regarding ${sub} under ${activeCategoryObj.name}.`);
                     }}
-                    className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-                      selectedSubcategory === sub
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${selectedSubcategory === sub
                         ? 'bg-bdGreen-800 text-white'
                         : 'bg-white border border-slate-200 text-slate-700 hover:border-emerald-400'
-                    }`}
+                      }`}
                   >
                     {sub}
                   </button>
@@ -268,7 +268,7 @@ export default function VictimSupportPage() {
         {/* Triage Results Display */}
         {triageResult && (
           <div className="space-y-8 animate-fadeIn">
-            
+
             {/* Primary Severity Banner */}
             <div className="p-6 sm:p-8 rounded-3xl bg-bdDark-900 text-white border border-emerald-950 shadow-xl">
               <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
