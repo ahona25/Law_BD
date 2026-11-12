@@ -23,7 +23,7 @@ export default function TemplatesPage() {
         setTemplates(res.checklists);
         setSelectedTemplate(res.checklists[0]);
       }
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   const handleCopy = () => {
@@ -40,7 +40,7 @@ export default function TemplatesPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 text-xs font-bold text-bdGreen-800 uppercase tracking-wider mb-2">
@@ -57,7 +57,7 @@ export default function TemplatesPage() {
 
         {/* Template Selector & Editor Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Left Column: Template List */}
           <div className="no-print space-y-3">
             <h3 className="font-serif font-bold text-sm text-slate-700 uppercase tracking-wider mb-2">
@@ -69,11 +69,11 @@ export default function TemplatesPage() {
                 <button
                   key={tpl.id}
                   onClick={() => setSelectedTemplate(tpl)}
-                  className={`w-full p-4 rounded-2xl border text-left transition-all ${
-                    isSelected
+                  className={`w-full p-4 rounded-2xl border text-left transition-all ${isSelected
                       ? 'bg-bdGreen-800 text-white border-bdGreen-800 shadow-sm'
                       : 'bg-white text-slate-800 border-slate-200 hover:border-emerald-400'
-                  }`}
+                    }`}
+
                 >
                   <span className={`text-[10px] font-bold uppercase block mb-1 ${isSelected ? 'text-emerald-200' : 'text-slate-400'}`}>
                     {tpl.category}
@@ -90,13 +90,14 @@ export default function TemplatesPage() {
           {/* Right Column: Template Viewer & Actions */}
           {selectedTemplate && (
             <div className="lg:col-span-2 space-y-4">
-              
+
               {/* Action Bar */}
               <div className="no-print flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
                 <div>
                   <h3 className="font-bold text-sm text-slate-900">{selectedTemplate.title}</h3>
                   <span className="text-[11px] text-slate-400">{selectedTemplate.format}</span>
                 </div>
+
 
                 <div className="flex items-center gap-2">
                   <button
