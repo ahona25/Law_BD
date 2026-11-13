@@ -120,6 +120,8 @@ export default function RegisterPage() {
       'Confidential document storage & bilingual legal resources'
     ];
 
+
+
   return (
     <AuthShell
       badgeText={isBn ? 'বিনামূল্যে পোর্টাল নিবন্ধন' : 'Free Digital Legal Onboarding'}
