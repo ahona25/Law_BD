@@ -62,6 +62,7 @@ export default function RegisterPage() {
       return;
     }
 
+
     if (password !== confirmPassword) {
       setError(
         isBn
