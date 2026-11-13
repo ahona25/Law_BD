@@ -34,7 +34,7 @@ export default function RegisterPage() {
   const { lang } = useLanguage();
   const navigate = useNavigate();
 
-  const [role, setRole] = useState('client'); // 'client' | 'lawyer'
+  const [role, setRole] = useState('client');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -99,7 +99,7 @@ export default function RegisterPage() {
     } catch (err) {
       setError(
         err.message ||
-          (isBn ? 'নিবন্ধন সম্পন্ন করা যায়নি।' : 'Registration failed. Please try again.')
+        (isBn ? 'নিবন্ধন সম্পন্ন করা যায়নি।' : 'Registration failed. Please try again.')
       );
     } finally {
       setLoading(false);
@@ -108,15 +108,15 @@ export default function RegisterPage() {
 
   const features = isBn
     ? [
-        'নাগরিকদের জন্য দ্রুত আইনি পরামর্শ ও কেস ট্র্যাকিং সুবিধা',
-        'আইনজীবীদের জন্য বাংলাদেশ বার কাউন্সিল যাচাইকৃত প্রোফাইল',
-        'তথ্য গোপনীয়তা এবং নিরাপদ ডিজিটাল ডকুমেন্ট ব্যবস্থাপনা'
-      ]
+      'নাগরিকদের জন্য দ্রুত আইনি পরামর্শ ও কেস ট্র্যাকিং সুবিধা',
+      'আইনজীবীদের জন্য বাংলাদেশ বার কাউন্সিল যাচাইকৃত প্রোফাইল',
+      'তথ্য গোপনীয়তা এবং নিরাপদ ডিজিটাল ডকুমেন্ট ব্যবস্থাপনা'
+    ]
     : [
-        'Fast consultation booking & case tracking for citizens',
-        'Verified Bar Council chamber profiles for advocates',
-        'Confidential document storage & bilingual legal resources'
-      ];
+      'Fast consultation booking & case tracking for citizens',
+      'Verified Bar Council chamber profiles for advocates',
+      'Confidential document storage & bilingual legal resources'
+    ];
 
   return (
     <AuthShell
@@ -353,8 +353,8 @@ export default function RegisterPage() {
                     ? 'আইনজীবী অ্যাকাউন্ট তৈরি করুন'
                     : 'Register as Advocate'
                   : isBn
-                  ? 'নাগরিক অ্যাকাউন্ট তৈরি করুন'
-                  : 'Create Citizen Account'}
+                    ? 'নাগরিক অ্যাকাউন্ট তৈরি করুন'
+                    : 'Create Citizen Account'}
               </span>
               <ArrowRight className="w-4 h-4" />
             </>
