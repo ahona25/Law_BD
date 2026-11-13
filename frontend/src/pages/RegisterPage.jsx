@@ -327,6 +327,8 @@ export default function RegisterPage() {
           </div>
         )}
 
+
+
         <label className="flex items-start gap-2.5 pt-0.5 text-xs text-slate-600 cursor-pointer select-none">
           <input
             type="checkbox"
