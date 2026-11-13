@@ -81,6 +81,7 @@ export default function RegisterPage() {
       return;
     }
 
+
     setLoading(true);
     try {
       const res = await register({
