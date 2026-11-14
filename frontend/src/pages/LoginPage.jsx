@@ -282,6 +282,8 @@ export default function LoginPage() {
         </div>
       </div>
 
+
+
       <p className="text-center text-xs sm:text-sm text-slate-500 pt-2 border-t border-slate-100">
         {isBn ? 'নতুন ব্যবহারকারী?' : "Don't have an account?"}{' '}
         <Link to="/register" className="text-bdGreen-800 font-semibold hover:underline">
