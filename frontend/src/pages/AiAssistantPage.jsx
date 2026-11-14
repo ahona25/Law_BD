@@ -40,8 +40,8 @@ function FormattedLegalContent({ text }) {
       elements.push(
         <ul key={`list-${listKey++}`} className="space-y-1.5 my-2.5 pl-1">
           {currentList.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-800 leading-relaxed">
-              <span className="text-bdGreen-800 font-bold shrink-0 mt-0.5">•</span>
+            <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-200 leading-relaxed">
+              <span className="text-emerald-400 font-bold shrink-0 mt-0.5">•</span>
               <div>{renderInline(item)}</div>
             </li>
           ))}
@@ -56,7 +56,7 @@ function FormattedLegalContent({ text }) {
     const parts = str.split(/(\*\*[^*]+\*\*)/g);
     return parts.map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={i} className="font-bold text-slate-900">{part.slice(2, -2)}</strong>;
+        return <strong key={i} className="font-bold text-emerald-300">{part.slice(2, -2)}</strong>;
       }
       return part;
     });
@@ -75,8 +75,8 @@ function FormattedLegalContent({ text }) {
       flushList();
       const headerText = trimmed.replace(/^###\s+/, '');
       elements.push(
-        <div key={`h3-${lineIdx}`} className="pt-3 pb-1 border-b border-slate-200/80 mb-2 mt-2">
-          <h4 className="font-serif font-bold text-sm sm:text-base text-bdGreen-900 flex items-center gap-1.5">
+        <div key={`h3-${lineIdx}`} className="pt-3 pb-1 border-b border-emerald-800/60 mb-2 mt-2">
+          <h4 className="font-serif font-bold text-sm sm:text-base text-emerald-400 flex items-center gap-1.5">
             {renderInline(headerText)}
           </h4>
         </div>
@@ -87,7 +87,7 @@ function FormattedLegalContent({ text }) {
     // Horizontal Rule (---)
     if (trimmed === '---') {
       flushList();
-      elements.push(<hr key={`hr-${lineIdx}`} className="my-3 border-slate-200" />);
+      elements.push(<hr key={`hr-${lineIdx}`} className="my-3 border-emerald-800/40" />);
       return;
     }
 
@@ -98,9 +98,9 @@ function FormattedLegalContent({ text }) {
       elements.push(
         <div
           key={`quote-${lineIdx}`}
-          className="my-3 p-3 rounded-xl bg-amber-50/80 border border-amber-200/90 text-amber-900 text-xs sm:text-[13px] leading-relaxed flex items-start gap-2 shadow-2xs"
+          className="my-3 p-3 rounded-xl bg-amber-950/40 border border-amber-600/40 text-amber-200 text-xs sm:text-[13px] leading-relaxed flex items-start gap-2 shadow-2xs"
         >
-          <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           <div className="flex-1">{renderInline(quoteText)}</div>
         </div>
       );
@@ -117,7 +117,7 @@ function FormattedLegalContent({ text }) {
     // Regular paragraph
     flushList();
     elements.push(
-      <p key={`p-${lineIdx}`} className="text-xs sm:text-sm text-slate-800 leading-relaxed my-1.5">
+      <p key={`p-${lineIdx}`} className="text-xs sm:text-sm text-slate-200 leading-relaxed my-1.5">
         {renderInline(trimmed)}
       </p>
     );
@@ -275,33 +275,33 @@ Describe your legal matter below to begin:`
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8FAF9] py-8 sm:py-10 flex flex-col justify-between">
+    <div className="min-h-screen bg-gradient-to-b from-bdDark-950 via-bdDark-900 to-bdGreen-950 text-slate-100 py-8 sm:py-10 flex flex-col justify-between">
       <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 w-full flex-1 flex flex-col">
         
         {/* Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200 mb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-emerald-900/60 mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white flex items-center justify-center shadow-md relative shrink-0 border border-emerald-700/40">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white flex items-center justify-center shadow-lg relative shrink-0 border border-emerald-600/40">
               <div className="absolute w-4 h-4 rounded-full bg-bdRed-500 opacity-90 -mr-0.5"></div>
               <Scale className="relative z-10 w-6 h-6 text-white drop-shadow-xs" />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="font-serif font-bold text-xl sm:text-2xl text-slate-900">
+                <h1 className="font-serif font-bold text-xl sm:text-2xl text-white tracking-tight">
                   {lang === 'bn' ? 'Law_BD এআই লিগ্যাল অ্যাসিস্ট্যান্ট' : 'Law_BD AI Legal Assistant'}
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] uppercase font-bold bg-emerald-100 text-bdGreen-900 rounded-md border border-emerald-200">
+                <span className="px-2 py-0.5 text-[10px] uppercase font-bold bg-emerald-950/80 text-emerald-300 rounded-md border border-emerald-700/60">
                   Grounded in BD Code
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-500 font-medium mt-0.5">
+              <div className="flex items-center gap-2 text-xs text-slate-400 font-medium mt-0.5">
                 <span className="flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   Official Bangladesh Statutes & Procedural Intelligence
                 </span>
                 {aiStatus?.activeProvider && (
-                  <span className="hidden md:inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold">
-                    <Cpu className="w-3 h-3 text-bdGreen-800" />
+                  <span className="hidden md:inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-bdDark-950/80 text-emerald-300 border border-emerald-800/40 font-semibold">
+                    <Cpu className="w-3 h-3 text-emerald-400" />
                     {aiStatus.activeProvider}
                   </span>
                 )}
@@ -313,10 +313,10 @@ Describe your legal matter below to begin:`
             <button
               type="button"
               onClick={handleResetChat}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-slate-300 text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all shadow-2xs"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-bdDark-900 hover:bg-bdDark-800 border border-emerald-800/60 hover:border-emerald-700 text-xs font-bold text-slate-300 hover:text-white transition-all shadow-sm"
               title="Reset Chat and Start New Incident"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+              <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
               <span>{lang === 'bn' ? 'নতুন করে শুরু' : 'Reset Chat'}</span>
             </button>
           </div>
@@ -325,8 +325,8 @@ Describe your legal matter below to begin:`
         {/* Quick Sample Prompts Section */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               {lang === 'bn' ? 'প্রস্তাবিত আইনি প্রশ্নসমূহ (ক্লিক করে জানুন):' : 'Suggested legal scenarios:'}
             </span>
           </div>
@@ -337,7 +337,7 @@ Describe your legal matter below to begin:`
                 type="button"
                 onClick={() => handleSend(p.prompt)}
                 disabled={loading}
-                className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs text-slate-700 font-semibold transition-all shadow-2xs text-left"
+                className="px-3 py-1.5 rounded-xl bg-bdDark-900/90 hover:bg-bdDark-800 border border-emerald-800/60 hover:border-emerald-500 text-xs text-slate-300 hover:text-emerald-300 font-semibold transition-all shadow-sm text-left"
               >
                 {p.label}
               </button>
@@ -346,7 +346,7 @@ Describe your legal matter below to begin:`
         </div>
 
         {/* Chat Conversation Container */}
-        <div className="flex-1 bg-white rounded-3xl border border-slate-200/90 shadow-sm p-4 sm:p-6 overflow-y-auto max-h-[620px] space-y-6">
+        <div className="flex-1 bg-bdDark-950/90 backdrop-blur-md rounded-3xl border border-emerald-800/50 shadow-2xl p-4 sm:p-6 overflow-y-auto max-h-[620px] space-y-6">
           {messages.map((msg, index) => {
             const isUser = msg.role === 'user';
             return (
@@ -356,15 +356,15 @@ Describe your legal matter below to begin:`
               >
                 {!isUser && (
                   <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white flex items-center justify-center shrink-0 mt-1 shadow-xs border border-emerald-700/40">
-                    <Scale className="w-4 h-4 text-white" />
+                    <Scale className="w-4 h-4 text-emerald-300" />
                   </div>
                 )}
 
                 <div
                   className={`max-w-3xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm leading-relaxed ${
                     isUser
-                      ? 'bg-bdGreen-800 text-white shadow-xs font-medium'
-                      : 'bg-[#FAFDFB] border border-emerald-900/10 text-slate-800 shadow-2xs'
+                      ? 'bg-gradient-to-br from-bdGreen-800 to-bdGreen-900 text-white shadow-md border border-emerald-600/40 font-medium'
+                      : 'bg-bdDark-900/95 border border-emerald-700/40 text-slate-200 shadow-md'
                   }`}
                 >
                   {/* Formatted Message Content */}
@@ -378,24 +378,24 @@ Describe your legal matter below to begin:`
 
                   {/* Grounded Bangladesh Statute Badge & Link */}
                   {msg.groundedLaw && (
-                    <div className="mt-4 pt-3.5 border-t border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-emerald-50/60 p-3 rounded-xl border border-emerald-200/70">
+                    <div className="mt-4 pt-3.5 border-t border-emerald-800/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-bdDark-950/90 p-3 rounded-xl border border-emerald-600/50">
                       <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
+                        <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
                         <div>
-                          <span className="text-[10px] uppercase font-bold text-emerald-800 block">
+                          <span className="text-[10px] uppercase font-bold text-emerald-400 block">
                             {lang === 'bn' ? 'সংশ্লিষ্ট বাংলাদেশ আইন ও ধারা:' : 'Verified Statutory Source:'}
                           </span>
-                          <span className="font-bold text-slate-900 text-xs">
+                          <span className="font-bold text-white text-xs">
                             {lang === 'bn' && msg.groundedLaw.banglaTitle ? msg.groundedLaw.banglaTitle : msg.groundedLaw.title}
                           </span>
                           {msg.groundedLaw.actNoYear && (
-                            <span className="text-[11px] text-slate-500 ml-1">({msg.groundedLaw.actNoYear})</span>
+                            <span className="text-[11px] text-slate-400 ml-1">({msg.groundedLaw.actNoYear})</span>
                           )}
                         </div>
                       </div>
                       <Link
                         to={`/laws/${msg.groundedLaw.id}`}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-bdGreen-800 hover:bg-bdGreen-700 text-white font-bold text-xs shadow-xs transition-colors shrink-0 self-start sm:self-auto"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-bdGreen-800 hover:bg-bdGreen-700 text-white font-bold text-xs shadow-xs transition-colors shrink-0 self-start sm:self-auto border border-emerald-600/40"
                       >
                         <span>{lang === 'bn' ? 'পুরো আইনটি পড়ুন' : 'View Statute Details'}</span>
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -405,13 +405,13 @@ Describe your legal matter below to begin:`
 
                   {/* Recommended Advocates Section */}
                   {msg.recommendedLawyers && msg.recommendedLawyers.length > 0 && (
-                    <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-3">
+                    <div className="mt-4 pt-4 border-t border-emerald-800/40 space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-bdGreen-900 flex items-center gap-1.5 uppercase tracking-wide">
-                          <Briefcase className="w-3.5 h-3.5 text-bdGreen-800" />
+                        <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5 uppercase tracking-wide">
+                          <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
                           {lang === 'bn' ? 'এই বিষয়ের বিশেষায়িত আইনজীবীগণ (Law_BD Verified):' : 'Recommended Specialized Advocates:'}
                         </span>
-                        <Link to="/lawyers" className="text-[11px] font-bold text-emerald-700 hover:underline flex items-center gap-0.5">
+                        <Link to="/lawyers" className="text-[11px] font-bold text-emerald-400 hover:underline flex items-center gap-0.5">
                           <span>{lang === 'bn' ? 'সকল দেখুন' : 'View All'}</span>
                           <ChevronRight className="w-3 h-3" />
                         </Link>
@@ -421,40 +421,40 @@ Describe your legal matter below to begin:`
                         {msg.recommendedLawyers.map((lawyer) => (
                           <div
                             key={lawyer.id}
-                            className="p-3.5 bg-white rounded-2xl border border-slate-200/90 hover:border-emerald-400 hover:shadow-xs transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                            className="p-3.5 bg-bdDark-950/90 rounded-2xl border border-emerald-800/50 hover:border-emerald-500/70 hover:shadow-lg transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                           >
                             <div className="flex items-start gap-3">
                               {/* Avatar Initials */}
-                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white font-bold text-sm flex items-center justify-center shrink-0 shadow-2xs border border-emerald-600/30">
+                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white font-bold text-sm flex items-center justify-center shrink-0 shadow-sm border border-emerald-600/40">
                                 {lawyer.initials || lawyer.name?.slice(0, 2) || 'AD'}
                               </div>
                               <div className="space-y-1">
                                 <div className="flex items-center gap-1.5 flex-wrap">
-                                  <h5 className="font-bold text-xs sm:text-sm text-slate-900">{lawyer.name}</h5>
+                                  <h5 className="font-bold text-xs sm:text-sm text-white">{lawyer.name}</h5>
                                   {lawyer.verified && (
-                                    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-700/60">
                                       <ShieldCheck className="w-3 h-3" />
                                       Enrolled
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-[11px] text-slate-600 font-medium">
+                                <p className="text-[11px] text-slate-400 font-medium">
                                   {lawyer.courtLevel} • {lawyer.district || lawyer.location}
                                 </p>
-                                <div className="flex items-center gap-2 text-[11px] text-slate-500 flex-wrap">
-                                  <span className="font-bold text-amber-600 flex items-center gap-0.5">
-                                    <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                                <div className="flex items-center gap-2 text-[11px] text-slate-400 flex-wrap">
+                                  <span className="font-bold text-amber-400 flex items-center gap-0.5">
+                                    <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                                     {lawyer.rating || '4.9'} ({lawyer.reviewsCount || '30+'})
                                   </span>
                                   <span>•</span>
-                                  <span className="font-semibold text-slate-700">{lawyer.experienceYears}+ Yrs Exp</span>
+                                  <span className="font-semibold text-slate-300">{lawyer.experienceYears}+ Yrs Exp</span>
                                   <span>•</span>
-                                  <span className="font-bold text-bdGreen-900">{lawyer.feeDisplay || '৳1,500'}</span>
+                                  <span className="font-bold text-emerald-300">{lawyer.feeDisplay || '৳1,500'}</span>
                                 </div>
                                 {lawyer.specialties && lawyer.specialties.length > 0 && (
                                   <div className="flex gap-1 flex-wrap pt-0.5">
                                     {lawyer.specialties.slice(0, 3).map((spec, sIdx) => (
-                                      <span key={sIdx} className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-semibold">
+                                      <span key={sIdx} className="px-1.5 py-0.5 rounded bg-bdDark-800 text-slate-300 border border-emerald-900/60 text-[10px] font-semibold">
                                         {spec}
                                       </span>
                                     ))}
@@ -464,16 +464,16 @@ Describe your legal matter below to begin:`
                             </div>
 
                             {/* Dual Action Buttons: View Profile & Book Appointment */}
-                            <div className="flex items-center gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 justify-end">
+                            <div className="flex items-center gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-emerald-900/40 justify-end">
                               <Link
                                 to={`/lawyers/${lawyer.id}`}
-                                className="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 hover:text-bdGreen-900 rounded-xl text-xs font-bold transition-all shadow-2xs whitespace-nowrap"
+                                className="px-3 py-1.5 bg-bdDark-900 hover:bg-bdDark-800 border border-emerald-700/50 text-slate-200 hover:text-white rounded-xl text-xs font-bold transition-all shadow-xs whitespace-nowrap"
                               >
                                 {lang === 'bn' ? 'প্রোফাইল দেখুন' : 'View Profile'}
                               </Link>
                               <Link
                                 to={`/booking/${lawyer.id}`}
-                                className="px-3.5 py-1.5 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold transition-all shadow-2xs flex items-center gap-1 whitespace-nowrap"
+                                className="px-3.5 py-1.5 bg-bdGreen-700 hover:bg-bdGreen-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1 whitespace-nowrap border border-emerald-500/40"
                               >
                                 <Calendar className="w-3.5 h-3.5" />
                                 <span>{lang === 'bn' ? 'অ্যাপয়েন্টমেন্ট নিন' : 'Book Appointment'}</span>
@@ -487,9 +487,9 @@ Describe your legal matter below to begin:`
 
                   {/* Dynamic Suggested Follow-up Questions Chips */}
                   {msg.suggestedQueries && msg.suggestedQueries.length > 0 && (
-                    <div className="mt-4 pt-3.5 border-t border-slate-200/80">
-                      <span className="text-[11px] font-bold text-slate-500 block mb-2 flex items-center gap-1">
-                        <HelpCircle className="w-3.5 h-3.5 text-bdGreen-800" />
+                    <div className="mt-4 pt-3.5 border-t border-emerald-800/40">
+                      <span className="text-[11px] font-bold text-slate-400 block mb-2 flex items-center gap-1">
+                        <HelpCircle className="w-3.5 h-3.5 text-emerald-400" />
                         {lang === 'bn' ? 'প্রস্তাবিত পরবর্তী পদক্ষেপ বা প্রশ্ন:' : 'Suggested follow-up inquiries:'}
                       </span>
                       <div className="flex flex-col gap-1.5">
@@ -499,10 +499,10 @@ Describe your legal matter below to begin:`
                             type="button"
                             onClick={() => handleSend(q)}
                             disabled={loading}
-                            className="text-left px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-xs font-semibold text-slate-700 hover:text-bdGreen-900 transition-all shadow-2xs flex items-center justify-between gap-2"
+                            className="text-left px-3 py-1.5 rounded-xl bg-bdDark-950/70 hover:bg-bdDark-800 border border-emerald-800/60 hover:border-emerald-500 text-xs font-semibold text-slate-300 hover:text-emerald-300 transition-all shadow-xs flex items-center justify-between gap-2"
                           >
                             <span>{q}</span>
-                            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            <ChevronRight className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                           </button>
                         ))}
                       </div>
@@ -511,8 +511,8 @@ Describe your legal matter below to begin:`
                 </div>
 
                 {isUser && (
-                  <div className="w-9 h-9 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center shrink-0 mt-1 shadow-2xs">
-                    <User className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-bdDark-800 text-slate-300 flex items-center justify-center shrink-0 mt-1 shadow-xs border border-emerald-800/40">
+                    <User className="w-4 h-4 text-emerald-400" />
                   </div>
                 )}
               </div>
@@ -522,19 +522,19 @@ Describe your legal matter below to begin:`
           {/* Loading Indicator */}
           {loading && (
             <div className="flex gap-3 sm:gap-4 items-start">
-              <div className="w-9 h-9 rounded-xl bg-bdGreen-800 text-white flex items-center justify-center shrink-0 shadow-xs">
-                <Scale className="w-4 h-4 animate-spin text-white" />
+              <div className="w-9 h-9 rounded-xl bg-bdGreen-800 text-white flex items-center justify-center shrink-0 shadow-xs border border-emerald-600/40">
+                <Scale className="w-4 h-4 animate-spin text-emerald-300" />
               </div>
-              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/70 text-bdGreen-950 text-xs sm:text-sm shadow-2xs space-y-1.5">
-                <div className="flex items-center gap-2 font-bold text-bdGreen-900">
-                  <RefreshCw className="w-4 h-4 animate-spin text-bdGreen-800" />
+              <div className="p-4 rounded-2xl bg-bdDark-900/90 border border-emerald-700/50 text-slate-200 text-xs sm:text-sm shadow-md space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-emerald-400">
+                  <RefreshCw className="w-4 h-4 animate-spin text-emerald-400" />
                   <span>
                     {lang === 'bn'
                       ? 'বাংলাদেশের সংশ্লিষ্ট আইন ও ধারা অনুসন্ধান করা হচ্ছে...'
                       : 'Analyzing incident and cross-referencing Bangladesh Legal Code...'}
                   </span>
                 </div>
-                <p className="text-slate-600 text-xs pl-6">
+                <p className="text-slate-400 text-xs pl-6">
                   {lang === 'bn'
                     ? 'সরকারি গেজেট, প্রযোজ্য দণ্ডবিধি ও উপযুক্ত আইনজীবীদের তালিকা প্রস্তুত হচ্ছে।'
                     : 'Retrieving statutory penalties, litigation procedures, and verified Bar Council advocates.'}
@@ -545,9 +545,9 @@ Describe your legal matter below to begin:`
 
           {/* Error Message & Retry */}
           {errorMessage && (
-            <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-bdRed-600 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-2xs">
+            <div className="p-4 rounded-2xl bg-rose-950/50 border border-rose-800/60 text-rose-300 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-md">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 shrink-0 text-bdRed-500" />
+                <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
                 <span>{errorMessage}</span>
               </div>
               {lastFailedMessage && (
@@ -572,7 +572,7 @@ Describe your legal matter below to begin:`
               e.preventDefault();
               handleSend();
             }}
-            className="flex items-center gap-2 bg-white rounded-2xl border-2 border-slate-200 focus-within:border-bdGreen-800 p-2 shadow-sm transition-all"
+            className="flex items-center gap-2 bg-bdDark-900/95 rounded-2xl border-2 border-emerald-800/60 focus-within:border-emerald-500 p-2 shadow-xl transition-all"
           >
             <input
               type="text"
@@ -584,12 +584,12 @@ Describe your legal matter below to begin:`
                   ? 'আপনার আইনি সমস্যা বা ঘটনাটি বিস্তারিত লিখুন (বাংলা বা ইংরেজি)...'
                   : 'Describe your legal incident or ask about any Bangladesh statute in English or Bengali...'
               }
-              className="flex-1 px-4 py-3 text-xs sm:text-sm focus:outline-none bg-transparent placeholder-slate-400"
+              className="flex-1 px-4 py-3 text-xs sm:text-sm focus:outline-none bg-transparent placeholder-slate-500 text-white"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="p-3 bg-bdGreen-800 hover:bg-bdGreen-700 disabled:opacity-40 text-white rounded-xl transition-all shadow-xs shrink-0 flex items-center justify-center"
+              className="p-3 bg-bdGreen-700 hover:bg-bdGreen-600 disabled:opacity-40 text-white rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center border border-emerald-500/30"
               title="Send Message"
             >
               <Send className="w-4 h-4" />
@@ -597,7 +597,7 @@ Describe your legal matter below to begin:`
           </form>
 
           {/* Legal Disclaimer Pill */}
-          <p className="text-[11px] text-slate-400 text-center mt-2.5">
+          <p className="text-[11px] text-slate-500 text-center mt-2.5">
             ⚠️ Grounded strictly in official Bangladesh statutory data (Penal Code, CrPC, CPC, Land Crime Act 2023). Does not substitute formal advocate legal advice.
           </p>
         </div>
