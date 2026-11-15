@@ -379,7 +379,6 @@ export default function LawyersPage() {
 
 
 
-
                     {/* Chamber Address */}
                     <p className="text-[11px] text-slate-500 flex items-start gap-1.5 mb-4 line-clamp-2">
                       <MapPin className="w-3.5 h-3.5 text-bdRed-500 shrink-0 mt-0.5" />
@@ -398,6 +397,8 @@ export default function LawyersPage() {
                       </div>
                     </div>
                   </div>
+
+
 
                   {/* Card Bottom: Fees & Booking */}
                   <div className="pt-4 border-t border-slate-100">
