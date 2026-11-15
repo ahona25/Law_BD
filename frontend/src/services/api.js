@@ -56,6 +56,7 @@ export const api = {
 
   // AI Assistant
   aiChat: (body) => request('/ai/chat', { method: 'POST', body: JSON.stringify(body) }),
+  getAiStatus: () => request('/ai/status'),
 
   // Lawyers
   getLawyers: (params = {}) => {
