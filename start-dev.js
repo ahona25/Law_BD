@@ -15,7 +15,7 @@ const isWin = process.platform === 'win32';
 const npmCmd = isWin ? 'npm.cmd' : 'npm';
 
 // Start Backend API Server
-const backend = spawn('node', ['server.js'], {
+const backend = spawn('node', ['--watch', 'server.js'], {
   cwd: path.join(__dirname, 'backend'),
   stdio: 'pipe',
   shell: true,
