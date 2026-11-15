@@ -88,6 +88,7 @@ export default function LoginPage() {
       'Bilingual statutory guidance & 24/7 victim support access'
     ];
 
+
   return (
     <AuthShell
       badgeText={isBn ? 'নিরাপদ ও যাচাইকৃত প্রবেশাধিকার' : 'Trusted & Verified Access'}
