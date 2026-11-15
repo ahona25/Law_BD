@@ -1,0 +1,21 @@
+{
+  "name": "law_bd-platform",
+  "version": "2.0.0",
+  "description": "Comprehensive Bangladesh Legal Information, Victim Support & Advocate Platform",
+  "scripts": {
+    "dev:backend": "cd backend && node server.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && node server.js"
+  },
+  "keywords": [
+    "bangladesh-laws",
+    "legal-platform",
+    "victim-support",
+    "advocates",
+    "bar-council",
+    "legal-tech"
+  ],
+  "author": "Law_BD Team",
+  "license": "ISC"
+}

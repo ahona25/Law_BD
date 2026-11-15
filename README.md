@@ -1,100 +1,123 @@
-<<<<<<< HEAD
-# LawBD — Bangladeshi Legal Information & Lawyer Appointment Platform
+# Law_BD (ল_বিডি)
+## Complete Bangladesh Legal Information, Victim Support & Advocate Management Platform
 
-**LawBD** is a modern, responsive legal information and lawyer appointment platform designed to demystify the laws of Bangladesh and connect citizens with qualified, verified advocates tailored to their specific legal problems.
-
----
-
-## 🌟 Key Features Implemented in the Frontend
-
-### 1. ⚖️ Simplified Bangladeshi Legal Library & Problem Explorer
-- **Plain-Language Legal Explanations**: 12+ real-world legal categories and topics (Divorce & Dower, Child Custody, Theft & Stolen Property, Bail & Criminal Defense, Land & Property Disputes, Cybercrime & Online Blackmail, Domestic Violence, Cheque Dishonour under Section 138 NI Act, Murder & Assault, Labour Law & Wrongful Termination, Consumer Rights, Financial Fraud).
-- **Step-by-Step Procedural Timelines**: Numbered visual procedure flows showing the step-by-step path from police station (GD/FIR) to Magistrate hearing, bail, charge sheet, and court verdict.
-- **Statutory Punishments & Penalties**: Prominent alerts highlighting maximum prison terms, monetary fines, and bailable/non-bailable statuses under the Penal Code 1860, CrPC 1898, Land Crime Act 2023, and Cyber Security Act 2023.
-- **Document Requirements & Immediate Do's & Don'ts**: Practical guidance on evidence preservation and emergency actions.
-- **Bilingual Context**: English descriptions alongside authentic Bengali titles and legal terms (e.g., *তালাক ও দেনমোহর*, *খতিয়ান ও নামজারি*, *চেক বাউন্স*, *আগাম জামিন*).
-
-### 2. ✦ Guided Legal Problem Finder (Interactive Triage Wizard)
-- **4-Step Problem Triage**: Asks guided questions:
-  1. *What issue are you facing?* (Family, Land, Criminal, Cheque, Cyber, Domestic, Labour)
-  2. *What is the urgency/stage?* (Emergency/Recent, Received legal notice, Ongoing, Preventive)
-  3. *What outcome are you seeking?* (Protection/Bail, Financial recovery, Legal notice, Advocate hire)
-- **Instant Triage Result**: Generates priority severity rating, primary applicable Bangladeshi statutes, 3 immediate next steps to take, required documents to assemble, and recommended specialized advocates with 1-click booking.
-
-### 3. 🏛 Verified Advocate Directory & Comparison Tool
-- **Bar Council Credential Badges**: Detailed profiles with Bangladesh Bar Council registration roll numbers, court enrollment (High Court Division, District & Sessions Judge Court, Labour Court, Cyber Tribunal), and bar association memberships (SCBA, Dhaka Bar, Ctg Bar, etc.).
-- **Multi-Filter & Sorting Engine**: Filter by Specialization, Division/District (Dhaka, Chattogram, Sylhet, Rajshahi, Khulna, Cumilla, etc.), Court Level, and sort by Top Rated, Lowest Fee, or Most Experienced.
-- **Side-by-Side Advocate Comparison Matrix**: Select up to 3 advocates to compare credentials, consultation fees (Video vs In-person Chamber), client reviews, experience years, chamber locations, and response times in a side-by-side table.
-- **Direct Chamber Messaging**: Send confidential inquiries directly to an advocate's chamber with quick message templates.
-
-### 4. 📅 Multi-Step Consultation Booking & Appointment Pass Generator
-- **Multi-Mode Booking**: Select between **Online Video Consultation**, **In-Person Chamber Visit**, or **Urgent Phone Consultation**.
-- **Interactive Calendar & Slot Picker**: Select preferred dates and morning/afternoon chamber time slots.
-- **Case Summary & Client Details**: Enter brief case background and verify consultation confidentiality.
-- **Verified Appointment Pass (Ticket)**: Generates a printable appointment pass featuring a unique reference token (e.g., `LBD-2026-8914`), scheduled time, chamber directions, QR simulation, and simulated SMS/WhatsApp confirmation notifications.
-
-### 5. 📑 "My Bookings" Appointment Management
-- Manage upcoming, confirmed, rescheduled, and past appointments with full persistence in `localStorage`.
-- View passes, reschedule consultation dates, or cancel bookings on demand.
-
-### 6. 🔖 Saved Laws & Bookmarked Advocates Drawer
-- Dedicated bookmarking drawer to save important laws for later review and bookmark top advocates for future consultation.
-
-### 7. 🔔 Live Notification Drawer
-- Real-time appointment status alerts, statutory legal updates, and limitation deadline reminders (e.g. NI Act 30-day notice window).
-
-### 8. 📋 Interactive Legal Document Checklists
-- Pre-consultation checklists for 6 critical legal actions:
-  - *Land Ownership Dispute & Title Verification*
-  - *Family Court, Dower & Child Custody*
-  - *Criminal Defense & Bail Application*
-  - *Cheque Dishonour Case (NI Act 138)*
-  - *Cybercrime & Hacking Complaint*
-  - *Labour Court Grievance & Unpaid Wages*
-- Dynamic progress bar, issuing authority guides (Sub-Registry, AC Land Office, Kazi, Thana, OCC), mandatory tags, and print button.
-
-### 9. ❓ Categorized Legal FAQs
-- Expandable accordion answers for high-stakes practical questions: GD vs FIR differences, High Court anticipatory bail procedure, Section 7 Talaq notice rules, Land Crime Prevention Act 2023 provisions, and 16430 National Legal Aid.
-
-### 10. 📖 Bilingual Legal Term Dictionary (আইনি পরিভাষা অভিধান)
-- Searchable glossary of key legal concepts with Bengali terms, statutory references, and plain explanations (e.g., *FIR / এজাহার*, *GD*, *Anticipatory Bail*, *Injunction*, *Khatian*, *Mutation*, *Kabinnama*, *Denmohur*, *Caveat*, *Habeas Corpus*).
-
-### 11. 🚨 Emergency Helplines Integration
-- Prominent header banner featuring National Legal Aid Helpline **16430** (Toll-free), Emergency Police **999**, Women & Child Helpline **109**, and CID Cyber Police **01320-010148**.
+**Law_BD** is a production-quality, full-stack digital legal assistance platform built specifically for the legal architecture of Bangladesh. It connects ordinary citizens, victims of harassment or crime, law students, and businesses with verified Bangladesh Bar Council enrolled advocates, provides plain-language explanations of statutory laws in both **বাংলা (Bengali)** and **English**, and offers smart incident triage and automated consultation booking.
 
 ---
 
-## 🛠 Tech Stack & Design Aesthetics
+## 🏛️ System Architecture
 
-- **Framework**: React 19 + Vite 8
-- **Styling**: Vanilla CSS (CSS3 custom properties, glassmorphism, responsive grid & flexbox)
-- **Typography**: Google Fonts (*Cinzel* for judicial prestige, *Plus Jakarta Sans* for modern UI, *Hind Siliguri* for Bengali typography)
-- **Palette**: Deep Royal Emerald (`#071714`, `#0C2B24`, `#103B31`), Judicial Gold (`#D4AF37`, `#F3C668`, `#C59B27`), Slate & Clean White surfaces.
+- **Frontend**: React 18, Vite, Tailwind CSS, Lucide React, React Router v6.
+- **Backend API**: Node.js, Express.js REST API with JWT authentication, Role-Based Access Control (RBAC), and full search and incident triage engines.
+- **Database**: Relational file-backed ACID store with JSON persistence, audit trails, and automatic seeding.
+- **Design & Theme**: Inspired by the National Flag of Bangladesh — Deep Forest Green (`#064E3B`), Crimson Red (`#F42A41`), Dark Background (`#071A14`), and Clean Slate White.
+
+---
+
+## 🌟 Key Platform Modules & Features
+
+### 1. ⚖️ Complete Bangladesh Law Library (`/laws` & `/laws/:id`)
+- Search across the **Constitution of Bangladesh**, **Penal Code 1860**, **CrPC 1898**, **Land Crime Prevention & Redress Act 2023**, **Cyber Security Act 2023**, **Negotiable Instruments Act 1881 (Sec 138)**, **Muslim Family Laws 1961**, **Labour Act 2006**, and **Consumer Rights Protection Act 2009**.
+- Filter by jurisdiction, year of enactment, category, and legal status (**Current**, **Amended**, or **Repealed**).
+- Individual statute detail pages with official English and Bengali titles, simple plain summaries, statutory punishments/penalties, step-by-step procedural timelines, evidence checklists, immediate Do's and Don'ts, and direct links to official Bangladesh Gazette references.
+
+### 2. 🛡️ Smart Incident-Based Victim Triage (`/victim-support`)
+- Victims do not need to know the name of a law. They can simply describe any incident in everyday natural language (e.g., *"আমার জমি জোর করে দখল করেছে এবং জাল দলিল বানিয়েছে"*, *"Someone is blackmailing me on Facebook with private pictures"*, *"Cheque bounced due to insufficient funds"*).
+- Smart engine identifies legal categories, matches primary applicable Bangladeshi statutes, assesses urgency, outlines mandatory limitation periods (e.g. 30-day notice under NI Act), and recommends verified specialist advocates.
+
+### 3. 🤖 AI Legal Assistant Grounded in BD Statutes (`/ai-assistant`)
+- Grounded conversational legal AI that references verified Bangladesh statutes rather than inventing legal answers.
+- Cites specific Acts and sections, explains terms in simple English and Bengali, suggests specialist advocate categories, and presents mandatory statutory legal disclaimers.
+
+### 4. 👨‍⚖️ Verified Advocate Directory & Comparison Matrix (`/lawyers` & `/compare-lawyers`)
+- Directory of verified advocates enrolled with the **Bangladesh Bar Council**, Supreme Court Bar Association (SCBA), and District Bars.
+- Search and filter by Specialization, Division/District (Dhaka, Chattogram, Sylhet, Rajshahi, Khulna, Cumilla), Court Level (High Court Division, Metropolitan Sessions, Cyber Tribunal, Labour Court), and sort by Top Rated, Lowest Fee, or Most Experienced.
+- **Side-by-Side Comparison Matrix**: Select up to 3 advocates to directly compare credentials, courtroom admissions, chamber locations, and fees.
+
+### 5. 📅 Multi-Mode Booking & Digital Appointment Pass Generator (`/booking/:lawyerId`)
+- Multi-mode consultation booking: **Online Video Consultation**, **In-Person Chamber Visit**, or **Phone Advice**.
+- Interactive chamber calendar & time slot selector.
+- Simulated Bangladesh payment gateways (**bKash**, **Nagad**, **Rocket**, Debit/Credit Cards).
+- **Verified Appointment Pass (Ticket)**: Generates a printable appointment pass featuring a unique verification token (e.g., `LBD-2026-8914`), QR code simulation, chamber directions, and client brief.
+
+### 6. 📊 Multi-Role Dashboards
+- **Citizen / Client Dashboard (`/dashboard/client`)**:
+  - My Legal Cases (create, track status: Under Review, Ongoing, Resolved).
+  - My Appointments & passes with 1-click printable view or cancellation.
+  - Saved laws and bookmarked advocates drawer.
+  - Direct confidential chamber communications.
+- **Advocate / Lawyer Dashboard (`/dashboard/lawyer`)**:
+  - Appointment queue (Accept, Complete, or Reject consultation requests).
+  - Chamber availability schedule & slot configurator.
+  - Consultation fee manager (Video, Chamber, Phone).
+  - Bar Council credential verification status and earnings summary.
+- **Central Administrative Control Panel (`/dashboard/admin`)**:
+  - Platform analytics (Total statutes, enrolled advocates, verified badges, platform revenue).
+  - Law Library Management (Add new laws, edit sections, mark amendments/repeals).
+  - Bar Council Verification Desk (Review Roll numbers, approve/revoke verification).
+  - User Directory and account suspension controls.
+  - Real-time platform audit log trail.
+
+### 7. 📖 Bilingual Experience (বাংলা & English)
+- Global language switcher (EN / বাং) throughout the entire platform.
+- Persistent user preference stored in `localStorage`.
+- Proper Bengali Unicode typography with Google's *Hind Siliguri* font.
+
+### 8. 🚨 24/7 Emergency Legal Assistance (`/emergency`)
+- Integrated click-to-call banners and emergency directory:
+  - **16430**: National Legal Aid Services Helpline (Toll-Free, Ministry of Law)
+  - **999**: National Emergency Service (Police / Rescue)
+  - **109**: Violence Against Women and Children Helpline
+  - **1098**: Child Helpline Bangladesh
+  - **01320-010148**: CID Cyber Police Centre
+- Guidance for unlawful police detention, domestic abuse, and cyber extortion.
+
+### 9. 📑 Legal Document & Template Center (`/templates`)
+- Standardized statutory legal notice templates:
+  - Statutory Legal Notice under Section 138 Negotiable Instruments Act.
+  - General Diary (GD) format for police stations.
+  - Section 33 Grievance Application to Employer under Bangladesh Labour Act.
+  - Printable formatting and 1-click clipboard copy.
 
 ---
 
 ## 🚀 How to Run Locally
 
-1. Open a terminal in the project directory:
-   ```bash
-   cd lawbd-prototype
-   ```
+### Prerequisites
+- Node.js (v18+ or v24+)
+- npm (v9+)
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+### 1. Start the Backend API Server
+```bash
+cd backend
+npm install
+node server.js
+```
+The backend API server will start on: **`http://localhost:5000`**
 
-3. Launch the development server:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:5173` in your browser.
+### 2. Start the Frontend Application
+Open another terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+The React frontend development server will start on: **`http://localhost:5173`**
 
-4. Build for production:
-   ```bash
-   npm run build
-   ```
-=======
-We are making a easy and more understandable website for law booking system in bangladesh
->>>>>>> bbacedfc8c07fff8b9890d90df2895c53883ed64
+### 3. Production Build
+```bash
+cd frontend
+npm run build
+```
+
+---
+
+## 🔑 Demo Accounts for Fast Testing
+
+You can use the **1-Click Demo Switcher** in the navigation bar or sign in manually with these credentials:
+
+| Role | Name | Email | Password |
+|---|---|---|---|
+| **Citizen (Client)** | Rahim Ahmed | `client@lawbd.com` | `password123` |
+| **Advocate (Lawyer)** | Adv. Barrister Tanvir Hasan | `tanvir@lawbd.com` | `password123` |
+| **Administrator** | Director General Legal Affairs | `admin@lawbd.com` | `admin123` |
