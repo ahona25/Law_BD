@@ -118,7 +118,7 @@ export default function LawyersPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
@@ -164,6 +164,8 @@ export default function LawyersPage() {
               Search
             </button>
           </form>
+
+
 
           {/* Dropdown Filters (Specialty, Division, 64 Districts, Court Level, Sort) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-3 border-t border-slate-100 text-xs">
@@ -314,7 +316,7 @@ export default function LawyersPage() {
                               </span>
                             )}
                           </div>
-                          
+
                           {/* District & Division badge */}
                           <div className="flex items-center gap-1 mt-1 text-[11px] font-semibold text-bdGreen-900">
                             <MapPin className="w-3 h-3 text-bdRed-500 shrink-0" />
@@ -327,9 +329,8 @@ export default function LawyersPage() {
 
                       <button
                         onClick={() => toggleLawyerBookmark(lawyer.id)}
-                        className={`p-1.5 rounded-lg transition-colors ${
-                          isSaved ? 'text-bdRed-600 bg-rose-50' : 'text-slate-400 hover:text-slate-700'
-                        }`}
+                        className={`p-1.5 rounded-lg transition-colors ${isSaved ? 'text-bdRed-600 bg-rose-50' : 'text-slate-400 hover:text-slate-700'
+                          }`}
                         title="Bookmark advocate"
                       >
                         <Bookmark className="w-4 h-4" />
