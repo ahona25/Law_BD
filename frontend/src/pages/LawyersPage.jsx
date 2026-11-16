@@ -258,6 +258,9 @@ export default function LawyersPage() {
           </div>
         </div>
 
+
+
+
         {/* ACTIVE SELECTED AREA FILTER BANNER */}
         {hasAreaFilter && (
           <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
