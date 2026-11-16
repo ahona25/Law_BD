@@ -224,6 +224,9 @@ export default function LawyerProfilePage() {
           </div>
         </div>
 
+
+
+
         {/* Client Reviews Section */}
         <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xs mb-8">
           <div className="flex items-center justify-between mb-6">
