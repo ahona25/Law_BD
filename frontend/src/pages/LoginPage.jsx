@@ -22,8 +22,7 @@ export default function LoginPage() {
   const { lang } = useLanguage();
   const navigate = useNavigate();
 
-  const [roleTab, setRoleTab] = useState('client'); // 'client' | 'lawyer'
-  const [email, setEmail] = useState('');
+  const [roleTab, setRoleTab] = useState('client');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
@@ -52,9 +51,9 @@ export default function LoginPage() {
     } catch (err) {
       setError(
         err.message ||
-          (isBn
-            ? 'লগইন ব্যর্থ হয়েছে। অনুগ্রহ করে সঠিক ইমেইল এবং পাসওয়ার্ড দিন।'
-            : 'Invalid credentials. Please verify your email and password.')
+        (isBn
+          ? 'লগইন ব্যর্থ হয়েছে। অনুগ্রহ করে সঠিক ইমেইল এবং পাসওয়ার্ড দিন।'
+          : 'Invalid credentials. Please verify your email and password.')
       );
     } finally {
       setLoading(false);
@@ -78,15 +77,15 @@ export default function LoginPage() {
 
   const features = isBn
     ? [
-        'বাংলাদেশ বার কাউন্সিল যাচাইকৃত আইনজীবীদের সাথে সরাসরি পরামর্শ',
-        'সুরক্ষিত ও গোপনীয় কেস ভল্ট এবং অ্যাপয়েন্টমেন্ট পাস',
-        'দ্বিভাষিক আইনি তথ্য ও জরুরি সহায়তা নির্দেশিকা'
-      ]
+      'বাংলাদেশ বার কাউন্সিল যাচাইকৃত আইনজীবীদের সাথে সরাসরি পরামর্শ',
+      'সুরক্ষিত ও গোপনীয় কেস ভল্ট এবং অ্যাপয়েন্টমেন্ট পাস',
+      'দ্বিভাষিক আইনি তথ্য ও জরুরি সহায়তা নির্দেশিকা'
+    ]
     : [
-        'Direct consultations with Bar Council verified advocates',
-        'Encrypted case vault, documents & appointment passes',
-        'Bilingual statutory guidance & 24/7 victim support access'
-      ];
+      'Direct consultations with Bar Council verified advocates',
+      'Encrypted case vault, documents & appointment passes',
+      'Bilingual statutory guidance & 24/7 victim support access'
+    ];
 
   return (
     <AuthShell
@@ -135,8 +134,8 @@ export default function LoginPage() {
                 ? 'আইনজীবীর ইমেইল'
                 : 'Advocate Email Address'
               : isBn
-              ? 'ইমেইল ঠিকানা'
-              : 'Email Address'}
+                ? 'ইমেইল ঠিকানা'
+                : 'Email Address'}
           </label>
           <div className="relative">
             <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -227,8 +226,8 @@ export default function LoginPage() {
                     ? 'আইনজীবী চেম্বারে লগইন করুন'
                     : 'Sign In to Advocate Chamber'
                   : isBn
-                  ? 'সাইন ইন করুন'
-                  : 'Sign In'}
+                    ? 'সাইন ইন করুন'
+                    : 'Sign In'}
               </span>
               <ArrowRight className="w-4 h-4" />
             </>
