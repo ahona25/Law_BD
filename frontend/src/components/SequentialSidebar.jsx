@@ -63,6 +63,9 @@ export default function SequentialSidebar({ isOpen, onClose, embedded = false, a
           </div>
         </div>
 
+
+
+
         {!embedded && onClose && (
           <button
             onClick={onClose}
@@ -104,11 +107,10 @@ export default function SequentialSidebar({ isOpen, onClose, embedded = false, a
           return (
             <div
               key={cat.id}
-              className={`rounded-2xl border transition-all ${
-                isSelected
+              className={`rounded-2xl border transition-all ${isSelected
                   ? 'border-bdGreen-800 bg-emerald-50/50 shadow-xs'
                   : 'border-slate-200/90 hover:border-slate-300 bg-white'
-              }`}
+                }`}
             >
               {/* Category Header Row */}
               <button

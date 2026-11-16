@@ -22,14 +22,14 @@ import { api } from '../services/api';
 export default function AdminDashboardPage() {
   const { user } = useAuth();
   const [stats, setStats] = useState(null);
-  const [activeTab, setActiveTab] = useState('lawyers'); // 'lawyers' | 'laws' | 'users' | 'audit'
+  const [activeTab, setActiveTab] = useState('lawyers');
   const [lawyers, setLawyers] = useState([]);
   const [laws, setLaws] = useState([]);
   const [users, setUsers] = useState([]);
   const [auditLogs, setAuditLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // New Law Form Modal
+
   const [showAddLawModal, setShowAddLawModal] = useState(false);
   const [newLawTitle, setNewLawTitle] = useState('');
   const [newLawBangla, setNewLawBangla] = useState('');
@@ -128,7 +128,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Admin Header */}
         <div className="bg-bdDark-900 text-white rounded-3xl p-6 sm:p-8 border border-emerald-950 shadow-md mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
@@ -193,11 +193,10 @@ export default function AdminDashboardPage() {
         <div className="flex border-b border-slate-200 mb-8 overflow-x-auto text-xs font-bold uppercase tracking-wider">
           <button
             onClick={() => setActiveTab('lawyers')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'lawyers'
-                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'lawyers'
+              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
           >
             <UserCheck className="w-4 h-4 text-bdGreen-700" />
             <span>Advocate Verification Desk ({lawyers.length})</span>
@@ -205,11 +204,10 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('laws')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'laws'
-                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'laws'
+              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
           >
             <Scale className="w-4 h-4 text-bdGreen-700" />
             <span>Law Library Management ({laws.length})</span>
@@ -217,11 +215,10 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('users')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'users'
-                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'users'
+              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
           >
             <Users className="w-4 h-4 text-bdGreen-700" />
             <span>Citizen & Lawyer Accounts ({users.length})</span>
@@ -229,11 +226,10 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('audit')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'audit'
-                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'audit'
+              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
           >
             <Activity className="w-4 h-4 text-bdGreen-700" />
             <span>System Audit Logs</span>
@@ -273,9 +269,8 @@ export default function AdminDashboardPage() {
                       <td className="p-3 text-slate-600">{l.courtLevel}</td>
                       <td className="p-3 text-slate-600">{l.specialties?.join(', ')}</td>
                       <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                          l.verified ? 'bg-emerald-100 text-bdGreen-800' : 'bg-amber-100 text-amber-800'
-                        }`}>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${l.verified ? 'bg-emerald-100 text-bdGreen-800' : 'bg-amber-100 text-amber-800'
+                          }`}>
                           {l.verified ? 'Verified' : 'Pending'}
                         </span>
                       </td>
@@ -341,9 +336,8 @@ export default function AdminDashboardPage() {
                       <td className="p-3 text-slate-700 font-medium">{law.category_label || law.category}</td>
                       <td className="p-3 font-mono text-slate-600">{law.act_no_year}</td>
                       <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                          law.status === 'current' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                        }`}>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${law.status === 'current' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                          }`}>
                           {law.status || 'current'}
                         </span>
                       </td>
@@ -387,9 +381,8 @@ export default function AdminDashboardPage() {
                       <td className="p-3 text-slate-600">{u.email}</td>
                       <td className="p-3 uppercase font-bold text-[10px] text-bdGreen-800">{u.role}</td>
                       <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                          u.status === 'active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                        }`}>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${u.status === 'active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                          }`}>
                           {u.status}
                         </span>
                       </td>
