@@ -148,6 +148,9 @@ export default function LawyerProfilePage() {
                 onClick={() => toggleLawyerBookmark(lawyer.id)}
                 className={`p-3 rounded-2xl border text-xs font-bold transition-colors ${isSaved ? 'bg-rose-50 border-rose-200 text-bdRed-600' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
+
+
+
               >
                 <Bookmark className="w-5 h-5" />
               </button>
