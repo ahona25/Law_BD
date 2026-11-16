@@ -237,6 +237,9 @@ export default function LawyersPage() {
               </select>
             </div>
 
+
+
+
             <div>
               <label className="block text-slate-500 font-semibold mb-1">
                 {lang === 'bn' ? 'সর্ট করুন:' : 'Sort By:'}
