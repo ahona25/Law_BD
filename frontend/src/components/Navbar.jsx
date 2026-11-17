@@ -13,7 +13,6 @@ import {
   LogIn,
   UserPlus,
   ShieldCheck,
-  PhoneCall,
   ArrowRight,
   FileText,
   SunMoon,

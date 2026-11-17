@@ -108,6 +108,8 @@ export default function LawyerProfilePage() {
           </Link>
         </div>
 
+
+
         {/* Profile Card */}
         <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xs mb-8">
           <div className="flex flex-col md:flex-row items-start justify-between gap-6 pb-8 border-b border-slate-100">
