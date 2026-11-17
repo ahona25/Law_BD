@@ -278,6 +278,8 @@ export default function LawDetailPage() {
             </div>
           )}
 
+
+
           {/* Required Documents & Immediate Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
