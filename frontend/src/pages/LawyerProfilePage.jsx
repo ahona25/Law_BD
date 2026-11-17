@@ -58,7 +58,8 @@ export default function LawyerProfilePage() {
       if (res.success) {
         setReviewSuccess(true);
         setReviewComment('');
-        // Reload lawyer details
+
+
         const updated = await api.getLawyerById(id);
         if (updated.success) setLawyer(updated.lawyer);
       }
@@ -95,7 +96,7 @@ export default function LawyerProfilePage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Back Link */}
         <div className="mb-6">
           <Link
@@ -143,9 +144,8 @@ export default function LawyerProfilePage() {
             <div className="flex items-center gap-3 shrink-0">
               <button
                 onClick={() => toggleLawyerBookmark(lawyer.id)}
-                className={`p-3 rounded-2xl border text-xs font-bold transition-colors ${
-                  isSaved ? 'bg-rose-50 border-rose-200 text-bdRed-600' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
-                }`}
+                className={`p-3 rounded-2xl border text-xs font-bold transition-colors ${isSaved ? 'bg-rose-50 border-rose-200 text-bdRed-600' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                  }`}
               >
                 <Bookmark className="w-5 h-5" />
               </button>

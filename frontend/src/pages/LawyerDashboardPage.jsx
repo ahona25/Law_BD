@@ -53,6 +53,9 @@ export default function LawyerDashboardPage() {
     }
   };
 
+
+
+
   const handleStatusChange = async (id, status) => {
     try {
       await api.updateAppointmentStatus(id, { status });
