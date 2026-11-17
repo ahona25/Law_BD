@@ -156,6 +156,8 @@ export default function LawsPage() {
             </div>
           )}
 
+
+
           {/* Right Column: Search Controls, Active Filters & Laws Grid */}
           <div className={`${sidebarExpanded ? 'lg:col-span-8' : 'lg:col-span-12'} space-y-6`}>
 
@@ -171,6 +173,8 @@ export default function LawsPage() {
                     placeholder={lang === 'bn' ? 'আইনের নাম, ধারা বা ঘটনা দিয়ে খুঁজুন (যেমন: জমি, চেক, bail, 302)...' : 'Search by title, section, or incident keyword (e.g. land, cheque, bail, 302)...'}
                     className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:border-bdGreen-800 text-xs sm:text-sm"
                   />
+
+
                 </div>
                 <button
                   type="submit"

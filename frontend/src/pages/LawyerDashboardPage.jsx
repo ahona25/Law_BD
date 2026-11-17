@@ -29,7 +29,6 @@ export default function LawyerDashboardPage() {
   const [feePhone, setFeePhone] = useState(1200);
   const [feeSaved, setFeeSaved] = useState(false);
 
-  // New slot state
   const [newSlot, setNewSlot] = useState('');
   const [slots, setSlots] = useState([
     'Tomorrow 10:30 AM',
@@ -81,12 +80,12 @@ export default function LawyerDashboardPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Lawyer Profile Welcome Header */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-bdGreen-800 text-white font-serif font-bold text-2xl flex items-center justify-center shadow-md">
-              {user?.name ? user.name.split(' ').map(n=>n[0]).join('').substring(0,2) : 'AD'}
+              {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2) : 'AD'}
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -118,10 +117,10 @@ export default function LawyerDashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Left Column: Appointments & Client Requests (2 cols) */}
           <div className="lg:col-span-2 space-y-6">
-            
+
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs">
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -151,9 +150,8 @@ export default function LawyerDashboardPage() {
                           <span className="font-mono text-xs font-bold px-2 py-0.5 bg-emerald-100 text-bdGreen-900 rounded">
                             {appt.token || appt.id}
                           </span>
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                            appt.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
-                          }`}>
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${appt.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                            }`}>
                             {appt.status}
                           </span>
                           <span className="text-xs font-semibold text-slate-600">· {appt.mode}</span>
@@ -215,7 +213,7 @@ export default function LawyerDashboardPage() {
 
           {/* Right Column: Availability & Fee Configurator (1 col) */}
           <div className="space-y-6">
-            
+
             {/* Slot Configurator */}
             <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs">
               <h3 className="font-serif font-bold text-base text-slate-900 mb-2">Available Chamber Slots</h3>
@@ -255,7 +253,7 @@ export default function LawyerDashboardPage() {
             {/* Fee Configurator */}
             <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 text-xs">
               <h3 className="font-serif font-bold text-base text-slate-900">Consultation Fee Settings</h3>
-              
+
               <div>
                 <label className="block text-slate-600 font-bold mb-1">Video Consultation (৳):</label>
                 <input
