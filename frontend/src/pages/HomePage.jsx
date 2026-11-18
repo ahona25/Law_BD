@@ -518,6 +518,8 @@ export default function HomePage() {
                   </span>
                 </div>
 
+
+
                 {/* Primary Statute Citation */}
                 <p className="text-[11px] font-mono text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-100 mb-4 line-clamp-1">
                   <strong>Statute:</strong> {cat.primaryAct}
