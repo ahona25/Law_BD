@@ -623,6 +623,9 @@ export default function HomePage() {
                       </span>
                     </div>
 
+
+
+
                     <h3 className="font-bold text-base text-slate-900 mb-2">
                       <Link to={`/laws/${law.id}`} className="hover:text-bdGreen-800 transition-colors">
                         {lang === 'bn' ? law.bangla_title || law.title : law.title}
