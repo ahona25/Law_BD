@@ -525,6 +525,8 @@ export default function HomePage() {
                   <strong>Statute:</strong> {cat.primaryAct}
                 </p>
 
+
+
                 {/* Subcategories & Specific Incident Areas */}
                 <div className="space-y-1.5 mb-4">
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">
@@ -548,6 +550,9 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+
+
+
 
               {/* Card Footer Actions (Pure Law & Lawyer links, No Victim panel) */}
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
