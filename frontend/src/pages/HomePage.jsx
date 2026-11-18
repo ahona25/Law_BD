@@ -646,6 +646,8 @@ export default function HomePage() {
                     </div>
                   </div>
 
+
+
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                     <button
                       onClick={() => toggleLawBookmark(law.id)}

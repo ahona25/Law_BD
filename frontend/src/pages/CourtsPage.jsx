@@ -14,25 +14,54 @@ import {
   Copy,
   Check,
   Compass,
-  ArrowRight
+  ArrowRight,
+  Filter,
+  Users
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { ALL_BANGLADESH_COURTS, BANGLADESH_DIVISIONS } from '../data/courtsData';
+import { ALL_BANGLADESH_COURTS, BANGLADESH_DIVISIONS, ALL_64_DISTRICTS } from '../data/courtsData';
 
 export default function CourtsPage() {
   const { lang } = useLanguage();
   const [selectedDivision, setSelectedDivision] = useState('all');
+  const [selectedDistrict, setSelectedDistrict] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState(null);
 
-  // Filter courts based on selected division tab and search query
+  // Available districts based on division selection
+  const availableDistricts = useMemo(() => {
+    if (selectedDivision === 'all' || selectedDivision === 'specialized' || selectedDivision === 'apex') {
+      return ALL_64_DISTRICTS;
+    }
+    return ALL_64_DISTRICTS.filter((d) => d.divisionId === selectedDivision);
+  }, [selectedDivision]);
+
+  // Handle Division Click
+  const handleDivisionSelect = (divId) => {
+    setSelectedDivision(divId);
+    // If current district doesn't belong to this division, reset district
+    if (divId !== 'all' && divId !== 'specialized' && divId !== 'apex') {
+      const distBelongs = ALL_64_DISTRICTS.some(
+        (d) => d.divisionId === divId && d.name.toLowerCase() === selectedDistrict.toLowerCase()
+      );
+      if (!distBelongs) {
+        setSelectedDistrict('all');
+      }
+    }
+  };
+
+  // Filter courts based on division, district, and search query
   const filteredCourts = useMemo(() => {
     return ALL_BANGLADESH_COURTS.filter((court) => {
       const matchesDivision =
         selectedDivision === 'all' || court.divisionId === selectedDivision;
 
+      const matchesDistrict =
+        selectedDistrict === 'all' ||
+        court.district.toLowerCase() === selectedDistrict.toLowerCase();
+
       const q = searchQuery.toLowerCase().trim();
-      if (!q) return matchesDivision;
+      if (!q) return matchesDivision && matchesDistrict;
 
       const matchesSearch =
         court.name.toLowerCase().includes(q) ||
@@ -42,9 +71,9 @@ export default function CourtsPage() {
         court.address.toLowerCase().includes(q) ||
         court.caseTypes.some((ct) => ct.toLowerCase().includes(q));
 
-      return matchesDivision && matchesSearch;
+      return matchesDivision && matchesDistrict && matchesSearch;
     });
-  }, [selectedDivision, searchQuery]);
+  }, [selectedDivision, selectedDistrict, searchQuery]);
 
   const handleCopyAddress = (court) => {
     const textToCopy = `${court.name} - ${court.address} (Phone: ${court.phone})`;
@@ -52,6 +81,16 @@ export default function CourtsPage() {
     setCopiedId(court.id);
     setTimeout(() => setCopiedId(null), 2000);
   };
+
+  // Target area name for advocates link
+  const currentAreaTarget = useMemo(() => {
+    if (selectedDistrict !== 'all') return selectedDistrict;
+    if (selectedDivision !== 'all') {
+      const divObj = BANGLADESH_DIVISIONS.find((d) => d.id === selectedDivision);
+      return divObj ? divObj.name : '';
+    }
+    return '';
+  }, [selectedDistrict, selectedDivision]);
 
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-10 sm:py-14">
@@ -63,15 +102,15 @@ export default function CourtsPage() {
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-bdGreen-900 text-xs font-bold uppercase tracking-wider mb-3">
             <Building2 className="w-3.5 h-3.5 text-bdGreen-800" />
-            <span>{lang === 'bn' ? 'বাংলাদেশ বিচার বিভাগ ও আদালত ডিরেক্টরি' : 'Bangladesh Judicial Hierarchy & Courts'}</span>
+            <span>{lang === 'bn' ? 'বাংলাদেশ বিচার বিভাগ ও ৬৪ জেলা আদালত ডিরেক্টরি' : 'All 64 Districts Courts & Judicial Hierarchy'}</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">
             {lang === 'bn' ? 'বাংলাদেশের সকল আদালত ও অধিক্ষেত্র' : 'Bangladesh All Courts Directory'}
           </h1>
           <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
             {lang === 'bn'
-              ? 'সুপ্রিম কোর্ট (আপিল ও হাইকোর্ট বিভাগ), ৮টি প্রশাসনিক বিভাগের সকল জেলা ও দায়রা জজ আদালত এবং বিশেষায়িত ট্রাইব্যুনালের বিস্তারিত তথ্য।'
-              : 'Official directory of the Supreme Court of Bangladesh, District & Sessions Courts across all 8 administrative divisions, and specialized tribunals.'}
+              ? 'সুপ্রিম কোর্ট (আপিল ও হাইকোর্ট বিভাগ), ৮টি প্রশাসনিক বিভাগের সকল ৬৪টি জেলা ও দায়রা জজ আদালত এবং বিশেষায়িত ট্রাইব্যুনালের বিস্তারিত তথ্য।'
+              : 'Complete directory of the Supreme Court of Bangladesh, District & Sessions Courts across all 64 districts in 8 administrative divisions, and specialized tribunals.'}
           </p>
         </div>
 
@@ -98,12 +137,12 @@ export default function CourtsPage() {
               02
             </div>
             <h2 className="font-bold text-slate-900 text-sm">
-              {lang === 'bn' ? 'অধীনস্থ জেলা ও দায়রা আদালত' : 'Subordinate District Courts'}
+              {lang === 'bn' ? 'অধীনস্থ ৬৪ জেলা ও দায়রা আদালত' : 'All 64 District Courts'}
             </h2>
             <p className="text-xs text-slate-500 mt-1 leading-relaxed">
               {lang === 'bn'
-                ? '৮টি বিভাগের জেলা ও দায়রা জজ আদালত, মহানগর দায়রা আদালত, সিএমএম ও সিজেএম আদালত।'
-                : 'District & Sessions Judge Courts, Metropolitan Sessions, CMM, and CJM Magistracy across 64 districts.'}
+                ? '৮টি বিভাগের ৬৪টি জেলা ও দায়রা জজ আদালত, মহানগর দায়রা আদালত, সিএমএম ও সিজেএম আদালত।'
+                : 'District & Sessions Judge Courts, Metropolitan Sessions, CMM, and CJM Magistracy across all 64 districts.'}
             </p>
           </div>
 
@@ -123,12 +162,12 @@ export default function CourtsPage() {
         </div>
 
         {/* =========================================================================
-            SEARCH BAR & DIVISION FILTER TABS (Simple & Accessible)
+            SEARCH BAR, DIVISION PILLS & 64-DISTRICT SELECTOR
             ========================================================================= */}
-        <div className="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-2xs mb-8">
+        <div className="bg-white rounded-3xl p-5 sm:p-7 border border-slate-200/80 shadow-2xs mb-8 space-y-5">
           
           {/* Search Input */}
-          <div className="relative mb-5">
+          <div className="relative">
             <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -136,8 +175,8 @@ export default function CourtsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={
                 lang === 'bn'
-                  ? 'আদালতের নাম, জেলা, এলাকা বা মামলার ধরণ দিয়ে খুঁজুন (যেমন: ঢাকা, সাইবার, হাইকোর্ট, জমিজমা)...'
-                  : 'Search by court name, district, division, or case type (e.g. Dhaka, Cyber, High Court, Title)...'
+                  ? 'আদালতের নাম, জেলা, এলাকা বা মামলার ধরণ দিয়ে খুঁজুন (যেমন: ঢাকা, বগুড়া, কুমিল্লা, সাইবার, হাইকোর্ট)...'
+                  : 'Search by court name, district, division, or case type (e.g. Dhaka, Bogura, Cumilla, Cyber)...'
               }
               className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-bdGreen-800 focus:bg-white transition-all"
             />
@@ -153,24 +192,78 @@ export default function CourtsPage() {
           </div>
 
           {/* Division Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {BANGLADESH_DIVISIONS.map((div) => {
-              const isSelected = selectedDivision === div.id;
-              return (
-                <button
-                  key={div.id}
-                  onClick={() => setSelectedDivision(div.id)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
-                    isSelected
-                      ? 'bg-bdGreen-800 text-white shadow-xs font-bold'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80'
-                  }`}
-                >
-                  {lang === 'bn' ? div.bangla : div.name}
-                </button>
-              );
-            })}
+          <div>
+            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+              {lang === 'bn' ? 'বিভাগ নির্বাচন করুন:' : 'Filter by Division:'}
+            </div>
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {BANGLADESH_DIVISIONS.map((div) => {
+                const isSelected = selectedDivision === div.id;
+                return (
+                  <button
+                    key={div.id}
+                    onClick={() => handleDivisionSelect(div.id)}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
+                      isSelected
+                        ? 'bg-bdGreen-800 text-white shadow-xs font-bold'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80'
+                    }`}
+                  >
+                    {lang === 'bn' ? div.bangla : div.name}
+                  </button>
+                );
+              })}
+            </div>
           </div>
+
+          {/* 64 Districts Dropdown Selector & Direct Find Advocates Action */}
+          <div className="pt-4 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-700 shrink-0">
+                <MapPin className="w-4 h-4 text-bdGreen-800" />
+                <span>{lang === 'bn' ? 'জেলা নির্বাচন (৬৪ জেলা):' : 'Select District (All 64):'}</span>
+              </div>
+              <select
+                value={selectedDistrict}
+                onChange={(e) => setSelectedDistrict(e.target.value)}
+                className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-bdGreen-800 min-w-[200px]"
+              >
+                <option value="all">
+                  {lang === 'bn' ? '— সকল জেলা (All Districts) —' : '— All Districts —'}
+                </option>
+                {availableDistricts.map((dist) => (
+                  <option key={dist.id} value={dist.name}>
+                    {lang === 'bn' ? `${dist.nameBn} (${dist.name})` : dist.name}
+                  </option>
+                ))}
+              </select>
+
+              {selectedDistrict !== 'all' && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedDistrict('all')}
+                  className="text-xs font-semibold text-slate-500 hover:text-slate-800 underline self-start sm:self-auto"
+                >
+                  {lang === 'bn' ? 'রিসেট' : 'Reset'}
+                </button>
+              )}
+            </div>
+
+            {/* Direct Link to Find Advocates in this Selected Area */}
+            <Link
+              to={`/lawyers?division=${selectedDivision !== 'all' ? selectedDivision : ''}&district=${selectedDistrict !== 'all' ? selectedDistrict : ''}`}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-50 hover:bg-bdGreen-800 text-bdGreen-900 hover:text-white border border-emerald-300 hover:border-bdGreen-800 rounded-xl text-xs font-bold transition-all shadow-2xs shrink-0 group"
+            >
+              <Users className="w-4 h-4 text-bdGreen-800 group-hover:text-white transition-colors" />
+              <span>
+                {currentAreaTarget
+                  ? (lang === 'bn' ? `${currentAreaTarget}-এর সকল আইনজীবী দেখুন` : `Show All Advocates in ${currentAreaTarget}`)
+                  : (lang === 'bn' ? 'নির্বাচিত এলাকার আইনজীবী দেখুন' : 'Find Advocates in Selected Area')}
+              </span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
+
         </div>
 
         {/* =========================================================================
@@ -181,19 +274,25 @@ export default function CourtsPage() {
             {lang === 'bn' ? (
               <span>
                 মোট <strong className="text-slate-900 font-bold">{filteredCourts.length}</strong>টি আদালত প্রদর্শিত হচ্ছে
+                {selectedDistrict !== 'all' && <span> ({selectedDistrict} জেলা)</span>}
               </span>
             ) : (
               <span>
-                Showing <strong className="text-slate-900 font-bold">{filteredCourts.length}</strong> judicial courts & tribunals
+                Showing <strong className="text-slate-900 font-bold">{filteredCourts.length}</strong> courts & tribunals
+                {selectedDistrict !== 'all' && <span> for <strong>{selectedDistrict} District</strong></span>}
               </span>
             )}
           </div>
-          {selectedDivision !== 'all' && (
+          {(selectedDivision !== 'all' || selectedDistrict !== 'all') && (
             <button
-              onClick={() => setSelectedDivision('all')}
+              onClick={() => {
+                setSelectedDivision('all');
+                setSelectedDistrict('all');
+                setSearchQuery('');
+              }}
               className="text-xs text-bdGreen-800 hover:underline font-semibold"
             >
-              {lang === 'bn' ? 'সকল বিভাগ দেখুন' : 'Show All Areas'}
+              {lang === 'bn' ? 'সকল ফিল্টার রিসেট করুন' : 'Show All Areas'}
             </button>
           )}
         </div>
@@ -210,11 +309,12 @@ export default function CourtsPage() {
             <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
               {lang === 'bn'
                 ? 'অনুসন্ধানের বানান পরীক্ষা করুন অথবা ফিল্টার পরিবর্তন করে পুনরায় চেষ্টা করুন।'
-                : 'Try adjusting your search terms or clearing the division filter.'}
+                : 'Try adjusting your search terms or clearing the division and district filter.'}
             </p>
             <button
               onClick={() => {
                 setSelectedDivision('all');
+                setSelectedDistrict('all');
                 setSearchQuery('');
               }}
               className="mt-4 px-4 py-2 bg-bdGreen-800 text-white text-xs font-bold rounded-xl"
@@ -351,12 +451,18 @@ export default function CourtsPage() {
                       )}
                     </button>
 
+                    {/* Find Advocates in THIS Selected Court / District Area */}
                     <Link
-                      to={`/lawyers?court=${encodeURIComponent(court.name)}`}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-200 text-xs font-bold rounded-xl transition-all"
+                      to={`/lawyers?division=${encodeURIComponent(court.division)}&district=${encodeURIComponent(court.district)}&court=${encodeURIComponent(court.name)}`}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-50 hover:bg-bdGreen-800 text-bdGreen-900 hover:text-white border border-emerald-300 hover:border-bdGreen-800 text-xs font-bold rounded-xl transition-all shadow-2xs group"
                     >
-                      <span>{lang === 'bn' ? 'আইনজীবী খুঁজুন' : 'Find Advocates'}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <Users className="w-3.5 h-3.5 text-bdGreen-800 group-hover:text-white transition-colors" />
+                      <span>
+                        {lang === 'bn'
+                          ? `${court.districtBn}-এর আইনজীবী দেখুন`
+                          : `Find Advocates in ${court.district}`}
+                      </span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </Link>
                   </div>
 
@@ -373,13 +479,13 @@ export default function CourtsPage() {
           <div className="space-y-2 text-center md:text-left">
             <h3 className="font-serif text-2xl font-bold">
               {lang === 'bn'
-                ? 'আপনার মামলার জন্য সঠিক আদালতে আইনজীবী প্রয়োজন?'
-                : 'Need Legal Counsel for a Specific Court Jurisdiction?'}
+                ? 'আপনার জেলার আদালতে সরাসরি সনদপ্রাপ্ত আইনজীবী খুঁজছেন?'
+                : 'Need Verified Bar Council Advocates in Your District?'}
             </h3>
             <p className="text-emerald-100 text-xs sm:text-sm max-w-xl">
               {lang === 'bn'
-                ? 'সুপ্রিম কোর্ট ও সকল জেলা জজ আদালতের সনদপ্রাপ্ত আইনজীবীদের সাথে পরামর্শ বুক করুন।'
-                : 'Connect directly with verified Bar Council advocates enrolled in the Supreme Court, Metropolitan Sessions, and District Bar Associations.'}
+                ? 'বাংলাদেশের সকল ৬৪ জেলা আদালত ও সুপ্রিম কোর্টের সনদপ্রাপ্ত বিজ্ঞ আইনজীবীদের চেম্বার ও ভিডিও পরামর্শ বুক করুন।'
+                : 'Connect directly with verified Bar Council enrolled advocates across all 64 District Bar Associations and the Supreme Court of Bangladesh.'}
             </p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
@@ -387,7 +493,7 @@ export default function CourtsPage() {
               to="/lawyers"
               className="px-5 py-3 bg-white text-bdGreen-900 hover:bg-emerald-50 text-xs sm:text-sm font-bold rounded-xl transition-colors shadow-md"
             >
-              {lang === 'bn' ? 'আইনজীবী ডিরেক্টরি দেখুন' : 'Browse Advocates'}
+              {lang === 'bn' ? 'সকল আইনজীবী দেখুন' : 'Browse All Advocates'}
             </Link>
             <Link
               to="/ai-assistant"
