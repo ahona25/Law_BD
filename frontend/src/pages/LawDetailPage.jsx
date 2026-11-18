@@ -35,11 +35,10 @@ export default function LawDetailPage() {
     api.getLawById(id).then(res => {
       if (res.success) {
         setLaw(res.law);
-        // Load matched lawyers based on specialist_match
         if (res.law.specialist_match) {
           api.getLawyers({ specialty: res.law.specialist_match }).then(lawyerRes => {
             if (lawyerRes.success) setMatchedLawyers(lawyerRes.lawyers.slice(0, 2));
-          }).catch(() => {});
+          }).catch(() => { });
         }
       }
     }).catch(err => {
@@ -90,7 +89,7 @@ export default function LawDetailPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Back Link */}
         <div className="no-print mb-6">
           <Link
@@ -104,7 +103,7 @@ export default function LawDetailPage() {
 
         {/* Printable Area Wrapper */}
         <div className="printable-area space-y-8">
-          
+
           {/* Main Title Card */}
           <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xs relative overflow-hidden">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
@@ -112,11 +111,10 @@ export default function LawDetailPage() {
                 <span className="px-3 py-1 text-xs font-bold uppercase rounded-full bg-emerald-100 text-bdGreen-900 border border-emerald-300">
                   {law.category_label || law.category}
                 </span>
-                <span className={`px-2.5 py-1 text-xs font-bold uppercase rounded-full ${
-                  law.status === 'current'
+                <span className={`px-2.5 py-1 text-xs font-bold uppercase rounded-full ${law.status === 'current'
                     ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                     : 'bg-amber-50 text-amber-800 border border-amber-200'
-                }`}>
+                  }`}>
                   Status: {law.status || 'Current Law'}
                 </span>
               </div>
@@ -125,11 +123,10 @@ export default function LawDetailPage() {
               <div className="no-print flex items-center gap-2">
                 <button
                   onClick={() => toggleLawBookmark(law.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
-                    isSaved
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${isSaved
                       ? 'bg-rose-50 border-rose-200 text-bdRed-600'
                       : 'border-slate-200 text-slate-700 hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   <Bookmark className="w-3.5 h-3.5" />
                   <span>{isSaved ? 'Saved' : 'Save Law'}</span>
@@ -279,7 +276,7 @@ export default function LawDetailPage() {
 
           {/* Required Documents & Immediate Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
+
             {/* Required Documents */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs">
               <h3 className="font-serif font-bold text-base text-slate-900 mb-4 flex items-center gap-2">

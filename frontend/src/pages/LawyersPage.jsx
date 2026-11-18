@@ -15,10 +15,13 @@ import {
   Scale,
   Building2,
   SlidersHorizontal,
-  ChevronRight
+  ChevronRight,
+  Users,
+  Check
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useBookmarks } from '../context/BookmarkContext';
+import { ALL_64_DISTRICTS } from '../data/courtsData';
 import { api } from '../services/api';
 
 export default function LawyersPage() {
@@ -32,6 +35,7 @@ export default function LawyersPage() {
 
   const currentSpecialty = searchParams.get('specialty') || 'All Specialties';
   const currentDivision = searchParams.get('division') || 'All Locations';
+  const currentDistrict = searchParams.get('district') || '';
   const currentCourt = searchParams.get('court') || 'All Court Levels';
   const currentSort = searchParams.get('sortBy') || 'top-rated';
   const currentSearch = searchParams.get('search') || '';
@@ -43,6 +47,7 @@ export default function LawyersPage() {
     api.getLawyers({
       specialty: currentSpecialty,
       division: currentDivision,
+      district: currentDistrict,
       court: currentCourt,
       sortBy: currentSort,
       search: currentSearch
@@ -53,7 +58,7 @@ export default function LawyersPage() {
     }).finally(() => {
       setLoading(false);
     });
-  }, [currentSpecialty, currentDivision, currentCourt, currentSort, currentSearch]);
+  }, [currentSpecialty, currentDivision, currentDistrict, currentCourt, currentSort, currentSearch]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -68,11 +73,19 @@ export default function LawyersPage() {
 
   const handleFilterChange = (key, val) => {
     const params = new URLSearchParams(searchParams);
-    if (val.startsWith('All')) {
+    if (!val || val.startsWith('All') || val === 'all') {
       params.delete(key);
     } else {
       params.set(key, val);
     }
+    setSearchParams(params);
+  };
+
+  const handleClearAreaFilters = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete('district');
+    params.delete('division');
+    params.delete('court');
     setSearchParams(params);
   };
 
@@ -90,13 +103,17 @@ export default function LawyersPage() {
 
   const divisionsList = [
     'All Locations',
-    'Dhaka (Supreme Court & Judge Court)',
+    'Dhaka',
     'Chattogram',
     'Sylhet',
     'Rajshahi',
     'Khulna',
-    'Cumilla'
+    'Barishal',
+    'Rangpur',
+    'Mymensingh'
   ];
+
+  const hasAreaFilter = Boolean(currentDistrict || (currentDivision && currentDivision !== 'All Locations') || (currentCourt && currentCourt !== 'All Court Levels'));
 
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-12">
@@ -136,7 +153,7 @@ export default function LawyersPage() {
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder={lang === 'bn' ? 'আইনজীবীর নাম, চেম্বার বা ডিগ্রি দিয়ে খুঁজুন...' : 'Search advocate by name, chamber, or qualification...'}
+                placeholder={lang === 'bn' ? 'আইনজীবীর নাম, চেম্বার, জেলা বা ডিগ্রি দিয়ে খুঁজুন...' : 'Search advocate by name, chamber, district, or qualification...'}
                 className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-bdGreen-800 text-sm"
               />
             </div>
@@ -148,10 +165,12 @@ export default function LawyersPage() {
             </button>
           </form>
 
-          {/* Dropdown Filters */}
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-100 text-xs">
+          {/* Dropdown Filters (Specialty, Division, 64 Districts, Court Level, Sort) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-3 border-t border-slate-100 text-xs">
             <div>
-              <label className="block text-slate-500 font-semibold mb-1">Specialization:</label>
+              <label className="block text-slate-500 font-semibold mb-1">
+                {lang === 'bn' ? 'বিশেষজ্ঞতা:' : 'Specialization:'}
+              </label>
               <select
                 value={currentSpecialty}
                 onChange={(e) => handleFilterChange('specialty', e.target.value)}
@@ -164,7 +183,9 @@ export default function LawyersPage() {
             </div>
 
             <div>
-              <label className="block text-slate-500 font-semibold mb-1">Division / Court Area:</label>
+              <label className="block text-slate-500 font-semibold mb-1">
+                {lang === 'bn' ? 'প্রশাসনিক বিভাগ:' : 'Division / Region:'}
+              </label>
               <select
                 value={currentDivision}
                 onChange={(e) => handleFilterChange('division', e.target.value)}
@@ -177,7 +198,27 @@ export default function LawyersPage() {
             </div>
 
             <div>
-              <label className="block text-slate-500 font-semibold mb-1">Court Level:</label>
+              <label className="block text-slate-500 font-semibold mb-1">
+                {lang === 'bn' ? 'জেলা (৬৪ জেলা):' : 'District (All 64):'}
+              </label>
+              <select
+                value={currentDistrict || 'All Districts'}
+                onChange={(e) => handleFilterChange('district', e.target.value)}
+                className="w-full p-2.5 rounded-xl border border-slate-200 text-slate-800 font-medium focus:outline-none focus:border-bdGreen-800"
+              >
+                <option value="All Districts">{lang === 'bn' ? '— সকল জেলা —' : '— All Districts —'}</option>
+                {ALL_64_DISTRICTS.map((d) => (
+                  <option key={d.id} value={d.name}>
+                    {lang === 'bn' ? `${d.nameBn} (${d.name})` : d.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-slate-500 font-semibold mb-1">
+                {lang === 'bn' ? 'আদালতের স্তর:' : 'Court Level:'}
+              </label>
               <select
                 value={currentCourt}
                 onChange={(e) => handleFilterChange('court', e.target.value)}
@@ -192,7 +233,9 @@ export default function LawyersPage() {
             </div>
 
             <div>
-              <label className="block text-slate-500 font-semibold mb-1">Sort Advocates By:</label>
+              <label className="block text-slate-500 font-semibold mb-1">
+                {lang === 'bn' ? 'সর্ট করুন:' : 'Sort By:'}
+              </label>
               <select
                 value={currentSort}
                 onChange={(e) => handleFilterChange('sortBy', e.target.value)}
@@ -206,6 +249,33 @@ export default function LawyersPage() {
             </div>
           </div>
         </div>
+
+        {/* ACTIVE SELECTED AREA FILTER BANNER */}
+        {hasAreaFilter && (
+          <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-bdGreen-800 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                <MapPin className="w-4 h-4 text-emerald-300" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-bdGreen-950">
+                  {lang === 'bn' ? 'নির্বাচিত এলাকার আইনজীবীগণ' : 'Advocates in Selected Jurisdiction'}
+                </p>
+                <p className="text-xs text-slate-600">
+                  {lang === 'bn'
+                    ? `${currentDistrict ? `${currentDistrict} জেলা` : ''} ${currentDivision && currentDivision !== 'All Locations' ? `(${currentDivision} বিভাগ)` : ''} অধিক্ষেত্রে সনদপ্রাপ্ত বিজ্ঞ আইনজীবীগণ প্রদর্শিত হচ্ছে (মোট ${lawyers.length} জন)`
+                    : `Showing verified enrolled advocates for ${currentDistrict ? `${currentDistrict} District` : ''} ${currentDivision && currentDivision !== 'All Locations' ? `(${currentDivision} Division)` : ''} (${lawyers.length} advocates available)`}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handleClearAreaFilters}
+              className="px-3.5 py-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-all shrink-0 self-start sm:self-auto shadow-2xs"
+            >
+              {lang === 'bn' ? 'সকল এলাকার আইনজীবী দেখুন' : 'Show All Areas'}
+            </button>
+          </div>
+        )}
 
         {/* Directory Listing Grid */}
         {loading ? (
@@ -226,7 +296,7 @@ export default function LawyersPage() {
                 >
                   <div>
                     {/* Header */}
-                    <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-bdGreen-800 text-white font-bold text-base flex items-center justify-center shrink-0 shadow-xs">
                           {lawyer.initials}
@@ -244,7 +314,14 @@ export default function LawyersPage() {
                               </span>
                             )}
                           </div>
-                          <p className="text-[11px] text-slate-500 line-clamp-1">{lawyer.courtLevel}</p>
+                          
+                          {/* District & Division badge */}
+                          <div className="flex items-center gap-1 mt-1 text-[11px] font-semibold text-bdGreen-900">
+                            <MapPin className="w-3 h-3 text-bdRed-500 shrink-0" />
+                            <span>{lawyer.district ? `${lawyer.district} District` : lawyer.division}</span>
+                            <span className="text-slate-400">·</span>
+                            <span className="text-slate-500 font-normal line-clamp-1">{lawyer.division}</span>
+                          </div>
                         </div>
                       </div>
 
@@ -264,6 +341,12 @@ export default function LawyersPage() {
                       <span>Roll: <strong>{lawyer.barCouncilNo}</strong></span>
                       <span>{lawyer.experienceYears} Years Exp</span>
                     </div>
+
+                    {/* Court Level */}
+                    <p className="text-[11px] text-slate-600 font-medium mb-3 bg-slate-50 p-2 rounded-xl border border-slate-100 flex items-center gap-1.5">
+                      <Scale className="w-3.5 h-3.5 text-bdGreen-800 shrink-0" />
+                      <span className="line-clamp-1">{lawyer.courtLevel}</span>
+                    </p>
 
                     {/* Bio */}
                     <p className="text-xs text-slate-600 line-clamp-3 mb-4 leading-relaxed">
@@ -339,8 +422,16 @@ export default function LawyersPage() {
             <User className="w-12 h-12 mx-auto text-slate-300 stroke-[1.5]" />
             <h3 className="text-base font-bold text-slate-800">No advocates matched the selected criteria</h3>
             <p className="text-xs text-slate-500 max-w-md mx-auto">
-              Try choosing "All Specialties" or "All Locations" to view all enrolled Bar Council advocates.
+              Try choosing "All Specialties" or "All Districts" to view all enrolled Bar Council advocates.
             </p>
+            {hasAreaFilter && (
+              <button
+                onClick={handleClearAreaFilters}
+                className="mt-3 px-4 py-2 bg-bdGreen-800 text-white rounded-xl text-xs font-bold"
+              >
+                Show All Bangladesh Advocates
+              </button>
+            )}
           </div>
         )}
 
