@@ -492,6 +492,10 @@ export default function HomePage() {
               key={cat.id}
               className="bg-white rounded-3xl p-6 border border-slate-200 shadow-2xs hover:shadow-xl hover:border-emerald-500 transition-all flex flex-col justify-between group"
             >
+
+
+
+
               <div>
                 {/* Category Header */}
                 <div className="flex items-center justify-between gap-3 mb-3">
