@@ -9,6 +9,7 @@ router.get('/', optionalAuth, (req, res) => {
   const {
     specialty,
     division,
+    district,
     court,
     search,
     sortBy = 'top-rated',
@@ -24,12 +25,52 @@ router.get('/', optionalAuth, (req, res) => {
     lawyers = lawyers.filter(l => l.specialties && l.specialties.some(s => s.toLowerCase().includes(specialty.toLowerCase())));
   }
 
-  if (division && division !== 'All Locations' && division !== 'all') {
-    lawyers = lawyers.filter(l => l.division && l.division.toLowerCase().includes(division.toLowerCase()));
+  // District filter
+  if (district && district !== 'All Districts' && district !== 'all' && district !== 'undefined') {
+    const dLower = district.trim().toLowerCase();
+    const districtMatches = lawyers.filter(l => {
+      const distMatch = l.district && l.district.toLowerCase().includes(dLower);
+      const chamberMatch = l.chamberAddress && l.chamberAddress.toLowerCase().includes(dLower);
+      const courtMatch = l.courtLevel && l.courtLevel.toLowerCase().includes(dLower);
+      const locMatch = l.location && l.location.toLowerCase().includes(dLower);
+      return distMatch || chamberMatch || courtMatch || locMatch;
+    });
+
+    if (districtMatches.length > 0) {
+      lawyers = districtMatches;
+    } else if (division && division !== 'All Locations' && division !== 'all' && division !== 'undefined') {
+      const divLower = division.trim().toLowerCase();
+      const divMatches = lawyers.filter(l => 
+        (l.division && l.division.toLowerCase().includes(divLower)) ||
+        (l.chamberAddress && l.chamberAddress.toLowerCase().includes(divLower)) ||
+        (l.location && l.location.toLowerCase().includes(divLower))
+      );
+      if (divMatches.length > 0) {
+        lawyers = divMatches;
+      }
+    }
+  } else if (division && division !== 'All Locations' && division !== 'all' && division !== 'undefined') {
+    const divLower = division.trim().toLowerCase();
+    const divMatches = lawyers.filter(l => 
+      (l.division && l.division.toLowerCase().includes(divLower)) ||
+      (l.chamberAddress && l.chamberAddress.toLowerCase().includes(divLower)) ||
+      (l.location && l.location.toLowerCase().includes(divLower)) ||
+      (l.district && l.district.toLowerCase().includes(divLower))
+    );
+    if (divMatches.length > 0) {
+      lawyers = divMatches;
+    }
   }
 
-  if (court && court !== 'All Court Levels') {
-    lawyers = lawyers.filter(l => l.courtLevel && l.courtLevel.toLowerCase().includes(court.toLowerCase()));
+  if (court && court !== 'All Court Levels' && court !== 'all' && court !== 'undefined') {
+    const cLower = court.trim().toLowerCase();
+    const courtMatches = lawyers.filter(l => 
+      (l.courtLevel && l.courtLevel.toLowerCase().includes(cLower)) ||
+      (l.chamberAddress && l.chamberAddress.toLowerCase().includes(cLower))
+    );
+    if (courtMatches.length > 0) {
+      lawyers = courtMatches;
+    }
   }
 
   if (verifiedOnly === 'true') {

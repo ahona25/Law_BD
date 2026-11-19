@@ -84,7 +84,7 @@
       ],
       "experienceYears": 14,
       "location": "Dhaka",
-      "division": "Dhaka (Supreme Court & Judge Court)",
+      "division": "Dhaka",
       "chamberAddress": "Room #412, Supreme Court Bar Association Annex Building, Ramna, Dhaka-1000",
       "rating": 4.9,
       "reviewsCount": 142,
@@ -115,7 +115,8 @@
       "casesHandled": "650+ Court Appearances",
       "is_featured": true,
       "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z"
+      "updated_at": "2026-11-15T16:55:33.396Z",
+      "district": "Dhaka"
     },
     {
       "id": 2,
@@ -134,7 +135,7 @@
       ],
       "experienceYears": 10,
       "location": "Dhaka",
-      "division": "Dhaka (Supreme Court & Judge Court)",
+      "division": "Dhaka",
       "chamberAddress": "Suites 7B, Concord Tower, 113 Kazi Nazrul Islam Ave, Bangla Motor, Dhaka-1205",
       "rating": 4.95,
       "reviewsCount": 188,
@@ -164,7 +165,8 @@
       "casesHandled": "450+ Family Decrees",
       "is_featured": true,
       "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z"
+      "updated_at": "2026-11-15T16:55:33.396Z",
+      "district": "Dhaka"
     },
     {
       "id": 3,
@@ -213,7 +215,8 @@
       "casesHandled": "900+ Land Suits",
       "is_featured": true,
       "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z"
+      "updated_at": "2026-11-15T16:55:33.396Z",
+      "district": "Chattogram"
     },
     {
       "id": 4,
@@ -232,7 +235,7 @@
       ],
       "experienceYears": 8,
       "location": "Dhaka",
-      "division": "Dhaka (Supreme Court & Judge Court)",
+      "division": "Dhaka",
       "chamberAddress": "Level 5, Navana Tower, Gulshan-1, Dhaka-1212",
       "rating": 4.9,
       "reviewsCount": 96,
@@ -262,7 +265,8 @@
       "casesHandled": "310+ Digital Crimes Cases",
       "is_featured": true,
       "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z"
+      "updated_at": "2026-11-15T16:55:33.396Z",
+      "district": "Dhaka"
     },
     {
       "id": 5,
@@ -309,7 +313,8 @@
       "casesHandled": "540+ Commercial Suits",
       "is_featured": false,
       "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z"
+      "updated_at": "2026-11-15T16:55:33.396Z",
+      "district": "Sylhet"
     },
     {
       "id": 6,
@@ -356,7 +361,824 @@
       "casesHandled": "280+ Labour Grievances",
       "is_featured": false,
       "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z"
+      "updated_at": "2026-11-15T16:55:33.396Z",
+      "district": "Rajshahi"
+    },
+    {
+      "id": 7,
+      "name": "Adv. MD. Shahjahan Mia",
+      "initials": "SM",
+      "gender": "male",
+      "qualification": "LL.M (DU) · LL.B (Hons)",
+      "barCouncilNo": "BC/GZP-16201/2013",
+      "courtLevel": "Gazipur District & Sessions Judge Court",
+      "association": "Gazipur District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Labour & Workplace",
+        "Civil Law"
+      ],
+      "experienceYears": 13,
+      "location": "Gazipur",
+      "division": "Dhaka",
+      "district": "Gazipur",
+      "chamberAddress": "Chamber 12, Bar Association Bhaban, Joydebpur, Gazipur-1700",
+      "rating": 4.87,
+      "reviewsCount": 78,
+      "feeInPerson": 1600,
+      "feeVideo": 1200,
+      "feePhone": 800,
+      "feeDisplay": "৳1,200",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:00 AM",
+        "Tomorrow 3:30 PM"
+      ],
+      "bio": "Renowned advocate at Gazipur District Bar handling industrial land acquisitions, factory zoning conflicts, and complex civil property disputes.",
+      "successRate": "92% Favorable Decrees",
+      "casesHandled": "410+ Land Suits",
+      "is_featured": false
+    },
+    {
+      "id": 8,
+      "name": "Adv. Rashedul Karim",
+      "initials": "RK",
+      "gender": "male",
+      "qualification": "LL.B (Hons, RU) · Diploma in Commercial Arbitration",
+      "barCouncilNo": "BC/NRG-09142/2010",
+      "courtLevel": "Narayanganj District & Sessions Judge Court",
+      "association": "Narayanganj District Bar Association",
+      "specialties": [
+        "Cheque Dishonour",
+        "Commercial Law",
+        "Civil Law"
+      ],
+      "experienceYears": 16,
+      "location": "Narayanganj",
+      "division": "Dhaka",
+      "district": "Narayanganj",
+      "chamberAddress": "Court Compound, Chandmari, Narayanganj Sadar-1400",
+      "rating": 4.82,
+      "reviewsCount": 64,
+      "feeInPerson": 1500,
+      "feeVideo": 1100,
+      "feePhone": 700,
+      "feeDisplay": "৳1,100",
+      "responseTime": "< 2 hours",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Today 6:00 PM",
+        "Tomorrow 11:00 AM"
+      ],
+      "bio": "Specialist in river transport freight litigations, textile hub contract disputes, and Section 138 NI Act cheque bouncing matters in Narayanganj.",
+      "successRate": "90% Recovery",
+      "casesHandled": "480+ Disputes",
+      "is_featured": false
+    },
+    {
+      "id": 9,
+      "name": "Adv. Mohammad Ali Sikder",
+      "initials": "MS",
+      "gender": "male",
+      "qualification": "LL.B (Hons, DU)",
+      "barCouncilNo": "BC/FAR-12044/2015",
+      "courtLevel": "Faridpur District & Sessions Judge Court",
+      "association": "Faridpur District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Family Law"
+      ],
+      "experienceYears": 11,
+      "location": "Faridpur",
+      "division": "Dhaka",
+      "district": "Faridpur",
+      "chamberAddress": "Court Road, Jhiltuly, Faridpur-7800",
+      "rating": 4.79,
+      "reviewsCount": 52,
+      "feeInPerson": 1200,
+      "feeVideo": 900,
+      "feePhone": 600,
+      "feeDisplay": "৳900",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 9:30 AM",
+        "Thu 4:00 PM"
+      ],
+      "bio": "Specialist in Padma river char land disputes, Sikasti-Payasti land rights, civil partition, and inheritance settlements across Faridpur.",
+      "successRate": "93% Injunctions & Title",
+      "casesHandled": "320+ Cases",
+      "is_featured": false
+    },
+    {
+      "id": 10,
+      "name": "Adv. SM Mostafa Kamal",
+      "initials": "MK",
+      "gender": "male",
+      "qualification": "LL.M (CU) · LL.B (Hons)",
+      "barCouncilNo": "BC/COB-14112/2014",
+      "courtLevel": "Cox’s Bazar District & Sessions Judge Court",
+      "association": "Cox’s Bazar District Bar Association",
+      "specialties": [
+        "Criminal Law",
+        "Land & Property",
+        "Human Rights"
+      ],
+      "experienceYears": 12,
+      "location": "Cox’s Bazar",
+      "division": "Chattogram",
+      "district": "Cox’s Bazar",
+      "chamberAddress": "Jhawtala Court Complex, Cox’s Bazar Sadar-4700",
+      "rating": 4.88,
+      "reviewsCount": 86,
+      "feeInPerson": 1800,
+      "feeVideo": 1400,
+      "feePhone": 900,
+      "feeDisplay": "৳1,400",
+      "responseTime": "< 30 mins",
+      "languages": [
+        "Bangla",
+        "English",
+        "Chatgaya"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Today 5:30 PM",
+        "Tomorrow 10:00 AM"
+      ],
+      "bio": "Top criminal defense and land litigation advocate in Cox’s Bazar. Extensive trial experience in maritime tourism land disputes and narcotics defense.",
+      "successRate": "91% Bail & Acquittals",
+      "casesHandled": "560+ Sessions Cases",
+      "is_featured": true
+    },
+    {
+      "id": 11,
+      "name": "Adv. Nazmul Huda Bhuiyan",
+      "initials": "NH",
+      "gender": "male",
+      "qualification": "LL.B (Hons, CU)",
+      "barCouncilNo": "BC/CUM-07891/2009",
+      "courtLevel": "Cumilla District & Sessions Judge Court",
+      "association": "Cumilla District Bar Association",
+      "specialties": [
+        "Civil Law",
+        "Cheque Dishonour",
+        "Land & Property"
+      ],
+      "experienceYears": 17,
+      "location": "Cumilla",
+      "division": "Chattogram",
+      "district": "Cumilla",
+      "chamberAddress": "Faujdar Court Area, Cumilla Sadar-3500",
+      "rating": 4.85,
+      "reviewsCount": 94,
+      "feeInPerson": 1500,
+      "feeVideo": 1100,
+      "feePhone": 700,
+      "feeDisplay": "৳1,100",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 11:30 AM",
+        "Thu 3:00 PM"
+      ],
+      "bio": "Expert civil advocate with 17 years experience across Cumilla’s 17 upazilas handling title suits, highway accident compensation, and financial claims.",
+      "successRate": "94% Decrees Granted",
+      "casesHandled": "690+ Suits",
+      "is_featured": false
+    },
+    {
+      "id": 12,
+      "name": "Adv. ATM Tariqul Islam",
+      "initials": "TI",
+      "gender": "male",
+      "qualification": "LL.M (RU) · LL.B (Hons)",
+      "barCouncilNo": "BC/BOG-13109/2012",
+      "courtLevel": "Bogura District & Sessions Judge Court",
+      "association": "Bogura District Bar Association",
+      "specialties": [
+        "Commercial Law",
+        "Cheque Dishonour",
+        "Criminal Law"
+      ],
+      "experienceYears": 14,
+      "location": "Bogura",
+      "division": "Rajshahi",
+      "district": "Bogura",
+      "chamberAddress": "Borogola Court Compound, Bogura Sadar-5800",
+      "rating": 4.89,
+      "reviewsCount": 112,
+      "feeInPerson": 1600,
+      "feeVideo": 1200,
+      "feePhone": 800,
+      "feeDisplay": "৳1,200",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Today 7:00 PM",
+        "Tomorrow 10:30 AM"
+      ],
+      "bio": "Leading commercial advocate in northern Bangladesh representing industrialists, transport firms, and agri-business disputes in Bogura.",
+      "successRate": "95% Commercial Restitution",
+      "casesHandled": "620+ Cases",
+      "is_featured": true
+    },
+    {
+      "id": 13,
+      "name": "Adv. Golam Rabbani",
+      "initials": "GR",
+      "gender": "male",
+      "qualification": "LL.B (Hons, RU)",
+      "barCouncilNo": "BC/RAJ-06714/2007",
+      "courtLevel": "Rajshahi District & Sessions Judge Court",
+      "association": "Rajshahi District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Family Law"
+      ],
+      "experienceYears": 19,
+      "location": "Rajshahi",
+      "division": "Rajshahi",
+      "district": "Rajshahi",
+      "chamberAddress": "Court Station Road, Rajshahi-6201",
+      "rating": 4.91,
+      "reviewsCount": 130,
+      "feeInPerson": 1800,
+      "feeVideo": 1300,
+      "feePhone": 800,
+      "feeDisplay": "৳1,300",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 9:00 AM",
+        "Thu 11:30 AM"
+      ],
+      "bio": "Specialist in Padma river char lands, agricultural tenancy litigations, and mango orchard lease disputes across Rajshahi district.",
+      "successRate": "93% Injunctions Obtained",
+      "casesHandled": "850+ Land Suits",
+      "is_featured": false
+    },
+    {
+      "id": 14,
+      "name": "Adv. Sheikh Zakir Hossain",
+      "initials": "ZH",
+      "gender": "male",
+      "qualification": "LL.M (Environmental Law) · LL.B (Hons, KU)",
+      "barCouncilNo": "BC/KHU-10291/2011",
+      "courtLevel": "Khulna District & Sessions Judge Court",
+      "association": "Khulna District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Environmental Law"
+      ],
+      "experienceYears": 15,
+      "location": "Khulna",
+      "division": "Khulna",
+      "district": "Khulna",
+      "chamberAddress": "Chamber 7, Court Road, Khulna Sadar-9100",
+      "rating": 4.9,
+      "reviewsCount": 104,
+      "feeInPerson": 1600,
+      "feeVideo": 1200,
+      "feePhone": 800,
+      "feeDisplay": "৳1,200",
+      "responseTime": "< 45 mins",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:00 AM",
+        "Tomorrow 4:00 PM"
+      ],
+      "bio": "High profile advocate in Khulna specializing in shrimp gher aquaculture properties, coastal forest rights, and industrial mill disputes.",
+      "successRate": "94% Favorable Decrees",
+      "casesHandled": "510+ Cases",
+      "is_featured": true
+    },
+    {
+      "id": 15,
+      "name": "Adv. Mahmudul Hasan",
+      "initials": "MH",
+      "gender": "male",
+      "qualification": "LL.B (Hons)",
+      "barCouncilNo": "BC/JAS-14012/2015",
+      "courtLevel": "Jashore District & Sessions Judge Court",
+      "association": "Jashore District Bar Association",
+      "specialties": [
+        "Commercial Law",
+        "Criminal Law",
+        "Cheque Dishonour"
+      ],
+      "experienceYears": 11,
+      "location": "Jashore",
+      "division": "Khulna",
+      "district": "Jashore",
+      "chamberAddress": "Court Para, Chanchra, Jashore-7400",
+      "rating": 4.81,
+      "reviewsCount": 67,
+      "feeInPerson": 1400,
+      "feeVideo": 1000,
+      "feePhone": 600,
+      "feeDisplay": "৳1,000",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 11:00 AM",
+        "Thu 2:30 PM"
+      ],
+      "bio": "Expert in Benapole customs border cases, commercial freight disputes, and criminal defense in Jashore District Court.",
+      "successRate": "89% Bail Granted",
+      "casesHandled": "370+ Trials",
+      "is_featured": false
+    },
+    {
+      "id": 16,
+      "name": "Adv. Anisur Rahman",
+      "initials": "AR",
+      "gender": "male",
+      "qualification": "LL.B (Hons, IU)",
+      "barCouncilNo": "BC/KUS-11902/2013",
+      "courtLevel": "Kushtia District & Sessions Judge Court",
+      "association": "Kushtia District Bar Association",
+      "specialties": [
+        "Civil Law",
+        "Family Law",
+        "Land & Property"
+      ],
+      "experienceYears": 13,
+      "location": "Kushtia",
+      "division": "Khulna",
+      "district": "Kushtia",
+      "chamberAddress": "Court Compound, Kushtia Sadar-7000",
+      "rating": 4.84,
+      "reviewsCount": 59,
+      "feeInPerson": 1300,
+      "feeVideo": 950,
+      "feePhone": 600,
+      "feeDisplay": "৳950",
+      "responseTime": "< 2 hours",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:30 AM",
+        "Wed 4:00 PM"
+      ],
+      "bio": "Experienced in agricultural contract enforcement, Gorai river basin property titles, and family guardianship proceedings in Kushtia.",
+      "successRate": "92% Family Decrees",
+      "casesHandled": "390+ Disputes",
+      "is_featured": false
+    },
+    {
+      "id": 17,
+      "name": "Adv. Syed Golam Kibria",
+      "initials": "GK",
+      "gender": "male",
+      "qualification": "LL.M (DU) · LL.B (Hons)",
+      "barCouncilNo": "BC/BAR-07119/2008",
+      "courtLevel": "Barishal District & Sessions Judge Court",
+      "association": "Barishal District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Criminal Law"
+      ],
+      "experienceYears": 18,
+      "location": "Barishal",
+      "division": "Barishal",
+      "district": "Barishal",
+      "chamberAddress": "Band Road, Barishal Sadar-8200",
+      "rating": 4.92,
+      "reviewsCount": 122,
+      "feeInPerson": 1600,
+      "feeVideo": 1200,
+      "feePhone": 700,
+      "feeDisplay": "৳1,200",
+      "responseTime": "< 30 mins",
+      "languages": [
+        "Bangla",
+        "English",
+        "Barisailla"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 9:30 AM",
+        "Tomorrow 3:00 PM"
+      ],
+      "bio": "Senior Barishal advocate specializing in river erosion and char accretion land lawsuits (Alluvion/Diluvion), launch collision liability, and civil partitions.",
+      "successRate": "96% Char Title Confirmation",
+      "casesHandled": "780+ Suits",
+      "is_featured": true
+    },
+    {
+      "id": 18,
+      "name": "Adv. Masum Billah",
+      "initials": "MB",
+      "gender": "male",
+      "qualification": "LL.B (Hons)",
+      "barCouncilNo": "BC/PAT-15201/2016",
+      "courtLevel": "Patuakhali District & Sessions Judge Court",
+      "association": "Patuakhali District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Family Law"
+      ],
+      "experienceYears": 10,
+      "location": "Patuakhali",
+      "division": "Barishal",
+      "district": "Patuakhali",
+      "chamberAddress": "Circuit House Road, Patuakhali Sadar-8600",
+      "rating": 4.83,
+      "reviewsCount": 61,
+      "feeInPerson": 1300,
+      "feeVideo": 950,
+      "feePhone": 550,
+      "feeDisplay": "৳950",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 11:00 AM",
+        "Thu 4:30 PM"
+      ],
+      "bio": "Patuakhali practitioner specializing in Payra seaport land acquisition claims, Kuakata beach tourism property litigations, and civil titles.",
+      "successRate": "91% Compensation Decrees",
+      "casesHandled": "310+ Cases",
+      "is_featured": false
+    },
+    {
+      "id": 19,
+      "name": "Adv. Syeda Shamima Akhter",
+      "initials": "SA",
+      "gender": "female",
+      "qualification": "LL.M (SUST) · LL.B (Hons)",
+      "barCouncilNo": "BC/SYL-12840/2014",
+      "courtLevel": "Sylhet Metropolitan & District Judge Court",
+      "association": "Sylhet District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Family & Divorce",
+        "Child Custody"
+      ],
+      "experienceYears": 12,
+      "location": "Sylhet",
+      "division": "Sylhet",
+      "district": "Sylhet",
+      "chamberAddress": "Court Point, Bandar Bazar, Sylhet-3100",
+      "rating": 4.93,
+      "reviewsCount": 145,
+      "feeInPerson": 1800,
+      "feeVideo": 1400,
+      "feePhone": 900,
+      "feeDisplay": "৳1,400",
+      "responseTime": "< 30 mins",
+      "languages": [
+        "Bangla",
+        "English",
+        "Sylheti"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Today 6:00 PM",
+        "Tomorrow 11:00 AM"
+      ],
+      "bio": "Dedicated advocate for overseas Bangladeshi (NRB) expatriates. Specializes in recovering ancestral properties from fraudulent encroachment and handling family dower suits.",
+      "successRate": "97% NRB Recovery",
+      "casesHandled": "490+ NRB Decrees",
+      "is_featured": true
+    },
+    {
+      "id": 20,
+      "name": "Adv. Pronob Kumar Das",
+      "initials": "PD",
+      "gender": "male",
+      "qualification": "LL.B (Hons)",
+      "barCouncilNo": "BC/MOU-09412/2010",
+      "courtLevel": "Moulvibazar District & Sessions Judge Court",
+      "association": "Moulvibazar District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Cheque Dishonour"
+      ],
+      "experienceYears": 16,
+      "location": "Moulvibazar",
+      "division": "Sylhet",
+      "district": "Moulvibazar",
+      "chamberAddress": "Court Road, Moulvibazar Sadar-3200",
+      "rating": 4.86,
+      "reviewsCount": 72,
+      "feeInPerson": 1400,
+      "feeVideo": 1100,
+      "feePhone": 700,
+      "feeDisplay": "৳1,100",
+      "responseTime": "< 2 hours",
+      "languages": [
+        "Bangla",
+        "English",
+        "Sylheti"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:00 AM",
+        "Thu 3:00 PM"
+      ],
+      "bio": "Moulvibazar court expert in tea garden leasehold rights, Sreemangal and Kulaura NRB land title verification, and civil partition decrees.",
+      "successRate": "93% Title Recoveries",
+      "casesHandled": "450+ Suits",
+      "is_featured": false
+    },
+    {
+      "id": 21,
+      "name": "Adv. Asaduzzaman Choton",
+      "initials": "AC",
+      "gender": "male",
+      "qualification": "LL.M (RU) · LL.B (Hons)",
+      "barCouncilNo": "BC/RNG-08419/2009",
+      "courtLevel": "Rangpur District & Sessions Judge Court",
+      "association": "Rangpur District Bar Association",
+      "specialties": [
+        "Criminal Law",
+        "Land & Property",
+        "Civil Law"
+      ],
+      "experienceYears": 17,
+      "location": "Rangpur",
+      "division": "Rangpur",
+      "district": "Rangpur",
+      "chamberAddress": "Collectorate Compound, Rangpur Sadar-5400",
+      "rating": 4.91,
+      "reviewsCount": 118,
+      "feeInPerson": 1500,
+      "feeVideo": 1100,
+      "feePhone": 700,
+      "feeDisplay": "৳1,100",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English",
+        "Rangpuri"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 9:30 AM",
+        "Tomorrow 3:30 PM"
+      ],
+      "bio": "Prominent advocate in Rangpur division representing clients in Teesta river char land disputes, criminal defense, and agricultural contract enforcement.",
+      "successRate": "93% Trial Success",
+      "casesHandled": "640+ Sessions & Civil Suits",
+      "is_featured": true
+    },
+    {
+      "id": 22,
+      "name": "Adv. Harun-ur-Rashid",
+      "initials": "HR",
+      "gender": "male",
+      "qualification": "LL.B (Hons)",
+      "barCouncilNo": "BC/DIN-13421/2013",
+      "courtLevel": "Dinajpur District & Sessions Judge Court",
+      "association": "Dinajpur District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Cheque Dishonour"
+      ],
+      "experienceYears": 13,
+      "location": "Dinajpur",
+      "division": "Rangpur",
+      "district": "Dinajpur",
+      "chamberAddress": "Goneshtola Court Complex, Dinajpur Sadar-5200",
+      "rating": 4.84,
+      "reviewsCount": 65,
+      "feeInPerson": 1300,
+      "feeVideo": 950,
+      "feePhone": 600,
+      "feeDisplay": "৳950",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 11:00 AM",
+        "Thu 2:00 PM"
+      ],
+      "bio": "Experienced in Hili land port cross-border commercial litigation, Barapukuria mining land compensation claims, and civil partition suits.",
+      "successRate": "90% Restitution",
+      "casesHandled": "380+ Litigations",
+      "is_featured": false
+    },
+    {
+      "id": 23,
+      "name": "Adv. Shamsuddin Ahmed",
+      "initials": "SA",
+      "gender": "male",
+      "qualification": "LL.M (DU) · LL.B (Hons)",
+      "barCouncilNo": "BC/MYM-07211/2008",
+      "courtLevel": "Mymensingh District & Sessions Judge Court",
+      "association": "Mymensingh District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Criminal Law"
+      ],
+      "experienceYears": 18,
+      "location": "Mymensingh",
+      "division": "Mymensingh",
+      "district": "Mymensingh",
+      "chamberAddress": "Kachari Road, District Court Bhaban, Mymensingh-2200",
+      "rating": 4.92,
+      "reviewsCount": 134,
+      "feeInPerson": 1500,
+      "feeVideo": 1100,
+      "feePhone": 700,
+      "feeDisplay": "৳1,100",
+      "responseTime": "< 45 mins",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:00 AM",
+        "Thu 4:00 PM"
+      ],
+      "bio": "Senior member of Mymensingh District Bar handling Brahmaputra river char property litigations, criminal sessions trials, and civil partition decrees.",
+      "successRate": "95% Favorable Decrees",
+      "casesHandled": "710+ Cases",
+      "is_featured": true
+    },
+    {
+      "id": 24,
+      "name": "Adv. Aminul Islam",
+      "initials": "AI",
+      "gender": "male",
+      "qualification": "LL.B (Hons)",
+      "barCouncilNo": "BC/JAM-15102/2015",
+      "courtLevel": "Jamalpur District & Sessions Judge Court",
+      "association": "Jamalpur District Bar Association",
+      "specialties": [
+        "Land & Property",
+        "Civil Law",
+        "Family Law"
+      ],
+      "experienceYears": 11,
+      "location": "Jamalpur",
+      "division": "Mymensingh",
+      "district": "Jamalpur",
+      "chamberAddress": "Station Road, Court Para, Jamalpur Sadar-2000",
+      "rating": 4.81,
+      "reviewsCount": 57,
+      "feeInPerson": 1200,
+      "feeVideo": 900,
+      "feePhone": 550,
+      "feeDisplay": "৳900",
+      "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call"
+      ],
+      "availableSlots": [
+        "Tomorrow 11:30 AM",
+        "Wed 3:30 PM"
+      ],
+      "bio": "Jamalpur practitioner with deep expertise in Jamuna river char land disputes, agricultural titles, and family dower recovery suits.",
+      "successRate": "91% Injunctions & Decrees",
+      "casesHandled": "340+ Cases",
+      "is_featured": false
     }
   ],
   "laws": [
