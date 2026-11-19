@@ -141,6 +141,9 @@ export default function HomePage() {
                 <span className="text-amber-300 font-mono text-[11px]">30 Jurisdictions</span>
               </div>
 
+
+
+
               {/* Main Heading */}
               <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
                 {lang === 'bn' ? (
@@ -818,7 +821,7 @@ export default function HomePage() {
           ========================================================================= */}
       <section className="bg-white py-16 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
@@ -853,11 +856,10 @@ export default function HomePage() {
                 <button
                   key={div.id}
                   onClick={() => setHomeCourtDivision(div.id)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
-                    isSelected
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${isSelected
                       ? 'bg-bdGreen-800 text-white shadow-xs font-bold'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'
-                  }`}
+                    }`}
                 >
                   {lang === 'bn' ? div.bangla : div.name}
                 </button>
@@ -878,27 +880,25 @@ export default function HomePage() {
                 return (
                   <div
                     key={court.id}
-                    className={`bg-slate-50/80 hover:bg-white rounded-2xl p-5 sm:p-6 border transition-all flex flex-col justify-between ${
-                      isApex
+                    className={`bg-slate-50/80 hover:bg-white rounded-2xl p-5 sm:p-6 border transition-all flex flex-col justify-between ${isApex
                         ? 'border-emerald-300 shadow-2xs hover:shadow-md'
                         : isSpecial
-                        ? 'border-amber-200 shadow-2xs hover:shadow-md'
-                        : 'border-slate-200/90 shadow-2xs hover:shadow-md'
-                    }`}
+                          ? 'border-amber-200 shadow-2xs hover:shadow-md'
+                          : 'border-slate-200/90 shadow-2xs hover:shadow-md'
+                      }`}
                   >
                     <div className="space-y-3">
-                      
+
                       {/* Top Badges */}
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
                           <span
-                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
-                              isApex
+                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${isApex
                                 ? 'bg-emerald-100 text-bdGreen-900'
                                 : isSpecial
-                                ? 'bg-amber-100 text-amber-900'
-                                : 'bg-white text-slate-700 border border-slate-200/70'
-                            }`}
+                                  ? 'bg-amber-100 text-amber-900'
+                                  : 'bg-white text-slate-700 border border-slate-200/70'
+                              }`}
                           >
                             {lang === 'bn' ? court.divisionBn : court.division}
                           </span>
