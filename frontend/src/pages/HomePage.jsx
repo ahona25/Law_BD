@@ -459,6 +459,10 @@ export default function HomePage() {
           </div>
         </div>
 
+
+
+
+
         {/* Category Group Filter Tabs */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-slate-200">
           {[
