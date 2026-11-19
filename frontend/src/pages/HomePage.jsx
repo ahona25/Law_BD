@@ -160,6 +160,10 @@ export default function HomePage() {
                   : 'Access comprehensive Bangladesh statutory laws in plain language, inspect mandatory penalties, navigate courts across all 8 divisions, and schedule chamber or video consultations seamlessly.'}
               </p>
 
+
+
+
+
               {/* Universal Search Bar */}
               <form onSubmit={handleSearchSubmit} className="relative max-w-2xl">
                 <div className="relative flex items-center bg-white rounded-2xl shadow-xl p-1.5 border-2 border-emerald-500/40 focus-within:border-emerald-400 transition-all">
@@ -857,8 +861,8 @@ export default function HomePage() {
                   key={div.id}
                   onClick={() => setHomeCourtDivision(div.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${isSelected
-                      ? 'bg-bdGreen-800 text-white shadow-xs font-bold'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'
+                    ? 'bg-bdGreen-800 text-white shadow-xs font-bold'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'
                     }`}
                 >
                   {lang === 'bn' ? div.bangla : div.name}
@@ -881,10 +885,10 @@ export default function HomePage() {
                   <div
                     key={court.id}
                     className={`bg-slate-50/80 hover:bg-white rounded-2xl p-5 sm:p-6 border transition-all flex flex-col justify-between ${isApex
-                        ? 'border-emerald-300 shadow-2xs hover:shadow-md'
-                        : isSpecial
-                          ? 'border-amber-200 shadow-2xs hover:shadow-md'
-                          : 'border-slate-200/90 shadow-2xs hover:shadow-md'
+                      ? 'border-emerald-300 shadow-2xs hover:shadow-md'
+                      : isSpecial
+                        ? 'border-amber-200 shadow-2xs hover:shadow-md'
+                        : 'border-slate-200/90 shadow-2xs hover:shadow-md'
                       }`}
                   >
                     <div className="space-y-3">
@@ -894,10 +898,10 @@ export default function HomePage() {
                         <div className="flex items-center gap-1.5">
                           <span
                             className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${isApex
-                                ? 'bg-emerald-100 text-bdGreen-900'
-                                : isSpecial
-                                  ? 'bg-amber-100 text-amber-900'
-                                  : 'bg-white text-slate-700 border border-slate-200/70'
+                              ? 'bg-emerald-100 text-bdGreen-900'
+                              : isSpecial
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'bg-white text-slate-700 border border-slate-200/70'
                               }`}
                           >
                             {lang === 'bn' ? court.divisionBn : court.division}
