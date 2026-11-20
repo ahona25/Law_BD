@@ -10,14 +10,16 @@ import {
   X,
   Briefcase,
   Layers,
-  ChevronRight,
   ChevronDown,
   LogIn,
   UserPlus,
   ShieldCheck,
   PhoneCall,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  FileText,
+  Clock,
+  Compass
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -74,165 +76,165 @@ export default function Navbar() {
     else navigate('/dashboard/client');
   };
 
+  // Logical sequential navigation links ordered by user journey
   const navLinks = [
     { to: '/', label: t('navHome') },
     { to: '/laws', label: t('navLaws') },
-    { to: '/victim-support', label: t('navVictim'), highlight: true },
     { to: '/lawyers', label: t('navLawyers') },
-    { to: '/ai-assistant', label: t('navAi'), badge: 'AI' },
-    { to: '/awareness', label: t('navAwareness') },
+    { to: '/compare-lawyers', label: t('navCompare') },
     { to: '/templates', label: t('navTemplates') },
-    { to: '/emergency', label: t('navEmergency'), alert: true }
+    { to: '/awareness', label: t('navAwareness') },
+    { to: '/ai-assistant', label: t('navAi'), badge: 'AI' }
   ];
 
   const getDashboardPath = () => {
     if (role === 'lawyer') return '/dashboard/lawyer';
+    if (role === 'admin') return '/dashboard/admin';
     return '/dashboard/client';
   };
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-emerald-950/10 shadow-xs">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-20 gap-4">
             
-            {/* 1. BRAND LOGO & BANGLADESH CREST */}
-            <div className="flex items-center gap-3">
-              {/* Sequential Categories Trigger Button */}
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs group shrink-0"
-                title="Browse All 30 Categories Sequentially"
-              >
-                <Layers className="w-4 h-4 text-bdGreen-800 group-hover:scale-110 transition-transform" />
-                <span className="hidden xl:inline">{lang === 'bn' ? '৩০টি আইনি বিষয়' : '30 Categories'}</span>
-                <span className="px-1.5 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold">1–30</span>
-              </button>
-
+            {/* 1. BRAND LOGO ANCHOR (Clean Far-Left Position) */}
+            <div className="flex items-center shrink-0">
               <Link to="/" className="flex items-center gap-3 group">
-                <div className="relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-bdGreen-800 text-white shadow-md border border-emerald-700/50 group-hover:bg-bdGreen-700 transition-all shrink-0">
-                  {/* Flag Red Circle */}
-                  <div className="absolute w-5 h-5 rounded-full bg-bdRed-500 opacity-90 -mr-1"></div>
-                  <Scale className="relative z-10 w-6 h-6 text-white drop-shadow" />
+                <div className="relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white shadow-md border border-emerald-700/40 group-hover:scale-105 transition-all shrink-0">
+                  {/* Flag Red Accent Emblem */}
+                  <div className="absolute w-4 h-4 rounded-full bg-bdRed-500 opacity-90 -mr-0.5"></div>
+                  <Scale className="relative z-10 w-6 h-6 text-white drop-shadow-sm" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-bdGreen-900">
+                    <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-slate-900 group-hover:text-bdGreen-900 transition-colors">
                       Law<span className="text-bdRed-500 font-sans">_</span>BD
                     </span>
                     <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-bdGreen-900 rounded-md">
                       Official
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium">
-                    {lang === 'bn' ? 'বাংলাদেশ ডিজিটাল লিগ্যাল প্ল্যাটফর্ম' : 'Legal Information & Advocate Hub'}
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-tight">
+                    {lang === 'bn' ? 'বাংলাদেশ ডিজিটাল লিগ্যাল পোর্টাল' : 'Bangladesh Digital Legal Portal'}
                   </p>
                 </div>
               </Link>
             </div>
 
-            {/* 2. DESKTOP NAVIGATION LINKS */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            {/* 2. SEQUENTIAL DESKTOP NAVIGATION LINKS (Logical User Journey) */}
+            <nav className="hidden lg:flex items-center space-x-1 xl:space-x-1.5">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.to;
                 return (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`px-3 py-2 text-xs xl:text-sm font-medium rounded-xl transition-all relative flex items-center gap-1.5 ${
+                    className={`px-3 py-2 text-xs xl:text-sm font-semibold rounded-xl transition-all relative flex items-center gap-1.5 ${
                       isActive
-                        ? 'text-bdGreen-900 bg-emerald-50 font-bold'
-                        : link.alert
-                        ? 'text-bdRed-600 hover:bg-rose-50 font-bold'
+                        ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
                         : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
                     }`}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
                     {link.badge && (
                       <span className="px-1.5 py-0.2 text-[9px] font-bold bg-bdGreen-800 text-white rounded-full">
                         {link.badge}
                       </span>
-                    )}
-                    {link.highlight && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-bdRed-500 animate-pulse"></span>
                     )}
                   </Link>
                 );
               })}
             </nav>
 
-            {/* 3. RIGHT UTILITY & BEAUTIFUL AUTHENTICATION SECTION */}
-            <div className="hidden sm:flex items-center gap-2.5">
+            {/* 3. REORGANIZED UTILITIES & AUTHENTICATION SECTION (Strict Sequential Order) */}
+            <div className="hidden sm:flex items-center gap-2">
               
+              {/* Sequential 30 Jurisdictions Index Button */}
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs group shrink-0"
+                title="Browse All 30 Jurisdictions Sequentially"
+              >
+                <Layers className="w-4 h-4 text-bdGreen-800 group-hover:scale-110 transition-transform" />
+                <span className="hidden xl:inline">{lang === 'bn' ? '৩০টি অধিক্ষেত্র' : '30 Jurisdictions'}</span>
+                <span className="px-1.5 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold">1–30</span>
+              </button>
+
+              {/* 24/7 Helplines Pill */}
+              <Link
+                to="/emergency"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-xs font-bold transition-all shadow-2xs"
+                title="24/7 National Emergency Helplines"
+              >
+                <PhoneCall className="w-3.5 h-3.5" />
+                <span className="hidden xl:inline">{t('navEmergency')}</span>
+              </Link>
+
+              {/* Saved Laws Drawer Trigger */}
+              <button
+                onClick={() => setIsSavedDrawerOpen(true)}
+                className="relative p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 hover:border-emerald-300 transition-all shadow-2xs"
+                title="Saved Laws & Advocates Vault"
+              >
+                <Bookmark className="w-4 h-4" />
+                {totalSaved > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 text-[9px] font-bold bg-bdRed-500 text-white rounded-full flex items-center justify-center shadow-xs">
+                    {totalSaved}
+                  </span>
+                )}
+              </button>
+
               {/* Language Switcher */}
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-emerald-300 transition-colors"
+                className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-emerald-300 transition-colors shadow-2xs"
                 title="Toggle English / বাংলা"
               >
                 <Languages className="w-3.5 h-3.5 text-bdGreen-700" />
                 <span className="font-bangla">{lang === 'bn' ? 'English' : 'বাংলা'}</span>
               </button>
 
-              {/* Saved Laws Drawer Trigger */}
-              <button
-                onClick={() => setIsSavedDrawerOpen(true)}
-                className="relative p-2 rounded-xl text-slate-600 hover:text-bdGreen-800 hover:bg-slate-100 transition-colors"
-                title="Saved Laws & Advocates"
-              >
-                <Bookmark className="w-4 h-4" />
-                {totalSaved > 0 && (
-                  <span className="absolute top-1 right-1 w-4 h-4 text-[9px] font-bold bg-bdRed-500 text-white rounded-full flex items-center justify-center">
-                    {totalSaved}
-                  </span>
-                )}
-              </button>
+              {/* Vertical Visual Divider */}
+              <div className="h-6 w-px bg-slate-200 mx-1"></div>
 
-              {/* AUTH CONTROLS: SIGNED IN vs SIGNED OUT */}
+              {/* USER AUTHENTICATION HUB */}
               {isAuthenticated ? (
                 /* ================= SIGNED IN STATE ================= */
-                <div className="relative flex items-center gap-2 pl-2 border-l border-slate-200" ref={dropdownRef}>
+                <div className="relative" ref={dropdownRef}>
                   
-                  {/* User Profile Pill Trigger */}
+                  {/* Clean Unified User Profile Trigger Button */}
                   <button
                     type="button"
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                     className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-400 transition-all shadow-2xs group"
                   >
-                    <div className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold text-white shadow-xs ${
-                      role === 'lawyer' ? 'bg-amber-600' : 'bg-bdGreen-800'
+                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold text-white shadow-xs ${
+                      role === 'lawyer' ? 'bg-amber-600' : role === 'admin' ? 'bg-purple-700' : 'bg-bdGreen-800'
                     }`}>
                       {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U'}
                     </div>
 
                     <div className="text-left">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-slate-900 max-w-[110px] truncate">
+                        <span className="text-xs font-bold text-slate-900 max-w-[100px] truncate">
                           {user?.name ? user.name.split(' ')[0] : 'User'}
                         </span>
                         <span className={`px-1.5 py-0.2 text-[9px] font-mono font-bold uppercase rounded-md ${
                           role === 'lawyer'
                             ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                            : role === 'admin'
+                            ? 'bg-purple-100 text-purple-900 border border-purple-300'
                             : 'bg-emerald-100 text-bdGreen-900 border border-emerald-300'
                         }`}>
-                          {role === 'lawyer' ? 'Advocate' : 'Client'}
+                          {role === 'lawyer' ? 'Advocate' : role === 'admin' ? 'Admin' : 'Citizen'}
                         </span>
                       </div>
                     </div>
 
-                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-transform" />
-                  </button>
-
-                  {/* Accessible Direct Sign Out Button */}
-                  <button
-                    type="button"
-                    onClick={handleSignOut}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-200 bg-rose-50/70 hover:bg-rose-100 text-bdRed-600 text-xs font-bold transition-all shadow-2xs"
-                    title="Sign Out"
-                  >
-                    <LogOut className="w-3.5 h-3.5" />
-                    <span>{lang === 'bn' ? 'লগআউট' : 'Sign Out'}</span>
+                    <ChevronDown className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-transform ${userDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {/* Expandable User Dropdown Menu */}
@@ -243,7 +245,7 @@ export default function Navbar() {
                       <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 mb-2">
                         <div className="flex items-center gap-2.5">
                           <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold text-white shadow-xs ${
-                            role === 'lawyer' ? 'bg-amber-600' : 'bg-bdGreen-800'
+                            role === 'lawyer' ? 'bg-amber-600' : role === 'admin' ? 'bg-purple-700' : 'bg-bdGreen-800'
                           }`}>
                             {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U'}
                           </div>
@@ -254,9 +256,9 @@ export default function Navbar() {
                         </div>
 
                         <div className="mt-2.5 flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-200">
-                          <span>Account Type:</span>
+                          <span>Account Role:</span>
                           <span className="font-bold text-slate-800 uppercase">
-                            {role === 'lawyer' ? 'Enrolled Advocate' : 'Citizen / Client'}
+                            {role === 'lawyer' ? 'Enrolled Advocate' : role === 'admin' ? 'Platform Administrator' : 'Citizen / Client'}
                           </span>
                         </div>
                       </div>
@@ -269,7 +271,9 @@ export default function Navbar() {
                           className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-bdGreen-900 transition-colors"
                         >
                           <User className="w-4 h-4 text-bdGreen-800" />
-                          <span>{role === 'lawyer' ? 'Advocate Chamber Dashboard' : 'Client Legal Vault'}</span>
+                          <span>
+                            {role === 'lawyer' ? 'Advocate Chamber Dashboard' : role === 'admin' ? 'Admin Control Panel' : 'Client Legal Vault'}
+                          </span>
                         </Link>
 
                         {role === 'lawyer' ? (
@@ -293,10 +297,10 @@ export default function Navbar() {
                         )}
                       </div>
 
-                      {/* Fast Role Switch for Testing (Client & Lawyer Only, NO Admin!) */}
+                      {/* Fast Role Switch for Testing (Client & Lawyer Only) */}
                       <div className="mt-2 pt-2 border-t border-slate-100">
                         <span className="px-3 text-[10px] uppercase font-bold text-slate-400 block mb-1">
-                          Test Mode Switch:
+                          Test Fast Switch:
                         </span>
                         {role === 'client' ? (
                           <button
@@ -319,7 +323,7 @@ export default function Navbar() {
                         )}
                       </div>
 
-                      {/* Sign Out Action in Dropdown */}
+                      {/* Clean Sign Out Action in Dropdown */}
                       <div className="mt-2 pt-2 border-t border-slate-100">
                         <button
                           type="button"
@@ -337,7 +341,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 /* ================= SIGNED OUT STATE ================= */
-                <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+                <div className="flex items-center gap-2">
                   {/* Sign In Button */}
                   <button
                     type="button"
@@ -362,15 +366,15 @@ export default function Navbar() {
 
             </div>
 
-            {/* 4. MOBILE MENU BUTTONS */}
-            <div className="flex sm:hidden items-center gap-2">
+            {/* 4. MOBILE CONTROLS & HAMBURGER */}
+            <div className="flex lg:hidden items-center gap-2">
               <button
                 onClick={() => setSidebarOpen(true)}
                 className="p-2 text-xs font-bold border border-slate-200 rounded-xl text-bdGreen-900 bg-slate-50 flex items-center gap-1"
-                title="Categories"
+                title="30 Jurisdictions"
               >
                 <Layers className="w-4 h-4 text-bdGreen-800" />
-                <span className="font-mono">30</span>
+                <span className="font-mono text-xs font-bold">1–30</span>
               </button>
 
               <button
@@ -391,7 +395,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* 5. MOBILE DRAWER MENU */}
+        {/* 5. SEQUENTIAL MOBILE DRAWER MENU */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 shadow-xl animate-fadeIn">
             
@@ -401,70 +405,77 @@ export default function Navbar() {
             >
               <span className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-bdGreen-800" />
-                <span>Browse All 30 Categories & Incidents (1–30)</span>
+                <span>{lang === 'bn' ? 'সকল ৩০টি আইনি অধিক্ষেত্র (১-৩০)' : 'All 30 Jurisdictions (1–30)'}</span>
               </span>
-              <ChevronRight className="w-4 h-4" />
+              <span className="text-[10px] bg-bdGreen-800 text-white px-2 py-0.5 rounded font-mono font-bold">Seq</span>
             </button>
 
-            {/* Nav Links */}
+            {/* Sequential Mobile Nav Links */}
             <div className="space-y-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-bdGreen-900"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between p-3 rounded-xl text-xs font-semibold ${
+                      isActive ? 'bg-emerald-50 text-bdGreen-900 font-bold' : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="px-1.5 py-0.5 text-[9px] font-bold bg-bdGreen-800 text-white rounded">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+              
+              <Link
+                to="/emergency"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 p-3 rounded-xl text-xs font-bold text-bdRed-600 bg-rose-50/70"
+              >
+                <PhoneCall className="w-4 h-4" />
+                <span>{t('navEmergency')}</span>
+              </Link>
             </div>
 
-            {/* Authentication Mobile Section */}
-            <div className="pt-4 border-t border-slate-100 space-y-3">
+            {/* Mobile Auth Actions */}
+            <div className="pt-3 border-t border-slate-100 flex items-center gap-2">
               {isAuthenticated ? (
-                <div className="space-y-2">
-                  <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold text-white ${
-                        role === 'lawyer' ? 'bg-amber-600' : 'bg-bdGreen-800'
-                      }`}>
-                        {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U'}
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-slate-900">{user?.name}</p>
-                        <p className="text-[10px] text-slate-500 uppercase font-bold">{role} account</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => { handleSignOut(); setMobileMenuOpen(false); }}
-                      className="px-2.5 py-1 text-xs bg-rose-50 text-bdRed-600 rounded-lg font-bold border border-rose-200"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-
+                <div className="w-full space-y-2">
                   <Link
                     to={getDashboardPath()}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full py-2.5 bg-bdGreen-800 text-white rounded-xl text-center text-xs font-bold block"
+                    className="w-full py-2.5 px-4 bg-bdGreen-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2"
                   >
-                    Open {role === 'lawyer' ? 'Advocate Dashboard' : 'Client Vault'}
+                    <User className="w-4 h-4" />
+                    <span>{role === 'lawyer' ? 'Chamber Dashboard' : 'Client Legal Vault'}</span>
                   </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full py-2 px-4 border border-rose-200 text-bdRed-600 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
+                  </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-2">
+                <div className="w-full grid grid-cols-2 gap-2">
                   <button
                     onClick={() => openAuth('signin', 'client')}
-                    className="w-full py-2.5 text-center text-xs font-bold border border-slate-200 rounded-xl bg-slate-50 text-slate-800"
+                    className="py-2.5 px-4 border border-slate-200 text-slate-800 text-xs font-bold rounded-xl"
                   >
                     Sign In
                   </button>
                   <button
-                    onClick={() => openAuth('register', 'client')}
-                    className="w-full py-2.5 text-center text-xs font-bold bg-bdGreen-800 text-white rounded-xl"
+                    onClick={() => openAuth('register', 'lawyer')}
+                    className="py-2.5 px-4 bg-bdGreen-800 text-white text-xs font-bold rounded-xl"
                   >
-                    Register
+                    Sign Up
                   </button>
                 </div>
               )}
@@ -474,18 +485,18 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* 30 Sequential Categories Drawer Modal */}
+      {/* Sequential 30 Jurisdictions Drawer */}
       <SequentialSidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
 
-      {/* Auth Modal for Client & Lawyer (Sign In / Register) */}
+      {/* Authentication Modal */}
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
         initialTab={authModalTab}
-        initialRole={authModalRole}
+        defaultRole={authModalRole}
       />
     </>
   );

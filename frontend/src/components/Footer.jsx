@@ -62,7 +62,7 @@ export default function Footer() {
               {lang === 'bn' ? 'সেবাসমূহ' : 'Platform Tools'}
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
-              <li><Link to="/victim-support" className="hover:text-emerald-300 transition-colors">Incident-Based Victim Support</Link></li>
+              <li><Link to="/compare-lawyers" className="hover:text-emerald-300 transition-colors">{lang === 'bn' ? 'আইনজীবী তুলনা ম্যাট্রিক্স' : 'Advocate Comparison Matrix'}</Link></li>
               <li><Link to="/ai-assistant" className="hover:text-emerald-300 transition-colors">Grounded AI Legal Assistant</Link></li>
               <li><Link to="/lawyers" className="hover:text-emerald-300 transition-colors">Find Verified Bar Advocates</Link></li>
               <li><Link to="/templates" className="hover:text-emerald-300 transition-colors">Legal Notices & GD Drafts</Link></li>

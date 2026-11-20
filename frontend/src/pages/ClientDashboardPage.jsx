@@ -201,11 +201,10 @@ export default function ClientDashboardPage() {
 
                   <div className="flex items-center gap-3 shrink-0">
                     <Link
-                      to="/victim-support"
-                      state={{ prefilledIncident: c.incident_description }}
+                      to={`/laws?q=${encodeURIComponent(c.category || '')}`}
                       className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-semibold"
                     >
-                      Analyze Law
+                      View Related Laws
                     </Link>
                   </div>
                 </div>

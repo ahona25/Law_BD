@@ -3,25 +3,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Scale,
   Search,
-  ShieldAlert,
   ArrowRight,
   ShieldCheck,
-  Sparkles,
   BookOpen,
   Calendar,
   FileCheck,
   CheckCircle2,
   Clock,
-  MapPin,
   ChevronRight,
   HelpCircle,
   ExternalLink,
-  HeartHandshake,
   Layers,
-  ChevronDown,
-  Building2,
+  PhoneCall,
+  Sparkles,
+  FileText,
+  Gavel,
   Award,
-  Gavel
+  Users,
+  Shield,
+  Briefcase
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useBookmarks } from '../context/BookmarkContext';
@@ -40,90 +40,96 @@ export default function HomePage() {
   const [topLawyers, setTopLawyers] = useState([]);
   const [openFaq, setOpenFaq] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedDomainIndex, setSelectedDomainIndex] = useState(0);
+  const [activeCategoryTab, setActiveCategoryTab] = useState('all'); // 'all' | 'civil' | 'criminal' | 'family' | 'commercial'
 
   useEffect(() => {
-    // Load recent laws
+    // Load landmark / recent laws
     api.getLaws().then(res => {
-      if (res.success) setRecentLaws(res.laws.slice(0, 4));
+      if (res.success && res.laws) setRecentLaws(res.laws.slice(0, 4));
     }).catch(() => {});
 
-    // Load top lawyers
+    // Load top verified lawyers
     api.getLawyers({ sortBy: 'top-rated' }).then(res => {
-      if (res.success) setTopLawyers(res.lawyers.slice(0, 3));
+      if (res.success && res.lawyers) setTopLawyers(res.lawyers.slice(0, 3));
     }).catch(() => {});
   }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
-
-    const isIncident = searchQuery.split(' ').length > 3 || 
-      searchQuery.includes('দখল') || 
-      searchQuery.includes('মারধর') || 
-      searchQuery.includes('threat') || 
-      searchQuery.includes('stole');
-
-    if (isIncident) {
-      navigate('/victim-support', { state: { prefilledIncident: searchQuery } });
-    } else {
-      navigate(`/laws?q=${encodeURIComponent(searchQuery)}`);
-    }
+    navigate(`/laws?q=${encodeURIComponent(searchQuery.trim())}`);
   };
 
   const sampleSearches = [
-    { label: 'জমি দখল ও উচ্ছেদ (Land)', query: 'জমি জোরপূর্বক দখল করেছে' },
-    { label: 'Section 138 NI Act (Cheque)', query: 'cheque bounce 30 days notice' },
-    { label: 'তালাক ও দেনমোহর (Divorce & Dower)', query: 'divorce dower denmohur maintenance' },
-    { label: 'Cyber Blackmail / হ্যাকিং', query: 'cyber blackmail private photo' },
-    { label: 'চিকিৎসা অবহেলা (Medical Negligence)', query: 'medical negligence wrong treatment' },
-    { label: 'আগাম জামিন (Anticipatory Bail)', query: 'bail section 498 CrPC High Court' }
+    { label: lang === 'bn' ? 'জমি দখল ও উচ্ছেদ (Land)' : 'Land Dispute & Encroachment', query: 'জমি দখল' },
+    { label: lang === 'bn' ? 'ধারা ১৩৮ এনআই অ্যাক্ট (Cheque)' : 'Section 138 NI Act (Cheque)', query: 'cheque 138' },
+    { label: lang === 'bn' ? 'তালাক ও দেনমোহর (Family)' : 'Divorce & Dower (Denmohur)', query: 'denmohur divorce' },
+    { label: lang === 'bn' ? 'সাইবার প্রতারণা (Cybercrime)' : 'Cybercrime & Online Extortion', query: 'cyber' },
+    { label: lang === 'bn' ? 'আগাম জামিন (Anticipatory Bail)' : 'Anticipatory Bail (CrPC 498)', query: 'anticipatory bail' }
   ];
 
   const faqs = [
     {
       q: 'What is the legal difference between a General Diary (GD) and an FIR in Bangladesh?',
       qBn: 'সাধারণ ডায়েরি (GD) এবং এজাহার (FIR)-এর মধ্যে আইনি পার্থক্য কী?',
-      a: 'A GD is a daily police register record maintained under Section 44 of the Police Act for preventive safety, lost documents (e.g., NID, certificates), or threats. An FIR (Section 154 CrPC) is recorded for cognizable offenses (murder, theft, robbery), which immediately triggers formal investigation and arrest powers without a warrant.',
-      aBn: 'জিডি হলো থানার দৈনন্দিন রেজিস্টার যা মূলত কোনো কাগজ হারানো বা ভবিষ্যতের সম্ভাব্য হুমকির বিষয়ে প্রতিরোধমূলক ব্যবস্থা হিসেবে করা হয়। আর এজাহার (FIR) হলো আমলযোগ্য অপরাধের (যেমন হত্যা, ডাকাতি, চুরি) ক্ষেত্রে সরাসরি মামলা, যার মাধ্যমে পুলিশ ওয়ারেন্ট ছাড়াই তদন্ত ও আসামি গ্রেফতারের ক্ষমতা পায়।'
+      a: 'A General Diary (GD) is recorded under Section 44 of the Police Act for preventive safety, lost property (NID, documents), or anticipatory security threats. An FIR (First Information Report) under Section 154 of the CrPC is registered exclusively for cognizable criminal offenses (e.g. murder, robbery, violent assault), automatically initiating formal police investigation and statutory arrest powers.',
+      aBn: 'জিডি (GD) হলো থানার দৈনন্দিন রেজিস্টার যা কোনো নথিপত্র হারানো বা ভবিষ্যতের আশঙ্কাজনক হুমকির ক্ষেত্রে প্রতিরোধমূলক ব্যবস্থা হিসেবে নথিভুক্ত করা হয়। আর এজাহার (FIR) হলো আমলযোগ্য অপরাধের (যেমন হত্যা, ডাকাতি, গুরুতর জখম) ক্ষেত্রে আনুষ্ঠানিক মামলা, যার ফলে পুলিশ ম্যাজিস্ট্রেটের পরোয়ানা ছাড়াই সরাসরি তদন্ত ও আসামি গ্রেফতারের এখতিয়ার পায়।'
     },
     {
-      q: 'How long do I have to file a Cheque Dishonour case under Section 138 NI Act?',
+      q: 'What is the strict limitation period for Cheque Dishonour under Section 138 NI Act?',
       qBn: 'চেক বাউন্স হলে হস্তান্তরিত দলিল আইনের ১৩৮ ধারায় মামলা করার সময়সীমা কতদিন?',
-      a: 'You must serve a formal Advocate Legal Notice within 30 days of receiving the Bank Cheque Return Memo. The drawer is given 30 days to pay. If they fail to pay, you have exactly 30 days after that notice period to file the complaint in Court.',
-      aBn: 'ব্যাংক থেকে চেক প্রত্যাখ্যাত হওয়ার মেমো পাওয়ার ৩০ দিনের মধ্যে আইনজীবীর মাধ্যমে লিখিত লিগ্যাল নোটিশ পাঠাতে হবে। নোটিশ পাওয়ার পর আসামীকে টাকা পরিশোধের জন্য ৩০ দিন সময় দিতে হবে। এরপর পরবর্তী ৩০ দিনের মধ্যে আদালতে মামলা দায়ের করতে হবে।'
+      a: 'Under Section 138 of the Negotiable Instruments Act 1881, the statutory timeline is non-extendable: 1) You must serve a registered Advocate Legal Notice within 30 days of receiving the Bank Cheque Return Memo. 2) The drawer is given 30 days to pay the amount. 3) If unpaid, you have exactly 30 days after the expiry of the notice period to file the criminal complaint (CR Case) before the Magistrate Court.',
+      aBn: 'হস্তান্তরিত দলিল আইনের ১৩৮ ধারা একটি অত্যন্ত কঠোর ও সময়সীমাবদ্ধ আইন: ১) ব্যাংক থেকে চেক প্রত্যাখ্যাত হওয়ার মেমো পাওয়ার ৩০ দিনের মধ্যে আইনজীবীর মাধ্যমে লিখিত লিগ্যাল নোটিশ পাঠাতে হবে। ২) নোটিশ পাওয়ার পর আসামীকে টাকা পরিশোধের জন্য ৩০ দিন সময় দিতে হবে। ৩) টাকা পরিশোধ না করলে পরবর্তী ৩০ দিনের মধ্যে সংশ্লিষ্ট ম্যাজিস্ট্রেট আদালতে সরাসরি মামলা দায়ের করতে হবে।'
     },
     {
-      q: 'What are the consequences of forceful land grabbing under Land Crime Act 2023?',
-      qBn: 'ভূমি অপরাধ আইন ২০২৩ অনুযায়ী জোরপূর্বক জমি দখল করলে কী শাস্তি হয়?',
-      a: 'Under the Land Crime Prevention and Redress Act 2023, land grabbing and forged deed creation are recognized as non-bailable criminal offenses punishable by up to 7 years rigorous imprisonment. Executive Magistrates are empowered to conduct summary proceedings and order immediate eviction.',
-      aBn: 'ভূমি অপরাধ প্রতিরোধ ও প্রতিকার আইন ২০২৩ অনুযায়ী জমি জবরদখল ও জাল দলিল তৈরি জামিন-অযোগ্য অপরাধ, যার শাস্তি ৭ বছর পর্যন্ত সশ্রম কারাদণ্ড। নির্বাহী ম্যাজিস্ট্রেটরা সংক্ষিপ্ত বিচারিক ক্ষমতার মাধ্যমে দখলদারকে তাৎক্ষণিক উচ্ছেদ করতে পারেন।'
+      q: 'What protections exist against forceful land grabbing under Land Crime Act 2023?',
+      qBn: 'ভূমি অপরাধ আইন ২০২৩ অনুযায়ী জোরপূর্বক জমি দখল করলে কী আইনি প্রতিকার ও শাস্তি রয়েছে?',
+      a: 'Under the Land Crime Prevention and Redress Act 2023, illegal land grabbing, forged deed execution, and violent dispossession are recognized as cognizable and non-bailable criminal offenses punishable by up to 7 years rigorous imprisonment. Executive Magistrates are empowered to conduct summary proceedings and order immediate eviction and restitution of possession.',
+      aBn: 'ভূমি অপরাধ প্রতিরোধ ও প্রতিকার আইন ২০২৩ অনুযায়ী অন্যের জমি জবরদখল, জাল দলিল তৈরি ও জমিতে অনধিকার প্রবেশ জামিন-অযোগ্য ফৌজদারি অপরাধ, যার সর্বোচ্চ শাস্তি ৭ বছরের সশ্রম কারাদণ্ড। ভুক্তভোগী নির্বাহী ম্যাজিস্ট্রেটের নিকট আবেদন করলে সংক্ষিপ্ত বিচারিক প্রক্রিয়ায় দখলদারকে তাৎক্ষণিক উচ্ছেদ করে প্রকৃত মালিকের দখল পুনর্বহাল করা সম্ভব।'
     },
     {
-      q: 'Can a victim file a complaint for medical negligence in Bangladesh?',
-      qBn: 'চিকিৎসায় মারাত্মক অবহেলা বা ভুল চিকিৎসার ক্ষেত্রে রোগী কীভাবে আইনি প্রতিকার পেতে পারেন?',
-      a: 'Yes. Victims can lodge a complaint before the Bangladesh Medical & Dental Council (BMDC) under the BMDC Act 2010 to cancel the physician’s license, file a criminal complaint under Section 304A of the Penal Code for rash or negligent act, and sue in Civil Court for monetary damages and compensation.',
-      aBn: 'হ্যাঁ। ভুক্তভোগী রোগী বা পরিবার বিএমডিসি বরাবর অভিযোগ করে চিকিৎসকের লাইসেন্স বাতিল দাবি করতে পারেন, দণ্ডবিধির ৩০৪ক ধারায় ফৌজদারি মামলা করতে পারেন এবং ক্ষতিপূরণ দাবি করে দেওয়ানি আদালতে মামলা দায়ের করতে পারেন।'
+      q: 'Can a citizen verify an advocate’s credentials before hiring them in Bangladesh?',
+      qBn: 'বাংলাদেশে মামলা দেওয়ার পূর্বে আইনজীবীর সনদ ও বার কাউন্সিল নিবন্ধন কীভাবে যাচাই করা যায়?',
+      a: 'Yes. Every practicing lawyer in Bangladesh must be enrolled with the Bangladesh Bar Council and hold a unique Bar Council Roll Number with admission to a recognized Bar Association (such as the Supreme Court Bar Association or District Bar). On Law_BD, all listed advocates display verified Bar Council credentials, court admissions, and authentic chamber locations.',
+      aBn: 'হ্যাঁ। বাংলাদেশে আইন পেশা পরিচালনার জন্য প্রত্যেক আইনজীবীকে বাংলাদেশ বার কাউন্সিলের সনদপ্রাপ্ত এবং নির্দিষ্ট বার অ্যাসোসিয়েশনের (যেমন সুপ্রিম কোর্ট বার বা ঢাকা বার) নিবন্ধিত সদস্য হতে হয়। ল_বিডি প্ল্যাটফর্মে সকল আইনজীবীর বার কাউন্সিল রোল নম্বর, হাইকোর্ট/জেলা আদালত এনরোলমেন্ট ও চেম্বার তথ্য যাচাইকৃতভাবে প্রদর্শিত হয়।'
     }
   ];
 
-  const activeCategory = ALL_30_LEGAL_CATEGORIES[selectedDomainIndex] || ALL_30_LEGAL_CATEGORIES[0];
+  // Category filtering logic for clean sequential browsing
+  const getFilteredCategories = () => {
+    if (activeCategoryTab === 'civil') {
+      return ALL_30_LEGAL_CATEGORIES.filter(c => ['property-land', 'civil', 'tort-negligence', 'consumer', 'environmental', 'admiralty-maritime'].includes(c.id));
+    }
+    if (activeCategoryTab === 'criminal') {
+      return ALL_30_LEGAL_CATEGORIES.filter(c => ['criminal', 'constitutional', 'anti-corruption', 'cybercrime-it', 'human-rights'].includes(c.id));
+    }
+    if (activeCategoryTab === 'family') {
+      return ALL_30_LEGAL_CATEGORIES.filter(c => ['family', 'marriage-divorce', 'women-child', 'education', 'health-medical'].includes(c.id));
+    }
+    if (activeCategoryTab === 'commercial') {
+      return ALL_30_LEGAL_CATEGORIES.filter(c => ['banking-finance', 'company-corporate', 'commercial-contract', 'taxation', 'insurance', 'labour', 'intellectual-property'].includes(c.id));
+    }
+    return ALL_30_LEGAL_CATEGORIES;
+  };
+
+  const displayedCategories = getFilteredCategories();
 
   return (
-    <div className="min-h-screen bg-[#F8FAF9]">
+    <div className="min-h-screen bg-[#F8FAF9] text-slate-800">
       
-      {/* 1. HERO SECTION & FORMAL IMAGE/SEAL PRESENTATION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-bdDark-950 via-bdDark-900 to-bdGreen-950 text-white pt-12 pb-24 border-b border-emerald-950">
+      {/* =========================================================================
+          STAGE 1: AUTHORITATIVE HERO & DISCOVERY GATEWAY
+          ========================================================================= */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-bdDark-950 via-bdDark-900 to-bdGreen-950 text-white pt-12 pb-20 border-b border-emerald-950">
         
-        {/* Subtle decorative circles mimicking national flag */}
+        {/* Subtle decorative glow accents mimicking the national flag colors */}
         <div className="absolute top-10 right-10 w-96 h-96 rounded-full bg-bdRed-500/10 blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-10 left-10 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Left 7 Columns: Hero Titles & Universal Search */}
+            {/* Left 7 Columns: Purpose, Universal Search & Sequential Actions */}
             <div className="lg:col-span-7 space-y-6 text-left">
               
               {/* Official Seal Badge */}
@@ -139,49 +145,50 @@ export default function HomePage() {
                 {lang === 'bn' ? (
                   <>আপনার অধিকার জানুন। <br /><span className="text-emerald-400">আইন বুঝুন।</span> <span className="text-bdRed-400">ন্যায়বিচার পান।</span></>
                 ) : (
-                  <>Know Your Rights. <br /><span className="text-emerald-400">Understand the Law.</span> <span className="text-bdRed-400">Find Justice.</span></>
+                  <>Demystifying Bangladesh Laws. <br /><span className="text-emerald-400">Connecting Citizens</span> <span className="text-bdRed-400">With Verified Advocates.</span></>
                 )}
               </h1>
 
-              <p className="text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed">
+              {/* Plain-Language Subtitle */}
+              <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
                 {lang === 'bn'
-                  ? 'বাংলাদেশের ৩০টি বিশেষায়িত আইনি অধিক্ষেত্রে সকল বলবৎ আইন, দণ্ডবিধির ধারা, ভুক্তভোগী সহায়তা এবং বাংলাদেশ বার কাউন্সিলের সনদপ্রাপ্ত বিজ্ঞ আইনজীবীদের সাথে সরাসরি সংযোগের পূর্ণাঙ্গ ডিজিটাল প্ল্যাটফর্ম।'
-                  : 'All official Bangladesh statutes, criminal and civil procedures, instant victim incident triage, and direct consultation with verified Bangladesh Bar Council enrolled advocates.'}
+                  ? 'বাংলাদেশের সকল সরকারি আইন ও অধ্যাদেশ সহজ বাংলায় অনুসন্ধান করুন, দণ্ড ও শাস্তির বিধান জানুন, বার কাউন্সিলের সনদপ্রাপ্ত বিজ্ঞ আইনজীবীদের সাথে তুলনা করে চেম্বার ও ভিডিও পরামর্শ বুক করুন।'
+                  : 'Access comprehensive Bangladesh statutory laws in plain language, inspect mandatory penalties, compare Bar Council enrolled advocates, and schedule chamber or video consultations seamlessly.'}
               </p>
 
-              {/* Universal Legal Search Form */}
-              <div className="pt-2">
-                <form onSubmit={handleSearchSubmit} className="relative max-w-xl">
-                  <div className="flex items-center bg-white rounded-2xl shadow-2xl p-2 border-2 border-emerald-500/40 focus-within:border-bdGreen-500 transition-all">
-                    <Search className="w-6 h-6 text-bdGreen-800 ml-3 shrink-0" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder={t('heroSearchPlaceholder')}
-                      className="w-full px-4 py-3.5 text-slate-800 placeholder-slate-400 text-xs sm:text-sm focus:outline-none bg-transparent"
-                    />
-                    <button
-                      type="submit"
-                      className="px-5 py-3.5 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 shrink-0 shadow-md"
-                    >
-                      <span>{t('searchButton')}</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </form>
+              {/* Universal Search Bar */}
+              <form onSubmit={handleSearchSubmit} className="relative max-w-2xl">
+                <div className="relative flex items-center bg-white rounded-2xl shadow-xl p-1.5 border-2 border-emerald-500/40 focus-within:border-emerald-400 transition-all">
+                  <Search className="w-5 h-5 text-slate-400 ml-3 shrink-0" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={lang === 'bn' ? 'আইনের নাম, ধারা বা বিষয় লিখুন (যেমন: জমি দখল, ১৩৮ ধারা, জামিন)...' : 'Search statutes, sections, or keywords (e.g., Land Crime Act, NI Act 138, Bail)...'}
+                    className="w-full px-3 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none rounded-xl"
+                  />
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-bdGreen-800 hover:bg-bdGreen-700 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md shrink-0 flex items-center gap-1.5"
+                  >
+                    <span>{lang === 'bn' ? 'অনুসন্ধান' : 'Search'}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </form>
 
-                {/* Quick Sample Search Pills */}
-                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-                  <span className="text-slate-400 font-medium">{t('quickSearchTitle')}</span>
-                  {sampleSearches.slice(0, 4).map((item, idx) => (
+              {/* Popular Statutory Search Pills */}
+              <div className="space-y-2 pt-1">
+                <span className="text-xs text-slate-400 font-semibold tracking-wide block">
+                  {lang === 'bn' ? 'জনপ্রিয় অনুসন্ধান বিষয়সমূহ:' : 'Frequent Statutory Lookups:'}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {sampleSearches.map((item, idx) => (
                     <button
                       key={idx}
-                      onClick={() => {
-                        setSearchQuery(item.query);
-                        navigate('/victim-support', { state: { prefilledIncident: item.query } });
-                      }}
-                      className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10 transition-colors text-[11px]"
+                      type="button"
+                      onClick={() => navigate(`/laws?q=${encodeURIComponent(item.query)}`)}
+                      className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs text-slate-200 border border-white/10 transition-colors text-left"
                     >
                       {item.label}
                     </button>
@@ -189,77 +196,75 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="pt-4 flex flex-wrap items-center gap-3">
+              {/* Sequential Action Buttons (Clean & Logical Order) */}
+              <div className="flex flex-wrap items-center gap-3 pt-3">
+                <Link
+                  to="/laws"
+                  className="px-5 py-3 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-sm border border-emerald-600/40"
+                >
+                  <BookOpen className="w-4 h-4 text-emerald-300" />
+                  <span>{lang === 'bn' ? 'আইন লাইব্রেরি ব্রাউজ করুন' : 'Browse Law Library'}</span>
+                </Link>
+
+                <Link
+                  to="/lawyers"
+                  className="px-5 py-3 bg-white/15 hover:bg-white/25 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-2 border border-white/20 shadow-sm"
+                >
+                  <Scale className="w-4 h-4 text-amber-300" />
+                  <span>{lang === 'bn' ? 'যাচাইকৃত আইনজীবী খুঁজুন' : 'Find Verified Advocates'}</span>
+                </Link>
+
                 <button
                   type="button"
                   onClick={() => setSidebarOpen(true)}
-                  className="px-5 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-2xl text-xs font-bold transition-all flex items-center gap-2 shadow-sm"
+                  className="px-4 py-3 bg-white/10 hover:bg-white/20 text-emerald-200 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border border-white/15 shadow-sm"
                 >
                   <Layers className="w-4 h-4 text-emerald-400" />
-                  <span>{lang === 'bn' ? '৩০টি আইনি বিষয় ক্রমানুসারে দেখুন' : 'Explore All 30 Categories (1-30)'}</span>
+                  <span>{lang === 'bn' ? '৩০টি আইনি অধিক্ষেত্র (১-৩০)' : '30 Jurisdictions Index'}</span>
                 </button>
-                <Link
-                  to="/victim-support"
-                  className="px-5 py-3 bg-bdRed-500 hover:bg-bdRed-600 text-white rounded-2xl text-xs font-bold transition-all flex items-center gap-2 shadow-sm"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>{lang === 'bn' ? 'স্মার্ট ভুক্তভোগী সহায়তা' : 'Incident Triage Wizard'}</span>
-                </Link>
               </div>
 
             </div>
 
-            {/* Right 5 Columns: LADY JUSTICE FORMAL HERO PRESENTATION */}
+            {/* Right 5 Columns: Dignified Lady Justice Visual Landmark */}
             <div className="lg:col-span-5">
-              <div className="relative group rounded-3xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl shadow-emerald-950/80 bg-bdDark-950">
-                {/* Outer Glow Accents */}
+              <div className="relative group rounded-3xl overflow-hidden border-2 border-emerald-500/30 shadow-2xl bg-bdDark-950">
+                
+                {/* Glow Accents */}
                 <div className="absolute -top-12 -right-12 w-48 h-48 bg-amber-400/20 rounded-full blur-3xl pointer-events-none z-10"></div>
                 <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none z-10"></div>
 
-                {/* Statue Image Container */}
-                <div className="relative h-[480px] sm:h-[540px] w-full overflow-hidden">
+                <div className="relative h-[460px] sm:h-[500px] w-full overflow-hidden">
                   <img
                     src={ladyJusticeImg}
                     alt="Lady Justice - Symbol of Bangladesh Legal System & Constitutional Justice"
                     className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
 
-                  {/* Top-down and Bottom-up Gradient Vignettes for Maximum Readability and Contrast */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-bdDark-950 via-bdDark-950/45 to-black/20 pointer-events-none"></div>
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                  {/* Gradient Vignettes */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-bdDark-950 via-bdDark-950/40 to-black/20 pointer-events-none"></div>
 
                   {/* Top Badges */}
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 z-20">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-bdDark-950/85 backdrop-blur-md border border-white/20 text-[11px] font-semibold text-white shadow-lg">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-bdDark-950/85 backdrop-blur-md border border-white/20 text-[11px] font-semibold text-white shadow-lg">
                       <span className="w-2 h-2 rounded-full bg-bdRed-500 animate-ping"></span>
-                      <span>{lang === 'bn' ? 'আইনের শাসন ও নিরপেক্ষ বিচার' : 'Rule of Law & Impartial Justice'}</span>
+                      <span>{lang === 'bn' ? 'আইনের শাসন ও নিরপেক্ষ বিচার' : 'Rule of Law & Justice'}</span>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-bdDark-950/85 backdrop-blur-md border border-amber-400/40 text-[11px] font-bold text-amber-300 shadow-lg">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-bdDark-950/85 backdrop-blur-md border border-amber-400/40 text-[11px] font-bold text-amber-300 shadow-lg">
                       <Scale className="w-3.5 h-3.5 text-amber-300" />
                       <span>30 Jurisdictions</span>
                     </div>
                   </div>
 
-                  {/* Floating Middle Constitutional Emblem Tag */}
-                  <div className="absolute top-1/2 -translate-y-1/2 right-4 hidden sm:flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-bdDark-950/80 backdrop-blur-md border border-white/10 shadow-xl z-20">
-                    <div className="w-8 h-8 rounded-xl bg-bdGreen-800 border border-emerald-400/50 flex items-center justify-center text-white">
-                      <Gavel className="w-4 h-4 text-amber-300" />
-                    </div>
-                    <span className="text-[9px] uppercase tracking-wider font-mono text-slate-300 font-bold [writing-mode:vertical-lr] py-1">
-                      SUPREME COURT BD
-                    </span>
-                  </div>
-
-                  {/* Bottom Information Glass Card */}
-                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 p-4 rounded-2xl bg-bdDark-950/90 backdrop-blur-md border border-emerald-500/30 text-white shadow-2xl z-20 space-y-2.5">
+                  {/* Bottom Constitutional Standard Card */}
+                  <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-bdDark-950/90 backdrop-blur-md border border-emerald-500/30 text-white shadow-2xl z-20 space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-amber-300 font-bold flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                        {lang === 'bn' ? 'সাংবিধানিক মানদণ্ড' : 'Constitutional Standard'}
+                        {lang === 'bn' ? 'সংবিধানের অনুচ্ছেদ ২৭' : 'Article 27 · Constitution of Bangladesh'}
                       </span>
-                      <span className="text-[10px] text-slate-400 font-mono">Article 27</span>
+                      <span className="text-[10px] text-slate-400 font-mono">Supreme Court BD</span>
                     </div>
 
                     <p className="font-serif italic text-xs sm:text-[13px] text-emerald-100 leading-snug">
@@ -271,14 +276,14 @@ export default function HomePage() {
                     <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px]">
                       <div className="flex items-center gap-1.5 text-slate-300 text-[11px]">
                         <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        <span className="truncate">Bangladesh Legal Code Verified</span>
+                        <span>Bar Council Credential Verified</span>
                       </div>
                       <button
                         type="button"
                         onClick={() => setSidebarOpen(true)}
-                        className="text-amber-300 hover:text-white font-bold flex items-center gap-1 text-[11px] transition-colors shrink-0 ml-2"
+                        className="text-amber-300 hover:text-white font-bold flex items-center gap-1 text-[11px] transition-colors shrink-0"
                       >
-                        <span>{lang === 'bn' ? 'সকল ৩০টি বিভাগ' : 'View (1–30)'}</span>
+                        <span>View (1–30)</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -289,44 +294,192 @@ export default function HomePage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          STAGE 2: THE SEQUENTIAL 3-STEP LEGAL WORKFLOW (HOW IT WORKS)
+          ========================================================================= */}
+      <section className="bg-white py-16 border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-bdGreen-900 text-xs font-bold uppercase tracking-wider">
+              <Clock className="w-3.5 h-3.5 text-bdGreen-800" />
+              <span>{lang === 'bn' ? 'আইনি সহায়তা পরিক্রমা' : 'Clear 3-Step Guided Workflow'}</span>
+            </span>
+            <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900">
+              {lang === 'bn' ? 'কিভাবে কাজ করে ল_বিডি?' : 'How Law_BD Demystifies Justice'}
+            </h2>
+            <p className="text-sm text-slate-500 leading-relaxed">
+              {lang === 'bn'
+                ? 'আইন বোঝা থেকে শুরু করে বিজ্ঞ আইনজীবীর চেম্বার পরামর্শ পর্যন্ত প্রতিটি পদক্ষেপ স্বচ্ছ ও ক্রমানুসারে সাজানো।'
+                : 'A transparent, step-by-step sequential workflow designed to guide citizens from statutory discovery to verified advocate consultation.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            
+            {/* Step 1 */}
+            <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all relative flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold w-10 h-10 rounded-2xl bg-bdGreen-800 text-white flex items-center justify-center shadow-xs">
+                    01
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-bdGreen-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                    Step 1 · Explore
+                  </span>
+                </div>
+                <h3 className="font-bold text-lg text-slate-900">
+                  {lang === 'bn' ? 'আইন ও ধারার সহজ ব্যাখ্যা জানুন' : 'Discover Statutory Laws'}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {lang === 'bn'
+                    ? 'দণ্ডবিধি, ফৌজদারি কার্যবিধি ও দেওয়ানি আইনসহ ৩০টি অধিক্ষেত্রে প্রযোজ্য ধারা, সর্বোচ্চ শাস্তির মেয়াদ, জামিনযোগ্যতা ও প্রমাণাদি সহজ ভাষায় পড়ুন।'
+                    : 'Search 30 legal jurisdictions. Review plain-language summaries in Bengali and English, statutory prison terms, fines, and procedural timelines.'}
+                </p>
+              </div>
+              <div className="pt-6 mt-6 border-t border-slate-200/80">
+                <Link
+                  to="/laws"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900"
+                >
+                  <span>{lang === 'bn' ? 'আইন লাইব্রেরিতে যান' : 'Browse Statutes Library'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all relative flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold w-10 h-10 rounded-2xl bg-bdGreen-800 text-white flex items-center justify-center shadow-xs">
+                    02
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-bdGreen-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                    Step 2 · Compare
+                  </span>
+                </div>
+                <h3 className="font-bold text-lg text-slate-900">
+                  {lang === 'bn' ? 'সনদপ্রাপ্ত আইনজীবী তুলনা করুন' : 'Compare Verified Advocates'}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {lang === 'bn'
+                    ? 'বাংলাদেশ বার কাউন্সিলের সনদ, সুপ্রিম কোর্ট ও জেলা জজ আদালতের অভিজ্ঞতা, চেম্বার অবস্থান এবং ক্লায়েন্ট রিভিউ যাচাই করে সঠিক আইনজীবী বেছে নিন।'
+                    : 'Filter verified advocates by Bar Council roll number, courtroom admissions (Supreme Court / District Bars), client ratings, and transparent chamber fees.'}
+                </p>
+              </div>
+              <div className="pt-6 mt-6 border-t border-slate-200/80">
+                <Link
+                  to="/compare-lawyers"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900"
+                >
+                  <span>{lang === 'bn' ? 'আইনজীবী তুলনা ম্যাট্রিক্স' : 'Open Comparison Matrix'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all relative flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold w-10 h-10 rounded-2xl bg-bdRed-500 text-white flex items-center justify-center shadow-xs">
+                    03
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-bdRed-700 bg-rose-100 px-2.5 py-0.5 rounded-full">
+                    Step 3 · Consult
+                  </span>
+                </div>
+                <h3 className="font-bold text-lg text-slate-900">
+                  {lang === 'bn' ? 'পরামর্শ বুকিং ও ডিজিটাল পাস পান' : 'Book Consultation & Pass'}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {lang === 'bn'
+                    ? 'ভিডিও কনফারেন্সিং বা সরাসরি চেম্বার সাক্ষাতের জন্য সুবিধাজনক স্লট নির্বাচন করুন এবং কিউআর কোডযুক্ত ডিজিটাল অ্যাপয়েন্টমেন্ট পাস সংগ্রহ করুন।'
+                    : 'Schedule In-person Chamber Visits or Online Video Consultations. Receive verified digital appointment passes with unique reference tokens.'}
+                </p>
+              </div>
+              <div className="pt-6 mt-6 border-t border-slate-200/80">
+                <Link
+                  to="/lawyers"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-bdRed-600 hover:text-bdRed-700"
+                >
+                  <span>{lang === 'bn' ? 'আইনজীবী তালিকা দেখুন' : 'Explore Advocate Schedule'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+          </div>
 
         </div>
       </section>
 
-      {/* 2. SEQUENTIAL 30 MAIN CATEGORIES & INCIDENTS INTERACTIVE EXPLORER */}
+      {/* =========================================================================
+          STAGE 3: SEQUENTIAL 30 JURISDICTIONS EXPLORER (NUMBERED 01 TO 30)
+          ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-bdGreen-900 text-xs font-bold uppercase tracking-wider mb-2">
               <Layers className="w-4 h-4 text-bdGreen-800" />
-              <span>{lang === 'bn' ? '৩০টি আইনি অধিক্ষেত্র ও সংশ্লিষ্ট ঘটনা' : 'All 30 Jurisdictions & Subcategories'}</span>
+              <span>{lang === 'bn' ? 'ধারাবাহিক আইনি অধিক্ষেত্র তালিকা (০১-৩০)' : 'Sequential Jurisdictions Explorer (01–30)'}</span>
             </div>
             <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900">
-              {lang === 'bn' ? 'প্রধান আইনি ক্যাটাগরি ও উপ-বিভাগসমূহ' : 'Master Legal Categories & Specific Incidents'}
+              {lang === 'bn' ? 'বাংলাদেশের ৩০টি আইনি অধিক্ষেত্র' : 'All 30 Legal Jurisdictions of Bangladesh'}
             </h2>
             <p className="text-sm text-slate-500 mt-2 max-w-2xl leading-relaxed">
-              Browse every statutory area sequentially from 01 to 30. Click any category or subcategory to instantly access applicable laws and victim guidance.
+              {lang === 'bn'
+                ? 'সংবিধান থেকে শুরু করে ভূমি, ফৌজদারি, দেওয়ানি ও পারিবারিক আইন পর্যন্ত প্রতিটি অধিক্ষেত্র ক্রমানুসারে সাজানো।'
+                : 'Browse every statutory discipline in sequential numerical order. Explore statutory provisions, check limitation periods, and find specialist advocates.'}
             </p>
           </div>
 
-          <div className="mt-4 md:mt-0 flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="px-4 py-2 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
+              className="px-4 py-2.5 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors shrink-0"
             >
               <Layers className="w-4 h-4" />
-              <span>{lang === 'bn' ? 'সাইডবারে ক্রমানুসারে দেখুন' : 'Open Sequential Sidebar'}</span>
+              <span>{lang === 'bn' ? 'সাইডবারে ক্রমানুসারে দেখুন' : 'Open Sequential Drawer'}</span>
             </button>
           </div>
         </div>
 
-        {/* 30 Sequential Categories Grid with Subcategories */}
+        {/* Category Group Filter Tabs */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-slate-200">
+          {[
+            { id: 'all', label: lang === 'bn' ? 'সকল ৩০টি অধিক্ষেত্র (১-৩০)' : 'All 30 Jurisdictions' },
+            { id: 'civil', label: lang === 'bn' ? 'দেওয়ানি ও ভূমি আইন' : 'Civil & Property' },
+            { id: 'criminal', label: lang === 'bn' ? 'ফৌজদারি ও সাংবিধানিক' : 'Criminal & Public' },
+            { id: 'family', label: lang === 'bn' ? 'পারিবারিক ও বিবাহ' : 'Family & Personal' },
+            { id: 'commercial', label: lang === 'bn' ? 'বাণিজ্যিক, ব্যাংক ও শ্রম' : 'Commercial & Finance' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveCategoryTab(tab.id)}
+              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                activeCategoryTab === tab.id
+                  ? 'bg-bdGreen-800 text-white shadow-xs'
+                  : 'bg-white hover:bg-slate-100 text-slate-600 border border-slate-200'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* 30 Sequential Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ALL_30_LEGAL_CATEGORIES.map((cat) => (
+          {displayedCategories.map((cat) => (
             <div
               key={cat.id}
-              className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-emerald-500 transition-all flex flex-col justify-between group"
+              className="bg-white rounded-3xl p-6 border border-slate-200 shadow-2xs hover:shadow-xl hover:border-emerald-500 transition-all flex flex-col justify-between group"
             >
               <div>
                 {/* Category Header */}
@@ -346,22 +499,22 @@ export default function HomePage() {
                   </div>
 
                   <span className="text-[10px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
-                    {cat.subcategories.length} Incidents
+                    {cat.subcategories.length} Topics
                   </span>
                 </div>
 
                 {/* Primary Statute Citation */}
-                <p className="text-[11px] font-mono text-slate-500 bg-slate-50 p-2 rounded-xl border border-slate-100 mb-4 line-clamp-1">
+                <p className="text-[11px] font-mono text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-100 mb-4 line-clamp-1">
                   <strong>Statute:</strong> {cat.primaryAct}
                 </p>
 
-                {/* Subcategories / Incidents Pills (As requested by user) */}
+                {/* Subcategories & Specific Incident Areas */}
                 <div className="space-y-1.5 mb-4">
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">
-                    Important Subcategories & Incidents:
+                    {lang === 'bn' ? 'গুরুত্বপূর্ণ উপ-শাখা ও বিষয়সমূহ:' : 'Key Subcategories & Provisions:'}
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {cat.subcategories.map((sub, sIdx) => {
+                    {cat.subcategories.slice(0, 5).map((sub, sIdx) => {
                       const bnSub = cat.banglaSubcategories ? cat.banglaSubcategories[sIdx] : null;
                       return (
                         <button
@@ -379,19 +532,20 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Card Footer Actions */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              {/* Card Footer Actions (Pure Law & Lawyer links, No Victim panel) */}
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                 <Link
-                  to={`/victim-support?category=${cat.id}`}
-                  className="text-bdRed-600 font-bold hover:underline flex items-center gap-1"
+                  to={`/lawyers?specialty=${encodeURIComponent(cat.name)}`}
+                  className="text-slate-600 hover:text-bdGreen-900 font-bold flex items-center gap-1"
                 >
-                  <span>Report Incident</span>
+                  <Users className="w-3.5 h-3.5 text-bdGreen-700" />
+                  <span>{lang === 'bn' ? 'আইনজীবী খুঁজুন' : 'Find Specialists'}</span>
                 </Link>
                 <Link
                   to={`/laws?category=${cat.id}`}
                   className="px-3.5 py-1.5 bg-emerald-50 hover:bg-bdGreen-800 hover:text-white text-bdGreen-900 rounded-xl font-bold transition-all flex items-center gap-1"
                 >
-                  <span>Explore Laws</span>
+                  <span>{lang === 'bn' ? 'আইন দেখুন' : 'Explore Laws'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -401,50 +555,25 @@ export default function HomePage() {
 
       </section>
 
-      {/* 3. SMART VICTIM ASSISTANCE CALLOUT BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-gradient-to-r from-bdGreen-800 via-bdGreen-900 to-bdDark-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl border border-emerald-600/40 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="p-2 rounded-xl bg-bdRed-500 text-white shadow-xs">
-                <ShieldAlert className="w-6 h-6" />
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold font-serif">
-                {lang === 'bn' ? 'কোনো আইনি জটিলতা বা অপরাধের মুখোমুখি?' : 'Facing Any Incident or Legal Hardship?'}
-              </h3>
-            </div>
-            <p className="text-xs sm:text-sm text-emerald-100 max-w-2xl leading-relaxed">
-              {lang === 'bn'
-                ? 'আইনের ধারা মুখস্থ রাখার প্রয়োজন নেই। জমি দখল, সাইবার হ্যাকিং, চেক বাউন্স, যৌতুক বা পারিবারিক যেকোনো সমস্যা বাংলায় বর্ণনা করুন। আমাদের এআই ও লিগ্যাল ইঞ্জিন তাৎক্ষণিক দিকনির্দেশনা দেবে।'
-                : 'Simply describe any dispute or crime in everyday words. Our engine extracts the applicable section, identifies limitation periods, and connects you to certified advocates.'}
-            </p>
-          </div>
-          <Link
-            to="/victim-support"
-            className="px-6 py-3.5 bg-bdRed-500 hover:bg-bdRed-600 text-white rounded-2xl font-bold text-sm shadow-md transition-all shrink-0 flex items-center gap-2"
-          >
-            <span>{lang === 'bn' ? 'ভুক্তভোগী আইনি সহায়তা শুরু করুন' : 'Launch Incident Triage'}</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
-      {/* 4. RECENTLY UPDATED LAWS & LANDMARK STATUTES */}
-      <section className="bg-slate-100/70 py-20 border-y border-slate-200/80">
+      {/* =========================================================================
+          STAGE 4: CRITICAL STATUTES & RECENTLY UPDATED ACTS
+          ========================================================================= */}
+      <section className="bg-slate-100/70 py-16 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-emerald-100 text-bdGreen-800 text-xs font-bold uppercase mb-2">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-100 text-bdGreen-800 text-xs font-bold uppercase mb-2">
                 <Clock className="w-3.5 h-3.5" />
                 <span>{lang === 'bn' ? 'সদ্য হালনাগাদকৃত আইন' : 'Recently Updated Statutes'}</span>
               </div>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900">
-                {lang === 'bn' ? 'গুরুত্বপূর্ণ আইন ও বিধিমালা' : 'Critical Legislation & Landmark Acts'}
+                {lang === 'bn' ? 'গুরুত্বপূর্ণ আইন ও বিধিমালার সংকলন' : 'Critical Legislation & Landmark Acts'}
               </h2>
             </div>
             <Link
               to="/amendments"
-              className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-xs font-semibold text-bdGreen-800 hover:text-bdGreen-900"
+              className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900"
             >
               <span>{lang === 'bn' ? 'আইন সংশোধন ট্র্যাকার' : 'View Amendment Tracker'}</span>
               <ChevronRight className="w-4 h-4" />
@@ -457,7 +586,7 @@ export default function HomePage() {
               return (
                 <div
                   key={law.id}
-                  className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                  className="bg-white rounded-3xl p-6 border border-slate-200 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
@@ -479,9 +608,9 @@ export default function HomePage() {
                       {lang === 'bn' ? law.simple_summary_bn || law.simple_summary : law.simple_summary}
                     </p>
 
-                    <div className="p-3 rounded-xl bg-rose-50/50 border border-rose-100 text-xs text-slate-700 mb-4">
+                    <div className="p-3 rounded-xl bg-rose-50/60 border border-rose-100 text-xs text-slate-700 mb-4">
                       <strong className="text-bdRed-600 font-semibold block mb-0.5">
-                        {lang === 'bn' ? 'দণ্ড ও শাস্তি:' : 'Statutory Penalty:'}
+                        {lang === 'bn' ? 'দণ্ড ও শাস্তির বিধান:' : 'Statutory Penalties & Remedies:'}
                       </strong>
                       <span className="line-clamp-2">
                         {lang === 'bn' ? law.penalties_bn || law.penalties : law.penalties}
@@ -493,10 +622,10 @@ export default function HomePage() {
                     <button
                       onClick={() => toggleLawBookmark(law.id)}
                       className={`font-semibold transition-colors ${
-                        isSaved ? 'text-bdRed-600' : 'text-slate-500 hover:text-slate-800'
+                        isSaved ? 'text-bdRed-600 font-bold' : 'text-slate-500 hover:text-slate-800'
                       }`}
                     >
-                      {isSaved ? '★ Saved' : '☆ Save Law'}
+                      {isSaved ? '★ Saved to Vault' : '☆ Save Law'}
                     </button>
                     <Link
                       to={`/laws/${law.id}`}
@@ -513,9 +642,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. TOP-RANKED ADVOCATES SHOWCASE */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      {/* =========================================================================
+          STAGE 5: VERIFIED ADVOCATES DIRECTORY SHOWCASE
+          ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
           <div>
             <span className="text-xs font-bold text-bdGreen-800 uppercase tracking-wider">
               {lang === 'bn' ? 'সনদপ্রাপ্ত আইনজীবী' : 'Verified Legal Counsel'}
@@ -527,20 +658,28 @@ export default function HomePage() {
               {t('lawyersSubtitle')}
             </p>
           </div>
-          <Link
-            to="/lawyers"
-            className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-sm font-semibold text-bdGreen-800 hover:text-bdGreen-900"
-          >
-            <span>{lang === 'bn' ? 'সকল আইনজীবী দেখুন' : 'Explore All Advocates'}</span>
-            <ChevronRight className="w-4 h-4" />
-          </Link>
+          <div className="mt-4 md:mt-0 flex items-center gap-3">
+            <Link
+              to="/compare-lawyers"
+              className="px-4 py-2 border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold transition-colors"
+            >
+              <span>{lang === 'bn' ? 'আইনজীবী তুলনা' : 'Compare Matrix'}</span>
+            </Link>
+            <Link
+              to="/lawyers"
+              className="px-4 py-2 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold transition-colors shadow-xs flex items-center gap-1"
+            >
+              <span>{lang === 'bn' ? 'সকল আইনজীবী দেখুন' : 'Explore All Advocates'}</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {topLawyers.map((lawyer) => (
             <div
               key={lawyer.id}
-              className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between"
+              className="bg-white rounded-3xl p-6 border border-slate-200 shadow-2xs hover:shadow-xl transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-4">
@@ -552,7 +691,7 @@ export default function HomePage() {
                       <div className="flex items-center gap-1.5">
                         <h3 className="font-bold text-base text-slate-900">{lawyer.name}</h3>
                         {lawyer.verified && (
-                          <span title="Verified Bar Council Registration">
+                          <span title="Verified Bangladesh Bar Council Registration">
                             <ShieldCheck className="w-4 h-4 text-bdGreen-600 shrink-0" />
                           </span>
                         )}
@@ -595,7 +734,7 @@ export default function HomePage() {
 
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase font-bold block">Fee:</span>
+                  <span className="text-[10px] text-slate-400 uppercase font-bold block">Chamber Fee:</span>
                   <span className="font-bold text-base text-bdGreen-900">{lawyer.feeDisplay}</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -618,66 +757,131 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. HOW LAW_BD WORKS */}
-      <section className="bg-bdDark-900 text-white py-20 border-y border-emerald-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">
-            {lang === 'bn' ? 'কার্যপ্রণালী' : 'Simple 4-Step Process'}
-          </span>
-          <h2 className="font-serif text-2xl sm:text-4xl font-bold mt-2 mb-4">
-            {lang === 'bn' ? 'কিভাবে কাজ করে ল_বিডি?' : 'How Law_BD Demystifies Justice'}
-          </h2>
-          <p className="text-sm text-slate-400 max-w-xl mx-auto mb-16">
-            From the initial incident to the courtroom verdict, we provide ordinary citizens with statutory clarity, evidence checklists, and certified advocates.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 text-left relative">
-              <span className="w-8 h-8 rounded-xl bg-bdGreen-700 text-white font-bold flex items-center justify-center text-sm mb-4">
-                1
-              </span>
-              <h3 className="font-bold text-base mb-2">Describe Your Incident</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Enter your situation in plain English or Bengali. No formal legal terminology or prior knowledge required.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 text-left relative">
-              <span className="w-8 h-8 rounded-xl bg-bdGreen-700 text-white font-bold flex items-center justify-center text-sm mb-4">
-                2
-              </span>
-              <h3 className="font-bold text-base mb-2">Automated Legal Triage</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Our engine cross-checks official Bangladesh statutes, revealing applicable sections, maximum penalties, and procedural timelines.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 text-left relative">
-              <span className="w-8 h-8 rounded-xl bg-bdGreen-700 text-white font-bold flex items-center justify-center text-sm mb-4">
-                3
-              </span>
-              <h3 className="font-bold text-base mb-2">Consult Verified Advocates</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Compare verified Bar Council advocates side-by-side, check consultation fees, and book video or chamber visits instantly.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 text-left relative">
-              <span className="w-8 h-8 rounded-xl bg-bdRed-500 text-white font-bold flex items-center justify-center text-sm mb-4">
-                4
-              </span>
-              <h3 className="font-bold text-base mb-2">Manage Case & Pass</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Receive verified appointment passes with digital QR tokens, track case hearings, and download statutory legal notice templates.
-              </p>
-            </div>
+      {/* =========================================================================
+          STAGE 6: ESSENTIAL CITIZEN LEGAL TOOLKIT (SEQUENTIAL SUITE)
+          ========================================================================= */}
+      <section className="bg-slate-50 py-16 border-t border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-bdGreen-900 text-xs font-bold uppercase tracking-wider">
+              <Award className="w-3.5 h-3.5 text-bdGreen-800" />
+              <span>{lang === 'bn' ? 'নাগরিক আইনি টুলকিট' : 'Citizen Legal Services'}</span>
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900">
+              {lang === 'bn' ? 'আইনি সেবা ও নাগরিক সহায়িকা' : 'Essential Legal Services Suite'}
+            </h2>
+            <p className="text-sm text-slate-500">
+              {lang === 'bn'
+                ? 'আইনি নোটিশ ড্রাফট, দ্বিভাষিক অভিধান, এআই পরামর্শক এবং সরকারি জরুরি হটলাইন।'
+                : 'Standardized statutory drafting templates, bilingual legal dictionary, grounded AI assistance, and 24/7 hotlines.'}
+            </p>
           </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            {/* Toolkit 1: Templates */}
+            <div className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-bdGreen-800 flex items-center justify-center mb-4">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-base text-slate-900 mb-2">
+                  {lang === 'bn' ? 'আইনি নোটিশ ও জিডি ফরম্যাট' : 'Legal Notice Templates'}
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {lang === 'bn'
+                    ? 'হস্তান্তরিত দলিল আইনের ১৩৮ ধারার নোটিশ, থানার জিডি ও শ্রম আদালতের লিখিত অভিযোগের মানসম্মত ফরম্যাট।'
+                    : 'Download statutory templates for Section 138 NI Act notices, Thana GD formats, and Section 33 Labour grievances.'}
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100">
+                <Link to="/templates" className="text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900 flex items-center gap-1">
+                  <span>{lang === 'bn' ? 'ফরম্যাট দেখুন' : 'Explore Templates'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Toolkit 2: Bilingual Dictionary */}
+            <div className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center mb-4">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-base text-slate-900 mb-2">
+                  {lang === 'bn' ? 'দ্বিভাষিক আইনি পরিভাষা' : 'Bilingual Legal Terms'}
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {lang === 'bn'
+                    ? 'এজাহার, সাধারণ ডায়েরি, দেনমোহর, খতিয়ান, নামজারি ও জামিনসংক্রান্ত জটিল আইনি শব্দের সহজ অর্থ।'
+                    : 'Searchable plain-language legal definitions for FIR, GD, Mutation, Khatian, Injunction, and Denmohur.'}
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100">
+                <Link to="/awareness" className="text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900 flex items-center gap-1">
+                  <span>{lang === 'bn' ? 'অভিধান ব্রাউজ করুন' : 'Browse Dictionary'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Toolkit 3: AI Legal Assistant */}
+            <div className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-purple-100 text-purple-800 flex items-center justify-center mb-4">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-base text-slate-900 mb-2">
+                  {lang === 'bn' ? 'এআই লিগ্যাল অ্যাসিস্ট্যান্ট' : 'Statute Grounded AI'}
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {lang === 'bn'
+                    ? 'বাংলাদেশের সরকারি আইনের ভিত্তিতে তাৎক্ষণিক আইনি সমাধান, প্রযোজ্য ধারা ও করণীয় দিকনির্দেশনা।'
+                    : 'Conversational legal guidance strictly grounded in verified Bangladesh Gazette statutes and procedure rules.'}
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100">
+                <Link to="/ai-assistant" className="text-xs font-bold text-purple-700 hover:text-purple-800 flex items-center gap-1">
+                  <span>{lang === 'bn' ? 'পরামর্শ শুরু করুন' : 'Start AI Chat'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Toolkit 4: Emergency Helplines */}
+            <div className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-rose-100 text-bdRed-600 flex items-center justify-center mb-4">
+                  <PhoneCall className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-base text-slate-900 mb-2">
+                  {lang === 'bn' ? '২৪/৭ জরুরি হেল্পলাইন' : '24/7 National Hotlines'}
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {lang === 'bn'
+                    ? 'সরকারি লিগ্যাল এইড ১৬৪৩০, জরুরি পুলিশ ৯৯৯, নারী ও শিশু ১০৯ এবং সিআইডি সাইবার পুলিশ হটলাইন।'
+                    : 'Instant click-to-call directory for Ministry of Law Legal Aid (16430), Police (999), and Cyber Support.'}
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100">
+                <Link to="/emergency" className="text-xs font-bold text-bdRed-600 hover:text-bdRed-700 flex items-center gap-1">
+                  <span>{lang === 'bn' ? 'হটলাইন ডায়াল করুন' : 'View All Hotlines'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
-      {/* 7. FREQUENTLY ASKED LEGAL QUESTIONS */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
+      {/* =========================================================================
+          STAGE 7: FREQUENTLY ASKED PRACTICAL LEGAL QUESTIONS
+          ========================================================================= */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-10">
           <span className="text-xs font-bold text-bdGreen-800 uppercase tracking-wider">
             {lang === 'bn' ? 'সাধারণ প্রশ্ন ও উত্তর' : 'Legal Clarity'}
           </span>
@@ -690,7 +894,7 @@ export default function HomePage() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="border border-slate-200 rounded-3xl bg-white overflow-hidden transition-all shadow-xs"
+              className="border border-slate-200 rounded-3xl bg-white overflow-hidden transition-all shadow-2xs"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}

@@ -187,12 +187,12 @@ export default function SequentialSidebar({ isOpen, onClose, embedded = false, a
       {/* Sidebar Footer */}
       <div className="p-3 bg-slate-50 border-t border-slate-200 text-center text-xs shrink-0">
         <Link
-          to="/victim-support"
+          to="/laws"
           onClick={() => { if (onClose) onClose(); }}
-          className="w-full py-2 bg-bdRed-500 hover:bg-bdRed-600 text-white font-bold rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+          className="w-full py-2.5 bg-bdGreen-800 hover:bg-bdGreen-700 text-white font-bold rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-xs"
         >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Launch Incident Triage</span>
+          <BookOpen className="w-4 h-4" />
+          <span>{lang === 'bn' ? 'সকল আইন অনুসন্ধান করুন' : 'Explore Complete Law Library'}</span>
         </Link>
       </div>
     </div>
