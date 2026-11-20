@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ShieldAlert,
   Scale,
@@ -14,22 +15,24 @@ import {
   Shield,
   Activity,
   Edit,
-  Trash2
+  Trash2,
+  ArrowRight,
+  Lock
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 
 export default function AdminDashboardPage() {
-  const { user } = useAuth();
+  const { user, demoLogin, isAuthenticated } = useAuth();
   const [stats, setStats] = useState(null);
-  const [activeTab, setActiveTab] = useState('lawyers');
+  const [activeTab, setActiveTab] = useState('lawyers'); // 'lawyers' | 'laws' | 'users' | 'audit'
   const [lawyers, setLawyers] = useState([]);
   const [laws, setLaws] = useState([]);
   const [users, setUsers] = useState([]);
   const [auditLogs, setAuditLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
+  // New Law Form Modal State
   const [showAddLawModal, setShowAddLawModal] = useState(false);
   const [newLawTitle, setNewLawTitle] = useState('');
   const [newLawBangla, setNewLawBangla] = useState('');
@@ -39,8 +42,12 @@ export default function AdminDashboardPage() {
   const [savingLaw, setSavingLaw] = useState(false);
 
   useEffect(() => {
-    loadAllAdminData();
-  }, []);
+    if (isAuthenticated && user?.role === 'admin') {
+      loadAllAdminData();
+    } else {
+      setLoading(false);
+    }
+  }, [user, isAuthenticated]);
 
   const loadAllAdminData = async () => {
     setLoading(true);
@@ -53,11 +60,11 @@ export default function AdminDashboardPage() {
         api.getAuditLogs().catch(() => ({ logs: [] }))
       ]);
 
-      if (statsRes.stats) setStats(statsRes.stats);
-      if (lawyersRes.lawyers) setLawyers(lawyersRes.lawyers);
-      if (lawsRes.laws) setLaws(lawsRes.laws);
-      if (usersRes.users) setUsers(usersRes.users);
-      if (logsRes.logs) setAuditLogs(logsRes.logs);
+      if (statsRes && statsRes.stats) setStats(statsRes.stats);
+      if (lawyersRes && lawyersRes.lawyers) setLawyers(lawyersRes.lawyers);
+      if (lawsRes && lawsRes.laws) setLaws(lawsRes.laws);
+      if (usersRes && usersRes.users) setUsers(usersRes.users);
+      if (logsRes && logsRes.logs) setAuditLogs(logsRes.logs);
     } catch (err) {
       console.error('Failed to load admin dashboard:', err);
     } finally {
@@ -125,6 +132,47 @@ export default function AdminDashboardPage() {
     }
   };
 
+  // If not logged in as Admin, show dedicated Admin Gateway Access Panel
+  if (!isAuthenticated || user?.role !== 'admin') {
+    return (
+      <div className="min-h-screen bg-[#F8FAF9] flex items-center justify-center p-4 py-20">
+        <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-slate-200 shadow-xl text-center space-y-5">
+          <div className="w-16 h-16 rounded-2xl bg-rose-100 text-bdRed-600 flex items-center justify-center mx-auto shadow-inner">
+            <ShieldAlert className="w-8 h-8" />
+          </div>
+          <div>
+            <h2 className="font-serif font-bold text-2xl text-slate-900">
+              Administrator Access Required
+            </h2>
+            <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+              The Central Administrative Oversight Desk is restricted to authorized Director General & Bar Council verification personnel.
+            </p>
+          </div>
+
+          <div className="pt-2 space-y-2.5">
+            <button
+              onClick={async () => {
+                await demoLogin('admin');
+              }}
+              className="w-full py-3.5 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2"
+            >
+              <Shield className="w-4 h-4 text-emerald-300" />
+              <span>1-Click Sign In as Administrator (DG)</span>
+              <ArrowRight className="w-3.5 h-3.5 text-emerald-300" />
+            </button>
+
+            <Link
+              to="/"
+              className="block w-full py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition-colors"
+            >
+              Return to Homepage
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -164,27 +212,27 @@ export default function AdminDashboardPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
               <span className="text-[10px] text-slate-400 uppercase font-bold block">Laws in Library</span>
-              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalLaws}</span>
+              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalLaws || 0}</span>
             </div>
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
               <span className="text-[10px] text-slate-400 uppercase font-bold block">Enrolled Lawyers</span>
-              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalLawyers}</span>
+              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalLawyers || 0}</span>
             </div>
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
               <span className="text-[10px] text-emerald-600 uppercase font-bold block">Verified Badges</span>
-              <span className="font-serif font-bold text-xl text-emerald-700">{stats.verifiedLawyers}</span>
+              <span className="font-serif font-bold text-xl text-emerald-700">{stats.verifiedLawyers || 0}</span>
             </div>
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
               <span className="text-[10px] text-slate-400 uppercase font-bold block">Total Users</span>
-              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalUsers}</span>
+              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalUsers || 0}</span>
             </div>
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
               <span className="text-[10px] text-slate-400 uppercase font-bold block">Legal Cases</span>
-              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalCases}</span>
+              <span className="font-serif font-bold text-xl text-slate-900">{stats.totalCases || 0}</span>
             </div>
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
               <span className="text-[10px] text-bdGreen-700 uppercase font-bold block">Platform Fees</span>
-              <span className="font-serif font-bold text-xl text-bdGreen-900">৳{stats.totalRevenue?.toLocaleString()}</span>
+              <span className="font-serif font-bold text-xl text-bdGreen-900">৳{(stats.totalRevenue || 0).toLocaleString()}</span>
             </div>
           </div>
         )}
@@ -193,10 +241,11 @@ export default function AdminDashboardPage() {
         <div className="flex border-b border-slate-200 mb-8 overflow-x-auto text-xs font-bold uppercase tracking-wider">
           <button
             onClick={() => setActiveTab('lawyers')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'lawyers'
-              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
+              activeTab === 'lawyers'
+                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
+            }`}
           >
             <UserCheck className="w-4 h-4 text-bdGreen-700" />
             <span>Advocate Verification Desk ({lawyers.length})</span>
@@ -204,10 +253,11 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('laws')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'laws'
-              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
+              activeTab === 'laws'
+                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
+            }`}
           >
             <Scale className="w-4 h-4 text-bdGreen-700" />
             <span>Law Library Management ({laws.length})</span>
@@ -215,10 +265,11 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('users')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'users'
-              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
+              activeTab === 'users'
+                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
+            }`}
           >
             <Users className="w-4 h-4 text-bdGreen-700" />
             <span>Citizen & Lawyer Accounts ({users.length})</span>
@@ -226,13 +277,14 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('audit')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'audit'
-              ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
+              activeTab === 'audit'
+                ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
+            }`}
           >
             <Activity className="w-4 h-4 text-bdGreen-700" />
-            <span>System Audit Logs</span>
+            <span>System Audit Logs ({auditLogs.length})</span>
           </button>
         </div>
 
@@ -269,8 +321,9 @@ export default function AdminDashboardPage() {
                       <td className="p-3 text-slate-600">{l.courtLevel}</td>
                       <td className="p-3 text-slate-600">{l.specialties?.join(', ')}</td>
                       <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${l.verified ? 'bg-emerald-100 text-bdGreen-800' : 'bg-amber-100 text-amber-800'
-                          }`}>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                          l.verified ? 'bg-emerald-100 text-bdGreen-800' : 'bg-amber-100 text-amber-800'
+                        }`}>
                           {l.verified ? 'Verified' : 'Pending'}
                         </span>
                       </td>
@@ -309,15 +362,11 @@ export default function AdminDashboardPage() {
               </div>
               <button
                 onClick={() => setShowAddLawModal(true)}
-                className="px-4 py-2 bg-bdGreen-800 text-white rounded-xl text-xs font-bold"
+                className="px-4 py-2 bg-bdGreen-800 text-white rounded-xl text-xs font-bold shadow-xs hover:bg-bdGreen-700"
               >
                 + Add Law Provision
               </button>
             </div>
-
-
-
-
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
@@ -340,8 +389,9 @@ export default function AdminDashboardPage() {
                       <td className="p-3 text-slate-700 font-medium">{law.category_label || law.category}</td>
                       <td className="p-3 font-mono text-slate-600">{law.act_no_year}</td>
                       <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${law.status === 'current' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                          }`}>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                          law.status === 'current' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                        }`}>
                           {law.status || 'current'}
                         </span>
                       </td>
@@ -362,9 +412,6 @@ export default function AdminDashboardPage() {
             </div>
           </div>
         )}
-
-
-
 
         {/* Tab 3: Users Directory */}
         {activeTab === 'users' && (
@@ -388,8 +435,9 @@ export default function AdminDashboardPage() {
                       <td className="p-3 text-slate-600">{u.email}</td>
                       <td className="p-3 uppercase font-bold text-[10px] text-bdGreen-800">{u.role}</td>
                       <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${u.status === 'active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                          }`}>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                          u.status === 'active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                        }`}>
                           {u.status}
                         </span>
                       </td>
@@ -418,34 +466,33 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
-
-
-
-
         {/* Tab 4: Audit Logs */}
         {activeTab === 'audit' && (
           <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
             <h2 className="font-serif font-bold text-lg text-slate-900 mb-2">Platform Audit Trail</h2>
             <div className="space-y-2">
-              {auditLogs.map((log) => (
-                <div key={log.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200/60 text-xs flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <span className="font-mono font-bold text-bdGreen-900">{log.action}</span>
-                    <p className="text-slate-600">{log.details}</p>
+              {auditLogs.length > 0 ? (
+                auditLogs.map((log) => (
+                  <div key={log.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200/60 text-xs flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <span className="font-mono font-bold text-bdGreen-900">{log.action}</span>
+                      <p className="text-slate-600">{log.details}</p>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-mono">
+                      {log.created_at ? new Date(log.created_at).toLocaleString() : 'Recent'}
+                    </span>
                   </div>
-                  <span className="text-[10px] text-slate-400 font-mono">
-                    {new Date(log.created_at).toLocaleString()}
-                  </span>
+                ))
+              ) : (
+                <div className="text-center py-8 text-xs text-slate-400">
+                  No system audit logs found.
                 </div>
-              ))}
+              )}
             </div>
           </div>
         )}
 
       </div>
-
-
-
 
       {/* Add Law Provision Modal */}
       {showAddLawModal && (

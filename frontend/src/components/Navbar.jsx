@@ -73,6 +73,7 @@ export default function Navbar() {
     await demoLogin(targetRole);
     setUserDropdownOpen(false);
     if (targetRole === 'lawyer') navigate('/dashboard/lawyer');
+    else if (targetRole === 'admin') navigate('/dashboard/admin');
     else navigate('/dashboard/client');
   };
 
@@ -297,12 +298,22 @@ export default function Navbar() {
                         )}
                       </div>
 
-                      {/* Fast Role Switch for Testing (Client & Lawyer Only) */}
-                      <div className="mt-2 pt-2 border-t border-slate-100">
+                      {/* Fast Role Switch for Testing (Client, Lawyer, Admin) */}
+                      <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
                         <span className="px-3 text-[10px] uppercase font-bold text-slate-400 block mb-1">
                           Test Fast Switch:
                         </span>
-                        {role === 'client' ? (
+                        {role !== 'client' && (
+                          <button
+                            type="button"
+                            onClick={() => handleRoleSwitch('client')}
+                            className="w-full text-left px-3 py-1.5 text-xs text-bdGreen-800 hover:bg-emerald-50 rounded-lg font-semibold flex items-center justify-between"
+                          >
+                            <span>Switch to Citizen (Rahim)</span>
+                            <ArrowRight className="w-3 h-3" />
+                          </button>
+                        )}
+                        {role !== 'lawyer' && (
                           <button
                             type="button"
                             onClick={() => handleRoleSwitch('lawyer')}
@@ -311,13 +322,14 @@ export default function Navbar() {
                             <span>Switch to Advocate (Tanvir)</span>
                             <ArrowRight className="w-3 h-3" />
                           </button>
-                        ) : (
+                        )}
+                        {role !== 'admin' && (
                           <button
                             type="button"
-                            onClick={() => handleRoleSwitch('client')}
-                            className="w-full text-left px-3 py-1.5 text-xs text-bdGreen-800 hover:bg-emerald-50 rounded-lg font-semibold flex items-center justify-between"
+                            onClick={() => handleRoleSwitch('admin')}
+                            className="w-full text-left px-3 py-1.5 text-xs text-purple-700 hover:bg-purple-50 rounded-lg font-semibold flex items-center justify-between"
                           >
-                            <span>Switch to Client (Rahim)</span>
+                            <span>Switch to Admin (DG)</span>
                             <ArrowRight className="w-3 h-3" />
                           </button>
                         )}
