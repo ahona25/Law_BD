@@ -81,8 +81,8 @@ export default function Navbar() {
   const navLinks = [
     { to: '/', label: t('navHome') },
     { to: '/laws', label: t('navLaws') },
+    { to: '/courts', label: t('navCourts') },
     { to: '/lawyers', label: t('navLawyers') },
-    { to: '/compare-lawyers', label: t('navCompare') },
     { to: '/templates', label: t('navTemplates') },
     { to: '/awareness', label: t('navAwareness') },
     { to: '/ai-assistant', label: t('navAi'), badge: 'AI' }

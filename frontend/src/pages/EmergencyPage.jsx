@@ -20,7 +20,7 @@ export default function EmergencyPage() {
   useEffect(() => {
     api.getEmergencyResources().then(res => {
       if (res.success) setResources(res.resources);
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   const crisisGuides = [
@@ -56,10 +56,13 @@ export default function EmergencyPage() {
     }
   ];
 
+
+
+
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-bdRed-600 text-xs font-bold uppercase mb-3">

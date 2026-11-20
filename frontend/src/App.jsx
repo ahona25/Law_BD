@@ -17,6 +17,7 @@ import AiAssistantPage from './pages/AiAssistantPage';
 import LawyersPage from './pages/LawyersPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
 import BookingPage from './pages/BookingPage';
+import CourtsPage from './pages/CourtsPage';
 import CompareLawyersPage from './pages/CompareLawyersPage';
 import AwarenessPage from './pages/AwarenessPage';
 import TemplatesPage from './pages/TemplatesPage';
@@ -49,7 +50,8 @@ export default function App() {
                   <Route path="/lawyers" element={<LawyersPage />} />
                   <Route path="/lawyers/:id" element={<LawyerProfilePage />} />
                   <Route path="/booking/:lawyerId" element={<BookingPage />} />
-                  <Route path="/compare-lawyers" element={<CompareLawyersPage />} />
+                  <Route path="/courts" element={<CourtsPage />} />
+                  <Route path="/compare-lawyers" element={<CourtsPage />} />
                   <Route path="/awareness" element={<AwarenessPage />} />
                   <Route path="/templates" element={<TemplatesPage />} />
                   <Route path="/emergency" element={<EmergencyPage />} />
