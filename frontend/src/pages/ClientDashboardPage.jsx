@@ -24,8 +24,7 @@ export default function ClientDashboardPage() {
   const { user, isAuthenticated } = useAuth();
   const { lang } = useLanguage();
 
-  const [activeTab, setActiveTab] = useState('cases'); // 'cases' | 'appointments' | 'saved' | 'messages'
-  const [cases, setCases] = useState([]);
+  const [activeTab, setActiveTab] = useState('cases');
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPass, setSelectedPass] = useState(null);
@@ -97,7 +96,7 @@ export default function ClientDashboardPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* User Welcome Banner */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -132,11 +131,10 @@ export default function ClientDashboardPage() {
         <div className="flex border-b border-slate-200 mb-8 overflow-x-auto text-xs font-bold uppercase tracking-wider">
           <button
             onClick={() => setActiveTab('cases')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'cases'
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'cases'
                 ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+              }`}
           >
             <Briefcase className="w-4 h-4 text-bdGreen-700" />
             <span>My Legal Cases ({cases.length})</span>
@@ -144,11 +142,10 @@ export default function ClientDashboardPage() {
 
           <button
             onClick={() => setActiveTab('appointments')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'appointments'
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'appointments'
                 ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+              }`}
           >
             <Calendar className="w-4 h-4 text-bdGreen-700" />
             <span>Appointments & Passes ({appointments.length})</span>
@@ -156,11 +153,10 @@ export default function ClientDashboardPage() {
 
           <button
             onClick={() => setActiveTab('messages')}
-            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${
-              activeTab === 'messages'
+            className={`py-3.5 px-6 border-b-2 flex items-center gap-2 transition-all whitespace-nowrap ${activeTab === 'messages'
                 ? 'border-bdGreen-800 text-bdGreen-900 bg-white rounded-t-xl'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
+              }`}
           >
             <MessageSquare className="w-4 h-4 text-bdGreen-700" />
             <span>Chamber Communications</span>
@@ -181,9 +177,8 @@ export default function ClientDashboardPage() {
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-bdGreen-800">
                         {c.category}
                       </span>
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                        c.status === 'ongoing' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700'
-                      }`}>
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${c.status === 'ongoing' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700'
+                        }`}>
                         {c.status}
                       </span>
                     </div>
@@ -241,9 +236,8 @@ export default function ClientDashboardPage() {
                       <span className="font-mono text-xs font-bold px-2 py-0.5 bg-emerald-100 text-bdGreen-900 rounded border border-emerald-300">
                         {appt.token || appt.id}
                       </span>
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                        appt.status === 'confirmed' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'
-                      }`}>
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${appt.status === 'confirmed' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'
+                        }`}>
                         {appt.status}
                       </span>
                       <span className="text-xs text-slate-400">· {appt.mode}</span>
