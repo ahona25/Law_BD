@@ -24,6 +24,7 @@ export default function LoginPage() {
       const res = await login(email, password);
       if (res.success) {
         if (res.user.role === 'lawyer') navigate('/dashboard/lawyer');
+        else if (res.user.role === 'admin') navigate('/dashboard/admin');
         else navigate('/dashboard/client');
       }
     } catch (err) {
@@ -40,6 +41,7 @@ export default function LoginPage() {
       const res = await demoLogin(targetRole);
       if (res.success) {
         if (targetRole === 'lawyer') navigate('/dashboard/lawyer');
+        else if (targetRole === 'admin') navigate('/dashboard/admin');
         else navigate('/dashboard/client');
       }
     } catch (err) {
@@ -116,24 +118,33 @@ export default function LoginPage() {
             <span className="text-[10px] text-emerald-700 font-mono font-bold">Client / Lawyer</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               disabled={loading}
               onClick={() => handleDemo('client')}
-              className="py-2 px-2.5 text-center bg-white hover:bg-emerald-100 rounded-xl border border-emerald-300 text-[11px] font-bold text-slate-800 transition-colors shadow-2xs flex items-center justify-center gap-1.5"
+              className="py-2 px-2 text-center bg-white hover:bg-emerald-100 rounded-xl border border-emerald-300 text-[11px] font-bold text-slate-800 transition-colors shadow-2xs flex items-center justify-center gap-1.5"
             >
               <User className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Rahim (Citizen)</span>
+              <span>Rahim</span>
             </button>
             <button
               type="button"
               disabled={loading}
               onClick={() => handleDemo('lawyer')}
-              className="py-2 px-2.5 text-center bg-bdGreen-800 hover:bg-bdGreen-700 rounded-xl text-[11px] font-bold text-white transition-colors shadow-2xs flex items-center justify-center gap-1.5"
+              className="py-2 px-2 text-center bg-bdGreen-800 hover:bg-bdGreen-700 rounded-xl text-[11px] font-bold text-white transition-colors shadow-2xs flex items-center justify-center gap-1.5"
             >
               <Briefcase className="w-3.5 h-3.5 text-amber-300" />
-              <span>Adv. Tanvir (Lawyer)</span>
+              <span>Tanvir</span>
+            </button>
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => handleDemo('admin')}
+              className="py-2 px-2 text-center bg-purple-700 hover:bg-purple-600 rounded-xl text-[11px] font-bold text-white transition-colors shadow-2xs flex items-center justify-center gap-1.5"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-purple-200" />
+              <span>Admin</span>
             </button>
           </div>
         </div>

@@ -59,6 +59,8 @@ export default function AuthModal({
         onClose();
         if (roleName === 'lawyer') {
           navigate('/dashboard/lawyer');
+        } else if (roleName === 'admin') {
+          navigate('/dashboard/admin');
         } else {
           navigate('/dashboard/client');
         }
@@ -80,6 +82,8 @@ export default function AuthModal({
         onClose();
         if (res.user.role === 'lawyer') {
           navigate('/dashboard/lawyer');
+        } else if (res.user.role === 'admin') {
+          navigate('/dashboard/admin');
         } else {
           navigate('/dashboard/client');
         }
@@ -260,19 +264,19 @@ export default function AuthModal({
               <span className="text-[10px] text-emerald-700 font-medium">Ready</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 disabled={loading}
                 onClick={() => handleQuickDemo('client')}
-                className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'client'
+                className={`py-2 px-2 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'client'
                   ? 'bg-white border-emerald-500 text-bdGreen-950 shadow-xs'
                   : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
                   }`}
               >
-                <div className="flex items-center gap-2 truncate">
+                <div className="flex items-center gap-1.5 truncate">
                   <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span className="truncate">Rahim (Citizen)</span>
+                  <span className="truncate">Rahim</span>
                 </div>
                 <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
               </button>
@@ -281,16 +285,29 @@ export default function AuthModal({
                 type="button"
                 disabled={loading}
                 onClick={() => handleQuickDemo('lawyer')}
-                className={`py-2 px-2.5 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'lawyer'
+                className={`py-2 px-2 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'lawyer'
                   ? 'bg-bdGreen-800 border-bdGreen-900 text-white shadow-xs'
                   : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
                   }`}
               >
-                <div className="flex items-center gap-2 truncate">
+                <div className="flex items-center gap-1.5 truncate">
                   <Briefcase className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-                  <span className="truncate">Adv. Tanvir (Lawyer)</span>
+                  <span className="truncate">Tanvir</span>
                 </div>
                 <ArrowRight className="w-3 h-3 text-amber-200 shrink-0" />
+              </button>
+
+              <button
+                type="button"
+                disabled={loading}
+                onClick={() => handleQuickDemo('admin')}
+                className="py-2 px-2 rounded-xl text-left border border-purple-200 bg-purple-50/70 hover:bg-purple-100 transition-all flex items-center justify-between text-xs font-bold text-purple-900"
+              >
+                <div className="flex items-center gap-1.5 truncate">
+                  <ShieldCheck className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                  <span className="truncate">Admin DG</span>
+                </div>
+                <ArrowRight className="w-3 h-3 text-purple-400 shrink-0" />
               </button>
             </div>
           </div>
