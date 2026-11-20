@@ -29,7 +29,7 @@ export default function BookingPage() {
   const [lawyer, setLawyer] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Booking Form State
+
   const [step, setStep] = useState(1);
   const [consultationMode, setConsultationMode] = useState('Video Consultation');
   const [selectedDate, setSelectedDate] = useState('2026-11-20');
@@ -130,7 +130,7 @@ export default function BookingPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Breadcrumb / Back */}
         <div className="mb-6">
           <Link
@@ -164,7 +164,7 @@ export default function BookingPage() {
 
         {/* Steps Card */}
         <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-8">
-          
+
           {/* Step 1: Consultation Mode */}
           <div>
             <h3 className="font-serif font-bold text-lg text-slate-900 mb-3 flex items-center gap-2">
@@ -184,11 +184,10 @@ export default function BookingPage() {
                     key={m.mode}
                     type="button"
                     onClick={() => setConsultationMode(m.mode)}
-                    className={`p-4 rounded-2xl border text-left transition-all ${
-                      isSelected
+                    className={`p-4 rounded-2xl border text-left transition-all ${isSelected
                         ? 'border-bdGreen-800 bg-emerald-50/70 shadow-xs'
                         : 'border-slate-200 hover:border-slate-300 bg-slate-50/50'
-                    }`}
+                      }`}
                   >
                     <Icon className={`w-5 h-5 mb-2 ${isSelected ? 'text-bdGreen-800' : 'text-slate-400'}`} />
                     <h4 className="font-bold text-xs text-slate-900">{m.mode}</h4>
@@ -241,7 +240,7 @@ export default function BookingPage() {
               <span className="w-6 h-6 rounded-full bg-bdGreen-800 text-white text-xs font-bold flex items-center justify-center">3</span>
               <span>Case Brief & Relevant Evidence</span>
             </h3>
-            
+
             <div>
               <label className="block text-xs font-semibold text-slate-600 mb-1">Legal Issue Category:</label>
               <input
@@ -298,11 +297,10 @@ export default function BookingPage() {
                     key={p.id}
                     type="button"
                     onClick={() => setPaymentMethod(p.id)}
-                    className={`p-3.5 rounded-xl border text-center transition-all ${
-                      isSelected
+                    className={`p-3.5 rounded-xl border text-center transition-all ${isSelected
                         ? 'border-bdGreen-800 bg-emerald-50 text-bdGreen-900 font-bold shadow-xs'
                         : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-medium'
-                    }`}
+                      }`}
                   >
                     <span className={`block font-bold text-sm ${p.color}`}>{p.name}</span>
                     <span className="text-[10px] text-slate-400 mt-0.5 block">{p.badge}</span>
