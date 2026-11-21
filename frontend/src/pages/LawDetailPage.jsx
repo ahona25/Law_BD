@@ -112,8 +112,8 @@ export default function LawDetailPage() {
                   {law.category_label || law.category}
                 </span>
                 <span className={`px-2.5 py-1 text-xs font-bold uppercase rounded-full ${law.status === 'current'
-                    ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                    : 'bg-amber-50 text-amber-800 border border-amber-200'
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  : 'bg-amber-50 text-amber-800 border border-amber-200'
                   }`}>
                   Status: {law.status || 'Current Law'}
                 </span>
@@ -124,8 +124,8 @@ export default function LawDetailPage() {
                 <button
                   onClick={() => toggleLawBookmark(law.id)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${isSaved
-                      ? 'bg-rose-50 border-rose-200 text-bdRed-600'
-                      : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                    ? 'bg-rose-50 border-rose-200 text-bdRed-600'
+                    : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                     }`}
                 >
                   <Bookmark className="w-3.5 h-3.5" />
@@ -157,6 +157,8 @@ export default function LawDetailPage() {
                 {law.bangla_title}
               </h2>
             )}
+
+
 
             {/* Citations metadata */}
             <div className="mt-6 pt-6 border-t border-slate-100 flex flex-wrap items-center gap-6 text-xs text-slate-500">
@@ -203,6 +205,8 @@ export default function LawDetailPage() {
               </div>
             </div>
           </div>
+
+
 
           {/* Side-by-Side Plain Explanations: English & Bangla */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

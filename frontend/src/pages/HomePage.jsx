@@ -804,16 +804,16 @@ export default function HomePage() {
                     </div>
 
                     {/* Bottom Action */}
-                    <div className="pt-4 mt-4 border-t border-slate-200/70 flex items-center justify-between">
+                    <div className="pt-4 mt-4 border-t border-slate-200/70 flex items-center justify-between gap-2">
                       <span className="text-[11px] text-slate-500">
                         {court.phone}
                       </span>
                       <Link
-                        to="/courts"
-                        className="inline-flex items-center gap-1 text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900"
+                        to={`/lawyers?division=${encodeURIComponent(court.division)}&district=${encodeURIComponent(court.district)}&court=${encodeURIComponent(court.name)}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-bdGreen-800 text-bdGreen-900 hover:text-white border border-emerald-300 hover:border-bdGreen-800 rounded-xl text-xs font-bold transition-all shadow-2xs group"
                       >
-                        <span>{lang === 'bn' ? 'বিস্তারিত ও আদালত ডিরেক্টরি' : 'View Court Details'}</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <span>{lang === 'bn' ? `${court.districtBn}-এর আইনজীবী দেখুন` : `Advocates in ${court.district}`}</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
                     </div>
 
@@ -976,16 +976,16 @@ export default function HomePage() {
                     </div>
 
                     {/* Bottom Action */}
-                    <div className="pt-4 mt-4 border-t border-slate-200/70 flex items-center justify-between">
+                    <div className="pt-4 mt-4 border-t border-slate-200/70 flex items-center justify-between gap-2">
                       <span className="text-[11px] text-slate-500">
                         {court.phone}
                       </span>
                       <Link
-                        to="/courts"
-                        className="inline-flex items-center gap-1 text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900"
+                        to={`/lawyers?division=${encodeURIComponent(court.division)}&district=${encodeURIComponent(court.district)}&court=${encodeURIComponent(court.name)}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-bdGreen-800 text-bdGreen-900 hover:text-white border border-emerald-300 hover:border-bdGreen-800 rounded-xl text-xs font-bold transition-all shadow-2xs group"
                       >
-                        <span>{lang === 'bn' ? 'বিস্তারিত ও আদালত ডিরেক্টরি' : 'View Court Details'}</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <span>{lang === 'bn' ? `${court.districtBn}-এর আইনজীবী দেখুন` : `Advocates in ${court.district}`}</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
                     </div>
 
