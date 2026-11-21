@@ -97,7 +97,6 @@ export default function HomePage() {
     }
   ];
 
-  // Category filtering logic for clean sequential browsing
   const getFilteredCategories = () => {
     if (activeCategoryTab === 'civil') {
       return ALL_30_LEGAL_CATEGORIES.filter(c => ['property-land', 'civil', 'tort-negligence', 'consumer', 'environmental', 'admiralty-maritime'].includes(c.id));
