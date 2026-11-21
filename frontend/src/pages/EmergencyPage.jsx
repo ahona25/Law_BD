@@ -116,6 +116,9 @@ export default function EmergencyPage() {
           ))}
         </div>
 
+
+
+
         {/* Emergency Crisis Protocols */}
         <div className="space-y-6">
           <h2 className="font-serif font-bold text-2xl text-slate-900 text-center mb-8">
