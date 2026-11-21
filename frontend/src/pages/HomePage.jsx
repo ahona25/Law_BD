@@ -47,15 +47,14 @@ export default function HomePage() {
   const [homeCourtDivision, setHomeCourtDivision] = useState('all');
 
   useEffect(() => {
-    // Load landmark / recent laws
     api.getLaws().then(res => {
       if (res.success && res.laws) setRecentLaws(res.laws.slice(0, 4));
-    }).catch(() => {});
+    }).catch(() => { });
 
     // Load top verified lawyers
     api.getLawyers({ sortBy: 'top-rated' }).then(res => {
       if (res.success && res.lawyers) setTopLawyers(res.lawyers.slice(0, 3));
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   const handleSearchSubmit = (e) => {
@@ -120,22 +119,22 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAF9] text-slate-800">
-      
+
       {/* =========================================================================
           STAGE 1: AUTHORITATIVE HERO & DISCOVERY GATEWAY
           ========================================================================= */}
       <section className="relative overflow-hidden bg-gradient-to-b from-bdDark-950 via-bdDark-900 to-bdGreen-950 text-white pt-12 pb-20 border-b border-emerald-950">
-        
+
         {/* Subtle decorative glow accents mimicking the national flag colors */}
         <div className="absolute top-10 right-10 w-96 h-96 rounded-full bg-bdRed-500/10 blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-10 left-10 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* Left 7 Columns: Purpose, Universal Search & Sequential Actions */}
             <div className="lg:col-span-7 space-y-6 text-left">
-              
+
               {/* Official Seal Badge */}
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-emerald-300 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-bdRed-500 animate-pulse"></span>
@@ -233,7 +232,7 @@ export default function HomePage() {
             {/* Right 5 Columns: Dignified Lady Justice Visual Landmark */}
             <div className="lg:col-span-5">
               <div className="relative group rounded-3xl overflow-hidden border-2 border-emerald-500/30 shadow-2xl bg-bdDark-950">
-                
+
                 {/* Glow Accents */}
                 <div className="absolute -top-12 -right-12 w-48 h-48 bg-amber-400/20 rounded-full blur-3xl pointer-events-none z-10"></div>
                 <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none z-10"></div>
@@ -306,7 +305,7 @@ export default function HomePage() {
           ========================================================================= */}
       <section className="bg-white py-16 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-bdGreen-900 text-xs font-bold uppercase tracking-wider">
               <Clock className="w-3.5 h-3.5 text-bdGreen-800" />
@@ -323,7 +322,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            
+
             {/* Step 1 */}
             <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all relative flex flex-col justify-between">
               <div className="space-y-4">
@@ -426,7 +425,7 @@ export default function HomePage() {
           STAGE 3: SEQUENTIAL 30 JURISDICTIONS EXPLORER (NUMBERED 01 TO 30)
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
@@ -467,11 +466,10 @@ export default function HomePage() {
             <button
               key={tab.id}
               onClick={() => setActiveCategoryTab(tab.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                activeCategoryTab === tab.id
+              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${activeCategoryTab === tab.id
                   ? 'bg-bdGreen-800 text-white shadow-xs'
                   : 'bg-white hover:bg-slate-100 text-slate-600 border border-slate-200'
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -564,7 +562,7 @@ export default function HomePage() {
           ========================================================================= */}
       <section className="bg-slate-100/70 py-16 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
             <div>
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-100 text-bdGreen-800 text-xs font-bold uppercase mb-2">
@@ -625,9 +623,8 @@ export default function HomePage() {
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                     <button
                       onClick={() => toggleLawBookmark(law.id)}
-                      className={`font-semibold transition-colors ${
-                        isSaved ? 'text-bdRed-600 font-bold' : 'text-slate-500 hover:text-slate-800'
-                      }`}
+                      className={`font-semibold transition-colors ${isSaved ? 'text-bdRed-600 font-bold' : 'text-slate-500 hover:text-slate-800'
+                        }`}
                     >
                       {isSaved ? '★ Saved to Vault' : '☆ Save Law'}
                     </button>
@@ -651,7 +648,7 @@ export default function HomePage() {
           ========================================================================= */}
       <section className="bg-white py-16 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
@@ -686,11 +683,10 @@ export default function HomePage() {
                 <button
                   key={div.id}
                   onClick={() => setHomeCourtDivision(div.id)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
-                    isSelected
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${isSelected
                       ? 'bg-bdGreen-800 text-white shadow-xs font-bold'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'
-                  }`}
+                    }`}
                 >
                   {lang === 'bn' ? div.bangla : div.name}
                 </button>
@@ -711,27 +707,25 @@ export default function HomePage() {
                 return (
                   <div
                     key={court.id}
-                    className={`bg-slate-50/80 hover:bg-white rounded-2xl p-5 sm:p-6 border transition-all flex flex-col justify-between ${
-                      isApex
+                    className={`bg-slate-50/80 hover:bg-white rounded-2xl p-5 sm:p-6 border transition-all flex flex-col justify-between ${isApex
                         ? 'border-emerald-300 shadow-2xs hover:shadow-md'
                         : isSpecial
-                        ? 'border-amber-200 shadow-2xs hover:shadow-md'
-                        : 'border-slate-200/90 shadow-2xs hover:shadow-md'
-                    }`}
+                          ? 'border-amber-200 shadow-2xs hover:shadow-md'
+                          : 'border-slate-200/90 shadow-2xs hover:shadow-md'
+                      }`}
                   >
                     <div className="space-y-3">
-                      
+
                       {/* Top Badges */}
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
                           <span
-                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
-                              isApex
+                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${isApex
                                 ? 'bg-emerald-100 text-bdGreen-900'
                                 : isSpecial
-                                ? 'bg-amber-100 text-amber-900'
-                                : 'bg-white text-slate-700 border border-slate-200/70'
-                            }`}
+                                  ? 'bg-amber-100 text-amber-900'
+                                  : 'bg-white text-slate-700 border border-slate-200/70'
+                              }`}
                           >
                             {lang === 'bn' ? court.divisionBn : court.division}
                           </span>
@@ -935,7 +929,7 @@ export default function HomePage() {
           ========================================================================= */}
       <section className="bg-slate-50 py-16 border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-bdGreen-900 text-xs font-bold uppercase tracking-wider">
               <Award className="w-3.5 h-3.5 text-bdGreen-800" />
@@ -952,7 +946,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
+
             {/* Toolkit 1: Templates */}
             <div className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
@@ -1075,9 +1069,8 @@ export default function HomePage() {
               >
                 <span>{lang === 'bn' ? faq.qBn : faq.q}</span>
                 <ChevronRight
-                  className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${
-                    openFaq === idx ? 'rotate-90 text-bdGreen-800' : ''
-                  }`}
+                  className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${openFaq === idx ? 'rotate-90 text-bdGreen-800' : ''
+                    }`}
                 />
               </button>
               {openFaq === idx && (
