@@ -21,11 +21,14 @@ import {
   Award,
   Users,
   Shield,
-  Briefcase
+  Briefcase,
+  Building2,
+  MapPin
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useBookmarks } from '../context/BookmarkContext';
 import { ALL_30_LEGAL_CATEGORIES } from '../data/categoriesData';
+import { ALL_BANGLADESH_COURTS, BANGLADESH_DIVISIONS } from '../data/courtsData';
 import { api } from '../services/api';
 import SequentialSidebar from '../components/SequentialSidebar';
 import ladyJusticeImg from '../assets/lady-justice.jpg';
@@ -41,6 +44,7 @@ export default function HomePage() {
   const [openFaq, setOpenFaq] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeCategoryTab, setActiveCategoryTab] = useState('all'); // 'all' | 'civil' | 'criminal' | 'family' | 'commercial'
+  const [homeCourtDivision, setHomeCourtDivision] = useState('all');
 
   useEffect(() => {
     // Load landmark / recent laws
@@ -152,8 +156,8 @@ export default function HomePage() {
               {/* Plain-Language Subtitle */}
               <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
                 {lang === 'bn'
-                  ? 'বাংলাদেশের সকল সরকারি আইন ও অধ্যাদেশ সহজ বাংলায় অনুসন্ধান করুন, দণ্ড ও শাস্তির বিধান জানুন, বার কাউন্সিলের সনদপ্রাপ্ত বিজ্ঞ আইনজীবীদের সাথে তুলনা করে চেম্বার ও ভিডিও পরামর্শ বুক করুন।'
-                  : 'Access comprehensive Bangladesh statutory laws in plain language, inspect mandatory penalties, compare Bar Council enrolled advocates, and schedule chamber or video consultations seamlessly.'}
+                  ? 'বাংলাদেশের সকল সরকারি আইন ও অধ্যাদেশ সহজ বাংলায় অনুসন্ধান করুন, দণ্ড ও শাস্তির বিধান জানুন, এলাকা অনুযায়ী সকল আদালতের অধিক্ষেত্র দেখুন এবং বার কাউন্সিলের সনদপ্রাপ্ত বিজ্ঞ আইনজীবীদের চেম্বার ও ভিডিও পরামর্শ বুক করুন।'
+                  : 'Access comprehensive Bangladesh statutory laws in plain language, inspect mandatory penalties, navigate courts across all 8 divisions, and schedule chamber or video consultations seamlessly.'}
               </p>
 
               {/* Universal Search Bar */}
@@ -359,24 +363,24 @@ export default function HomePage() {
                     02
                   </span>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-bdGreen-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
-                    Step 2 · Compare
+                    Step 2 · Courts
                   </span>
                 </div>
                 <h3 className="font-bold text-lg text-slate-900">
-                  {lang === 'bn' ? 'সনদপ্রাপ্ত আইনজীবী তুলনা করুন' : 'Compare Verified Advocates'}
+                  {lang === 'bn' ? 'আদালত ও বিচারিক এলাকা খুঁজুন' : 'Explore Bangladesh Courts'}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                   {lang === 'bn'
-                    ? 'বাংলাদেশ বার কাউন্সিলের সনদ, সুপ্রিম কোর্ট ও জেলা জজ আদালতের অভিজ্ঞতা, চেম্বার অবস্থান এবং ক্লায়েন্ট রিভিউ যাচাই করে সঠিক আইনজীবী বেছে নিন।'
-                    : 'Filter verified advocates by Bar Council roll number, courtroom admissions (Supreme Court / District Bars), client ratings, and transparent chamber fees.'}
+                    ? 'সুপ্রিম কোর্ট (আপিল ও হাইকোর্ট বিভাগ), ৮টি প্রশাসনিক বিভাগের জেলা ও দায়রা জজ আদালত এবং বিশেষ ট্রাইব্যুনালের অবস্থান ও মামলা পরিচালনার তথ্য জানুন।'
+                    : 'Locate courts by area: Supreme Court, 64 District Courts, CMM/CJM magistracy, and specialized tribunals (Cyber, Family, Labour, Artha Rin).'}
                 </p>
               </div>
               <div className="pt-6 mt-6 border-t border-slate-200/80">
                 <Link
-                  to="/compare-lawyers"
+                  to="/courts"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900"
                 >
-                  <span>{lang === 'bn' ? 'আইনজীবী তুলনা ম্যাট্রিক্স' : 'Open Comparison Matrix'}</span>
+                  <span>{lang === 'bn' ? 'আদালত ডিরেক্টরি দেখুন' : 'Explore Courts Directory'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -643,7 +647,182 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          STAGE 5: VERIFIED ADVOCATES DIRECTORY SHOWCASE
+          STAGE 5: BANGLADESH COURTS DIRECTORY ACCORDING TO AREAS
+          ========================================================================= */}
+      <section className="bg-white py-16 border-y border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-bdGreen-800 uppercase tracking-wider mb-2">
+                <Building2 className="w-4 h-4 text-bdGreen-700" />
+                <span>{lang === 'bn' ? 'আদালত ও বিচারিক অধিক্ষেত্র' : 'Bangladesh Judicial Directory'}</span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900">
+                {lang === 'bn' ? 'এলাকা অনুযায়ী বাংলাদেশের সকল আদালত' : 'Bangladesh Courts Directory by Area'}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-xl leading-relaxed">
+                {lang === 'bn'
+                  ? 'সুপ্রিম কোর্ট, ৮টি প্রশাসনিক বিভাগের জেলা ও দায়রা জজ আদালত এবং সংবিধিবদ্ধ বিশেষ ট্রাইব্যুনালের বিচারিক এলাকা ও বিস্তারিত।'
+                  : 'Browse Supreme Court, 64 District Courts, and specialized tribunals across all 8 administrative divisions.'}
+              </p>
+            </div>
+
+            <Link
+              to="/courts"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold transition-colors shadow-xs shrink-0 self-start md:self-auto"
+            >
+              <span>{lang === 'bn' ? 'সকল আদালত ডিরেক্টরি দেখুন' : 'Explore All Courts (Full Directory)'}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Division Filter Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
+            {BANGLADESH_DIVISIONS.map((div) => {
+              const isSelected = homeCourtDivision === div.id;
+              return (
+                <button
+                  key={div.id}
+                  onClick={() => setHomeCourtDivision(div.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
+                    isSelected
+                      ? 'bg-bdGreen-800 text-white shadow-xs font-bold'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'
+                  }`}
+                >
+                  {lang === 'bn' ? div.bangla : div.name}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Clean 4-Card Courts Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {ALL_BANGLADESH_COURTS.filter((c) =>
+              homeCourtDivision === 'all' ? true : c.divisionId === homeCourtDivision
+            )
+              .slice(0, 4)
+              .map((court) => {
+                const isApex = court.divisionId === 'apex';
+                const isSpecial = court.divisionId === 'specialized';
+
+                return (
+                  <div
+                    key={court.id}
+                    className={`bg-slate-50/80 hover:bg-white rounded-2xl p-5 sm:p-6 border transition-all flex flex-col justify-between ${
+                      isApex
+                        ? 'border-emerald-300 shadow-2xs hover:shadow-md'
+                        : isSpecial
+                        ? 'border-amber-200 shadow-2xs hover:shadow-md'
+                        : 'border-slate-200/90 shadow-2xs hover:shadow-md'
+                    }`}
+                  >
+                    <div className="space-y-3">
+                      
+                      {/* Top Badges */}
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
+                              isApex
+                                ? 'bg-emerald-100 text-bdGreen-900'
+                                : isSpecial
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'bg-white text-slate-700 border border-slate-200/70'
+                            }`}
+                          >
+                            {lang === 'bn' ? court.divisionBn : court.division}
+                          </span>
+                          <span className="text-slate-400 text-xs">·</span>
+                          <span className="text-xs text-slate-500 font-medium">
+                            {lang === 'bn' ? court.districtBn : court.district}
+                          </span>
+                        </div>
+
+                        <span className="text-[11px] font-bold text-bdGreen-900 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/40">
+                          {lang === 'bn' ? court.levelBn : court.level}
+                        </span>
+                      </div>
+
+                      {/* Court Name */}
+                      <div>
+                        <h3 className="font-serif text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                          {court.name}
+                        </h3>
+                        <p className="text-xs text-bdGreen-900 font-semibold mt-0.5">
+                          {court.nameBn}
+                        </p>
+                      </div>
+
+                      {/* Address */}
+                      <div className="flex items-start gap-1.5 text-xs text-slate-600">
+                        <MapPin className="w-3.5 h-3.5 text-bdRed-500 shrink-0 mt-0.5" />
+                        <span>{lang === 'bn' ? court.addressBn : court.address}</span>
+                      </div>
+
+                      {/* Jurisdiction */}
+                      <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                        {lang === 'bn' ? court.jurisdictionBn : court.jurisdiction}
+                      </p>
+
+                      {/* Case Types */}
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {court.caseTypes.slice(0, 3).map((type, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-0.5 text-[10px] font-medium bg-white border border-slate-200 text-slate-700 rounded-md"
+                          >
+                            {type}
+                          </span>
+                        ))}
+                      </div>
+
+                    </div>
+
+                    {/* Bottom Action */}
+                    <div className="pt-4 mt-4 border-t border-slate-200/70 flex items-center justify-between">
+                      <span className="text-[11px] text-slate-500">
+                        {court.phone}
+                      </span>
+                      <Link
+                        to="/courts"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-bdGreen-800 hover:text-bdGreen-900"
+                      >
+                        <span>{lang === 'bn' ? 'বিস্তারিত ও আদালত ডিরেক্টরি' : 'View Court Details'}</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+
+                  </div>
+                );
+              })}
+          </div>
+
+          {/* Clean Bottom Note */}
+          <div className="mt-6 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-bdGreen-800 shrink-0" />
+              <p className="text-xs text-slate-700 font-medium">
+                {lang === 'bn'
+                  ? 'বাংলাদেশের ৬৪টি জেলার সকল জেলা জজ আদালত, চিফ জুডিশিয়াল ও চিফ মেট্রোপলিটন ম্যাজিস্ট্রেট আদালতের সম্পূর্ণ তালিকা উপলব্ধ।'
+                  : 'Complete directory covering all 64 District Courts, CMM/CJM magistracy, and specialized tribunals across Bangladesh.'}
+              </p>
+            </div>
+            <Link
+              to="/courts"
+              className="text-xs font-bold text-bdGreen-900 hover:underline shrink-0"
+            >
+              {lang === 'bn' ? '৬৪টি জেলার সকল আদালত ব্রাউজ করুন →' : 'Browse All 64 Districts →'}
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          STAGE 6: VERIFIED ADVOCATES DIRECTORY SHOWCASE
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
@@ -659,12 +838,6 @@ export default function HomePage() {
             </p>
           </div>
           <div className="mt-4 md:mt-0 flex items-center gap-3">
-            <Link
-              to="/compare-lawyers"
-              className="px-4 py-2 border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold transition-colors"
-            >
-              <span>{lang === 'bn' ? 'আইনজীবী তুলনা' : 'Compare Matrix'}</span>
-            </Link>
             <Link
               to="/lawyers"
               className="px-4 py-2 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl text-xs font-bold transition-colors shadow-xs flex items-center gap-1"

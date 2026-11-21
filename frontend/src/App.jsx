@@ -18,7 +18,6 @@ import LawyersPage from './pages/LawyersPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
 import BookingPage from './pages/BookingPage';
 import CourtsPage from './pages/CourtsPage';
-import CompareLawyersPage from './pages/CompareLawyersPage';
 import AwarenessPage from './pages/AwarenessPage';
 import TemplatesPage from './pages/TemplatesPage';
 import EmergencyPage from './pages/EmergencyPage';

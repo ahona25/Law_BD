@@ -13,8 +13,7 @@ import {
   Video,
   Phone,
   Scale,
-  CheckSquare,
-  Square,
+  Building2,
   SlidersHorizontal,
   ChevronRight
 } from 'lucide-react';
@@ -30,7 +29,6 @@ export default function LawyersPage() {
 
   const [lawyers, setLawyers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [comparedIds, setComparedIds] = useState([]);
 
   const currentSpecialty = searchParams.get('specialty') || 'All Specialties';
   const currentDivision = searchParams.get('division') || 'All Locations';
@@ -78,19 +76,6 @@ export default function LawyersPage() {
     setSearchParams(params);
   };
 
-  const toggleCompare = (id) => {
-    const numId = Number(id);
-    if (comparedIds.includes(numId)) {
-      setComparedIds(comparedIds.filter(x => x !== numId));
-    } else {
-      if (comparedIds.length >= 3) {
-        alert('You can compare up to 3 advocates simultaneously.');
-        return;
-      }
-      setComparedIds([...comparedIds, numId]);
-    }
-  };
-
   const specialtiesList = [
     'All Specialties',
     'Criminal Law',
@@ -118,17 +103,28 @@ export default function LawyersPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 text-xs font-bold text-bdGreen-800 uppercase tracking-wider mb-2">
-            <ShieldCheck className="w-4 h-4 text-bdGreen-700" />
-            <span>{lang === 'bn' ? 'বাংলাদেশ বার কাউন্সিল সনদপ্রাপ্ত আইনজীবী ডিরেক্টরি' : 'Bangladesh Bar Council Verified Directory'}</span>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold text-bdGreen-800 uppercase tracking-wider mb-2">
+              <ShieldCheck className="w-4 h-4 text-bdGreen-700" />
+              <span>{lang === 'bn' ? 'বাংলাদেশ বার কাউন্সিল সনদপ্রাপ্ত আইনজীবী ডিরেক্টরি' : 'Bangladesh Bar Council Verified Directory'}</span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900">
+              {t('lawyersTitle')}
+            </h1>
+            <p className="text-sm text-slate-500 mt-2 max-w-2xl leading-relaxed">
+              {t('lawyersSubtitle')}
+            </p>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900">
-            {t('lawyersTitle')}
-          </h1>
-          <p className="text-sm text-slate-500 mt-2 max-w-2xl leading-relaxed">
-            {t('lawyersSubtitle')}
-          </p>
+
+          <Link
+            to="/courts"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-bdGreen-900 border border-emerald-200/80 rounded-xl text-xs font-bold transition-all shrink-0 self-start md:self-auto shadow-2xs"
+          >
+            <Building2 className="w-4 h-4 text-bdGreen-800" />
+            <span>{lang === 'bn' ? 'আদালত ও বিচারিক অধিক্ষেত্র ডিরেক্টরি' : 'Bangladesh Courts Directory'}</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
         {/* Filter Controls Card */}
@@ -211,37 +207,6 @@ export default function LawyersPage() {
           </div>
         </div>
 
-        {/* Comparison Floating Action Bar (Sticky if compared items exist) */}
-        {comparedIds.length > 0 && (
-          <div className="sticky top-24 z-30 mb-8 p-4 rounded-2xl bg-bdDark-900 text-white shadow-xl border border-emerald-900 flex items-center justify-between animate-fadeIn">
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-xl bg-bdRed-500 text-white font-bold flex items-center justify-center text-xs">
-                {comparedIds.length}
-              </span>
-              <div>
-                <p className="font-bold text-sm">Advocates Selected for Comparison</p>
-                <p className="text-xs text-slate-400">Comparing fees, credentials, and chamber locations</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setComparedIds([])}
-                className="text-xs text-slate-400 hover:text-white"
-              >
-                Clear
-              </button>
-              <Link
-                to={`/compare-lawyers?ids=${comparedIds.join(',')}`}
-                className="px-4 py-2 bg-bdGreen-700 hover:bg-bdGreen-600 text-white text-xs font-bold rounded-xl shadow-xs flex items-center gap-1.5"
-              >
-                <span>Compare Side-by-Side</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        )}
-
         {/* Directory Listing Grid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -253,7 +218,6 @@ export default function LawyersPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {lawyers.map((lawyer) => {
               const isSaved = savedLawyers.includes(Number(lawyer.id));
-              const isCompared = comparedIds.includes(Number(lawyer.id));
 
               return (
                 <div
@@ -345,20 +309,10 @@ export default function LawyersPage() {
                         <span className="font-bold text-lg text-bdGreen-900">{lawyer.feeDisplay}</span>
                       </div>
 
-                      {/* Compare Checkbox */}
-                      <button
-                        onClick={() => toggleCompare(lawyer.id)}
-                        className={`flex items-center gap-1.5 text-xs font-semibold px-2 py-1 rounded-md transition-colors ${
-                          isCompared ? 'bg-emerald-100 text-bdGreen-900' : 'text-slate-500 hover:bg-slate-100'
-                        }`}
-                      >
-                        {isCompared ? (
-                          <CheckSquare className="w-4 h-4 text-bdGreen-700" />
-                        ) : (
-                          <Square className="w-4 h-4 text-slate-400" />
-                        )}
-                        <span>Compare</span>
-                      </button>
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                        <ShieldCheck className="w-3.5 h-3.5 text-bdGreen-700" />
+                        <span>Enrolled Advocate</span>
+                      </span>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
