@@ -83,6 +83,9 @@ export default function LawsPage() {
     setSearchParams(params);
   };
 
+
+
+
   const handleStatusChange = (status) => {
     const params = new URLSearchParams(searchParams);
     if (status === 'all') {
@@ -245,8 +248,8 @@ export default function LawsPage() {
                         key={sIdx}
                         onClick={() => handleCategorySelect(matchedCategoryObj.id, isSubSelected ? null : sub)}
                         className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${isSubSelected
-                            ? 'bg-bdRed-500 text-white shadow-2xs'
-                            : 'bg-slate-100 hover:bg-emerald-50 text-slate-700'
+                          ? 'bg-bdRed-500 text-white shadow-2xs'
+                          : 'bg-slate-100 hover:bg-emerald-50 text-slate-700'
                           }`}
                       >
                         {sub}
@@ -281,10 +284,10 @@ export default function LawsPage() {
                               {law.category_label || law.category}
                             </span>
                             <span className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded ${law.status === 'current'
-                                ? 'bg-emerald-100 text-emerald-800'
-                                : law.status === 'repealed'
-                                  ? 'bg-rose-100 text-rose-800'
-                                  : 'bg-amber-100 text-amber-800'
+                              ? 'bg-emerald-100 text-emerald-800'
+                              : law.status === 'repealed'
+                                ? 'bg-rose-100 text-rose-800'
+                                : 'bg-amber-100 text-amber-800'
                               }`}>
                               {law.status || 'current'}
                             </span>
