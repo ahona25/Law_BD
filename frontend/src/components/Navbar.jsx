@@ -15,7 +15,6 @@ import {
   ShieldCheck,
   PhoneCall,
   ArrowRight,
-  MoreVertical,
   FileText,
   SunMoon,
   Check
@@ -171,6 +170,155 @@ export default function Navbar() {
               </nav>
 
               <div className="flex items-center gap-1 2xl:gap-1.5 shrink-0">
+
+              {/* HAMBURGER MENU (First in Features Section: Templates, Quick Navigation, Day/Night & Auth) */}
+              <div className="relative shrink-0" ref={moreMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setMoreMenuOpen((prev) => !prev)}
+                  aria-haspopup="menu"
+                  aria-expanded={moreMenuOpen}
+                  aria-label={lang === 'bn' ? 'মেনু' : 'Menu'}
+                  title={lang === 'bn' ? 'মেনু ও প্ল্যাটফর্ম ফিচারসমূহ' : 'Menu & Platform Features'}
+                  className={`p-2 rounded-xl border transition-all shadow-2xs shrink-0 flex items-center justify-center ${
+                    moreMenuOpen
+                      ? 'bg-emerald-50 border-emerald-300 text-bdGreen-900'
+                      : 'bg-slate-50 hover:bg-emerald-50 border-slate-200 hover:border-emerald-300 text-bdGreen-900'
+                  }`}
+                >
+                  {moreMenuOpen ? <X className="w-4 h-4 shrink-0" /> : <Menu className="w-4 h-4 shrink-0" />}
+                </button>
+
+                {moreMenuOpen && (
+                  <div
+                    role="menu"
+                    className="absolute left-0 top-12 w-60 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-fadeIn space-y-1.5"
+                  >
+                    <Link
+                      to="/templates"
+                      role="menuitem"
+                      onClick={() => setMoreMenuOpen(false)}
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs ${
+                        location.pathname === '/templates'
+                          ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
+                          : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
+                      }`}
+                    >
+                      <FileText className="w-4 h-4 text-bdGreen-800 shrink-0" />
+                      <span>{t('navTemplates')}</span>
+                    </Link>
+
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => {
+                        setMoreMenuOpen(false);
+                        setSidebarOpen(true);
+                      }}
+                      className="w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <Layers className="w-4 h-4 text-bdGreen-800 shrink-0" />
+                        <span>{lang === 'bn' ? '৩০টি আইনি অধিক্ষেত্র' : '30 Jurisdictions Index'}</span>
+                      </span>
+                      <span className="px-1.5 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold">1–30</span>
+                    </button>
+
+                    <Link
+                      to="/emergency"
+                      role="menuitem"
+                      onClick={() => setMoreMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-rose-50/70 hover:bg-rose-100/80 text-bdRed-600 border border-rose-200/80 transition-all shadow-2xs"
+                    >
+                      <PhoneCall className="w-4 h-4 text-bdRed-600 shrink-0" />
+                      <span>{t('navEmergency')}</span>
+                    </Link>
+
+                    <button
+                      type="button"
+                      role="menuitem"
+                      aria-pressed={themeMode === 'auto'}
+                      onClick={() => {
+                        toggleAutoMode();
+                        setMoreMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs text-left ${
+                        themeMode === 'auto'
+                          ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
+                          : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <SunMoon className="w-4 h-4 text-bdGreen-800 shrink-0" />
+                        <span>{lang === 'bn' ? 'স্বয়ংক্রিয় দিন/রাত' : 'Auto Day/Night'}</span>
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${
+                          themeMode === 'auto'
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-slate-200 text-slate-600'
+                        }`}
+                      >
+                        {themeMode === 'auto' && <Check className="w-3 h-3 shrink-0" />}
+                        {themeMode === 'auto' ? (lang === 'bn' ? 'চালু' : 'ON') : lang === 'bn' ? 'বন্ধ' : 'OFF'}
+                      </span>
+                    </button>
+
+                    {!isAuthenticated ? (
+                      <>
+                        <div className="border-t border-slate-100 my-1" />
+
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={() => openAuth('signin', 'client')}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
+                        >
+                          <LogIn className="w-4 h-4 text-bdGreen-800 shrink-0" />
+                          <span>{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={() => openAuth('register', 'lawyer')}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white transition-all shadow-2xs text-left"
+                        >
+                          <UserPlus className="w-4 h-4 text-emerald-300 shrink-0" />
+                          <span>{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="border-t border-slate-100 my-1" />
+
+                        <Link
+                          to={getDashboardPath()}
+                          role="menuitem"
+                          onClick={() => setMoreMenuOpen(false)}
+                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-bdGreen-900 transition-colors"
+                        >
+                          <User className="w-4 h-4 text-bdGreen-800 shrink-0" />
+                          <span>{role === 'lawyer' ? 'Chamber Dashboard' : role === 'admin' ? 'Admin Panel' : 'Client Vault'}</span>
+                        </Link>
+
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={() => {
+                            setMoreMenuOpen(false);
+                            handleSignOut();
+                          }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-bdRed-600 hover:bg-rose-50 transition-colors text-left"
+                        >
+                          <LogOut className="w-4 h-4 text-bdRed-600 shrink-0" />
+                          <span>{lang === 'bn' ? 'সাইন আউট' : 'Sign Out'}</span>
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
               
               {/* Sequential 30 Jurisdictions Index Button */}
               <button
@@ -211,8 +359,10 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* Vertical Visual Divider */}
-              <div className="h-5 w-px bg-slate-200 mx-0.5 shrink-0"></div>
+              {/* Vertical Visual Divider (Only shown before User Profile when signed in) */}
+              {isAuthenticated && (
+                <div className="h-5 w-px bg-slate-200 mx-0.5 shrink-0"></div>
+              )}
 
               {/* USER PROFILE (when signed in) */}
               {isAuthenticated && (
@@ -365,102 +515,6 @@ export default function Navbar() {
 
                 </div>
               )}
-
-              {/* 3-DOT OVERFLOW MENU (Last Option: Legal Templates, Sign In, Sign Up) */}
-              <div className="relative shrink-0" ref={moreMenuRef}>
-                <button
-                  type="button"
-                  onClick={() => setMoreMenuOpen((prev) => !prev)}
-                  aria-haspopup="menu"
-                  aria-expanded={moreMenuOpen}
-                  aria-label={lang === 'bn' ? 'আরও অপশন' : 'More options'}
-                  title={lang === 'bn' ? 'আইনি ফরম, সাইন ইন ও নিবন্ধন' : 'Legal Templates, Sign In & Sign Up'}
-                  className={`p-2 rounded-xl border transition-all shadow-2xs shrink-0 ${
-                    moreMenuOpen
-                      ? 'bg-emerald-50 border-emerald-300 text-bdGreen-900'
-                      : 'bg-slate-50 hover:bg-emerald-50 border-slate-200 hover:border-emerald-300 text-bdGreen-900'
-                  }`}
-                >
-                  <MoreVertical className="w-4 h-4" />
-                </button>
-
-                {moreMenuOpen && (
-                  <div
-                    role="menu"
-                    className="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-fadeIn space-y-1.5"
-                  >
-                    <Link
-                      to="/templates"
-                      role="menuitem"
-                      onClick={() => setMoreMenuOpen(false)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs ${
-                        location.pathname === '/templates'
-                          ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
-                          : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
-                      }`}
-                    >
-                      <FileText className="w-4 h-4 text-bdGreen-800 shrink-0" />
-                      <span>{t('navTemplates')}</span>
-                    </Link>
-
-                    <button
-                      type="button"
-                      role="menuitem"
-                      aria-pressed={themeMode === 'auto'}
-                      onClick={() => {
-                        toggleAutoMode();
-                        setMoreMenuOpen(false);
-                      }}
-                      className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs text-left ${
-                        themeMode === 'auto'
-                          ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
-                          : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <SunMoon className="w-4 h-4 text-bdGreen-800 shrink-0" />
-                        <span>{lang === 'bn' ? 'স্বয়ংক্রিয় দিন/রাত' : 'Auto Day/Night'}</span>
-                      </span>
-                      <span
-                        className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${
-                          themeMode === 'auto'
-                            ? 'bg-emerald-600 text-white'
-                            : 'bg-slate-200 text-slate-600'
-                        }`}
-                      >
-                        {themeMode === 'auto' && <Check className="w-3 h-3 shrink-0" />}
-                        {themeMode === 'auto' ? (lang === 'bn' ? 'চালু' : 'ON') : lang === 'bn' ? 'বন্ধ' : 'OFF'}
-                      </span>
-                    </button>
-
-                    {!isAuthenticated && (
-                      <>
-                        <div className="border-t border-slate-100 my-1" />
-
-                        <button
-                          type="button"
-                          role="menuitem"
-                          onClick={() => openAuth('signin', 'client')}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
-                        >
-                          <LogIn className="w-4 h-4 text-bdGreen-800 shrink-0" />
-                          <span>{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
-                        </button>
-
-                        <button
-                          type="button"
-                          role="menuitem"
-                          onClick={() => openAuth('register', 'lawyer')}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
-                        >
-                          <UserPlus className="w-4 h-4 text-bdGreen-800 shrink-0" />
-                          <span>{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
-                        </button>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
 
               </div>
             </div>
