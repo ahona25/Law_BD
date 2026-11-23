@@ -101,7 +101,6 @@ export default function LawsPage() {
     setSearchParams({});
   };
 
-  // Find active category details
   const matchedCategoryObj = ALL_30_LEGAL_CATEGORIES.find(c => c.id === currentCategory);
 
   return (
