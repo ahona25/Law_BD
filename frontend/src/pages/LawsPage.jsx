@@ -39,10 +39,10 @@ export default function LawsPage() {
   const [searchInput, setSearchInput] = useState(currentSearch);
 
   useEffect(() => {
-    // Load categories
+
     api.getCategories().then(res => {
       if (res.success) setCategories(res.categories);
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -104,7 +104,7 @@ export default function LawsPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Page Top Header */}
         <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
           <div>
@@ -142,7 +142,7 @@ export default function LawsPage() {
 
         {/* Master Layout: Sequential Sidebar + Laws Catalog Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
+
           {/* Left Column: Embedded Sequential Categories Sidebar (When Expanded) */}
           {sidebarExpanded && (
             <div className="hidden lg:block lg:col-span-4 sticky top-28 h-[calc(100vh-140px)]">
@@ -156,7 +156,7 @@ export default function LawsPage() {
 
           {/* Right Column: Search Controls, Active Filters & Laws Grid */}
           <div className={`${sidebarExpanded ? 'lg:col-span-8' : 'lg:col-span-12'} space-y-6`}>
-            
+
             {/* Search & Status Bar */}
             <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-xs space-y-4">
               <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
@@ -231,7 +231,7 @@ export default function LawsPage() {
                     Reset to All
                   </button>
                 </div>
-                
+
                 <p className="text-xs text-slate-600">
                   <strong>Primary Statute:</strong> {matchedCategoryObj.primaryAct}
                 </p>
@@ -244,11 +244,10 @@ export default function LawsPage() {
                       <button
                         key={sIdx}
                         onClick={() => handleCategorySelect(matchedCategoryObj.id, isSubSelected ? null : sub)}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
-                          isSubSelected
+                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${isSubSelected
                             ? 'bg-bdRed-500 text-white shadow-2xs'
                             : 'bg-slate-100 hover:bg-emerald-50 text-slate-700'
-                        }`}
+                          }`}
                       >
                         {sub}
                       </button>
@@ -281,13 +280,12 @@ export default function LawsPage() {
                             <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-50 text-bdGreen-800 border border-emerald-200">
                               {law.category_label || law.category}
                             </span>
-                            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded ${
-                              law.status === 'current'
+                            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded ${law.status === 'current'
                                 ? 'bg-emerald-100 text-emerald-800'
                                 : law.status === 'repealed'
-                                ? 'bg-rose-100 text-rose-800'
-                                : 'bg-amber-100 text-amber-800'
-                            }`}>
+                                  ? 'bg-rose-100 text-rose-800'
+                                  : 'bg-amber-100 text-amber-800'
+                              }`}>
                               {law.status || 'current'}
                             </span>
                           </div>
@@ -331,9 +329,8 @@ export default function LawsPage() {
                       <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                         <button
                           onClick={() => toggleLawBookmark(law.id)}
-                          className={`font-semibold transition-colors ${
-                            isSaved ? 'text-bdRed-600 font-bold' : 'text-slate-500 hover:text-slate-800'
-                          }`}
+                          className={`font-semibold transition-colors ${isSaved ? 'text-bdRed-600 font-bold' : 'text-slate-500 hover:text-slate-800'
+                            }`}
                         >
                           {isSaved ? '★ Bookmarked' : '☆ Save to Bookmarks'}
                         </button>
