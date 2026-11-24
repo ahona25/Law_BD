@@ -83,10 +83,24 @@
 ## 🚀 How to Run Locally
 
 ### Prerequisites
-- Node.js (v18+ or v24+)
+- Node.js (v18+, v20+, or v24+)
 - npm (v9+)
 
-### 1. Start the Backend API Server
+### ⚡ Quick Start (Integrated Dev Environment)
+Launch both the Backend Express API and Frontend Vite development servers concurrently with a single command from the root directory:
+```bash
+npm run dev
+# or: node start-dev.js
+```
+- **Frontend App (Vite)**: `http://localhost:5173`
+- **Backend API Server**: `http://localhost:5000`
+- **API Health Check**: `http://localhost:5000/api/health`
+
+---
+
+### Manual Step-by-Step Start
+
+#### 1. Start the Backend API Server
 ```bash
 cd backend
 npm install
@@ -94,7 +108,7 @@ node server.js
 ```
 The backend API server will start on: **`http://localhost:5000`**
 
-### 2. Start the Frontend Application
+#### 2. Start the Frontend Application
 Open another terminal:
 ```bash
 cd frontend
@@ -103,11 +117,18 @@ npm run dev
 ```
 The React frontend development server will start on: **`http://localhost:5173`**
 
-### 3. Production Build
+#### 3. Production Build
 ```bash
 cd frontend
 npm run build
 ```
+
+---
+
+## 📱 Responsive Layout & Design System
+- **Desktop (≥ 1280px)**: Full uncompressed sequential navigation bar aligned to standard `max-w-7xl` container. Single-line titles with zero text wrapping.
+- **Tablet / Mobile (< 1280px)**: Compact responsive header with quick 1–30 Jurisdictions trigger, Saved Vault drawer, Bengali/English toggle, and animated drawer menu.
+- **Zero Horizontal Overflow**: Guaranteed 100vw constraint preventing unwanted horizontal scrollbars.
 
 ---
 
