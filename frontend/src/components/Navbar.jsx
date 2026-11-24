@@ -97,16 +97,16 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
-        <div className="w-full max-w-[1720px] mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 gap-2 xl:gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20 gap-2">
             
             {/* 1. BRAND LOGO ANCHOR (Clean Far-Left Position) */}
             <div className="flex items-center shrink-0">
               <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-                <div className="relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white shadow-md border border-emerald-700/40 group-hover:scale-105 transition-all shrink-0">
+                <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white shadow-md border border-emerald-700/40 group-hover:scale-105 transition-all shrink-0">
                   {/* Flag Red Accent Emblem */}
-                  <div className="absolute w-4 h-4 rounded-full bg-bdRed-500 opacity-90 -mr-0.5"></div>
-                  <Scale className="relative z-10 w-6 h-6 text-white drop-shadow-sm" />
+                  <div className="absolute w-3.5 h-3.5 rounded-full bg-bdRed-500 opacity-90 -mr-0.5"></div>
+                  <Scale className="relative z-10 w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-sm" />
                 </div>
                 <div className="shrink-0">
                   <div className="flex items-center gap-1.5">
@@ -117,7 +117,7 @@ export default function Navbar() {
                       Official
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-tight whitespace-nowrap hidden sm:block">
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-tight whitespace-nowrap hidden 2xl:block">
                     {lang === 'bn' ? 'বাংলাদেশ ডিজিটাল লিগ্যাল পোর্টাল' : 'Bangladesh Digital Legal Portal'}
                   </p>
                 </div>
@@ -125,14 +125,14 @@ export default function Navbar() {
             </div>
 
             {/* 2. SEQUENTIAL DESKTOP NAVIGATION LINKS (Logical User Journey) */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 2xl:gap-2 shrink-0">
+            <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1.5 shrink-0">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.to;
                 return (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold rounded-xl transition-all relative flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
+                    className={`px-2 2xl:px-2.5 py-2 text-xs 2xl:text-sm font-semibold rounded-xl transition-all relative flex items-center gap-1 whitespace-nowrap shrink-0 ${
                       isActive
                         ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
                         : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
@@ -150,28 +150,28 @@ export default function Navbar() {
             </nav>
 
             {/* 3. REORGANIZED UTILITIES & AUTHENTICATION SECTION (Strict Sequential Order) */}
-            <div className="hidden sm:flex items-center gap-1.5 xl:gap-2 shrink-0">
+            <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0">
               
               {/* Sequential 30 Jurisdictions Index Button */}
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-1.5 px-2.5 xl:px-3 py-2 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
                 title="Browse All 30 Jurisdictions Sequentially"
               >
-                <Layers className="w-4 h-4 text-bdGreen-800 group-hover:scale-110 transition-transform shrink-0" />
-                <span className="hidden xl:inline whitespace-nowrap">{lang === 'bn' ? '৩০টি অধিক্ষেত্র' : '30 Jurisdictions'}</span>
+                <Layers className="w-3.5 h-3.5 text-bdGreen-800 group-hover:scale-110 transition-transform shrink-0" />
+                <span className="hidden 2xl:inline whitespace-nowrap">{lang === 'bn' ? '৩০টি অধিক্ষেত্র' : '30 Jurisdictions'}</span>
                 <span className="px-1.5 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold whitespace-nowrap">1–30</span>
               </button>
 
               {/* 24/7 Helplines Pill */}
               <Link
                 to="/emergency"
-                className="flex items-center gap-1.5 px-2.5 xl:px-3 py-2 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-xs font-bold transition-all shadow-2xs shrink-0 whitespace-nowrap"
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-xs font-bold transition-all shadow-2xs shrink-0 whitespace-nowrap"
                 title="24/7 National Emergency Helplines"
               >
                 <PhoneCall className="w-3.5 h-3.5 shrink-0" />
-                <span className="hidden xl:inline whitespace-nowrap">{t('navEmergency')}</span>
+                <span className="hidden 2xl:inline whitespace-nowrap">{t('navEmergency')}</span>
               </Link>
 
               {/* Saved Laws Drawer Trigger */}
@@ -191,7 +191,7 @@ export default function Navbar() {
               {/* Language Switcher */}
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-emerald-300 transition-colors shadow-2xs shrink-0 whitespace-nowrap"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-emerald-300 transition-colors shadow-2xs shrink-0 whitespace-nowrap"
                 title="Toggle English / বাংলা"
               >
                 <Languages className="w-3.5 h-3.5 text-bdGreen-700 shrink-0" />
@@ -199,7 +199,7 @@ export default function Navbar() {
               </button>
 
               {/* Vertical Visual Divider */}
-              <div className="h-6 w-px bg-slate-200 mx-1 shrink-0"></div>
+              <div className="h-5 w-px bg-slate-200 mx-0.5 shrink-0"></div>
 
               {/* USER AUTHENTICATION HUB */}
               {isAuthenticated ? (
@@ -210,20 +210,20 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-400 transition-all shadow-2xs group shrink-0 whitespace-nowrap"
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-400 transition-all shadow-2xs group shrink-0 whitespace-nowrap"
                   >
-                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold text-white shadow-xs ${
+                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shadow-xs ${
                       role === 'lawyer' ? 'bg-amber-600' : role === 'admin' ? 'bg-purple-700' : 'bg-bdGreen-800'
                     }`}>
                       {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U'}
                     </div>
 
                     <div className="text-left">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-slate-900 max-w-[100px] truncate">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs font-bold text-slate-900 max-w-[80px] 2xl:max-w-[100px] truncate">
                           {user?.name ? user.name.split(' ')[0] : 'User'}
                         </span>
-                        <span className={`px-1.5 py-0.2 text-[9px] font-mono font-bold uppercase rounded-md ${
+                        <span className={`px-1 py-0.2 text-[8px] 2xl:text-[9px] font-mono font-bold uppercase rounded ${
                           role === 'lawyer'
                             ? 'bg-amber-100 text-amber-900 border border-amber-300'
                             : role === 'admin'
@@ -235,7 +235,7 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    <ChevronDown className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-transform ${userDropdownOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3 h-3 text-slate-400 group-hover:text-slate-700 transition-transform ${userDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {/* Expandable User Dropdown Menu */}
@@ -379,26 +379,39 @@ export default function Navbar() {
             </div>
 
             {/* 4. MOBILE CONTROLS & HAMBURGER */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex xl:hidden items-center gap-2 shrink-0">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="p-2 text-xs font-bold border border-slate-200 rounded-xl text-bdGreen-900 bg-slate-50 flex items-center gap-1"
+                className="p-2 text-xs font-bold border border-slate-200 rounded-xl text-bdGreen-900 bg-slate-50 flex items-center gap-1 shrink-0"
                 title="30 Jurisdictions"
               >
-                <Layers className="w-4 h-4 text-bdGreen-800" />
+                <Layers className="w-4 h-4 text-bdGreen-800 shrink-0" />
                 <span className="font-mono text-xs font-bold">1–30</span>
               </button>
 
               <button
+                onClick={() => setIsSavedDrawerOpen(true)}
+                className="relative p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 shrink-0"
+                title="Saved Laws & Advocates"
+              >
+                <Bookmark className="w-4 h-4 shrink-0" />
+                {totalSaved > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold bg-bdRed-500 text-white rounded-full flex items-center justify-center">
+                    {totalSaved}
+                  </span>
+                )}
+              </button>
+
+              <button
                 onClick={toggleLanguage}
-                className="px-2.5 py-1.5 text-xs font-bold border border-slate-200 rounded-xl text-slate-700"
+                className="px-2.5 py-1.5 text-xs font-bold border border-slate-200 rounded-xl text-slate-700 shrink-0"
               >
                 {lang === 'bn' ? 'EN' : 'বাং'}
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-200"
+                className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-200 shrink-0"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -409,7 +422,7 @@ export default function Navbar() {
 
         {/* 5. SEQUENTIAL MOBILE DRAWER MENU */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 shadow-xl animate-fadeIn">
+          <div className="xl:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 shadow-xl animate-fadeIn">
             
             <button
               onClick={() => { setMobileMenuOpen(false); setSidebarOpen(true); }}

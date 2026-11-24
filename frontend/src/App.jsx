@@ -34,7 +34,7 @@ export default function App() {
       <AuthProvider>
         <BookmarkProvider>
           <Router>
-            <div className="flex flex-col min-h-screen bg-[#F8FAF9] text-slate-800 font-sans selection:bg-bdGreen-800 selection:text-white">
+            <div className="flex flex-col min-h-screen w-full overflow-x-hidden bg-[#F8FAF9] text-slate-800 font-sans selection:bg-bdGreen-800 selection:text-white">
               <EmergencyBanner />
               <Navbar />
               <SavedDrawer />
