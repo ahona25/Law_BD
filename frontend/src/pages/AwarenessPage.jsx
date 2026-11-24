@@ -15,7 +15,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { api } from '../services/api';
 
 export default function AwarenessPage() {
-  const { lang, t } = useLanguage();
+  const { lang } = useLanguage();
   const [activeTab, setActiveTab] = useState('dictionary'); // 'dictionary' | 'checklists' | 'articles'
   const [dictionaryTerms, setDictionaryTerms] = useState([]);
   const [checklists, setChecklists] = useState([]);
@@ -44,12 +44,12 @@ export default function AwarenessPage() {
   };
 
 
-  const filteredTerms = dictionaryTerms.filter(t => {
-    const matchCat = activeCategory === 'All Terms' || t.category === activeCategory;
+  const filteredTerms = dictionaryTerms.filter(term => {
+    const matchCat = activeCategory === 'All Terms' || term.category === activeCategory;
     const matchQuery = !searchTerm.trim() ||
-      t.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (t.bangla && t.bangla.includes(searchTerm)) ||
-      (t.definition && t.definition.toLowerCase().includes(searchTerm.toLowerCase()));
+      term.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (term.bangla && term.bangla.includes(searchTerm)) ||
+      (term.definition && term.definition.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchCat && matchQuery;
   });
 
