@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+﻿import { GoogleGenerativeAI } from '@google/generative-ai';
 import OpenAI from 'openai';
 import { db } from '../db/database.js';
 
@@ -220,142 +220,127 @@ function generateSuggestedQueries(category, isBangla) {
   }
 }
 
-// Build comprehensive system prompt for live LLM
+// Build friendly system prompt for live LLM
 function buildSystemPrompt(groundedLaw, matchingLawyers, isBangla) {
-  return `You are "Law_BD Official AI", a distinguished Bangladesh Supreme Court and Senior District Bar Legal Counsel.
-You specialize in the statutory legal system of Bangladesh (Penal Code 1860, CrPC 1898, CPC 1908, Evidence Act 1872, Land Crime Act 2023, Cyber Security Act 2023, NI Act 1881, Muslim Family Laws Ordinance 1961, Domestic Violence Act 2010, Labour Act 2006, etc.).
+  const actsList = groundedLaw && groundedLaw.acts ? groundedLaw.acts.join(', ') : (groundedLaw && groundedLaw.title ? groundedLaw.title : 'Bangladesh Code');
+  const provisions = groundedLaw && groundedLaw.key_provisions ? groundedLaw.key_provisions.join('; ') : 'Statutory provisions of Bangladesh';
+  const penalties = (groundedLaw && groundedLaw.penalties) || 'Applicable under statutory code';
+  const lang = isBangla ? 'Bengali (\u09AC\u09BE\u0982\u09B2\u09BE)' : 'English';
+  const addressWord = isBangla ? '\u0986\u09AA\u09A8\u09BF' : 'you';
+  const statuteTitle = (groundedLaw && groundedLaw.title) || 'Bangladesh Legal Code';
+  const actYear = (groundedLaw && groundedLaw.act_no_year) || 'Official Gazette';
 
-PRIMARY INSTRUCTIONS:
-1. Language: Always respond fluently in ${isBangla ? 'Bengali (বাংলা)' : 'English'}, matching the user query.
-2. Structure: Structure every incident analysis clearly with the following sections:
-   - ### ⚖️ আইনি বিশ্লেষণ ও মূল আইন (Legal Overview & Applicable Statutes)
-   - ### 📜 প্রযোজ্য ধারা ও আইনি বিধান (Specific Bangladesh Acts & Section Numbers)
-   - ### ⚖️ নির্ধারিত দণ্ড ও শাস্তির বিধান (Statutory Punishments, Fines & Penalties)
-   - ### 📋 মামলা দায়ের ও পরবর্তী করণীয় পদক্ষেপ (Actionable Legal Procedures: GD vs FIR vs CR Case vs Civil Suit)
-   - ### 📑 প্রয়োজনীয় প্রমাণপত্র ও ডকুমেন্টস (Essential Documents Checklist)
-   - ### ❓ অতিরিক্ত প্রয়োজনীয় তথ্য (Follow-up Clarifying Questions if details are missing: deeds, dates, notices, witness)
-   - ### ⚠️ আইনি সতর্কবার্তা (Statutory Legal Disclaimer: Information only, consult an enrolled Bangladesh Bar Council advocate before legal action)
-
-3. Grounding Context:
-   - Primary grounded statute in Law_BD repository: "${groundedLaw?.title || 'Bangladesh Legal Code'}" (${groundedLaw?.act_no_year || 'Official Gazette'})
-   - Act reference: ${groundedLaw?.acts ? groundedLaw.acts.join(', ') : groundedLaw?.title}
-   - Key provisions: ${groundedLaw?.key_provisions ? groundedLaw.key_provisions.join('; ') : 'Statutory provisions of Bangladesh'}
-   - Statutory penalties: ${groundedLaw?.penalties || 'Applicable under statutory code'}
-
-4. Tone: Professional, authoritative, empathetic, legally grounded, and objective. Never cite foreign or Indian laws; cite ONLY Bangladesh laws and official Bangladesh Gazette Acts.`;
+  return 'You are "Law_BD AI", a trusted legal advisor who helps everyday people in Bangladesh understand their rights in simple, friendly language.\n\n'
+    + 'TONE & STYLE (most important):\n'
+    + '- Speak like a knowledgeable friend who knows Bangladesh law \u2014 warm, clear, and empathetic.\n'
+    + '- Use simple everyday ' + lang + ' \u2014 avoid legal jargon. If you must use a legal term, explain it in plain words right after.\n'
+    + '- Address the user directly as "' + addressWord + '" \u2014 make it personal and reassuring.\n'
+    + '- Keep the total response under 400 words. Be concise but complete.\n'
+    + '- Use emoji section markers (\uD83D\uDCA1 \u2705 \uD83D\uDCCB \u2753 \u26A0\uFE0F) to make responses easy to scan.\n'
+    + '- Start by briefly acknowledging their situation in 1-2 sentences.\n'
+    + '- Then give clear, numbered actionable steps they can follow today.\n\n'
+    + 'STRUCTURE (use this order):\n'
+    + '1. \uD83D\uDCA1 Brief acknowledgement (what law applies and why it matters, 1-2 sentences)\n'
+    + '2. \u2705 What you can do right now (numbered steps, plain language)\n'
+    + '3. \uD83D\uDCCB Documents to keep ready (short bullet list)\n'
+    + '4. \u2753 One follow-up question only if you genuinely need more details\n'
+    + '5. \u26A0\uFE0F Short disclaimer (1 sentence max)\n\n'
+    + 'GROUNDING CONTEXT (cite these when relevant, explained simply):\n'
+    + '- Primary statute: "' + statuteTitle + '" (' + actYear + ')\n'
+    + '- Acts: ' + actsList + '\n'
+    + '- Key provisions: ' + provisions + '\n'
+    + '- Penalties: ' + penalties + '\n\n'
+    + 'RULES:\n'
+    + '- Only cite Bangladesh laws (Penal Code 1860, CrPC, NI Act, Cyber Security Act 2023, Land Crime Act 2023, Muslim Family Laws 1961, Labour Act 2006, etc.)\n'
+    + '- Adapt naturally to the specific situation \u2014 do not use a rigid template.\n'
+    + '- If the message is too short or vague, ask one specific follow-up question.';
 }
-
-// Comprehensive Grounded Statutory Reasoning Engine (Reliable Fallback)
+// Friendly Grounded Bangladesh Legal Analysis (Fallback Engine)
 function generateGroundedLegalAnalysis(userMessage, conversationHistory, groundedLaw, categoryInfo, isBangla) {
-  const category = categoryInfo.category;
   const isInsufficient = userMessage.trim().length < 25;
+  const lawTitle = isBangla ? (groundedLaw.bangla_title || groundedLaw.title) : groundedLaw.title;
+  const actRef = groundedLaw.acts ? groundedLaw.acts.join(', ') : groundedLaw.title;
 
   let reply = '';
 
   if (isBangla) {
-    reply = `### ⚖️ আইনি বিশ্লেষণ ও প্রযোজ্য আইন
-আপনার বর্ণিত ঘটনার প্রেক্ষিতে বাংলাদেশের প্রচলিত ও বলবৎ আইন অনুযায়ী আইনি পর্যালোচনা নিম্নরূপ:
+    const provisions = groundedLaw.key_provisions
+      ? groundedLaw.key_provisions.map(p => '\u2022 ' + p).join('\n')
+      : '\u2022 এই বিষয়ে বাংলাদেশ আইনে প্রাসঙ্গিক ধারা রয়েছে।';
+    const steps = groundedLaw.procedure_steps
+      ? groundedLaw.procedure_steps.map((s, i) => (i + 1) + '. ' + s).join('\n')
+      : '1. নিকটস্থ থানায় সাধারণ ডায়েরি (GD) বা এজাহার (FIR) দিন।\n2. থানা না নিলে সরাসরি ম্যাজিস্ট্রেট আদালতে নালিশ করুন।\n3. আইনজীবীর মাধ্যমে ৩০ দিনের আইনি নোটিশ পাঠান।';
+    const docs = groundedLaw.required_documents
+      ? groundedLaw.required_documents.map(d => '\u2022 ' + d).join('\n')
+      : '\u2022 জাতীয় পরিচয়পত্র (NID)\n\u2022 ঘটনার তারিখ ও স্থানের বিবরণ\n\u2022 যেকোনো লিখিত চুক্তি, রশিদ বা প্রমাণ';
+    const penaltiesText = groundedLaw.penalties_bn || groundedLaw.penalties || '';
+    const followUp = isInsufficient
+      ? '\u2753 **আরেকটু জানালে ভালো হয়:**\nঘটনাটা ঠিক কতদিন আগে হয়েছে এবং আপনার কাছে কোনো লিখিত প্রমাণ বা সাক্ষী আছে কি? এটা জানলে আরও নির্দিষ্টভাবে সাহায্য করতে পারব।'
+      : '\u2753 **একটা প্রশ্ন:**\nবিপক্ষ পক্ষের পূর্ণ ঠিকানা এবং কোনো প্রত্যক্ষদর্শী আছেন কি? এটা মামলার কৌশলে কাজে লাগবে।';
 
-**১. মূল আইন ও প্রাতিষ্ঠানিক রেফারেন্স:**
-- **${groundedLaw.bangla_title || groundedLaw.title}**
-- সংশ্লিষ্ট বাংলাদেশ কোড ও অধ্যাদেশ: **${groundedLaw.acts ? groundedLaw.acts.join(', ') : groundedLaw.title}**
-- বর্তমান আইনি অবস্থা: **${groundedLaw.status === 'current' ? 'বলবৎ আইন (Enacted & Enforced Law)' : 'সংশোধিত আইনি বিধান'} (${groundedLaw.act_no_year || 'বাংলাদেশ গেজেট'})**
-
----
-
-### 📜 প্রযোজ্য ধারা ও আইনি বিধান
-${groundedLaw.simple_summary_bn || groundedLaw.simple_summary}
-
-**গুরুত্বপূর্ণ আইনি বিধিমালার ধারা:**
-${groundedLaw.key_provisions ? groundedLaw.key_provisions.map(p => `• **${p}**`).join('\n') : '• সংশ্লিষ্ট আইনি ধারাসমূহ বিদ্যমান কোড অনুযায়ী প্রযোজ্য।'}
-
----
-
-### ⚖️ নির্ধারিত দণ্ড, জরিমানা ও শাস্তির বিধান
-${groundedLaw.penalties_bn || groundedLaw.penalties}
-
----
-
-### 📋 মামলা দায়ের ও পরবর্তী করণীয় আইনি পদক্ষেপ (Actionable Steps)
-${groundedLaw.procedure_steps ? groundedLaw.procedure_steps.map((s, i) => `**${i + 1}.** ${s}`).join('\n') : 
-`**১. প্রাথমিক ডায়েরি বা অভিযোগ:** নিকটস্থ সংশ্লিষ্ট থানায় ঘটনা সংক্রান্ত বিস্তারিত তথ্য উল্লেখ করে একটি সাধারণ ডায়েরি (GD) বা এজাহার (FIR) দায়ের করুন।
-**২. বিজ্ঞ আদালতে নালিশি মামলা (CR Case):** থানা মামলা গ্রহণে অপারগ হলে সরাসরি উপযুক্ত জুডিশিয়াল বা মেট্রোপলিটন ম্যাজিস্ট্রেট আদালতে নালিশি মামলা রুজু করুন।
-**৩. আইনি নোটিশ প্রেরণ:** প্রয়োজনে সনদপ্রাপ্ত বিজ্ঞ আইনজীবীর মাধ্যমে বিপক্ষ পক্ষ বরাবর ৩০ দিনের সংবিধিবদ্ধ লিগ্যাল নোটিশ প্রেরণ করুন।`}
-
----
-
-### 📑 প্রয়োজনীয় প্রমাণপত্র ও ডকুমেন্টস চেকলিস্ট
-${groundedLaw.required_documents ? groundedLaw.required_documents.map(d => `• ${d}`).join('\n') : 
-`• ঘটনার তারিখ, সময় ও ঘটনাস্থলের সুনির্দিষ্ট বিবরণ।
-• জাতীয় পরিচয়পত্র (NID) ও যোগাযোগের ঠিকানা।
-• সংশ্লিষ্ট চুক্তিপত্র, স্ট্যাম্প, খতিয়ান বা আর্থিক প্রমাণাদি (যদি থাকে)।`}
-
----
-
-### ❓ অতিরিক্ত প্রয়োজনীয় তথ্য (Follow-up Questions)
-${isInsufficient ? 
-`আপনার বিবরণটি কিছুটা সংক্ষিপ্ত হওয়ায় সঠিক আইনি প্রতিকার নিখুঁতভাবে চিহ্নিত করার জন্য নিচের তথ্যগুলো জানা প্রয়োজন:
-১. ঘটনাটি ঠিক কত দিন বা কত মাস আগে সংঘটিত হয়েছে?
-২. এ বিষয়ে আপনাদের মধ্যে লিখিত কোনো চুক্তি, স্ট্যাম্প বা অডিও-ভিডিও প্রমাণপত্র আছে কি?
-৩. আপনি ইতোমধ্যে থানায় বা আদালতে কোনো অভিযোগ দাখিল করেছেন কিনা?` :
-`ঘটনাটি আরও কার্যকরভাবে পরিচালনার জন্য যাচাই করে নিন:
-১. আপনার নিকট বিবাদীর স্থায়ী ও বর্তমান পূর্ণাঙ্গ ঠিকানা রয়েছে কি?
-২. ঘটনার প্রত্যক্ষদর্শী কোনো নিরপেক্ষ সাক্ষী উপস্থিত ছিলেন কি?`}
-
----
-> ⚠️ **আইনি সতর্কবার্তা (Legal Disclaimer):** এই বিশ্লেষণটি Law_BD ডেটাবেজের বাংলাদেশ কোড ও সংবিধিবদ্ধ আইনের ভিত্তিতে প্রস্তুতকৃত প্রাথমিক আইনি তথ্য। এটি কোনো অবস্থাতেই একজন সনদপ্রাপ্ত বিজ্ঞ আইনজীবীর সাথে ব্যক্তিগত আইনি পরামর্শের বিকল্প নয়। আদালতে কোনো পদক্ষেপ নেওয়ার পূর্বে নথিভুক্ত আইনজীবীর সহায়তা নিন।`;
+    reply = [
+      '\uD83D\uDCA1 **আপনার পরিস্থিতি সম্পর্কে:**',
+      'আপনার বর্ণিত বিষয়টি **' + lawTitle + '** (' + actRef + ')-এর আওতায় পড়ে। এই আইনটি আপনাকে সুরক্ষা দেওয়ার জন্যই তৈরি।',
+      '',
+      provisions,
+      '',
+      penaltiesText ? '**' + penaltiesText + '**' : '',
+      '',
+      '---',
+      '',
+      '\u2705 **এখনই যা করতে পারেন:**',
+      steps,
+      '',
+      '---',
+      '',
+      '\uD83D\uDCCB **যে কাগজপত্র গুছিয়ে রাখবেন:**',
+      docs,
+      '',
+      '---',
+      followUp,
+      '',
+      '---',
+      '> \u26A0\uFE0F এটি Law_BD ডেটাবেজের আইনি তথ্য \u2014 ব্যক্তিগত মামলার আগে অবশ্যই একজন নিবন্ধিত আইনজীবীর পরামর্শ নিন।'
+    ].filter(l => l !== null && l !== undefined).join('\n');
   } else {
-    reply = `### ⚖️ Legal Overview & Primary Statutes
-Based on the incident described and verified under the official statutes of the People’s Republic of Bangladesh:
+    const provisions = groundedLaw.key_provisions
+      ? groundedLaw.key_provisions.map(p => '\u2022 ' + p).join('\n')
+      : '\u2022 Relevant statutory provisions apply under Bangladesh law.';
+    const steps = groundedLaw.procedure_steps
+      ? groundedLaw.procedure_steps.map((s, i) => (i + 1) + '. ' + s).join('\n')
+      : '1. Go to your local police station and file a General Diary (GD) or FIR report.\n2. If the police refuse, file a complaint directly at the Magistrate Court (CR Case).\n3. Have your lawyer send a formal 30-day legal notice to the other party.';
+    const docs = groundedLaw.required_documents
+      ? groundedLaw.required_documents.map(d => '\u2022 ' + d).join('\n')
+      : '\u2022 Your National ID Card (NID)\n\u2022 Exact dates, times, and location of the incident\n\u2022 Any written agreements, receipts, messages, or photos';
+    const penaltiesText = groundedLaw.penalties || '';
+    const followUp = isInsufficient
+      ? '\u2753 **Quick question:** How long ago did this happen, and do you have any written evidence or witnesses? Knowing this will help me give you more accurate guidance.'
+      : '\u2753 **One thing to check:** Do you have the other party\'s full address, and are there any eyewitnesses? This matters a lot for your legal strategy.';
 
-**1. Governing Statutes & Legal Framework:**
-- **${groundedLaw.title}** (${groundedLaw.act_no_year || 'Official Gazette Enactment'})
-- Associated Reference Acts: **${groundedLaw.acts ? groundedLaw.acts.join('; ') : groundedLaw.title}**
-- Official Status: **${groundedLaw.status ? groundedLaw.status.toUpperCase() : 'ENACTED & IN FORCE'}**
-
----
-
-### 📜 Applicable Sections & Statutory Provisions
-${groundedLaw.simple_summary}
-
-**Key Substantive Provisions:**
-${groundedLaw.key_provisions ? groundedLaw.key_provisions.map(p => `• **${p}**`).join('\n') : '• Applicable substantive provisions under Bangladesh Legal Code.'}
-
----
-
-### ⚖️ Prescribed Statutory Penalties & Remedies
-${groundedLaw.penalties}
-
----
-
-### 📋 Litigation Roadmap & Next Actionable Steps
-${groundedLaw.procedure_steps ? groundedLaw.procedure_steps.map((s, i) => `**${i + 1}.** ${s}`).join('\n') :
-`**1. Lodge Police Report (GD / FIR):** Lodge a General Diary (GD) or First Information Report (FIR) at the local police station having territorial jurisdiction.
-**2. Direct Complaint before Magistrate (CR Case):** If the police station refuses or if the offence is non-cognizable, file a direct Complaint Register (CR) case before the Chief Judicial / Metropolitan Magistrate Court.
-**3. Statutory Legal Notice:** Serve a formal 30-day legal notice through an enrolled Supreme Court or District Bar Advocate.`}
-
----
-
-### 📑 Essential Evidentiary Documents to Assemble
-${groundedLaw.required_documents ? groundedLaw.required_documents.map(d => `• ${d}`).join('\n') :
-`• Exact chronogram of incidents (dates, times, locations).
-• National Identity Card (NID) and identity credentials.
-• Certified copies of any deeds, receipts, emails, or digital transaction records.`}
-
----
-
-### ❓ Clarifying Follow-up Inquiries
-${isInsufficient ?
-`To pinpoint the exact statutory recourse for your case, please clarify:
-1. What was the exact date and limitation timeframe of the occurrence?
-2. Is there a registered written deed, stamp paper, or bank transaction slip supporting your claim?
-3. Has any formal report or legal notice already been served between the parties?` :
-`For litigation strategy preparation:
-1. Do you possess the permanent and operational address of the opposite party?
-2. Are independent eyewitnesses available to testify regarding the incident?`}
-
----
-> ⚠️ **Mandatory Legal Disclaimer:** This information is generated by Law_BD AI grounded strictly in official Bangladesh statutory texts. It is for informational and educational awareness only and does not constitute formal attorney-client legal advice. Consult an enrolled Bar Council advocate before initiating litigation.`;
+    reply = [
+      '\uD83D\uDCA1 **Here\'s what\'s happening legally:**',
+      'Your situation falls under the **' + lawTitle + '** (' + actRef + '). This law is designed to protect people in exactly your position.',
+      '',
+      provisions,
+      '',
+      penaltiesText ? '**' + penaltiesText + '**' : '',
+      '',
+      '---',
+      '',
+      '\u2705 **What you can do right now:**',
+      steps,
+      '',
+      '---',
+      '',
+      '\uD83D\uDCCB **Documents to keep ready:**',
+      docs,
+      '',
+      '---',
+      followUp,
+      '',
+      '---',
+      '> \u26A0\uFE0F This is legal information from the Law_BD database \u2014 always consult a registered Bangladesh Bar Council advocate before taking legal action.'
+    ].filter(l => l !== null && l !== undefined).join('\n');
   }
 
   return reply;
