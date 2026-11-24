@@ -158,14 +158,20 @@ Describe your legal matter below to begin:`
   const [errorMessage, setErrorMessage] = useState(null);
   const [lastFailedMessage, setLastFailedMessage] = useState(null);
   const [aiStatus, setAiStatus] = useState(null);
-  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottomIfNear = () => {
+    const container = chatContainerRef.current;
+    if (!container) return;
+    const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+    // Only auto-scroll if user is already within 150px of the bottom
+    if (distanceFromBottom < 150) {
+      container.scrollTop = container.scrollHeight;
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
+    scrollToBottomIfNear();
   }, [messages, loading]);
 
   // Check backend AI readiness on mount
@@ -346,7 +352,7 @@ Describe your legal matter below to begin:`
         </div>
 
         {/* Chat Conversation Container */}
-        <div className="flex-1 bg-bdDark-950/90 backdrop-blur-md rounded-3xl border border-emerald-800/50 shadow-2xl p-4 sm:p-6 overflow-y-auto max-h-[620px] space-y-6">
+        <div ref={chatContainerRef} className="flex-1 bg-bdDark-950/90 backdrop-blur-md rounded-3xl border border-emerald-800/50 shadow-2xl p-4 sm:p-6 overflow-y-auto max-h-[620px] space-y-6">
           {messages.map((msg, index) => {
             const isUser = msg.role === 'user';
             return (
@@ -562,7 +568,6 @@ Describe your legal matter below to begin:`
             </div>
           )}
 
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Input Bar Form */}
