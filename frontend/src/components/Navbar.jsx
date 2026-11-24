@@ -97,27 +97,27 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 gap-4">
+        <div className="w-full max-w-[1720px] mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20 gap-2 xl:gap-4">
             
             {/* 1. BRAND LOGO ANCHOR (Clean Far-Left Position) */}
             <div className="flex items-center shrink-0">
-              <Link to="/" className="flex items-center gap-3 group">
+              <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
                 <div className="relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white shadow-md border border-emerald-700/40 group-hover:scale-105 transition-all shrink-0">
                   {/* Flag Red Accent Emblem */}
                   <div className="absolute w-4 h-4 rounded-full bg-bdRed-500 opacity-90 -mr-0.5"></div>
                   <Scale className="relative z-10 w-6 h-6 text-white drop-shadow-sm" />
                 </div>
-                <div>
+                <div className="shrink-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-slate-900 group-hover:text-bdGreen-900 transition-colors">
+                    <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-slate-900 group-hover:text-bdGreen-900 transition-colors whitespace-nowrap">
                       Law<span className="text-bdRed-500 font-sans">_</span>BD
                     </span>
-                    <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-bdGreen-900 rounded-md">
+                    <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-bdGreen-900 rounded-md whitespace-nowrap">
                       Official
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-tight">
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-tight whitespace-nowrap hidden sm:block">
                     {lang === 'bn' ? 'বাংলাদেশ ডিজিটাল লিগ্যাল পোর্টাল' : 'Bangladesh Digital Legal Portal'}
                   </p>
                 </div>
@@ -125,22 +125,22 @@ export default function Navbar() {
             </div>
 
             {/* 2. SEQUENTIAL DESKTOP NAVIGATION LINKS (Logical User Journey) */}
-            <nav className="hidden lg:flex items-center space-x-1 xl:space-x-1.5">
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 2xl:gap-2 shrink-0">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.to;
                 return (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`px-3 py-2 text-xs xl:text-sm font-semibold rounded-xl transition-all relative flex items-center gap-1.5 ${
+                    className={`px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold rounded-xl transition-all relative flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                       isActive
                         ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
                         : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
                     }`}
                   >
-                    <span>{link.label}</span>
+                    <span className="whitespace-nowrap">{link.label}</span>
                     {link.badge && (
-                      <span className="px-1.5 py-0.2 text-[9px] font-bold bg-bdGreen-800 text-white rounded-full">
+                      <span className="px-1.5 py-0.2 text-[9px] font-bold bg-bdGreen-800 text-white rounded-full whitespace-nowrap">
                         {link.badge}
                       </span>
                     )}
@@ -150,37 +150,37 @@ export default function Navbar() {
             </nav>
 
             {/* 3. REORGANIZED UTILITIES & AUTHENTICATION SECTION (Strict Sequential Order) */}
-            <div className="hidden sm:flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-1.5 xl:gap-2 shrink-0">
               
               {/* Sequential 30 Jurisdictions Index Button */}
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs group shrink-0"
+                className="flex items-center gap-1.5 px-2.5 xl:px-3 py-2 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
                 title="Browse All 30 Jurisdictions Sequentially"
               >
-                <Layers className="w-4 h-4 text-bdGreen-800 group-hover:scale-110 transition-transform" />
-                <span className="hidden xl:inline">{lang === 'bn' ? '৩০টি অধিক্ষেত্র' : '30 Jurisdictions'}</span>
-                <span className="px-1.5 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold">1–30</span>
+                <Layers className="w-4 h-4 text-bdGreen-800 group-hover:scale-110 transition-transform shrink-0" />
+                <span className="hidden xl:inline whitespace-nowrap">{lang === 'bn' ? '৩০টি অধিক্ষেত্র' : '30 Jurisdictions'}</span>
+                <span className="px-1.5 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold whitespace-nowrap">1–30</span>
               </button>
 
               {/* 24/7 Helplines Pill */}
               <Link
                 to="/emergency"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-xs font-bold transition-all shadow-2xs"
+                className="flex items-center gap-1.5 px-2.5 xl:px-3 py-2 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-xs font-bold transition-all shadow-2xs shrink-0 whitespace-nowrap"
                 title="24/7 National Emergency Helplines"
               >
-                <PhoneCall className="w-3.5 h-3.5" />
-                <span className="hidden xl:inline">{t('navEmergency')}</span>
+                <PhoneCall className="w-3.5 h-3.5 shrink-0" />
+                <span className="hidden xl:inline whitespace-nowrap">{t('navEmergency')}</span>
               </Link>
 
               {/* Saved Laws Drawer Trigger */}
               <button
                 onClick={() => setIsSavedDrawerOpen(true)}
-                className="relative p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 hover:border-emerald-300 transition-all shadow-2xs"
+                className="relative p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 hover:border-emerald-300 transition-all shadow-2xs shrink-0"
                 title="Saved Laws & Advocates Vault"
               >
-                <Bookmark className="w-4 h-4" />
+                <Bookmark className="w-4 h-4 shrink-0" />
                 {totalSaved > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 w-4 h-4 text-[9px] font-bold bg-bdRed-500 text-white rounded-full flex items-center justify-center shadow-xs">
                     {totalSaved}
@@ -191,26 +191,26 @@ export default function Navbar() {
               {/* Language Switcher */}
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-emerald-300 transition-colors shadow-2xs"
+                className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-emerald-300 transition-colors shadow-2xs shrink-0 whitespace-nowrap"
                 title="Toggle English / বাংলা"
               >
-                <Languages className="w-3.5 h-3.5 text-bdGreen-700" />
-                <span className="font-bangla">{lang === 'bn' ? 'English' : 'বাংলা'}</span>
+                <Languages className="w-3.5 h-3.5 text-bdGreen-700 shrink-0" />
+                <span className="font-bangla whitespace-nowrap">{lang === 'bn' ? 'English' : 'বাংলা'}</span>
               </button>
 
               {/* Vertical Visual Divider */}
-              <div className="h-6 w-px bg-slate-200 mx-1"></div>
+              <div className="h-6 w-px bg-slate-200 mx-1 shrink-0"></div>
 
               {/* USER AUTHENTICATION HUB */}
               {isAuthenticated ? (
                 /* ================= SIGNED IN STATE ================= */
-                <div className="relative" ref={dropdownRef}>
+                <div className="relative shrink-0" ref={dropdownRef}>
                   
                   {/* Clean Unified User Profile Trigger Button */}
                   <button
                     type="button"
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-400 transition-all shadow-2xs group"
+                    className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-400 transition-all shadow-2xs group shrink-0 whitespace-nowrap"
                   >
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold text-white shadow-xs ${
                       role === 'lawyer' ? 'bg-amber-600' : role === 'admin' ? 'bg-purple-700' : 'bg-bdGreen-800'
@@ -353,25 +353,25 @@ export default function Navbar() {
                 </div>
               ) : (
                 /* ================= SIGNED OUT STATE ================= */
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 xl:gap-2 shrink-0">
                   {/* Sign In Button */}
                   <button
                     type="button"
                     onClick={() => openAuth('signin', 'client')}
-                    className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs"
+                    className="flex items-center gap-1.5 px-3 xl:px-3.5 py-2 text-xs font-bold text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs whitespace-nowrap shrink-0"
                   >
-                    <LogIn className="w-3.5 h-3.5 text-slate-500" />
-                    <span>{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
+                    <LogIn className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                    <span className="whitespace-nowrap">{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
                   </button>
 
                   {/* Sign Up / Register Button */}
                   <button
                     type="button"
                     onClick={() => openAuth('register', 'lawyer')}
-                    className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl shadow-sm transition-all"
+                    className="flex items-center gap-1.5 px-3.5 xl:px-4 py-2 text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
                   >
-                    <UserPlus className="w-3.5 h-3.5 text-emerald-300" />
-                    <span>{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
+                    <UserPlus className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                    <span className="whitespace-nowrap">{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
                   </button>
                 </div>
               )}
