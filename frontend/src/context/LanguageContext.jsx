@@ -67,9 +67,9 @@ export const translations = {
     navLawyers: 'আইনজীবী খুঁজুন',
     navCourts: 'আদালত ডিরেক্টরি',
     navCompare: 'আদালত ডিরেক্টরি',
-    navTemplates: 'আইনি ফরম ও ড্রাফট',
+    navTemplates: 'আইনি ফরম',
     navAwareness: 'আইনি সচেতনতা',
-    navAi: 'এআই লিগ্যাল অ্যাসিস্ট্যান্ট',
+    navAi: 'এআই অ্যাসিস্ট্যান্ট',
     navEmergency: 'জরুরি হেল্পলাইন',
     navLogin: 'লগইন',
     navRegister: 'রেজিস্ট্রেশন',
@@ -109,7 +109,7 @@ export const translations = {
     viewProfile: 'প্রোফাইল দেখুন',
     
     // Emergency
-    emergencyBanner: 'জরুরি আইনি হেল্পলাইন: সরকারি লিগ্যাল এইড ১৬৪৩০ · জরুরি পুলিশ ৯৯৯ · নারী ও শিশু ১০৯ · সাইবার পুলিশ ০১৩২০-০১MDE৪৮',
+    emergencyBanner: 'জরুরি আইনি হেল্পলাইন: সরকারি লিগ্যাল এইড ১৬৪৩০ · জরুরি পুলিশ ৯৯৯ · নারী ও শিশু ১০৯ · সাইবার পুলিশ ০১৩২০-০১০১৪৮',
     callNow: 'কল করুন',
     
     // Footer
@@ -126,6 +126,7 @@ export function LanguageProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('lawbd_lang', lang);
+    document.documentElement.lang = lang;
     if (lang === 'bn') {
       document.documentElement.classList.add('font-bangla');
     } else {
