@@ -374,7 +374,7 @@ export default function Navbar() {
                   className={`p-2 rounded-xl border transition-all shadow-2xs shrink-0 ${
                     moreMenuOpen
                       ? 'bg-emerald-50 border-emerald-300 text-bdGreen-900'
-                      : 'bg-white border-slate-200 text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 hover:border-emerald-300'
+                      : 'bg-slate-50 hover:bg-emerald-50 border-slate-200 hover:border-emerald-300 text-bdGreen-900'
                   }`}
                 >
                   <MoreVertical className="w-4 h-4" />
@@ -383,19 +383,19 @@ export default function Navbar() {
                 {moreMenuOpen && (
                   <div
                     role="menu"
-                    className="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-fadeIn space-y-1"
+                    className="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-fadeIn space-y-1.5"
                   >
                     <Link
                       to="/templates"
                       role="menuitem"
                       onClick={() => setMoreMenuOpen(false)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-semibold transition-colors ${
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs ${
                         location.pathname === '/templates'
-                          ? 'bg-emerald-50 text-bdGreen-900 font-bold'
-                          : 'text-slate-700 hover:bg-slate-50 hover:text-bdGreen-900'
+                          ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
+                          : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
                       }`}
                     >
-                      <FileText className="w-4 h-4 text-bdGreen-700 shrink-0" />
+                      <FileText className="w-4 h-4 text-bdGreen-800 shrink-0" />
                       <span>{t('navTemplates')}</span>
                     </Link>
 
@@ -407,9 +407,9 @@ export default function Navbar() {
                           type="button"
                           role="menuitem"
                           onClick={() => openAuth('signin', 'client')}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-bdGreen-900 transition-colors text-left"
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
                         >
-                          <LogIn className="w-4 h-4 text-slate-500 shrink-0" />
+                          <LogIn className="w-4 h-4 text-bdGreen-800 shrink-0" />
                           <span>{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
                         </button>
 
@@ -417,9 +417,9 @@ export default function Navbar() {
                           type="button"
                           role="menuitem"
                           onClick={() => openAuth('register', 'lawyer')}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white transition-colors text-left shadow-xs"
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
                         >
-                          <UserPlus className="w-4 h-4 text-emerald-300 shrink-0" />
+                          <UserPlus className="w-4 h-4 text-bdGreen-800 shrink-0" />
                           <span>{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
                         </button>
                       </>
