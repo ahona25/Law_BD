@@ -196,7 +196,7 @@ export default function Navbar() {
               {/* Saved Laws Drawer Trigger */}
               <button
                 onClick={() => setIsSavedDrawerOpen(true)}
-                className="relative p-1.5 2xl:p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 hover:border-emerald-300 transition-all shadow-2xs shrink-0"
+                className="relative p-1.5 2xl:p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs shrink-0"
                 title="Saved Laws & Advocates Vault"
               >
                 <Bookmark className="w-4 h-4 shrink-0" />
@@ -219,7 +219,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-400 transition-all shadow-2xs group shrink-0 whitespace-nowrap"
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs group shrink-0 whitespace-nowrap"
                   >
                     <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shadow-xs ${
                       role === 'lawyer' ? 'bg-amber-600' : role === 'admin' ? 'bg-purple-700' : 'bg-bdGreen-800'
