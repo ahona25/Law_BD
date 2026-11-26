@@ -14,7 +14,9 @@ import {
   UserPlus,
   ShieldCheck,
   PhoneCall,
-  ArrowRight
+  ArrowRight,
+  MoreVertical,
+  FileText
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -31,31 +33,47 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState('signin'); // 'signin' | 'register'
   const [authModalRole, setAuthModalRole] = useState('client'); // 'client' | 'lawyer'
 
   const dropdownRef = useRef(null);
+  const moreMenuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const totalSaved = savedLaws.length + savedLawyers.length;
 
-  // Close dropdown on click outside
+  // Close dropdowns on click outside or Escape key
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setUserDropdownOpen(false);
       }
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target)) {
+        setMoreMenuOpen(false);
+      }
+    }
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        setUserDropdownOpen(false);
+        setMoreMenuOpen(false);
+      }
     }
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const openAuth = (tab = 'signin', targetRole = 'client') => {
     setAuthModalTab(tab);
     setAuthModalRole(targetRole);
     setAuthModalOpen(true);
+    setMoreMenuOpen(false);
     setMobileMenuOpen(false);
   };
 
@@ -79,9 +97,14 @@ export default function Navbar() {
     { to: '/laws', label: t('navLaws') },
     { to: '/courts', label: t('navCourts') },
     { to: '/lawyers', label: t('navLawyers') },
-    { to: '/templates', label: t('navTemplates') },
     { to: '/awareness', label: t('navAwareness') },
     { to: '/ai-assistant', label: t('navAi'), badge: 'AI' }
+  ];
+
+  const mobileNavLinks = [
+    ...navLinks.slice(0, 4),
+    { to: '/templates', label: t('navTemplates') },
+    ...navLinks.slice(4)
   ];
 
   const getDashboardPath = () => {
@@ -117,33 +140,33 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* 2. SEQUENTIAL DESKTOP NAVIGATION LINKS (Logical User Journey) */}
-            <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 shrink-0">
-              {navLinks.map((link) => {
-                const isActive = location.pathname === link.to;
-                return (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    className={`px-1.5 2xl:px-2 py-2 text-[11px] 2xl:text-xs font-semibold rounded-xl transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
-                      isActive
-                        ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
-                        : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
-                    }`}
-                  >
-                    <span className="whitespace-nowrap">{link.label}</span>
-                    {link.badge && (
-                      <span className="px-1.5 py-0.5 text-[9px] font-bold leading-none bg-bdGreen-800 text-white rounded-full whitespace-nowrap shrink-0">
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
-                );
-              })}
-            </nav>
+            {/* 2 & 3. DESKTOP NAVIGATION LINKS + UTILITIES (Unified flow so no gap appears after AI Assistant) */}
+            <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0">
+              <nav className="flex items-center gap-0.5 2xl:gap-1 shrink-0">
+                {navLinks.map((link) => {
+                  const isActive = location.pathname === link.to;
+                  return (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className={`px-1.5 2xl:px-2 py-2 text-[11px] 2xl:text-xs font-semibold rounded-xl transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
+                        isActive
+                          ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
+                          : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
+                      }`}
+                    >
+                      <span className="whitespace-nowrap">{link.label}</span>
+                      {link.badge && (
+                        <span className="px-1.5 py-0.5 text-[9px] font-bold leading-none bg-bdGreen-800 text-white rounded-full whitespace-nowrap shrink-0">
+                          {link.badge}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </nav>
 
-            {/* 3. REORGANIZED UTILITIES & AUTHENTICATION SECTION (Strict Sequential Order) */}
-            <div className="hidden xl:flex items-center gap-1 2xl:gap-1.5 shrink-0">
+              <div className="flex items-center gap-1 2xl:gap-1.5 shrink-0">
               
               {/* Sequential 30 Jurisdictions Index Button */}
               <button
@@ -187,8 +210,8 @@ export default function Navbar() {
               {/* Vertical Visual Divider */}
               <div className="h-5 w-px bg-slate-200 mx-0.5 shrink-0"></div>
 
-              {/* USER AUTHENTICATION HUB */}
-              {isAuthenticated ? (
+              {/* USER PROFILE (when signed in) */}
+              {isAuthenticated && (
                 /* ================= SIGNED IN STATE ================= */
                 <div className="relative shrink-0" ref={dropdownRef}>
                   
@@ -337,31 +360,75 @@ export default function Navbar() {
                   )}
 
                 </div>
-              ) : (
-                /* ================= SIGNED OUT STATE ================= */
-                <div className="flex items-center gap-1 2xl:gap-1.5 shrink-0">
-                  {/* Sign In Button */}
-                  <button
-                    type="button"
-                    onClick={() => openAuth('signin', 'client')}
-                    className="flex items-center gap-1 px-2 2xl:px-3 py-1.5 2xl:py-2 text-[11px] 2xl:text-xs font-bold text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs whitespace-nowrap shrink-0"
-                  >
-                    <LogIn className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                    <span className="whitespace-nowrap">{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
-                  </button>
-
-                  {/* Sign Up / Register Button */}
-                  <button
-                    type="button"
-                    onClick={() => openAuth('register', 'lawyer')}
-                    className="flex items-center gap-1 px-2.5 2xl:px-3.5 py-1.5 2xl:py-2 text-[11px] 2xl:text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
-                  >
-                    <UserPlus className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                    <span className="whitespace-nowrap">{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
-                  </button>
-                </div>
               )}
 
+              {/* 3-DOT OVERFLOW MENU (Last Option: Legal Templates, Sign In, Sign Up) */}
+              <div className="relative shrink-0" ref={moreMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setMoreMenuOpen((prev) => !prev)}
+                  aria-haspopup="menu"
+                  aria-expanded={moreMenuOpen}
+                  aria-label={lang === 'bn' ? 'আরও অপশন' : 'More options'}
+                  title={lang === 'bn' ? 'আইনি ফরম, সাইন ইন ও নিবন্ধন' : 'Legal Templates, Sign In & Sign Up'}
+                  className={`p-2 rounded-xl border transition-all shadow-2xs shrink-0 ${
+                    moreMenuOpen
+                      ? 'bg-emerald-50 border-emerald-300 text-bdGreen-900'
+                      : 'bg-white border-slate-200 text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 hover:border-emerald-300'
+                  }`}
+                >
+                  <MoreVertical className="w-4 h-4" />
+                </button>
+
+                {moreMenuOpen && (
+                  <div
+                    role="menu"
+                    className="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-fadeIn space-y-1"
+                  >
+                    <Link
+                      to="/templates"
+                      role="menuitem"
+                      onClick={() => setMoreMenuOpen(false)}
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-semibold transition-colors ${
+                        location.pathname === '/templates'
+                          ? 'bg-emerald-50 text-bdGreen-900 font-bold'
+                          : 'text-slate-700 hover:bg-slate-50 hover:text-bdGreen-900'
+                      }`}
+                    >
+                      <FileText className="w-4 h-4 text-bdGreen-700 shrink-0" />
+                      <span>{t('navTemplates')}</span>
+                    </Link>
+
+                    {!isAuthenticated && (
+                      <>
+                        <div className="border-t border-slate-100 my-1" />
+
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={() => openAuth('signin', 'client')}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-bdGreen-900 transition-colors text-left"
+                        >
+                          <LogIn className="w-4 h-4 text-slate-500 shrink-0" />
+                          <span>{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={() => openAuth('register', 'lawyer')}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white transition-colors text-left shadow-xs"
+                        >
+                          <UserPlus className="w-4 h-4 text-emerald-300 shrink-0" />
+                          <span>{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              </div>
             </div>
 
             {/* 4. MOBILE CONTROLS & HAMBURGER */}
@@ -418,7 +485,7 @@ export default function Navbar() {
 
             {/* Sequential Mobile Nav Links */}
             <div className="space-y-1">
-              {navLinks.map((link) => {
+              {mobileNavLinks.map((link) => {
                 const isActive = location.pathname === link.to;
                 return (
                   <Link
@@ -499,10 +566,11 @@ export default function Navbar() {
 
       {/* Authentication Modal */}
       <AuthModal
+        key={authModalOpen ? `${authModalTab}-${authModalRole}` : 'closed'}
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
         initialTab={authModalTab}
-        defaultRole={authModalRole}
+        initialRole={authModalRole}
       />
     </>
   );
