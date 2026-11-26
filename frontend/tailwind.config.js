@@ -9,6 +9,7 @@ export default {
     extend: {
       colors: {
         bdGreen: {
+          950: '#011e16',
           900: '#022c22',
           800: '#064E3B', // Primary dark green
           700: '#0B6B45', // Secondary green
