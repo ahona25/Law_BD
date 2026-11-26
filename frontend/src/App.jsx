@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { AuthProvider } from './context/AuthContext';
 import { BookmarkProvider } from './context/BookmarkContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 import EmergencyBanner from './components/EmergencyBanner';
 import Navbar from './components/Navbar';
@@ -30,7 +31,8 @@ import RegisterPage from './pages/RegisterPage';
 
 export default function App() {
   return (
-    <LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
       <AuthProvider>
         <BookmarkProvider>
           <Router>
@@ -68,6 +70,7 @@ export default function App() {
           </Router>
         </BookmarkProvider>
       </AuthProvider>
-    </LanguageProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
