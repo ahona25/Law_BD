@@ -133,13 +133,13 @@ export default function AuthModal({
       <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
 
         {/* Top Decorative Header with Bangladesh National Flag Palette */}
-        <div className="bg-gradient-to-r from-bdDark-950 via-bdGreen-900 to-bdGreen-950 text-white p-6 relative">
+        <div className="bg-gradient-to-r from-[#03120E] via-[#063226] to-[#064E3B] text-white p-6 relative">
           <div className="absolute top-0 right-0 w-32 h-32 bg-bdRed-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors"
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/15 hover:bg-white/25 text-white transition-colors"
             title="Close"
           >
             <X className="w-5 h-5" />
@@ -159,7 +159,7 @@ export default function AuthModal({
                     : (lang === 'bn' ? 'একাউন্ট খুলুন — Law_BD' : 'Create Law_BD Account')}
                 </h3>
               </div>
-              <p className="text-xs text-emerald-200/80 font-medium mt-0.5">
+              <p className="text-xs text-emerald-200/90 font-medium mt-0.5">
                 {lang === 'bn'
                   ? 'নাগরিক ও বিজ্ঞ আইনজীবীদের জাতীয় আইনি পোর্টাল'
                   : 'National Legal Platform for Citizens & Enrolled Advocates'}
@@ -168,13 +168,13 @@ export default function AuthModal({
           </div>
 
           {/* Tab Switcher: Sign In vs Create Account */}
-          <div className="mt-5 grid grid-cols-2 p-1 bg-white/10 rounded-2xl border border-white/10 text-xs font-bold">
+          <div className="mt-5 grid grid-cols-2 gap-1 p-1 bg-black/25 rounded-2xl border border-white/15 text-xs font-bold">
             <button
               type="button"
               onClick={() => { setActiveTab('signin'); setError(''); }}
               className={`py-2 rounded-xl transition-all ${activeTab === 'signin'
-                ? 'bg-white text-bdGreen-950 shadow-sm'
-                : 'text-slate-300 hover:text-white'
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'text-emerald-100 hover:text-white hover:bg-white/10'
                 }`}
             >
               {lang === 'bn' ? 'সাইন ইন (Sign In)' : 'Sign In'}
@@ -183,8 +183,8 @@ export default function AuthModal({
               type="button"
               onClick={() => { setActiveTab('register'); setError(''); }}
               className={`py-2 rounded-xl transition-all ${activeTab === 'register'
-                ? 'bg-white text-bdGreen-950 shadow-sm'
-                : 'text-slate-300 hover:text-white'
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'text-emerald-100 hover:text-white hover:bg-white/10'
                 }`}
             >
               {lang === 'bn' ? 'নতুন একাউন্ট (Register)' : 'Create Account'}
@@ -270,7 +270,7 @@ export default function AuthModal({
                 disabled={loading}
                 onClick={() => handleQuickDemo('client')}
                 className={`py-2 px-2 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'client'
-                  ? 'bg-white border-emerald-500 text-bdGreen-950 shadow-xs'
+                  ? 'bg-white border-emerald-500 text-bdGreen-900 shadow-xs'
                   : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
                   }`}
               >
