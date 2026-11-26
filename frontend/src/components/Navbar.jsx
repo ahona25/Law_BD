@@ -93,29 +93,26 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
-        <div className="max-w-[1440px] mx-auto px-3 sm:px-4 2xl:px-6">
-          <div className="flex items-center justify-between h-20 gap-2">
+        <div className="max-w-[1600px] mx-auto px-3 sm:px-4 2xl:px-6">
+          <div className="flex items-center justify-between h-20 gap-1.5 2xl:gap-3">
             
             {/* 1. BRAND LOGO ANCHOR (Clean Far-Left Position) */}
             <div className="flex items-center shrink-0">
-              <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-                <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white shadow-md border border-emerald-700/40 group-hover:scale-105 transition-all shrink-0">
+              <Link to="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0">
+                <div className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white shadow-md border border-emerald-700/40 group-hover:scale-105 transition-all shrink-0">
                   {/* Flag Red Accent Emblem */}
                   <div className="absolute w-3.5 h-3.5 rounded-full bg-bdRed-500 opacity-90 -mr-0.5"></div>
-                  <Scale className="relative z-10 w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-sm" />
+                  <Scale className="relative z-10 w-5 h-5 text-white drop-shadow-sm" />
                 </div>
                 <div className="shrink-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-slate-900 group-hover:text-bdGreen-900 transition-colors whitespace-nowrap">
+                    <span className="font-serif font-bold text-lg sm:text-xl 2xl:text-2xl tracking-tight text-slate-900 group-hover:text-bdGreen-900 transition-colors whitespace-nowrap">
                       Law<span className="text-bdRed-500 font-sans">_</span>BD
                     </span>
                     <span className="hidden 2xl:inline-block px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-bdGreen-900 rounded-md whitespace-nowrap">
                       Official
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-tight whitespace-nowrap hidden 2xl:block">
-                    {lang === 'bn' ? 'বাংলাদেশ ডিজিটাল লিগ্যাল পোর্টাল' : 'Bangladesh Digital Legal Portal'}
-                  </p>
                 </div>
               </Link>
             </div>
@@ -128,7 +125,7 @@ export default function Navbar() {
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`px-1.5 2xl:px-2.5 py-2 text-[11px] 2xl:text-[13px] font-semibold rounded-xl transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
+                    className={`px-1.5 2xl:px-2 py-2 text-[11px] 2xl:text-xs font-semibold rounded-xl transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
                       isActive
                         ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
                         : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
@@ -157,13 +154,13 @@ export default function Navbar() {
               >
                 <Layers className="w-3.5 h-3.5 text-bdGreen-800 group-hover:scale-110 transition-transform shrink-0" />
                 <span className="whitespace-nowrap">{lang === 'bn' ? 'অধিক্ষেত্র' : 'Jurisdictions'}</span>
-                <span className="px-1 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold whitespace-nowrap">1–30</span>
+                <span className="hidden 2xl:inline-block px-1 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold whitespace-nowrap">1–30</span>
               </button>
 
               {/* 24/7 Helplines Pill */}
               <Link
                 to="/emergency"
-                className="flex items-center gap-1.5 px-2 2xl:px-2.5 py-1.5 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-[11.5px] 2xl:text-xs font-bold transition-all shadow-2xs shrink-0 whitespace-nowrap"
+                className="flex items-center gap-1 px-2 py-1.5 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-[11px] 2xl:text-xs font-bold transition-all shadow-2xs shrink-0 whitespace-nowrap"
                 title="24/7 National Emergency Helplines"
               >
                 <PhoneCall className="w-3.5 h-3.5 shrink-0" />
@@ -171,12 +168,12 @@ export default function Navbar() {
               </Link>
 
               {/* Language Switcher (Right side of Emergency Helpline) */}
-              <LanguageToggle />
+              <LanguageToggle compact />
 
               {/* Saved Laws Drawer Trigger */}
               <button
                 onClick={() => setIsSavedDrawerOpen(true)}
-                className="relative p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 hover:border-emerald-300 transition-all shadow-2xs shrink-0"
+                className="relative p-1.5 2xl:p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 hover:border-emerald-300 transition-all shadow-2xs shrink-0"
                 title="Saved Laws & Advocates Vault"
               >
                 <Bookmark className="w-4 h-4 shrink-0" />
@@ -342,12 +339,12 @@ export default function Navbar() {
                 </div>
               ) : (
                 /* ================= SIGNED OUT STATE ================= */
-                <div className="flex items-center gap-1.5 xl:gap-2 shrink-0">
+                <div className="flex items-center gap-1 2xl:gap-1.5 shrink-0">
                   {/* Sign In Button */}
                   <button
                     type="button"
                     onClick={() => openAuth('signin', 'client')}
-                    className="flex items-center gap-1.5 px-2.5 2xl:px-3.5 py-1.5 2xl:py-2 text-[11.5px] 2xl:text-xs font-bold text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs whitespace-nowrap shrink-0"
+                    className="flex items-center gap-1 px-2 2xl:px-3 py-1.5 2xl:py-2 text-[11px] 2xl:text-xs font-bold text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs whitespace-nowrap shrink-0"
                   >
                     <LogIn className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                     <span className="whitespace-nowrap">{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
@@ -357,7 +354,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => openAuth('register', 'lawyer')}
-                    className="flex items-center gap-1.5 px-2.5 2xl:px-4 py-1.5 2xl:py-2 text-[11.5px] 2xl:text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
+                    className="flex items-center gap-1 px-2.5 2xl:px-3.5 py-1.5 2xl:py-2 text-[11px] 2xl:text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
                   >
                     <UserPlus className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
                     <span className="whitespace-nowrap">{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
