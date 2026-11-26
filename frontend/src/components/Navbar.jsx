@@ -3,7 +3,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Scale,
   Bookmark,
-  Languages,
   User,
   LogOut,
   Menu,
@@ -15,21 +14,18 @@ import {
   UserPlus,
   ShieldCheck,
   PhoneCall,
-  Sparkles,
-  ArrowRight,
-  FileText,
-  Clock,
-  Compass
+  ArrowRight
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useBookmarks } from '../context/BookmarkContext';
 import SequentialSidebar from './SequentialSidebar';
 import AuthModal from './AuthModal';
+import LanguageToggle from './LanguageToggle';
 
 export default function Navbar() {
   const { user, isAuthenticated, role, logout, demoLogin } = useAuth();
-  const { lang, toggleLanguage, t } = useLanguage();
+  const { lang, t } = useLanguage();
   const { savedLaws, savedLawyers, setIsSavedDrawerOpen } = useBookmarks();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -97,7 +93,7 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-4 2xl:px-6">
           <div className="flex items-center justify-between h-20 gap-2">
             
             {/* 1. BRAND LOGO ANCHOR (Clean Far-Left Position) */}
@@ -113,7 +109,7 @@ export default function Navbar() {
                     <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-slate-900 group-hover:text-bdGreen-900 transition-colors whitespace-nowrap">
                       Law<span className="text-bdRed-500 font-sans">_</span>BD
                     </span>
-                    <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-bdGreen-900 rounded-md whitespace-nowrap">
+                    <span className="hidden 2xl:inline-block px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-bdGreen-900 rounded-md whitespace-nowrap">
                       Official
                     </span>
                   </div>
@@ -125,14 +121,14 @@ export default function Navbar() {
             </div>
 
             {/* 2. SEQUENTIAL DESKTOP NAVIGATION LINKS (Logical User Journey) */}
-            <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1.5 shrink-0">
+            <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 shrink-0">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.to;
                 return (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`px-2 2xl:px-2.5 py-2 text-xs 2xl:text-sm font-semibold rounded-xl transition-all relative flex items-center gap-1 whitespace-nowrap shrink-0 ${
+                    className={`px-1.5 2xl:px-2.5 py-2 text-[11px] 2xl:text-[13px] font-semibold rounded-xl transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
                       isActive
                         ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
                         : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
@@ -140,7 +136,7 @@ export default function Navbar() {
                   >
                     <span className="whitespace-nowrap">{link.label}</span>
                     {link.badge && (
-                      <span className="px-1.5 py-0.2 text-[9px] font-bold bg-bdGreen-800 text-white rounded-full whitespace-nowrap">
+                      <span className="px-1.5 py-0.5 text-[9px] font-bold leading-none bg-bdGreen-800 text-white rounded-full whitespace-nowrap shrink-0">
                         {link.badge}
                       </span>
                     )}
@@ -150,29 +146,32 @@ export default function Navbar() {
             </nav>
 
             {/* 3. REORGANIZED UTILITIES & AUTHENTICATION SECTION (Strict Sequential Order) */}
-            <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0">
+            <div className="hidden xl:flex items-center gap-1 2xl:gap-1.5 shrink-0">
               
               {/* Sequential 30 Jurisdictions Index Button */}
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
-                title="Browse All 30 Jurisdictions Sequentially"
+                className="flex items-center gap-1 px-2 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-[11px] 2xl:text-xs font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
+                title={lang === 'bn' ? '৩০টি অধিক্ষেত্র দেখুন' : 'Browse All 30 Jurisdictions Sequentially'}
               >
                 <Layers className="w-3.5 h-3.5 text-bdGreen-800 group-hover:scale-110 transition-transform shrink-0" />
-                <span className="hidden 2xl:inline whitespace-nowrap">{lang === 'bn' ? '৩০টি অধিক্ষেত্র' : '30 Jurisdictions'}</span>
-                <span className="px-1.5 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold whitespace-nowrap">1–30</span>
+                <span className="whitespace-nowrap">{lang === 'bn' ? 'অধিক্ষেত্র' : 'Jurisdictions'}</span>
+                <span className="px-1 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold whitespace-nowrap">1–30</span>
               </button>
 
               {/* 24/7 Helplines Pill */}
               <Link
                 to="/emergency"
-                className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-xs font-bold transition-all shadow-2xs shrink-0 whitespace-nowrap"
+                className="flex items-center gap-1.5 px-2 2xl:px-2.5 py-1.5 rounded-xl border border-rose-200/80 bg-rose-50/50 hover:bg-rose-100/80 text-bdRed-600 text-[11.5px] 2xl:text-xs font-bold transition-all shadow-2xs shrink-0 whitespace-nowrap"
                 title="24/7 National Emergency Helplines"
               >
                 <PhoneCall className="w-3.5 h-3.5 shrink-0" />
-                <span className="hidden 2xl:inline whitespace-nowrap">{t('navEmergency')}</span>
+                <span className="whitespace-nowrap">{t('navEmergency')}</span>
               </Link>
+
+              {/* Language Switcher (Right side of Emergency Helpline) */}
+              <LanguageToggle />
 
               {/* Saved Laws Drawer Trigger */}
               <button
@@ -186,16 +185,6 @@ export default function Navbar() {
                     {totalSaved}
                   </span>
                 )}
-              </button>
-
-              {/* Language Switcher */}
-              <button
-                onClick={toggleLanguage}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-emerald-300 transition-colors shadow-2xs shrink-0 whitespace-nowrap"
-                title="Toggle English / বাংলা"
-              >
-                <Languages className="w-3.5 h-3.5 text-bdGreen-700 shrink-0" />
-                <span className="font-bangla whitespace-nowrap">{lang === 'bn' ? 'English' : 'বাংলা'}</span>
               </button>
 
               {/* Vertical Visual Divider */}
@@ -358,7 +347,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => openAuth('signin', 'client')}
-                    className="flex items-center gap-1.5 px-3 xl:px-3.5 py-2 text-xs font-bold text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs whitespace-nowrap shrink-0"
+                    className="flex items-center gap-1.5 px-2.5 2xl:px-3.5 py-1.5 2xl:py-2 text-[11.5px] 2xl:text-xs font-bold text-slate-700 hover:text-bdGreen-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs whitespace-nowrap shrink-0"
                   >
                     <LogIn className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                     <span className="whitespace-nowrap">{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
@@ -368,7 +357,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => openAuth('register', 'lawyer')}
-                    className="flex items-center gap-1.5 px-3.5 xl:px-4 py-2 text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
+                    className="flex items-center gap-1.5 px-2.5 2xl:px-4 py-1.5 2xl:py-2 text-[11.5px] 2xl:text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
                   >
                     <UserPlus className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
                     <span className="whitespace-nowrap">{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
@@ -402,12 +391,7 @@ export default function Navbar() {
                 )}
               </button>
 
-              <button
-                onClick={toggleLanguage}
-                className="px-2.5 py-1.5 text-xs font-bold border border-slate-200 rounded-xl text-slate-700 shrink-0"
-              >
-                {lang === 'bn' ? 'EN' : 'বাং'}
-              </button>
+              <LanguageToggle compact />
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
