@@ -149,10 +149,10 @@ export default function Navbar() {
                     <Link
                       key={link.to}
                       to={link.to}
-                      className={`px-1.5 2xl:px-2 py-2 text-[11px] 2xl:text-xs font-semibold rounded-xl transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 ${
+                      className={`px-2 py-1.5 text-[11px] 2xl:text-xs font-bold rounded-xl border transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 shadow-2xs ${
                         isActive
-                          ? 'text-bdGreen-900 bg-emerald-50 font-bold border border-emerald-200/60 shadow-2xs'
-                          : 'text-slate-600 hover:text-bdGreen-900 hover:bg-slate-50'
+                          ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
+                          : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
                       }`}
                     >
                       <span className="whitespace-nowrap">{link.label}</span>
