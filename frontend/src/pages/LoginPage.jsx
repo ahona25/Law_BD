@@ -1,19 +1,43 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Scale, Lock, Mail, ArrowRight, ShieldCheck, User, Briefcase, Sparkles } from 'lucide-react';
+import {
+  Lock,
+  Mail,
+  ArrowRight,
+  ShieldCheck,
+  User,
+  Briefcase,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  Sparkles,
+  Loader2
+} from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
+import AuthShell, { AuthRoleTabs, AUTH_INPUT_CLASS } from '../components/AuthShell';
 
 export default function LoginPage() {
   const { login, demoLogin } = useAuth();
-  const { lang, t } = useLanguage();
+  const { lang } = useLanguage();
   const navigate = useNavigate();
 
   const [roleTab, setRoleTab] = useState('client'); // 'client' | 'lawyer'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+  const [showHelpHint, setShowHelpHint] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const isBn = lang === 'bn';
+
+  const navigateByRole = (userRole) => {
+    if (userRole === 'lawyer') navigate('/dashboard/lawyer');
+    else if (userRole === 'admin') navigate('/dashboard/admin');
+    else navigate('/dashboard/client');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,14 +45,17 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await login(email, password);
+      const res = await login(email.trim(), password);
       if (res.success) {
-        if (res.user.role === 'lawyer') navigate('/dashboard/lawyer');
-        else if (res.user.role === 'admin') navigate('/dashboard/admin');
-        else navigate('/dashboard/client');
+        navigateByRole(res.user.role);
       }
     } catch (err) {
-      setError(err.message || 'Login failed. Please verify your email and password.');
+      setError(
+        err.message ||
+          (isBn
+            ? 'লগইন ব্যর্থ হয়েছে। অনুগ্রহ করে সঠিক ইমেইল এবং পাসওয়ার্ড দিন।'
+            : 'Invalid credentials. Please verify your email and password.')
+      );
     } finally {
       setLoading(false);
     }
@@ -40,180 +67,222 @@ export default function LoginPage() {
     try {
       const res = await demoLogin(targetRole);
       if (res.success) {
-        if (targetRole === 'lawyer') navigate('/dashboard/lawyer');
-        else if (targetRole === 'admin') navigate('/dashboard/admin');
-        else navigate('/dashboard/client');
+        navigateByRole(targetRole);
       }
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Demo login failed.');
     } finally {
       setLoading(false);
     }
   };
 
+  const features = isBn
+    ? [
+        'বাংলাদেশ বার কাউন্সিল যাচাইকৃত আইনজীবীদের সাথে সরাসরি পরামর্শ',
+        'সুরক্ষিত ও গোপনীয় কেস ভল্ট এবং অ্যাপয়েন্টমেন্ট পাস',
+        'দ্বিভাষিক আইনি তথ্য ও জরুরি সহায়তা নির্দেশিকা'
+      ]
+    : [
+        'Direct consultations with Bar Council verified advocates',
+        'Encrypted case vault, documents & appointment passes',
+        'Bilingual statutory guidance & 24/7 victim support access'
+      ];
+
   return (
-    <div className="min-h-screen bg-[#F8FAF9] flex items-center justify-center p-4 py-16">
-      <div className="max-w-md w-full bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
-        
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-bdGreen-800 text-white flex items-center justify-center mx-auto shadow-md relative">
-            <div className="absolute w-6 h-6 rounded-full bg-bdRed-500 opacity-90 -mr-1"></div>
-            <Scale className="relative z-10 w-7 h-7 text-white" />
-          </div>
-          <h1 className="font-serif font-bold text-2xl text-slate-900">
-            {lang === 'bn' ? 'লগইন করুন — Law_BD' : 'Sign In to Law_BD'}
-          </h1>
-          <p className="text-xs text-slate-500">
-            {lang === 'bn'
-              ? 'আপনার আইনি ফাইল, অ্যাপয়েন্টমেন্ট এবং আইনজীবীদের সাথে যোগাযোগের পোর্টাল।'
-              : 'Access your legal case vault, consultation passes, and direct advocate communications.'}
-          </p>
+    <AuthShell
+      badgeText={isBn ? 'নিরাপদ ও যাচাইকৃত প্রবেশাধিকার' : 'Trusted & Verified Access'}
+      asideTitle={
+        isBn
+          ? 'ন্যায়বিচার, স্বচ্ছতা এবং বিশ্বস্ত আইনি সহায়তা'
+          : 'Justice, Clarity & Trusted Advocacy'
+      }
+      asideSubtitle={
+        isBn
+          ? 'আপনার আইনি নথি, পরামর্শের সময়সূচি এবং আইনজীবীর সাথে নিরাপদ যোগাযোগ এক জায়গায় পরিচালনা করুন।'
+          : 'Manage your legal filings, consultation passes, and confidential advocate communications in one unified portal.'
+      }
+      features={features}
+      heading={isBn ? 'আপনার অ্যাকাউন্টে লগইন করুন' : 'Sign in to your account'}
+      subheading={
+        isBn
+          ? 'চালিয়ে যেতে আপনার ভূমিকা নির্বাচন করুন এবং তথ্য দিন।'
+          : 'Select your portal role and enter your credentials to continue.'
+      }
+    >
+      <AuthRoleTabs
+        role={roleTab}
+        onChange={(nextRole) => {
+          setRoleTab(nextRole);
+          setError('');
+        }}
+      />
+
+      {error && (
+        <div
+          role="alert"
+          className="flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 text-bdRed-700 rounded-xl text-xs font-medium"
+        >
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+          <span>{error}</span>
         </div>
+      )}
 
-        {/* Role Toggle: Citizen vs Lawyer */}
-        <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-2xl">
-          <button
-            type="button"
-            onClick={() => {
-              setRoleTab('client');
-              setEmail('client@lawbd.com');
-              setPassword('password123');
-            }}
-            className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
-              roleTab === 'client'
-                ? 'bg-white text-bdGreen-900 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <User className="w-4 h-4 text-emerald-700" />
-            <span>Citizen / Client</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setRoleTab('lawyer');
-              setEmail('tanvir@lawbd.com');
-              setPassword('password123');
-            }}
-            className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
-              roleTab === 'lawyer'
-                ? 'bg-bdGreen-800 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Briefcase className="w-4 h-4 text-amber-300" />
-            <span>Advocate / Lawyer</span>
-          </button>
-        </div>
-
-        {/* 1-Click Fast Test Switcher (NO Admin!) */}
-        <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-bdGreen-900 tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              1-Click Fast Login (Instant Test):
-            </span>
-            <span className="text-[10px] text-emerald-700 font-mono font-bold">Client / Lawyer</span>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2">
-            <button
-              type="button"
-              disabled={loading}
-              onClick={() => handleDemo('client')}
-              className="py-2 px-2 text-center bg-white hover:bg-emerald-100 rounded-xl border border-emerald-300 text-[11px] font-bold text-slate-800 transition-colors shadow-2xs flex items-center justify-center gap-1.5"
-            >
-              <User className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Rahim</span>
-            </button>
-            <button
-              type="button"
-              disabled={loading}
-              onClick={() => handleDemo('lawyer')}
-              className="py-2 px-2 text-center bg-bdGreen-800 hover:bg-bdGreen-700 rounded-xl text-[11px] font-bold text-white transition-colors shadow-2xs flex items-center justify-center gap-1.5"
-            >
-              <Briefcase className="w-3.5 h-3.5 text-amber-300" />
-              <span>Tanvir</span>
-            </button>
-            <button
-              type="button"
-              disabled={loading}
-              onClick={() => handleDemo('admin')}
-              className="py-2 px-2 text-center bg-purple-700 hover:bg-purple-600 rounded-xl text-[11px] font-bold text-white transition-colors shadow-2xs flex items-center justify-center gap-1.5"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-purple-200" />
-              <span>Admin</span>
-            </button>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="login-email" className="block text-xs font-semibold text-slate-700 mb-1.5">
+            {roleTab === 'lawyer'
+              ? isBn
+                ? 'আইনজীবীর ইমেইল'
+                : 'Advocate Email Address'
+              : isBn
+              ? 'ইমেইল ঠিকানা'
+              : 'Email Address'}
+          </label>
+          <div className="relative">
+            <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              id="login-email"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={roleTab === 'lawyer' ? 'tanvir@lawbd.com' : 'client@lawbd.com'}
+              className={AUTH_INPUT_CLASS}
+              required
+            />
           </div>
         </div>
 
-        {error && (
-          <div className="p-3 bg-rose-50 border border-rose-200 text-bdRed-600 rounded-xl text-xs font-semibold text-center">
-            {error}
-          </div>
-        )}
-
-        {/* Standard Email / Password Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-          <div>
-            <label className="block text-slate-700 font-semibold mb-1">
-              {roleTab === 'lawyer' ? 'Advocate Email:' : 'Client Email Address:'}
+        <div>
+          <div className="flex items-center justify-between mb-1.5">
+            <label htmlFor="login-password" className="block text-xs font-semibold text-slate-700">
+              {isBn ? 'পাসওয়ার্ড' : 'Password'}
             </label>
-            <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={roleTab === 'lawyer' ? 'tanvir@lawbd.com' : 'client@lawbd.com'}
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-bdGreen-800"
-                required
-              />
-            </div>
+            <button
+              type="button"
+              onClick={() => setShowHelpHint((prev) => !prev)}
+              className="text-xs font-medium text-bdGreen-700 hover:text-bdGreen-800 hover:underline"
+            >
+              {isBn ? 'পাসওয়ার্ড ভুলে গেছেন?' : 'Forgot password?'}
+            </button>
+          </div>
+          <div className="relative">
+            <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              id="login-password"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className={`${AUTH_INPUT_CLASS} pr-11`}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <label className="block text-slate-700 font-semibold">Password:</label>
-              <span className="text-[10px] text-slate-400">Demo password: password123</span>
-            </div>
-            <div className="relative">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-bdGreen-800"
-                required
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3.5 bg-bdGreen-800 hover:bg-bdGreen-700 disabled:opacity-50 text-white rounded-xl font-bold text-xs transition-all shadow-md flex items-center justify-center gap-2"
-          >
-            <span>
-              {loading
-                ? 'Authenticating...'
-                : (roleTab === 'lawyer' ? 'Sign In to Advocate Chamber' : 'Sign In as Citizen')}
-            </span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </form>
-
-        <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-bdGreen-800 font-bold hover:underline">
-            Register Here (Citizen or Lawyer)
-          </Link>
+          {showHelpHint && (
+            <p className="mt-2 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
+              {isBn
+                ? 'ডেমো অ্যাকাউন্টের পাসওয়ার্ড: password123 অথবা নিচের তাৎক্ষণিক ডেমো প্রবেশ ব্যবহার করুন।'
+                : 'For seeded demo accounts, use password "password123" or sign in instantly with Quick Demo Access below.'}
+            </p>
+          )}
         </div>
 
+        <div className="flex items-center justify-between pt-0.5">
+          <label className="inline-flex items-center gap-2 text-xs text-slate-600 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="w-4 h-4 rounded border-slate-300 text-bdGreen-800 focus:ring-bdGreen-800"
+            />
+            <span>{isBn ? 'এই ডিভাইসে সাইন ইন রাখুন' : 'Keep me signed in'}</span>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full py-3 px-4 bg-bdGreen-800 hover:bg-bdGreen-700 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm transition-all shadow-md shadow-bdGreen-900/15 flex items-center justify-center gap-2"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>{isBn ? 'যাচাই করা হচ্ছে...' : 'Signing in...'}</span>
+            </>
+          ) : (
+            <>
+              <span>
+                {roleTab === 'lawyer'
+                  ? isBn
+                    ? 'আইনজীবী চেম্বারে লগইন করুন'
+                    : 'Sign In to Advocate Chamber'
+                  : isBn
+                  ? 'সাইন ইন করুন'
+                  : 'Sign In'}
+              </span>
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
+        </button>
+      </form>
+
+      <div className="pt-1 space-y-3">
+        <div className="relative flex items-center">
+          <div className="flex-grow border-t border-slate-200" />
+          <span className="shrink-0 mx-3 text-[11px] font-medium uppercase tracking-wider text-slate-400 flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-amber-500" />
+            {isBn ? 'তাৎক্ষণিক ডেমো প্রবেশ' : 'Quick Demo Access'}
+          </span>
+          <div className="flex-grow border-t border-slate-200" />
+        </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            type="button"
+            disabled={loading}
+            onClick={() => handleDemo('client')}
+            className="py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50/70 hover:border-emerald-300 text-xs font-semibold text-slate-700 transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
+          >
+            <User className="w-3.5 h-3.5 text-bdGreen-700" />
+            <span>Rahim</span>
+          </button>
+          <button
+            type="button"
+            disabled={loading}
+            onClick={() => handleDemo('lawyer')}
+            className="py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50/70 hover:border-emerald-300 text-xs font-semibold text-slate-700 transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
+          >
+            <Briefcase className="w-3.5 h-3.5 text-bdGreen-800" />
+            <span>Tanvir</span>
+          </button>
+          <button
+            type="button"
+            disabled={loading}
+            onClick={() => handleDemo('admin')}
+            className="py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-xs font-semibold text-slate-700 transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-slate-600" />
+            <span>Admin</span>
+          </button>
+        </div>
       </div>
-    </div>
+
+      <p className="text-center text-xs sm:text-sm text-slate-500 pt-2 border-t border-slate-100">
+        {isBn ? 'নতুন ব্যবহারকারী?' : "Don't have an account?"}{' '}
+        <Link to="/register" className="text-bdGreen-800 font-semibold hover:underline">
+          {isBn ? 'এখানে নিবন্ধন করুন' : 'Create an account'}
+        </Link>
+      </p>
+    </AuthShell>
   );
 }
