@@ -117,7 +117,7 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
         <div className="max-w-[1600px] mx-auto px-3 sm:px-4 2xl:px-6">
-          <div className="flex items-center justify-between h-20 gap-1.5 2xl:gap-3">
+          <div className="flex items-center justify-between h-20 gap-2 xl:gap-4">
             
             {/* 1. BRAND LOGO ANCHOR (Clean Far-Left Position) */}
             <div className="flex items-center shrink-0">
@@ -140,8 +140,8 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* 2 & 3. DESKTOP NAVIGATION LINKS + UTILITIES (Unified flow so no gap appears after AI Assistant) */}
-            <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0">
+            {/* 2 & 3. DESKTOP NAVIGATION LINKS + UTILITIES (Centered in the middle while Law_BD stays left) */}
+            <div className="hidden xl:flex flex-1 items-center justify-center gap-1.5 2xl:gap-2">
               <nav className="flex items-center gap-0.5 2xl:gap-1 shrink-0">
                 {navLinks.map((link) => {
                   const isActive = location.pathname === link.to;
