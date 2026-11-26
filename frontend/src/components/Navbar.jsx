@@ -546,9 +546,9 @@ export default function Navbar() {
                   </button>
                   <button
                     onClick={() => openAuth('register', 'lawyer')}
-                    className="py-2.5 px-4 bg-bdGreen-800 text-white text-xs font-bold rounded-xl"
+                    className="py-2.5 px-4 bg-emerald-100 hover:bg-emerald-200/80 text-bdGreen-900 border border-emerald-300/80 text-xs font-bold rounded-xl transition-colors"
                   >
-                    Sign Up
+                    {lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}
                   </button>
                 </div>
               )}
