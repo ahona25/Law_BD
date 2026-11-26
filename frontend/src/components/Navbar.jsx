@@ -16,11 +16,14 @@ import {
   PhoneCall,
   ArrowRight,
   MoreVertical,
-  FileText
+  FileText,
+  SunMoon,
+  Check
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useBookmarks } from '../context/BookmarkContext';
+import { useTheme } from '../context/ThemeContext';
 import SequentialSidebar from './SequentialSidebar';
 import AuthModal from './AuthModal';
 import LanguageToggle from './LanguageToggle';
@@ -29,6 +32,7 @@ export default function Navbar() {
   const { user, isAuthenticated, role, logout, demoLogin } = useAuth();
   const { lang, t } = useLanguage();
   const { savedLaws, savedLawyers, setIsSavedDrawerOpen } = useBookmarks();
+  const { themeMode, toggleAutoMode } = useTheme();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -398,6 +402,36 @@ export default function Navbar() {
                       <FileText className="w-4 h-4 text-bdGreen-800 shrink-0" />
                       <span>{t('navTemplates')}</span>
                     </Link>
+
+                    <button
+                      type="button"
+                      role="menuitem"
+                      aria-pressed={themeMode === 'auto'}
+                      onClick={() => {
+                        toggleAutoMode();
+                        setMoreMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs text-left ${
+                        themeMode === 'auto'
+                          ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
+                          : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <SunMoon className="w-4 h-4 text-bdGreen-800 shrink-0" />
+                        <span>{lang === 'bn' ? 'স্বয়ংক্রিয় দিন/রাত' : 'Auto Day/Night'}</span>
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${
+                          themeMode === 'auto'
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-slate-200 text-slate-600'
+                        }`}
+                      >
+                        {themeMode === 'auto' && <Check className="w-3 h-3 shrink-0" />}
+                        {themeMode === 'auto' ? (lang === 'bn' ? 'চালু' : 'ON') : lang === 'bn' ? 'বন্ধ' : 'OFF'}
+                      </span>
+                    </button>
 
                     {!isAuthenticated && (
                       <>
