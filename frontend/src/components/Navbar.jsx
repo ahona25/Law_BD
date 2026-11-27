@@ -99,6 +99,7 @@ export default function Navbar() {
     { to: '/laws', label: t('navLaws') },
     { to: '/courts', label: t('navCourts') },
     { to: '/lawyers', label: t('navLawyers') },
+    { to: '/case-tracking', label: t('navCaseTracking') },
     { to: '/awareness', label: t('navAwareness') },
     { to: '/ai-assistant', label: t('navAi'), badge: 'AI' }
   ];
