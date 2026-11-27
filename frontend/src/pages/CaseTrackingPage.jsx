@@ -558,264 +558,293 @@ export default function CaseTrackingPage() {
           </div>
         )}
 
-        {isAuthenticated && notifDrawerOpen && (
-          <GlobalNotificationsDrawer
-            notifications={notifications}
-            unreadCount={unreadCount}
-            onMarkRead={handleMarkRead}
-            onMarkAllRead={handleMarkAllRead}
-            onClose={() => setNotifDrawerOpen(false)}
-            isBn={isBn}
-          />
-        )}
-
-        {!isAuthenticated ? (
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xs text-center max-w-2xl mx-auto space-y-5">
-            <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 text-bdGreen-800 flex items-center justify-center mx-auto">
-              <Briefcase className="w-8 h-8" />
-            </div>
-            <div className="space-y-2">
-              <h2 className="font-serif font-bold text-xl sm:text-2xl text-slate-900">
-                {isBn ? 'আপনার মামলা ট্র্যাক করতে সাইন ইন করুন' : 'Sign In to Track Your Legal Cases'}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto">
-                {isBn
-                  ? 'নিরাপদভাবে মামলার অবস্থা, শুনানির তারিখ, মামলার ইতিহাস, আদালতের আদেশ ও নথি দেখতে লগইন করুন অথবা নিচের ডেমো অ্যাকাউন্ট দিয়ে পরীক্ষা করুন।'
-                  : 'Sign in to view live case statuses, hearing dates, chronological history, court orders & documents, or try immediately with a demo account.'}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <Link
-                to="/login"
-                className="px-5 py-2.5 rounded-xl bg-bdGreen-800 hover:bg-bdGreen-700 text-white text-xs font-bold shadow-sm transition-colors"
-              >
-                {isBn ? 'সাইন ইন করুন' : 'Sign In'}
-              </Link>
-              <button
-                type="button"
-                onClick={() => demoLogin('client')}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-colors"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                <span>{isBn ? 'ডেমো ক্লায়েন্ট (রহিম)' : 'Demo Client (Rahim)'}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => demoLogin('lawyer')}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-colors"
-              >
-                <User className="w-3.5 h-3.5 text-bdGreen-800" />
-                <span>{isBn ? 'ডেমো আইনজীবী (তানভীর)' : 'Demo Advocate (Tanvir)'}</span>
-              </button>
-            </div>
-          </div>
-        ) : loading ? (
-          <div className="bg-white rounded-3xl p-16 border border-slate-200 text-center space-y-3">
-            <Loader2 className="w-8 h-8 animate-spin text-bdGreen-800 mx-auto" />
-            <p className="text-xs font-semibold text-slate-500">
-              {isBn ? 'মামলার তথ্য লোড হচ্ছে...' : 'Loading case tracking records...'}
-            </p>
-          </div>
-        ) : (
-          <>
-            <CaseStatusCards
-              statusCounts={statusCounts}
-              statusFilter={statusFilter}
-              onToggleFilter={setStatusFilter}
-              isBn={isBn}
-            />
-
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-              <div className="relative flex-1 max-w-md">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={
-                    isBn
-                      ? 'মামলার শিরোনাম, আদালত বা ধরন দিয়ে খুঁজুন...'
-                      : 'Search by case title, court name, or category...'
-                  }
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm focus:outline-none focus:border-bdGreen-800"
-                />
+        {/* Focused Details Panel — ONLY shown when eligible client (or demo mode) clicks an option */}
+        {((isAuthenticated && eligible) || demoMode) && activeSection && (
+          <div
+            ref={workspaceRef}
+            className="bg-white rounded-2xl sm:rounded-3xl border border-[#CFE2FF] shadow-sm overflow-hidden scroll-mt-24"
+          >
+            {/* Panel Header */}
+            <div className="bg-[#F5F9FF] px-4 sm:px-6 py-4 border-b border-[#CFE2FF] flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-white border border-[#CFE2FF] text-[#2563EB] flex items-center justify-center shrink-0">
+                  <ActiveIcon className="w-4 h-4" />
+                </div>
+                <div>
+                  <h2 className="font-bold text-sm sm:text-base text-slate-900">
+                    {isBn ? activeMeta.bn : activeMeta.en}
+                  </h2>
+                  {selectedCase && activeSection !== 'status' && activeSection !== 'notifications' && (
+                    <p className="text-[11px] text-slate-500 truncate max-w-xs sm:max-w-md">
+                      {selectedCase.title}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setStatusFilter('all')}
-                className={`px-3 py-2 rounded-xl text-xs font-bold border transition-colors whitespace-nowrap ${
-                  statusFilter === 'all'
-                    ? 'bg-bdGreen-800 text-white border-bdGreen-800'
-                    : 'bg-white text-slate-600 border-slate-200 hover:border-emerald-300'
-                }`}
-              >
-                {isBn ? `সবগুলো (${cases.length})` : `All Cases (${cases.length})`}
-              </button>
+              <div className="flex items-center gap-2">
+                {selectedCase && (activeSection === 'status' || activeSection === 'hearings') && (
+                  <button
+                    type="button"
+                    onClick={() => openEditModal(selectedCase)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-xs font-bold transition-colors"
+                  >
+                    <Gavel className="w-3.5 h-3.5" />
+                    <span>
+                      {activeSection === 'hearings'
+                        ? isBn
+                          ? 'শুনানি আপডেট'
+                          : 'Update Hearing'
+                        : isBn
+                        ? 'অবস্থা আপডেট'
+                        : 'Update Status'}
+                    </span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setActiveSection(null)}
+                  aria-label="Close details"
+                  className="p-1.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-100 text-slate-500"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              <div className="lg:col-span-4">
-                <CaseListSidebar
-                  cases={filteredCases}
-                  selectedCase={selectedCase}
-                  onSelectCase={setSelectedCaseId}
-                  isBn={isBn}
-                />
-              </div>
-
-              <div className="lg:col-span-8">
-                {selectedCase ? (
-                  <div className="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden">
-                    <div className="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                      <div className="space-y-2">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="font-mono text-[11px] font-bold px-2.5 py-0.5 rounded bg-slate-100 text-slate-700">
-                            CASE #{selectedCase.id}
-                          </span>
-                          <span
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border ${
-                              getStatusInfo(selectedCase.status).badgeClass
-                            }`}
-                          >
-                            <span
-                              className={`w-1.5 h-1.5 rounded-full ${
-                                getStatusInfo(selectedCase.status).dotClass
+            <div className="p-4 sm:p-6 space-y-5">
+              {loading ? (
+                <div className="py-10 text-center space-y-2">
+                  <Loader2 className="w-7 h-7 animate-spin text-[#2563EB] mx-auto" />
+                  <p className="text-xs font-semibold text-slate-500">
+                    {isBn ? 'তথ্য লোড হচ্ছে...' : 'Loading details...'}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {/* Case Selector Pills for Hearings / History / Documents */}
+                  {cases.length > 0 &&
+                    (activeSection === 'hearings' ||
+                      activeSection === 'history' ||
+                      activeSection === 'documents') && (
+                      <div className="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-100">
+                        <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">
+                          {isBn ? 'মামলা নির্বাচন:' : 'Case:'}
+                        </span>
+                        {cases.map((c) => {
+                          const isCurrent = selectedCase?.id === c.id;
+                          return (
+                            <button
+                              key={c.id}
+                              type="button"
+                              onClick={() => setSelectedCaseId(c.id)}
+                              className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all text-left truncate max-w-[260px] ${
+                                isCurrent
+                                  ? 'bg-[#EBF4FF] border-[#2563EB] text-[#1D4ED8]'
+                                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-[#93C5FD]'
                               }`}
-                            />
-                            {isBn
-                              ? getStatusInfo(selectedCase.status).bnLabel
-                              : getStatusInfo(selectedCase.status).enLabel}
-                          </span>
+                            >
+                              #{c.id} · {c.title}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                  {/* 1. CASE STATUS DETAILS ONLY */}
+                  {activeSection === 'status' && (
+                    <div className="space-y-5">
+                      <CaseStatusCards
+                        statusCounts={statusCounts}
+                        statusFilter={statusFilter}
+                        onToggleFilter={setStatusFilter}
+                        isBn={isBn}
+                      />
+
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                        <div className="relative flex-1 sm:max-w-md">
+                          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder={
+                              isBn
+                                ? 'মামলার শিরোনাম, আদালত বা ধরন দিয়ে খুঁজুন...'
+                                : 'Search by case title, court name, or category...'
+                            }
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm focus:outline-none focus:border-[#2563EB]"
+                          />
                         </div>
-                        <h2 className="font-serif font-bold text-xl text-slate-900">
-                          {selectedCase.title}
-                        </h2>
-                        <p className="text-xs text-slate-600 leading-relaxed">
-                          {selectedCase.incident_description ||
-                            getStatusInfo(selectedCase.status).enDesc}
-                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setStatusFilter('all')}
+                          className={`px-3 py-2 rounded-xl text-xs font-bold border transition-colors whitespace-nowrap ${
+                            statusFilter === 'all'
+                              ? 'bg-[#2563EB] text-white border-[#2563EB]'
+                              : 'bg-white text-slate-600 border-slate-200 hover:border-[#93C5FD]'
+                          }`}
+                        >
+                          {isBn ? `সবগুলো (${cases.length})` : `All Cases (${cases.length})`}
+                        </button>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => openEditModal(selectedCase)}
-                        className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all"
-                      >
-                        <Gavel className="w-3.5 h-3.5" />
-                        <span>{isBn ? 'অবস্থা / শুনানি আপডেট' : 'Update Status / Hearing'}</span>
-                      </button>
-                    </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                        <div className="lg:col-span-5">
+                          <CaseListSidebar
+                            cases={filteredCases}
+                            selectedCase={selectedCase}
+                            onSelectCase={setSelectedCaseId}
+                            isBn={isBn}
+                          />
+                        </div>
 
-                    <div className="flex border-b border-slate-200 px-4 sm:px-6 overflow-x-auto gap-1 text-xs font-bold">
-                      {[
-                        {
-                          id: 'overview',
-                          icon: Calendar,
-                          label: isBn ? 'অবস্থা ও শুনানি' : 'Status & Hearing'
-                        },
-                        {
-                          id: 'history',
-                          icon: History,
-                          label: `${isBn ? 'মামলার ইতিহাস' : 'Case History'} (${
-                            selectedCase.history?.length || 0
-                          })`
-                        },
-                        {
-                          id: 'documents',
-                          icon: FolderOpen,
-                          label: `${isBn ? 'নথি ও আদেশ' : 'Documents'} (${
-                            selectedCase.documents?.length || 0
-                          })`
-                        },
-                        {
-                          id: 'notifications',
-                          icon: Bell,
-                          label: `${isBn ? 'নোটিফিকেশন' : 'Notifications'} (${
-                            selectedCaseNotifications.length
-                          })`
-                        }
-                      ].map((tab) => {
-                        const Icon = tab.icon;
-                        const active = activeTab === tab.id;
-                        return (
+                        <div className="lg:col-span-7">
+                          {selectedCase && (
+                            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="font-mono text-[11px] font-bold px-2.5 py-0.5 rounded bg-white border border-slate-200 text-slate-700">
+                                  CASE #{selectedCase.id}
+                                </span>
+                                <span
+                                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border ${
+                                    getStatusInfo(selectedCase.status).badgeClass
+                                  }`}
+                                >
+                                  <span
+                                    className={`w-1.5 h-1.5 rounded-full ${
+                                      getStatusInfo(selectedCase.status).dotClass
+                                    }`}
+                                  />
+                                  {isBn
+                                    ? getStatusInfo(selectedCase.status).bnLabel
+                                    : getStatusInfo(selectedCase.status).enLabel}
+                                </span>
+                              </div>
+
+                              <div>
+                                <h3 className="font-serif font-bold text-lg text-slate-900">
+                                  {selectedCase.title}
+                                </h3>
+                                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                                  {selectedCase.incident_description ||
+                                    getStatusInfo(selectedCase.status).enDesc}
+                                </p>
+                              </div>
+
+                              <div className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-1">
+                                <span className="text-[10px] font-bold uppercase text-slate-400 block">
+                                  {isBn ? 'অবস্থার বিবরণ' : 'Status Meaning'}
+                                </span>
+                                <p className="text-xs font-semibold text-slate-800">
+                                  {isBn
+                                    ? getStatusInfo(selectedCase.status).bnDesc
+                                    : getStatusInfo(selectedCase.status).enDesc}
+                                </p>
+                              </div>
+
+                              {(selectedCase.related_laws || []).length > 0 && (
+                                <div className="flex flex-wrap gap-1.5">
+                                  {selectedCase.related_laws.map((law) => (
+                                    <span
+                                      key={law}
+                                      className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[11px] font-semibold text-bdGreen-900"
+                                    >
+                                      {law}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 2. HEARING DATES DETAILS ONLY */}
+                  {activeSection === 'hearings' && selectedCase && (
+                    <CaseHearingPanel
+                      selectedCase={selectedCase}
+                      hearingNotifications={hearingNotifications}
+                      isBn={isBn}
+                    />
+                  )}
+
+                  {/* 3. CASE HISTORY DETAILS ONLY */}
+                  {activeSection === 'history' && selectedCase && (
+                    <CaseHistoryTimeline
+                      history={selectedCase.history || []}
+                      onOpenAddNote={() => openEditModal(selectedCase)}
+                      isBn={isBn}
+                    />
+                  )}
+
+                  {/* 4. NOTIFICATIONS DETAILS ONLY */}
+                  {activeSection === 'notifications' && (
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 text-xs">
                           <button
-                            key={tab.id}
                             type="button"
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`py-3.5 px-3 sm:px-4 border-b-2 inline-flex items-center gap-1.5 whitespace-nowrap transition-colors ${
-                              active
-                                ? 'border-bdGreen-800 text-bdGreen-900'
-                                : 'border-transparent text-slate-500 hover:text-slate-800'
+                            onClick={() => setNotifScope('all')}
+                            className={`px-3 py-1.5 rounded-lg font-bold border ${
+                              notifScope === 'all'
+                                ? 'bg-[#EBF4FF] border-[#2563EB] text-[#1D4ED8]'
+                                : 'bg-white border-slate-200 text-slate-600'
                             }`}
                           >
-                            <Icon className="w-3.5 h-3.5" />
-                            <span>{tab.label}</span>
+                            {isBn ? `সকল মামলা (${notifications.length})` : `All Cases (${notifications.length})`}
                           </button>
-                        );
-                      })}
+                          {selectedCase && (
+                            <button
+                              type="button"
+                              onClick={() => setNotifScope('case')}
+                              className={`px-3 py-1.5 rounded-lg font-bold border truncate max-w-[220px] ${
+                                notifScope === 'case'
+                                  ? 'bg-[#EBF4FF] border-[#2563EB] text-[#1D4ED8]'
+                                  : 'bg-white border-slate-200 text-slate-600'
+                              }`}
+                            >
+                              #{selectedCase.id} ({selectedCaseNotifications.length})
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      <CaseNotificationsPanel
+                        notifications={notifScope === 'case' ? selectedCaseNotifications : notifications}
+                        onMarkRead={handleMarkRead}
+                        onMarkAllRead={handleMarkAllRead}
+                        isBn={isBn}
+                      />
                     </div>
+                  )}
 
-                    <div className="p-6">
-                      {activeTab === 'overview' && (
-                        <CaseHearingPanel
-                          selectedCase={selectedCase}
-                          hearingNotifications={hearingNotifications}
-                          isBn={isBn}
-                        />
-                      )}
-
-                      {activeTab === 'history' && (
-                        <CaseHistoryTimeline
-                          history={selectedCase.history || []}
-                          onOpenAddNote={() => openEditModal(selectedCase)}
-                          isBn={isBn}
-                        />
-                      )}
-
-                      {activeTab === 'documents' && (
-                        <CaseDocumentsPanel
-                          documents={selectedCase.documents || []}
-                          docFilter={docFilter}
-                          onFilterChange={setDocFilter}
-                          docTitle={docTitle}
-                          onDocTitleChange={setDocTitle}
-                          docCategory={docCategory}
-                          onDocCategoryChange={setDocCategory}
-                          docFile={docFile}
-                          onDocFileChange={setDocFile}
-                          uploadingDoc={uploadingDoc}
-                          previewLoading={previewLoading}
-                          onUpload={handleUploadDocument}
-                          onView={handleViewDocument}
-                          onDownload={handleDownloadDocument}
-                          isBn={isBn}
-                        />
-                      )}
-
-                      {activeTab === 'notifications' && (
-                        <CaseNotificationsPanel
-                          notifications={selectedCaseNotifications}
-                          onMarkRead={handleMarkRead}
-                          onMarkAllRead={handleMarkAllRead}
-                          isBn={isBn}
-                        />
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-white rounded-3xl p-12 border border-slate-200 text-center space-y-3">
-                    <Scale className="w-10 h-10 text-slate-300 mx-auto" />
-                    <p className="text-xs font-semibold text-slate-500">
-                      {isBn
-                        ? 'বিস্তারিত দেখতে বাম দিক থেকে একটি মামলা নির্বাচন করুন।'
-                        : 'Select a case on the left or register a new case to start tracking.'}
-                    </p>
-                  </div>
-                )}
-              </div>
+                  {/* 5. DOCUMENT MANAGEMENT DETAILS ONLY */}
+                  {activeSection === 'documents' && selectedCase && (
+                    <CaseDocumentsPanel
+                      documents={selectedCase.documents || []}
+                      docFilter={docFilter}
+                      onFilterChange={setDocFilter}
+                      docTitle={docTitle}
+                      onDocTitleChange={setDocTitle}
+                      docCategory={docCategory}
+                      onDocCategoryChange={setDocCategory}
+                      docFile={docFile}
+                      onDocFileChange={setDocFile}
+                      uploadingDoc={uploadingDoc}
+                      previewLoading={previewLoading}
+                      onUpload={handleUploadDocument}
+                      onView={handleViewDocument}
+                      onDownload={handleDownloadDocument}
+                      isBn={isBn}
+                    />
+                  )}
+                </>
+              )}
             </div>
-          </>
+          </div>
         )}
       </div>
 
