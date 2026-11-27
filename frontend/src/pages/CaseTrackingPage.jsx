@@ -421,6 +421,15 @@ export default function CaseTrackingPage() {
 
   const handleViewDocument = async (doc) => {
     if (!selectedCase) return;
+    if (demoMode) {
+      setPreviewDoc({
+        name: doc.name,
+        category: doc.category,
+        text: doc.demoContent || `Demo preview for ${doc.name}`,
+        mimeType: 'text/plain'
+      });
+      return;
+    }
     setPreviewLoading(true);
     try {
       const { blob, contentType } = await api.fetchCaseDocumentBlob(selectedCase.id, doc.id, true);
@@ -440,6 +449,18 @@ export default function CaseTrackingPage() {
 
   const handleDownloadDocument = async (doc) => {
     if (!selectedCase) return;
+    if (demoMode) {
+      const blob = new Blob([doc.demoContent || doc.name], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = doc.name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      return;
+    }
     try {
       const { blob } = await api.fetchCaseDocumentBlob(selectedCase.id, doc.id, false);
       const url = URL.createObjectURL(blob);
@@ -456,6 +477,12 @@ export default function CaseTrackingPage() {
   };
 
   const handleMarkRead = async (notifId) => {
+    if (demoMode) {
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === notifId ? { ...n, read: true } : n))
+      );
+      return;
+    }
     try {
       await api.markCaseNotificationRead(notifId);
       setNotifications((prev) =>
