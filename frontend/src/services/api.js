@@ -79,6 +79,7 @@ export const api = {
   sendMessage: (body) => request('/messages', { method: 'POST', body: JSON.stringify(body) }),
 
   // Cases & Case Tracking
+  getCaseTrackingEligibility: () => request('/cases/eligibility'),
   getMyCases: () => request('/cases'),
   createCase: (body) => request('/cases', { method: 'POST', body: JSON.stringify(body) }),
   updateCase: (id, body) => request(`/cases/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
