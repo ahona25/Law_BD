@@ -2097,10 +2097,12 @@
       "title": "Hearing Date Scheduled",
       "message": "Hearing scheduled for 2026-11-28 (10:30 AM) at Chief Metropolitan Magistrate Court, Dhaka.",
       "actor": "Court Registry",
-      "read_by": [],
+      "read_by": [
+        1
+      ],
       "id": 3,
       "created_at": "2026-11-27T19:09:19.175Z",
-      "updated_at": "2026-11-27T19:09:19.175Z"
+      "updated_at": "2026-11-27T19:56:33.559Z"
     },
     {
       "case_id": 2,
