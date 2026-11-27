@@ -290,14 +290,14 @@ router.put('/:id', authenticate, requireEligibleClient, (req, res) => {
       type: 'status',
       title: `Status Updated to ${statusLabel}`,
       details: `Case status changed from ${STATUS_LABELS[prevStatus] || prevStatus} to ${statusLabel}.`,
-      actor: req.user.name
+      actor: activeUser.name
     });
     addCaseNotification(
       existing,
       'status_change',
       `Case Status: ${statusLabel}`,
       `Status for "${existing.title}" changed to ${statusLabel}.`,
-      req.user.name
+      activeUser.name
     );
   }
 
@@ -326,7 +326,7 @@ router.put('/:id', authenticate, requireEligibleClient, (req, res) => {
       type: 'hearing',
       title: 'Hearing Schedule Updated',
       details: detail,
-      actor: req.user.name
+      actor: activeUser.name
     });
 
     addCaseNotification(
@@ -334,7 +334,7 @@ router.put('/:id', authenticate, requireEligibleClient, (req, res) => {
       'hearing_change',
       'Hearing Date / Court Updated',
       detail,
-      req.user.name
+      activeUser.name
     );
   }
 
@@ -348,14 +348,14 @@ router.put('/:id', authenticate, requireEligibleClient, (req, res) => {
       type: 'update',
       title: 'Case Update Added',
       details: note.trim(),
-      actor: req.user.name
+      actor: activeUser.name
     });
     addCaseNotification(
       existing,
       'case_update',
       'New Case Information Added',
       note.trim(),
-      req.user.name
+      activeUser.name
     );
   }
 
@@ -370,13 +370,14 @@ router.put('/:id', authenticate, requireEligibleClient, (req, res) => {
 });
 
 // Upload document or court order to a case
-router.post('/:id/documents', authenticate, upload.single('file'), (req, res) => {
+router.post('/:id/documents', authenticate, requireEligibleClient, upload.single('file'), (req, res) => {
+  const activeUser = req.user;
   const { id } = req.params;
   const existing = db.findById('cases', id);
   if (!existing) {
     return res.status(404).json({ success: false, error: 'Case not found' });
   }
-  if (!canAccessCase(req.user, existing)) {
+  if (!canAccessCase(activeUser, existing)) {
     return res.status(403).json({ success: false, error: 'Access denied for this case' });
   }
 
@@ -403,7 +404,7 @@ router.post('/:id/documents', authenticate, upload.single('file'), (req, res) =>
     storedFilename: req.file?.filename || null,
     size: req.file?.size || null,
     mimeType: req.file?.mimetype || 'text/plain',
-    uploadedBy: req.user.name,
+    uploadedBy: activeUser.name,
     uploadedAt: nowIso
   };
 
@@ -417,7 +418,7 @@ router.post('/:id/documents', authenticate, upload.single('file'), (req, res) =>
     type: courtOrderFlag ? 'court_order' : 'document',
     title: courtOrderFlag ? 'Court Order Uploaded' : 'Document Uploaded',
     details: `${docName} (${category}) added to case file.`,
-    actor: req.user.name
+    actor: activeUser.name
   });
 
   const updated = db.update('cases', id, {
@@ -430,7 +431,7 @@ router.post('/:id/documents', authenticate, upload.single('file'), (req, res) =>
     courtOrderFlag ? 'court_order' : 'document_added',
     courtOrderFlag ? 'New Court Order Available' : 'New Case Document Uploaded',
     `${docName} (${category}) was added to "${existing.title}".`,
-    req.user.name
+    activeUser.name
   );
 
   res.status(201).json({
@@ -442,13 +443,14 @@ router.post('/:id/documents', authenticate, upload.single('file'), (req, res) =>
 });
 
 // Download or view a case document (supports uploaded files and seeded sample documents)
-router.get('/:id/documents/:docId/download', authenticate, (req, res) => {
+router.get('/:id/documents/:docId/download', authenticate, requireEligibleClient, (req, res) => {
+  const activeUser = req.user;
   const { id, docId } = req.params;
   const existing = db.findById('cases', id);
   if (!existing) {
     return res.status(404).json({ success: false, error: 'Case not found' });
   }
-  if (!canAccessCase(req.user, existing)) {
+  if (!canAccessCase(activeUser, existing)) {
     return res.status(403).json({ success: false, error: 'Access denied for this case' });
   }
 
