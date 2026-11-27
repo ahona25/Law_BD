@@ -28,6 +28,7 @@ import LawyerDashboardPage from './pages/LawyerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import CaseTrackingPage from './pages/CaseTrackingPage';
 
 export default function App() {
   return (
