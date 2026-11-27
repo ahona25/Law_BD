@@ -161,7 +161,16 @@ export default function CaseTrackingPage() {
         );
       }
     } catch (err) {
-      setError(err.message || 'Failed to load case tracking data');
+      const msg = (err.message || '').toLowerCase();
+      if (msg.includes('token') || msg.includes('sign in')) {
+        setEligible(false);
+        setEligibilityReason(null);
+        setCases([]);
+        setNotifications([]);
+        setError('');
+      } else {
+        setError(err.message || 'Failed to load case tracking data');
+      }
     } finally {
       setLoading(false);
     }
@@ -196,7 +205,7 @@ export default function CaseTrackingPage() {
   }, [cases, statusFilter, searchQuery]);
 
   const selectedCase = useMemo(
-    () => cases.find((c) => c.id === selectedCaseId) || filteredCases[0] || null,
+    () => cases.find((c) => c.id === selectedCaseId) || filteredCases[0] || cases[0] || null,
     [cases, selectedCaseId, filteredCases]
   );
 
@@ -209,6 +218,18 @@ export default function CaseTrackingPage() {
     () => selectedCaseNotifications.filter((n) => n.type === 'hearing_change'),
     [selectedCaseNotifications]
   );
+
+  const handleSelectFlowCard = (sectionId) => {
+    setActiveSection((prev) => {
+      const next = prev === sectionId ? null : sectionId;
+      if (next) {
+        setTimeout(() => {
+          workspaceRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 40);
+      }
+      return next;
+    });
+  };
 
   const openEditModal = (legalCase) => {
     setEditForm({
