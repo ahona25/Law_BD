@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Scale, ShieldCheck, CheckCircle2, User, Briefcase } from 'lucide-react';
+import { Scale, ShieldCheck, CheckCircle2, User, Briefcase, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export const AUTH_INPUT_CLASS =
@@ -66,6 +66,7 @@ export default function AuthShell({
   features,
   heading,
   subheading,
+  onCancel,
   children
 }) {
   const { lang } = useLanguage();
