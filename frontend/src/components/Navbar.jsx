@@ -565,7 +565,7 @@ export default function Navbar() {
                     key={link.to}
                     to={link.to}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between p-3 rounded-xl text-xs font-semibold ${
+                    className={`flex items-center justify-between p-3 rounded-xl text-sm font-semibold ${
                       isActive ? 'bg-emerald-50 text-bdGreen-900 font-bold' : 'text-slate-700 hover:bg-slate-50'
                     }`}
                   >
