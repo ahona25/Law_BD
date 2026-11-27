@@ -245,6 +245,46 @@ export default function CaseTrackingPage() {
   const handleCreateCase = async (e) => {
     e.preventDefault();
     if (!newCase.title.trim()) return;
+    if (demoMode) {
+      const today = new Date().toISOString().split('T')[0];
+      const created = {
+        id: `DEMO-${Math.floor(200 + Math.random() * 700)}`,
+        ...newCase,
+        related_laws: ['Bangladesh Statutory Law'],
+        history: [
+          {
+            id: `dh-${Date.now()}`,
+            date: today,
+            type: 'registration',
+            title: 'Case Registered (Demo)',
+            details: `Case "${newCase.title}" created in demo showcase.`,
+            actor: 'Demo Client'
+          }
+        ],
+        documents: []
+      };
+      setCases((prev) => [created, ...prev]);
+      setNotifications((prev) => [
+        {
+          id: `dn-${Date.now()}`,
+          case_id: created.id,
+          case_title: created.title,
+          type: 'case_created',
+          title: 'New Case Registered',
+          message: `Demo case "${created.title}" added to Case Tracking.`,
+          read: false,
+          created_at: new Date().toISOString()
+        },
+        ...prev
+      ]);
+      setSelectedCaseId(created.id);
+      setShowCreateModal(false);
+      setNewCase(INITIAL_NEW_CASE);
+      setActiveSection('status');
+      setFeedback(isBn ? 'ডেমো মামলা যোগ করা হয়েছে।' : 'Demo case added to showcase.');
+      return;
+    }
+
     setCreatingCase(true);
     try {
       const res = await api.createCase(newCase);
@@ -253,6 +293,7 @@ export default function CaseTrackingPage() {
         setNewCase(INITIAL_NEW_CASE);
         await loadData();
         if (res.legalCase?.id) setSelectedCaseId(res.legalCase.id);
+        setActiveSection('status');
         setFeedback(isBn ? 'নতুন মামলা সফলভাবে নিবন্ধিত হয়েছে।' : 'New case registered and tracked.');
       }
     } catch (err) {
@@ -265,6 +306,49 @@ export default function CaseTrackingPage() {
   const handleUpdateCase = async (e) => {
     e.preventDefault();
     if (!selectedCase) return;
+    if (demoMode) {
+      const today = new Date().toISOString().split('T')[0];
+      const updated = {
+        ...selectedCase,
+        status: editForm.status,
+        court_name: editForm.court_name,
+        next_hearing_date: editForm.next_hearing_date || null,
+        next_hearing_time: editForm.next_hearing_time || null,
+        history: [
+          ...(selectedCase.history || []),
+          {
+            id: `dh-${Date.now()}`,
+            date: today,
+            type: 'update',
+            title: 'Demo Case Updated',
+            details:
+              editForm.note.trim() ||
+              `Status: ${editForm.status} · Hearing: ${editForm.next_hearing_date || 'N/A'}`,
+            actor: 'Demo Client'
+          }
+        ]
+      };
+      setCases((prev) => prev.map((c) => (c.id === selectedCase.id ? updated : c)));
+      setNotifications((prev) => [
+        {
+          id: `dn-${Date.now()}`,
+          case_id: selectedCase.id,
+          case_title: selectedCase.title,
+          type: 'hearing_change',
+          title: 'Case Updated (Demo)',
+          message:
+            editForm.note.trim() ||
+            `Hearing/status updated for "${selectedCase.title}".`,
+          read: false,
+          created_at: new Date().toISOString()
+        },
+        ...prev
+      ]);
+      setShowEditModal(false);
+      setFeedback(isBn ? 'ডেমো মামলা আপডেট হয়েছে।' : 'Demo case updated and alert added.');
+      return;
+    }
+
     setUpdatingCase(true);
     try {
       const res = await api.updateCase(selectedCase.id, editForm);
@@ -287,6 +371,31 @@ export default function CaseTrackingPage() {
   const handleUploadDocument = async (e) => {
     e.preventDefault();
     if (!selectedCase || (!docFile && !docTitle.trim())) return;
+
+    if (demoMode) {
+      const docName = docTitle.trim() || docFile?.name || 'Demo_Document.txt';
+      const isOrder = docCategory === 'Court Order';
+      const newDoc = {
+        id: `d-doc-${Date.now()}`,
+        name: docName,
+        category: docCategory,
+        isCourtOrder: isOrder,
+        uploadedBy: 'Demo Client',
+        uploadedAt: new Date().toISOString(),
+        demoContent: `DEMO DOCUMENT\nTitle: ${docName}\nCategory: ${docCategory}\nCase: ${selectedCase.title}`
+      };
+      setCases((prev) =>
+        prev.map((c) =>
+          c.id === selectedCase.id
+            ? { ...c, documents: [...(c.documents || []), newDoc] }
+            : c
+        )
+      );
+      setDocFile(null);
+      setDocTitle('');
+      setFeedback(isBn ? 'ডেমো নথি যুক্ত হয়েছে।' : 'Demo document added to case folder.');
+      return;
+    }
 
     setUploadingDoc(true);
     try {
