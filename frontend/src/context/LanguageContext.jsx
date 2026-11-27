@@ -70,6 +70,7 @@ export const translations = {
     navCompare: 'আদালত ডিরেক্টরি',
     navTemplates: 'আইনি ফরম',
     navAwareness: 'আইনি সচেতনতা',
+    navCaseTracking: 'মামলা ট্র্যাকিং',
     navAi: 'এআই অ্যাসিস্ট্যান্ট',
     navEmergency: 'জরুরি হেল্পলাইন',
     navLogin: 'লগইন',
