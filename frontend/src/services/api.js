@@ -78,10 +78,37 @@ export const api = {
   getMessages: (appointmentId) => request(`/messages/${appointmentId}`),
   sendMessage: (body) => request('/messages', { method: 'POST', body: JSON.stringify(body) }),
 
-  // Cases
+  // Cases & Case Tracking
   getMyCases: () => request('/cases'),
   createCase: (body) => request('/cases', { method: 'POST', body: JSON.stringify(body) }),
   updateCase: (id, body) => request(`/cases/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  getCaseNotifications: () => request('/cases/notifications'),
+  markCaseNotificationRead: (notifId) => request(`/cases/notifications/${notifId}/read`, { method: 'PATCH' }),
+  markAllCaseNotificationsRead: () => request('/cases/notifications/read-all', { method: 'PATCH' }),
+  uploadCaseDocument: async (caseId, formData) => {
+    const token = localStorage.getItem('lawbd_token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const res = await fetch(`${API_BASE}/cases/${caseId}/documents`, {
+      method: 'POST',
+      headers,
+      body: formData
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Document upload failed');
+    return data;
+  },
+  fetchCaseDocumentBlob: async (caseId, docId, inline = false) => {
+    const token = localStorage.getItem('lawbd_token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const res = await fetch(
+      `${API_BASE}/cases/${caseId}/documents/${encodeURIComponent(docId)}/download${inline ? '?inline=1' : ''}`,
+      { headers }
+    );
+    if (!res.ok) throw new Error('Failed to retrieve document');
+    const contentType = res.headers.get('content-type') || 'application/octet-stream';
+    const blob = await res.blob();
+    return { blob, contentType };
+  },
 
   // Admin
   getAdminStats: () => request('/admin/stats'),
