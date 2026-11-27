@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Lock,
   Mail,
@@ -21,6 +21,14 @@ export default function LoginPage() {
   const { login, demoLogin } = useAuth();
   const { lang } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const rawFrom = location.state?.from || searchParams.get('from');
+  const returnTo =
+    typeof rawFrom === 'string' && rawFrom.startsWith('/') && !rawFrom.startsWith('//')
+      ? rawFrom
+      : null;
 
   const [roleTab, setRoleTab] = useState('client');
   const [email, setEmail] = useState('');
@@ -34,9 +42,23 @@ export default function LoginPage() {
   const isBn = lang === 'bn';
 
   const navigateByRole = (userRole) => {
+    if (returnTo) {
+      navigate(returnTo);
+      return;
+    }
     if (userRole === 'lawyer') navigate('/dashboard/lawyer');
     else if (userRole === 'admin') navigate('/dashboard/admin');
     else navigate('/dashboard/client');
+  };
+
+  const handleCancel = () => {
+    if (returnTo) {
+      navigate(returnTo);
+    } else if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
   };
 
   const handleSubmit = async (e) => {
