@@ -55,6 +55,7 @@ export default function App() {
                   <Route path="/courts" element={<CourtsPage />} />
                   <Route path="/compare-lawyers" element={<CourtsPage />} />
                   <Route path="/awareness" element={<AwarenessPage />} />
+                  <Route path="/case-tracking" element={<CaseTrackingPage />} />
                   <Route path="/templates" element={<TemplatesPage />} />
                   <Route path="/emergency" element={<EmergencyPage />} />
                   <Route path="/amendments" element={<AmendmentsPage />} />
