@@ -1,37 +1,32 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
-  Briefcase,
-  Calendar,
-  Bell,
-  BellRing,
   CheckCircle2,
   Scale,
-  Plus,
   Search,
-  History,
-  FolderOpen,
   AlertCircle,
   Loader2,
   X,
-  User,
-  Sparkles,
-  Gavel
+  Gavel,
+  Calendar,
+  History,
+  Bell,
+  FolderOpen
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { api } from '../services/api';
 import { getStatusInfo } from '../components/case-tracking/caseConstants';
+import CaseTrackingFlowHeader from '../components/case-tracking/CaseTrackingFlowHeader';
 import CaseStatusCards from '../components/case-tracking/CaseStatusCards';
 import CaseListSidebar from '../components/case-tracking/CaseListSidebar';
 import CaseHearingPanel from '../components/case-tracking/CaseHearingPanel';
 import CaseHistoryTimeline from '../components/case-tracking/CaseHistoryTimeline';
 import CaseDocumentsPanel from '../components/case-tracking/CaseDocumentsPanel';
 import CaseNotificationsPanel from '../components/case-tracking/CaseNotificationsPanel';
-import GlobalNotificationsDrawer from '../components/case-tracking/GlobalNotificationsDrawer';
 import CreateCaseModal from '../components/case-tracking/CreateCaseModal';
 import UpdateCaseModal from '../components/case-tracking/UpdateCaseModal';
 import DocumentPreviewModal from '../components/case-tracking/DocumentPreviewModal';
+import { DEMO_CASES, DEMO_NOTIFICATIONS } from '../components/case-tracking/demoCaseData';
 
 const INITIAL_NEW_CASE = {
   title: '',
@@ -43,13 +38,25 @@ const INITIAL_NEW_CASE = {
   incident_description: ''
 };
 
+const PANEL_META = {
+  status: { icon: Scale, en: 'Case Status', bn: 'মামলার অবস্থা' },
+  hearings: { icon: Calendar, en: 'Hearing Dates', bn: 'শুনানির তারিখ' },
+  history: { icon: History, en: 'Case History', bn: 'মামলার ইতিহাস' },
+  notifications: { icon: Bell, en: 'Notifications', bn: 'নোটিফিকেশন' },
+  documents: { icon: FolderOpen, en: 'Document Management & Court Orders', bn: 'নথি ও আদালতের আদেশ' }
+};
+
 export default function CaseTrackingPage() {
-  const { isAuthenticated, demoLogin } = useAuth();
+  const { isAuthenticated, user, token } = useAuth();
   const { lang } = useLanguage();
   const isBn = lang === 'bn';
+  const workspaceRef = useRef(null);
 
   const [cases, setCases] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [eligible, setEligible] = useState(false);
+  const [eligibilityReason, setEligibilityReason] = useState(null);
+  const [demoMode, setDemoMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -57,9 +64,9 @@ export default function CaseTrackingPage() {
   const [selectedCaseId, setSelectedCaseId] = useState(null);
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeSection, setActiveSection] = useState(null); // null until user clicks an option
   const [docFilter, setDocFilter] = useState('all');
-  const [notifDrawerOpen, setNotifDrawerOpen] = useState(false);
+  const [notifScope, setNotifScope] = useState('all'); // 'all' | 'case'
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newCase, setNewCase] = useState(INITIAL_NEW_CASE);
@@ -83,19 +90,64 @@ export default function CaseTrackingPage() {
   const [previewLoading, setPreviewLoading] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (demoMode) return;
+    if (isAuthenticated && token) {
       loadData();
     } else {
+      setEligible(false);
+      setEligibilityReason(null);
       setCases([]);
       setNotifications([]);
+      setActiveSection(null);
+      setError('');
       setLoading(false);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, token, user?.id, user?.role, demoMode]);
+
+  const handleToggleDemo = () => {
+    if (demoMode) {
+      setDemoMode(false);
+      setActiveSection(null);
+      setFeedback('');
+      if (isAuthenticated && token) {
+        loadData();
+      } else {
+        setCases([]);
+        setNotifications([]);
+      }
+      return;
+    }
+
+    const clonedCases = JSON.parse(JSON.stringify(DEMO_CASES));
+    const clonedNotifs = JSON.parse(JSON.stringify(DEMO_NOTIFICATIONS));
+    setDemoMode(true);
+    setCases(clonedCases);
+    setNotifications(clonedNotifs);
+    setSelectedCaseId(clonedCases[0]?.id || null);
+    setActiveSection('status');
+    setError('');
+    setFeedback(
+      isBn
+        ? 'ডেমো প্রদর্শনী চালু হয়েছে — প্রক্রিয়াটি দেখাতে যেকোনো অপশনে ক্লিক করুন।'
+        : 'Demo Showcase active — click any option to test and demonstrate the Case Tracking workflow.'
+    );
+  };
 
   const loadData = async () => {
     setLoading(true);
     setError('');
     try {
+      const eligRes = await api.getCaseTrackingEligibility();
+      setEligible(!!eligRes.eligible);
+      setEligibilityReason(eligRes.reason || null);
+
+      if (!eligRes.eligible) {
+        setCases([]);
+        setNotifications([]);
+        setActiveSection(null);
+        return;
+      }
+
       const [casesRes, notifsRes] = await Promise.all([
         api.getMyCases(),
         api.getCaseNotifications()
