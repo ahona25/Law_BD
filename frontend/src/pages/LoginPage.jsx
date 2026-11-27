@@ -23,6 +23,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const [roleTab, setRoleTab] = useState('client');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
