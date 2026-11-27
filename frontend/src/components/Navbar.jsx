@@ -319,7 +319,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-1 px-2 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-[11px] 2xl:text-xs font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
+                className="flex items-center gap-1 px-2 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs 2xl:text-sm font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
                 title={lang === 'bn' ? '৩০টি অধিক্ষেত্র দেখুন' : 'Browse All 30 Jurisdictions Sequentially'}
               >
                 <Layers className="w-3.5 h-3.5 text-bdGreen-800 group-hover:scale-110 transition-transform shrink-0" />
@@ -368,7 +368,7 @@ export default function Navbar() {
 
                     <div className="text-left">
                       <div className="flex items-center gap-1">
-                        <span className="text-xs font-bold text-slate-900 max-w-[80px] 2xl:max-w-[100px] truncate">
+                        <span className="text-xs 2xl:text-sm font-bold text-slate-900 max-w-[80px] 2xl:max-w-[100px] truncate">
                           {user?.name ? user.name.split(' ')[0] : 'User'}
                         </span>
                         <span className={`px-1 py-0.2 text-[8px] 2xl:text-[9px] font-mono font-bold uppercase rounded ${
