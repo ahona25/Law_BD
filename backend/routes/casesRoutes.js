@@ -186,6 +186,9 @@ router.post('/', authenticate, requireEligibleClient, (req, res) => {
       return res.status(400).json({ success: false, error: 'Case title and category are required' });
     }
 
+    const fixedLawyers = getClientFixedLawyers(activeUser);
+    const resolvedLawyerId = lawyer_id ? Number(lawyer_id) : fixedLawyers[0]?.id;
+
     const initialStatus = normalizeStatus(status) || (next_hearing_date ? 'hearing_scheduled' : 'under_review');
     const nowIso = new Date().toISOString();
     const today = nowIso.split('T')[0];
@@ -198,7 +201,7 @@ router.post('/', authenticate, requireEligibleClient, (req, res) => {
         type: 'registration',
         title: 'Case Registered',
         details: `Case "${title}" filed under ${category}.`,
-        actor: req.user.name
+        actor: activeUser.name
       }
     ];
 
@@ -210,14 +213,14 @@ router.post('/', authenticate, requireEligibleClient, (req, res) => {
         type: 'hearing',
         title: 'Initial Hearing Scheduled',
         details: `Scheduled for ${next_hearing_date}${next_hearing_time ? ` at ${next_hearing_time}` : ''} (${court_name || 'Pending Jurisdiction'}).`,
-        actor: req.user.name
+        actor: activeUser.name
       });
     }
 
     const newCase = db.insert('cases', {
-      client_id: req.user.id,
-      client_name: req.user.name,
-      lawyer_id: lawyer_id ? Number(lawyer_id) : null,
+      client_id: activeUser.id,
+      client_name: activeUser.name,
+      lawyer_id: resolvedLawyerId || null,
       title,
       category,
       incident_description: incident_description || '',
@@ -238,10 +241,10 @@ router.post('/', authenticate, requireEligibleClient, (req, res) => {
       'case_created',
       'New Case Registered',
       `Case "${title}" (${STATUS_LABELS[initialStatus] || initialStatus}) is now active in Case Tracking.`,
-      req.user.name
+      activeUser.name
     );
 
-    db.logAudit(req.user.id, 'CASE_CREATED', 'CASES', newCase.id, `Created case: ${title}`);
+    db.logAudit(activeUser.id, 'CASE_CREATED', 'CASES', newCase.id, `Created case: ${title}`);
 
     res.status(201).json({
       success: true,
@@ -254,13 +257,14 @@ router.post('/', authenticate, requireEligibleClient, (req, res) => {
 });
 
 // Update case (status, hearing date/time, court name, activity note)
-router.put('/:id', authenticate, (req, res) => {
+router.put('/:id', authenticate, requireEligibleClient, (req, res) => {
+  const activeUser = req.user;
   const { id } = req.params;
   const existing = db.findById('cases', id);
   if (!existing) {
     return res.status(404).json({ success: false, error: 'Case not found' });
   }
-  if (!canAccessCase(req.user, existing)) {
+  if (!canAccessCase(activeUser, existing)) {
     return res.status(403).json({ success: false, error: 'Access denied for this case' });
   }
 
