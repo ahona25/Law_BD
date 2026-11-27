@@ -154,14 +154,14 @@ export default function RegisterPage() {
       {error && (
         <div
           role="alert"
-          className="flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 text-bdRed-700 rounded-xl text-xs font-medium"
+          className="flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 text-bdRed-700 rounded-xl text-xs font-medium animate-shake"
         >
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-bdRed-500" />
           <span>{error}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3.5">
+      <form onSubmit={handleSubmit} className="space-y-3.5 animate-tab-right">
         <div>
           <label htmlFor="reg-name" className="block text-xs font-semibold text-slate-700 mb-1.5">
             {isBn ? 'পূর্ণ আইনি নাম' : 'Full Legal Name'}
@@ -295,7 +295,7 @@ export default function RegisterPage() {
         </div>
 
         {role === 'lawyer' && (
-          <div className="p-3.5 bg-emerald-50/75 rounded-xl border border-emerald-200/90 space-y-2">
+          <div className="p-3.5 bg-emerald-50/75 rounded-xl border border-emerald-200/90 space-y-2 animate-expand-down overflow-hidden">
             <label
               htmlFor="reg-bar-council"
               className="flex items-center gap-1.5 text-xs font-bold text-bdGreen-900"
@@ -327,8 +327,6 @@ export default function RegisterPage() {
           </div>
         )}
 
-
-
         <label className="flex items-start gap-2.5 pt-0.5 text-xs text-slate-600 cursor-pointer select-none">
           <input
             type="checkbox"
@@ -346,7 +344,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-4 bg-bdGreen-800 hover:bg-bdGreen-700 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm transition-all shadow-md shadow-bdGreen-900/15 flex items-center justify-center gap-2"
+          className="w-full py-3 px-4 bg-bdGreen-800 hover:bg-bdGreen-700 transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-bdGreen-900/15 flex items-center justify-center gap-2"
         >
           {loading ? (
             <>

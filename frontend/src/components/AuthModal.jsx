@@ -129,8 +129,8 @@ export default function AuthModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
-      <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-modal-backdrop">
+      <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 animate-modal-pop">
 
         {/* Top Decorative Header with Bangladesh National Flag Palette */}
         <div className="bg-gradient-to-r from-[#03120E] via-[#063226] to-[#064E3B] text-white p-6 relative">
@@ -139,7 +139,7 @@ export default function AuthModal({
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/15 hover:bg-white/25 text-white transition-colors"
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/15 hover:bg-white/25 text-white transition-all duration-200 transform hover:rotate-90 hover:scale-105 active:scale-95"
             title="Close"
           >
             <X className="w-5 h-5" />
@@ -167,28 +167,38 @@ export default function AuthModal({
             </div>
           </div>
 
-          {/* Tab Switcher: Sign In vs Create Account */}
-          <div className="mt-5 grid grid-cols-2 gap-1 p-1 bg-black/25 rounded-2xl border border-white/15 text-xs font-bold">
-            <button
-              type="button"
-              onClick={() => { setActiveTab('signin'); setError(''); }}
-              className={`py-2 rounded-xl transition-all ${activeTab === 'signin'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-emerald-100 hover:text-white hover:bg-white/10'
+          {/* Tab Switcher: Sign In vs Create Account with Smooth Sliding Pill */}
+          <div className="relative mt-5 p-1 bg-black/30 rounded-2xl border border-white/15 text-xs font-bold overflow-hidden select-none">
+            {/* Sliding Pill Indicator */}
+            <div
+              className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-xl bg-white shadow-md transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                activeTab === 'signin' ? 'left-1' : 'left-[calc(50%+2px)]'
+              }`}
+            />
+            <div className="relative grid grid-cols-2 gap-1 z-10">
+              <button
+                type="button"
+                onClick={() => { setActiveTab('signin'); setError(''); }}
+                className={`py-2.5 rounded-xl transition-colors duration-200 text-center font-bold ${
+                  activeTab === 'signin'
+                    ? 'text-slate-900 font-extrabold'
+                    : 'text-emerald-100 hover:text-white'
                 }`}
-            >
-              {lang === 'bn' ? 'সাইন ইন (Sign In)' : 'Sign In'}
-            </button>
-            <button
-              type="button"
-              onClick={() => { setActiveTab('register'); setError(''); }}
-              className={`py-2 rounded-xl transition-all ${activeTab === 'register'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-emerald-100 hover:text-white hover:bg-white/10'
+              >
+                {lang === 'bn' ? 'সাইন ইন (Sign In)' : 'Sign In'}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setActiveTab('register'); setError(''); }}
+                className={`py-2.5 rounded-xl transition-colors duration-200 text-center font-bold ${
+                  activeTab === 'register'
+                    ? 'text-slate-900 font-extrabold'
+                    : 'text-emerald-100 hover:text-white'
                 }`}
-            >
-              {lang === 'bn' ? 'নতুন একাউন্ট (Register)' : 'Create Account'}
-            </button>
+              >
+                {lang === 'bn' ? 'নতুন একাউন্ট (Register)' : 'Create Account'}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -204,13 +214,15 @@ export default function AuthModal({
               <button
                 type="button"
                 onClick={() => setSelectedRole('client')}
-                className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${selectedRole === 'client'
-                  ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
-                  : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
-                  }`}
+                className={`p-3 rounded-2xl border text-left transition-all duration-200 transform active:scale-[0.98] flex items-start gap-3 ${
+                  selectedRole === 'client'
+                    ? 'border-bdGreen-700 bg-emerald-50/80 ring-2 ring-emerald-500/20 shadow-xs'
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/60 bg-white text-slate-600'
+                }`}
               >
-                <div className={`p-2 rounded-xl shrink-0 ${selectedRole === 'client' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
-                  }`}>
+                <div className={`p-2 rounded-xl shrink-0 transition-transform duration-200 ${
+                  selectedRole === 'client' ? 'bg-bdGreen-800 text-white scale-105' : 'bg-slate-100 text-slate-500'
+                }`}>
                   <User className="w-4 h-4" />
                 </div>
                 <div>
@@ -226,13 +238,15 @@ export default function AuthModal({
               <button
                 type="button"
                 onClick={() => setSelectedRole('lawyer')}
-                className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-3 ${selectedRole === 'lawyer'
-                  ? 'border-bdGreen-700 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-xs'
-                  : 'border-slate-200 hover:border-slate-300 bg-white text-slate-600'
-                  }`}
+                className={`p-3 rounded-2xl border text-left transition-all duration-200 transform active:scale-[0.98] flex items-start gap-3 ${
+                  selectedRole === 'lawyer'
+                    ? 'border-bdGreen-700 bg-emerald-50/80 ring-2 ring-emerald-500/20 shadow-xs'
+                    : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/60 bg-white text-slate-600'
+                }`}
               >
-                <div className={`p-2 rounded-xl shrink-0 ${selectedRole === 'lawyer' ? 'bg-bdGreen-800 text-white' : 'bg-slate-100 text-slate-500'
-                  }`}>
+                <div className={`p-2 rounded-xl shrink-0 transition-transform duration-200 ${
+                  selectedRole === 'lawyer' ? 'bg-bdGreen-800 text-white scale-105' : 'bg-slate-100 text-slate-500'
+                }`}>
                   <Briefcase className="w-4 h-4" />
                 </div>
                 <div>
@@ -247,10 +261,11 @@ export default function AuthModal({
             </div>
           </div>
 
-          {/* Error Message Alert */}
+          {/* Error Message Alert with Smooth Shake Animation */}
           {error && (
-            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-bdRed-600 text-xs font-semibold">
-              {error}
+            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-bdRed-600 text-xs font-semibold animate-shake flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-bdRed-500 shrink-0" />
+              <span>{error}</span>
             </div>
           )}
 
@@ -258,7 +273,7 @@ export default function AuthModal({
           <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
                 {lang === 'bn' ? 'দ্রুত পরীক্ষামূলক লগইন (১-ক্লিক):' : '1-Click Fast Login (Instant Test):'}
               </span>
               <span className="text-[10px] text-emerald-700 font-medium">Ready</span>
@@ -269,65 +284,67 @@ export default function AuthModal({
                 type="button"
                 disabled={loading}
                 onClick={() => handleQuickDemo('client')}
-                className={`py-2 px-2 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'client'
-                  ? 'bg-white border-emerald-500 text-bdGreen-900 shadow-xs'
-                  : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
-                  }`}
+                className={`group py-2 px-2.5 rounded-xl text-left border transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.98] flex items-center justify-between text-xs font-bold ${
+                  selectedRole === 'client'
+                    ? 'bg-white border-emerald-500 text-bdGreen-900 shadow-xs ring-1 ring-emerald-500/20'
+                    : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white hover:border-slate-300'
+                }`}
               >
                 <div className="flex items-center gap-1.5 truncate">
-                  <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <User className="w-3.5 h-3.5 text-emerald-600 shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="truncate">Rahim</span>
                 </div>
-                <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:translate-x-0.5 group-hover:text-bdGreen-700 transition-all shrink-0" />
               </button>
 
               <button
                 type="button"
                 disabled={loading}
                 onClick={() => handleQuickDemo('lawyer')}
-                className={`py-2 px-2 rounded-xl text-left border transition-all flex items-center justify-between text-xs font-bold ${selectedRole === 'lawyer'
-                  ? 'bg-bdGreen-800 border-bdGreen-900 text-white shadow-xs'
-                  : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'
-                  }`}
+                className={`group py-2 px-2.5 rounded-xl text-left border transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.98] flex items-center justify-between text-xs font-bold ${
+                  selectedRole === 'lawyer'
+                    ? 'bg-bdGreen-800 border-bdGreen-900 text-white shadow-xs'
+                    : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white hover:border-slate-300'
+                }`}
               >
                 <div className="flex items-center gap-1.5 truncate">
-                  <Briefcase className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+                  <Briefcase className="w-3.5 h-3.5 text-amber-300 shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="truncate">Tanvir</span>
                 </div>
-                <ArrowRight className="w-3 h-3 text-amber-200 shrink-0" />
+                <ArrowRight className="w-3 h-3 text-amber-200 group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
 
               <button
                 type="button"
                 disabled={loading}
                 onClick={() => handleQuickDemo('admin')}
-                className="py-2 px-2 rounded-xl text-left border border-purple-200 bg-purple-50/70 hover:bg-purple-100 transition-all flex items-center justify-between text-xs font-bold text-purple-900"
+                className="group py-2 px-2.5 rounded-xl text-left border border-purple-200 bg-purple-50/70 hover:bg-purple-100 hover:border-purple-300 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.98] flex items-center justify-between text-xs font-bold text-purple-900"
               >
                 <div className="flex items-center gap-1.5 truncate">
-                  <ShieldCheck className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-purple-600 shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="truncate">Admin DG</span>
                 </div>
-                <ArrowRight className="w-3 h-3 text-purple-400 shrink-0" />
+                <ArrowRight className="w-3 h-3 text-purple-400 group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
             </div>
           </div>
 
-          {/* SIGN IN FORM */}
+          {/* SIGN IN FORM (Animated Slide-Fade Left) */}
           {activeTab === 'signin' && (
-            <form onSubmit={handleSignIn} className="space-y-4">
+            <form onSubmit={handleSignIn} className="space-y-4 animate-tab-left">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
                   {selectedRole === 'lawyer' ? 'Advocate Email / Bar Registry ID' : 'Client Email Address'}
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
+                  <Mail className="absolute left-3.5 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
                   <input
                     type="email"
                     required
                     value={signInEmail}
                     onChange={(e) => setSignInEmail(e.target.value)}
                     placeholder={selectedRole === 'lawyer' ? 'tanvir@lawbd.com' : 'client@lawbd.com'}
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                   />
                 </div>
               </div>
@@ -340,14 +357,14 @@ export default function AuthModal({
                   <span className="text-[11px] text-slate-400">Default: password123</span>
                 </div>
                 <div className="relative">
-                  <Lock className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
+                  <Lock className="absolute left-3.5 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
                   <input
                     type="password"
                     required
                     value={signInPassword}
                     onChange={(e) => setSignInPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                   />
                 </div>
               </div>
@@ -355,7 +372,7 @@ export default function AuthModal({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
+                className="w-full py-3 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-[0.99] shadow-md flex items-center justify-center gap-2"
               >
                 <span>
                   {loading
@@ -367,36 +384,33 @@ export default function AuthModal({
             </form>
           )}
 
-          {/* REGISTER FORM */}
+          {/* REGISTER FORM (Animated Slide-Fade Right) */}
           {activeTab === 'register' && (
-            <form onSubmit={handleRegister} className="space-y-3.5">
+            <form onSubmit={handleRegister} className="space-y-3.5 animate-tab-right">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
                   {selectedRole === 'lawyer' ? 'Full Name with Title (e.g., Adv. Shahinur Rahman)' : 'Full Name'}
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
+                  <User className="absolute left-3.5 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={selectedRole === 'lawyer' ? 'Adv. Shahinur Rahman' : 'Rahim Ahmed'}
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                   />
                 </div>
               </div>
 
-              {/* Lawyer Specific Inputs */}
+              {/* Lawyer Specific Inputs (Smooth Expand-Down) */}
               {selectedRole === 'lawyer' && (
-                <div className="space-y-3 p-3.5 bg-amber-50/50 rounded-2xl border border-amber-200/60">
+                <div className="space-y-3 p-3.5 bg-amber-50/60 rounded-2xl border border-amber-200/70 animate-expand-down overflow-hidden">
                   <div className="flex items-center gap-2 text-amber-900 font-bold text-xs mb-1">
                     <Award className="w-4 h-4 text-amber-700" />
                     <span>Bangladesh Bar Council Credentials</span>
                   </div>
-
-
-
 
                   <div>
                     <label className="block text-[11px] font-bold text-slate-700 mb-1">
@@ -408,7 +422,7 @@ export default function AuthModal({
                       value={barCouncilNo}
                       onChange={(e) => setBarCouncilNo(e.target.value)}
                       placeholder="e.g., BC/DH-2018/7421"
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-bdGreen-700"
+                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                     />
                   </div>
 
@@ -420,7 +434,7 @@ export default function AuthModal({
                       <select
                         value={association}
                         onChange={(e) => setAssociation(e.target.value)}
-                        className="w-full px-2.5 py-2 bg-white border border-slate-200 rounded-xl text-[11px] text-slate-900 focus:outline-none focus:border-bdGreen-700"
+                        className="w-full px-2.5 py-2 bg-white border border-slate-200 rounded-xl text-[11px] text-slate-900 focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                       >
                         <option value="Supreme Court Bar Association">Supreme Court Bar</option>
                         <option value="Dhaka Bar Association">Dhaka Bar Association</option>
@@ -438,7 +452,7 @@ export default function AuthModal({
                       <select
                         value={courtLevel}
                         onChange={(e) => setCourtLevel(e.target.value)}
-                        className="w-full px-2.5 py-2 bg-white border border-slate-200 rounded-xl text-[11px] text-slate-900 focus:outline-none focus:border-bdGreen-700"
+                        className="w-full px-2.5 py-2 bg-white border border-slate-200 rounded-xl text-[11px] text-slate-900 focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                       >
                         <option value="Supreme Court of Bangladesh">Supreme Court (Appellate / High Court)</option>
                         <option value="District & Sessions Judge Court">District & Sessions Judge Court</option>
@@ -458,7 +472,7 @@ export default function AuthModal({
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     placeholder="email@example.com"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                   />
                 </div>
                 <div>
@@ -469,7 +483,7 @@ export default function AuthModal({
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+880 1700 000000"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                   />
                 </div>
               </div>
@@ -482,16 +496,14 @@ export default function AuthModal({
                   value={regPassword}
                   onChange={(e) => setRegPassword(e.target.value)}
                   placeholder="Min 6 characters"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-bdGreen-700 focus:ring-4 focus:ring-emerald-500/15 transition-all duration-200"
                 />
               </div>
-
-
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 mt-2"
+                className="w-full py-3 bg-bdGreen-800 hover:bg-bdGreen-700 text-white rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-[0.99] shadow-md flex items-center justify-center gap-2 mt-2"
               >
                 <span>
                   {loading

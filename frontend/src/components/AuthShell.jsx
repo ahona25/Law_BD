@@ -4,49 +4,57 @@ import { Scale, ShieldCheck, CheckCircle2, User, Briefcase } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext';
 
 export const AUTH_INPUT_CLASS =
-  'w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-slate-50/60 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:bg-white focus:outline-none focus:border-bdGreen-800 focus:ring-4 focus:ring-bdGreen-800/10';
+  'w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-slate-50/60 text-sm text-slate-900 placeholder:text-slate-400 transition-all duration-200 focus:bg-white focus:outline-none focus:border-bdGreen-800 focus:ring-4 focus:ring-bdGreen-800/10 focus:scale-[1.003]';
 
 export function AuthRoleTabs({ role, onChange }) {
   const { lang } = useLanguage();
   const isBn = lang === 'bn';
 
-
-
   return (
     <div
       role="tablist"
       aria-label={isBn ? 'অ্যাকাউন্টের ধরন' : 'Account role'}
-      className="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200/80"
+      className="relative p-1 bg-slate-100 rounded-xl border border-slate-200/80 overflow-hidden select-none"
     >
-      <button
-        type="button"
-        role="tab"
-        aria-selected={role === 'client'}
-        onClick={() => onChange('client')}
-        className={`py-2.5 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-2 ${role === 'client'
-          ? 'bg-white text-bdGreen-900 shadow-sm ring-1 ring-slate-200/80'
-          : 'text-slate-600 hover:text-slate-900'
+      {/* Smooth sliding pill indicator */}
+      <div
+        className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-lg shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          role === 'client'
+            ? 'left-1 bg-white ring-1 ring-slate-200/80'
+            : 'left-[calc(50%+2px)] bg-bdGreen-800 text-white'
+        }`}
+      />
+      <div className="relative grid grid-cols-2 gap-1 z-10">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={role === 'client'}
+          onClick={() => onChange('client')}
+          className={`py-2 px-3 rounded-lg text-xs font-semibold transition-colors duration-200 flex items-center justify-center gap-2 ${
+            role === 'client'
+              ? 'text-bdGreen-900 font-bold'
+              : 'text-slate-600 hover:text-slate-900'
           }`}
-      >
-        <User className={`w-4 h-4 ${role === 'client' ? 'text-bdGreen-700' : 'text-slate-400'}`} />
-        <span>{isBn ? 'নাগরিক / ক্লায়েন্ট' : 'Citizen / Client'}</span>
-      </button>
+        >
+          <User className={`w-4 h-4 transition-transform duration-200 ${role === 'client' ? 'text-bdGreen-700 scale-105' : 'text-slate-400'}`} />
+          <span>{isBn ? 'নাগরিক / ক্লায়েন্ট' : 'Citizen / Client'}</span>
+        </button>
 
-
-
-      <button
-        type="button"
-        role="tab"
-        aria-selected={role === 'lawyer'}
-        onClick={() => onChange('lawyer')}
-        className={`py-2.5 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-2 ${role === 'lawyer'
-          ? 'bg-bdGreen-800 text-white shadow-sm'
-          : 'text-slate-600 hover:text-slate-900'
+        <button
+          type="button"
+          role="tab"
+          aria-selected={role === 'lawyer'}
+          onClick={() => onChange('lawyer')}
+          className={`py-2 px-3 rounded-lg text-xs font-semibold transition-colors duration-200 flex items-center justify-center gap-2 ${
+            role === 'lawyer'
+              ? 'text-white font-bold'
+              : 'text-slate-600 hover:text-slate-900'
           }`}
-      >
-        <Briefcase className={`w-4 h-4 ${role === 'lawyer' ? 'text-amber-300' : 'text-slate-400'}`} />
-        <span>{isBn ? 'আইনজীবী / অ্যাডভোকেট' : 'Advocate / Lawyer'}</span>
-      </button>
+        >
+          <Briefcase className={`w-4 h-4 transition-transform duration-200 ${role === 'lawyer' ? 'text-amber-300 scale-105' : 'text-slate-400'}`} />
+          <span>{isBn ? 'আইনজীবী / অ্যাডভোকেট' : 'Advocate / Lawyer'}</span>
+        </button>
+      </div>
     </div>
   );
 }
@@ -90,8 +98,8 @@ export default function AuthShell({
         }}
       />
 
-      {/* Elevated Split Auth Card */}
-      <div className="relative z-10 w-full max-w-5xl bg-white rounded-3xl border border-white/15 shadow-[0_32px_80px_-16px_rgba(0,0,0,0.55)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+      {/* Elevated Split Auth Card with Smooth Entrance Animation */}
+      <div className="relative z-10 w-full max-w-5xl bg-white rounded-3xl border border-white/15 shadow-[0_32px_80px_-16px_rgba(0,0,0,0.55)] overflow-hidden grid grid-cols-1 lg:grid-cols-12 animate-auth-card">
         {/* Left Editorial Brand Column */}
         <aside className="lg:col-span-5 relative bg-gradient-to-br from-[#074435] via-[#062E24] to-[#041D17] text-white p-8 sm:p-10 flex flex-col justify-between overflow-hidden">
           <img

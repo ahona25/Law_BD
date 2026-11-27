@@ -121,14 +121,14 @@ export default function LoginPage() {
       {error && (
         <div
           role="alert"
-          className="flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 text-bdRed-700 rounded-xl text-xs font-medium"
+          className="flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 text-bdRed-700 rounded-xl text-xs font-medium animate-shake"
         >
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-bdRed-500" />
           <span>{error}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 animate-tab-left">
         <div>
           <label htmlFor="login-email" className="block text-xs font-semibold text-slate-700 mb-1.5">
             {roleTab === 'lawyer'
@@ -154,7 +154,6 @@ export default function LoginPage() {
           </div>
         </div>
 
-
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label htmlFor="login-password" className="block text-xs font-semibold text-slate-700">
@@ -163,7 +162,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setShowHelpHint((prev) => !prev)}
-              className="text-xs font-medium text-bdGreen-700 hover:text-bdGreen-800 hover:underline"
+              className="text-xs font-medium text-bdGreen-700 hover:text-bdGreen-800 hover:underline transition-colors"
             >
               {isBn ? 'পাসওয়ার্ড ভুলে গেছেন?' : 'Forgot password?'}
             </button>
@@ -184,15 +183,14 @@ export default function LoginPage() {
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-700 rounded-md transition-all duration-200 hover:scale-110 active:scale-95"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
 
-
           {showHelpHint && (
-            <p className="mt-2 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
+            <p className="mt-2 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 animate-expand-down">
               {isBn
                 ? 'ডেমো অ্যাকাউন্টের পাসওয়ার্ড: password123 অথবা নিচের তাৎক্ষণিক ডেমো প্রবেশ ব্যবহার করুন।'
                 : 'For seeded demo accounts, use password "password123" or sign in instantly with Quick Demo Access below.'}
@@ -206,7 +204,7 @@ export default function LoginPage() {
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              className="w-4 h-4 rounded border-slate-300 text-bdGreen-800 focus:ring-bdGreen-800"
+              className="w-4 h-4 rounded border-slate-300 text-bdGreen-800 focus:ring-bdGreen-800 transition-colors"
             />
             <span>{isBn ? 'এই ডিভাইসে সাইন ইন রাখুন' : 'Keep me signed in'}</span>
           </label>
@@ -215,7 +213,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-4 bg-bdGreen-800 hover:bg-bdGreen-700 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm transition-all shadow-md shadow-bdGreen-900/15 flex items-center justify-center gap-2"
+          className="w-full py-3 px-4 bg-bdGreen-800 hover:bg-bdGreen-700 transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-bdGreen-900/15 flex items-center justify-center gap-2"
         >
           {loading ? (
             <>
@@ -256,27 +254,27 @@ export default function LoginPage() {
             type="button"
             disabled={loading}
             onClick={() => handleDemo('client')}
-            className="py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50/70 hover:border-emerald-300 text-xs font-semibold text-slate-700 transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
+            className="group py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50/70 hover:border-emerald-300 text-xs font-semibold text-slate-700 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.98] flex items-center justify-center gap-1.5 disabled:opacity-50"
           >
-            <User className="w-3.5 h-3.5 text-bdGreen-700" />
+            <User className="w-3.5 h-3.5 text-bdGreen-700 group-hover:scale-110 transition-transform" />
             <span>Rahim</span>
           </button>
           <button
             type="button"
             disabled={loading}
             onClick={() => handleDemo('lawyer')}
-            className="py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50/70 hover:border-emerald-300 text-xs font-semibold text-slate-700 transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
+            className="group py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50/70 hover:border-emerald-300 text-xs font-semibold text-slate-700 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.98] flex items-center justify-center gap-1.5 disabled:opacity-50"
           >
-            <Briefcase className="w-3.5 h-3.5 text-bdGreen-800" />
+            <Briefcase className="w-3.5 h-3.5 text-bdGreen-800 group-hover:scale-110 transition-transform" />
             <span>Tanvir</span>
           </button>
           <button
             type="button"
             disabled={loading}
             onClick={() => handleDemo('admin')}
-            className="py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-xs font-semibold text-slate-700 transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
+            className="group py-2 px-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-xs font-semibold text-slate-700 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.98] flex items-center justify-center gap-1.5 disabled:opacity-50"
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-slate-600" />
+            <ShieldCheck className="w-3.5 h-3.5 text-slate-600 group-hover:scale-110 transition-transform" />
             <span>Admin</span>
           </button>
         </div>
