@@ -315,18 +315,6 @@ export default function Navbar() {
 
               <div className="flex items-center gap-1 2xl:gap-1.5 shrink-0">
 
-              {/* Sequential 30 Jurisdictions Index Button */}
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-1 px-2 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs 2xl:text-sm font-bold transition-all shadow-2xs group shrink-0 whitespace-nowrap"
-                title={lang === 'bn' ? '৩০টি অধিক্ষেত্র দেখুন' : 'Browse All 30 Jurisdictions Sequentially'}
-              >
-                <Layers className="w-3.5 h-3.5 text-bdGreen-800 group-hover:scale-110 transition-transform shrink-0" />
-                <span className="whitespace-nowrap">{lang === 'bn' ? 'অধিক্ষেত্র' : 'Jurisdictions'}</span>
-                <span className="hidden 2xl:inline-block px-1 py-0.5 text-[9px] bg-bdGreen-800 text-white rounded font-mono font-bold whitespace-nowrap">1–30</span>
-              </button>
-
               {/* Language Switcher */}
               <LanguageToggle compact />
 
@@ -506,15 +494,6 @@ export default function Navbar() {
 
             {/* 4. MOBILE CONTROLS & HAMBURGER */}
             <div className="flex xl:hidden items-center gap-2 shrink-0">
-              <button
-                onClick={() => setSidebarOpen(true)}
-                className="p-2 text-xs font-bold border border-slate-200 rounded-xl text-bdGreen-900 bg-slate-50 flex items-center gap-1 shrink-0"
-                title="30 Jurisdictions"
-              >
-                <Layers className="w-4 h-4 text-bdGreen-800 shrink-0" />
-                <span className="font-mono text-xs font-bold">1–30</span>
-              </button>
-
               <button
                 onClick={() => setIsSavedDrawerOpen(true)}
                 className="relative p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-bdGreen-800 hover:bg-slate-50 shrink-0"
