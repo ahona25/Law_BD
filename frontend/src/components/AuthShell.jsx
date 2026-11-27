@@ -161,7 +161,19 @@ export default function AuthShell({
         </aside>
 
         {/* Right Form Column */}
-        <section className="lg:col-span-7 bg-white p-6 sm:p-10 md:p-12 flex flex-col justify-center">
+        <section className="relative lg:col-span-7 bg-white p-6 pt-14 sm:p-10 md:p-12 flex flex-col justify-center">
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              aria-label={isBn ? 'বাতিল করুন' : 'Cancel'}
+              title={isBn ? 'বাতিল করুন' : 'Cancel'}
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-600 hover:text-slate-900 border border-slate-200 flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+
           <div className="max-w-md w-full mx-auto space-y-6">
             <div className="space-y-1.5">
               <h1 className="font-serif font-bold text-2xl sm:text-[26px] text-slate-900 tracking-tight">
