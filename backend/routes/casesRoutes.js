@@ -8,6 +8,8 @@ import { authenticate } from '../middleware/auth.js';
 import {
   STATUS_LABELS,
   normalizeStatus,
+  getClientFixedLawyers,
+  hasClientFixedCaseWithLawyer,
   getUserCases,
   canAccessCase,
   normalizeDocuments,
@@ -40,9 +42,52 @@ const upload = multer({
 
 const router = express.Router();
 
-// List cases for current user (client, assigned lawyer, or admin)
-router.get('/', authenticate, (req, res) => {
-  const rawCases = getUserCases(req.user);
+function requireEligibleClient(req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({ success: false, error: 'Please sign in as a client to access Case Tracking.' });
+  }
+  if (req.user.role !== 'client') {
+    return res.status(403).json({
+      success: false,
+      reason: 'not_client',
+      error: 'Only clients can use Case Tracking.'
+    });
+  }
+  if (!hasClientFixedCaseWithLawyer(req.user)) {
+    return res.status(403).json({
+      success: false,
+      reason: 'no_lawyer_case',
+      error: 'You must first fix a case or consultation with a lawyer before using Case Tracking.'
+    });
+  }
+  next();
+}
+
+// Check whether the authenticated user is an eligible client with a fixed lawyer case
+router.get('/eligibility', authenticate, (req, res) => {
+  if (req.user.role !== 'client') {
+    return res.json({
+      success: true,
+      eligible: false,
+      role: req.user.role,
+      reason: 'not_client',
+      fixedLawyers: []
+    });
+  }
+  const fixedLawyers = getClientFixedLawyers(req.user);
+  return res.json({
+    success: true,
+    eligible: fixedLawyers.length > 0,
+    role: req.user.role,
+    reason: fixedLawyers.length > 0 ? null : 'no_lawyer_case',
+    fixedLawyers
+  });
+});
+
+// List cases for eligible client
+router.get('/', authenticate, requireEligibleClient, (req, res) => {
+  const activeUser = req.user;
+  const rawCases = getUserCases(activeUser);
   ensureInitialNotifications(rawCases);
   const cases = rawCases.map(serializeCase);
 
