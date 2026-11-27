@@ -150,7 +150,7 @@ export default function Navbar() {
                       to="/templates"
                       role="menuitem"
                       onClick={() => setMoreMenuOpen(false)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs ${
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold border transition-all shadow-2xs ${
                         location.pathname === '/templates'
                           ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
                           : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
@@ -167,7 +167,7 @@ export default function Navbar() {
                         setMoreMenuOpen(false);
                         setSidebarOpen(true);
                       }}
-                      className="w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
+                      className="w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-sm font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
                     >
                       <span className="flex items-center gap-2.5">
                         <Layers className="w-4 h-4 text-bdGreen-800 shrink-0" />
@@ -184,7 +184,7 @@ export default function Navbar() {
                         toggleAutoMode();
                         setMoreMenuOpen(false);
                       }}
-                      className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all shadow-2xs text-left ${
+                      className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-sm font-bold border transition-all shadow-2xs text-left ${
                         themeMode === 'auto'
                           ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
                           : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
@@ -217,7 +217,7 @@ export default function Navbar() {
                             setMoreMenuOpen(false);
                             openAuth('signin', 'client');
                           }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs text-left"
                         >
                           <LogIn className="w-4 h-4 text-bdGreen-800 shrink-0" />
                           <span>{lang === 'bn' ? 'সাইন ইন' : 'Sign In'}</span>
@@ -230,7 +230,7 @@ export default function Navbar() {
                             setMoreMenuOpen(false);
                             openAuth('register', 'lawyer');
                           }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white transition-all shadow-2xs text-left"
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold bg-bdGreen-800 hover:bg-bdGreen-700 text-white transition-all shadow-2xs text-left"
                         >
                           <UserPlus className="w-4 h-4 text-emerald-300 shrink-0" />
                           <span>{lang === 'bn' ? 'নিবন্ধন' : 'Sign Up'}</span>
@@ -244,7 +244,7 @@ export default function Navbar() {
                           to={getDashboardPath()}
                           role="menuitem"
                           onClick={() => setMoreMenuOpen(false)}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-bdGreen-900 transition-colors"
+                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-bold text-slate-700 hover:bg-emerald-50 hover:text-bdGreen-900 transition-colors"
                         >
                           <User className="w-4 h-4 text-bdGreen-800 shrink-0" />
                           <span>{role === 'lawyer' ? 'Chamber Dashboard' : role === 'admin' ? 'Admin Panel' : 'Client Vault'}</span>
@@ -257,7 +257,7 @@ export default function Navbar() {
                             setMoreMenuOpen(false);
                             handleSignOut();
                           }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-bdRed-600 hover:bg-rose-50 transition-colors text-left"
+                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-bold text-bdRed-600 hover:bg-rose-50 transition-colors text-left"
                         >
                           <LogOut className="w-4 h-4 text-bdRed-600 shrink-0" />
                           <span>{lang === 'bn' ? 'সাইন আউট' : 'Sign Out'}</span>
