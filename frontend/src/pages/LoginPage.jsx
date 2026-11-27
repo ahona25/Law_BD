@@ -132,6 +132,7 @@ export default function LoginPage() {
           ? 'চালিয়ে যেতে আপনার ভূমিকা নির্বাচন করুন এবং তথ্য দিন।'
           : 'Select your portal role and enter your credentials to continue.'
       }
+      onCancel={handleCancel}
     >
       <AuthRoleTabs
         role={roleTab}
@@ -236,7 +237,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-4 bg-bdGreen-800 hover:bg-bdGreen-700 transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-bdGreen-900/15 flex items-center justify-center gap-2"
+          className="w-full py-3 px-4 bg-bdGreen-800 hover:bg-bdGreen-700 transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-bdGreen-900/15 flex items-center justify-center gap-2 cursor-pointer"
         >
           {loading ? (
             <>
@@ -244,8 +245,6 @@ export default function LoginPage() {
               <span>{isBn ? 'যাচাই করা হচ্ছে...' : 'Signing in...'}</span>
             </>
           ) : (
-
-
             <>
               <span>
                 {roleTab === 'lawyer'
