@@ -153,7 +153,8 @@ export default function CaseTrackingFlowHeader({
           ) : !isAuthenticated ? (
             <>
               <Link
-                to="/login"
+                to="/login?from=/case-tracking"
+                state={{ from: '/case-tracking' }}
                 className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold transition-colors shadow-2xs"
               >
                 <LogIn className="w-3.5 h-3.5" />
