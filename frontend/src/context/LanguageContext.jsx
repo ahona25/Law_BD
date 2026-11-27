@@ -12,6 +12,7 @@ export const translations = {
     navCompare: 'Courts Directory',
     navTemplates: 'Legal Templates',
     navAwareness: 'Legal Awareness',
+    navCaseTracking: 'Case Tracking',
     navAi: 'AI Assistant',
     navEmergency: '24/7 Helplines',
     navLogin: 'Sign In',
