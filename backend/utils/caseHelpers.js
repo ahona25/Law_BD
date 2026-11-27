@@ -14,6 +14,30 @@ export function normalizeStatus(status) {
   return status;
 }
 
+export function getClientFixedLawyers(user) {
+  if (!user || user.role !== 'client') return [];
+  const clientId = Number(user.id);
+  const lawyerIds = new Set();
+
+  db.find('cases', (c) => Number(c.client_id) === clientId && c.lawyer_id != null).forEach((c) =>
+    lawyerIds.add(Number(c.lawyer_id))
+  );
+
+  db.find(
+    'appointments',
+    (a) => Number(a.client_id) === clientId && a.lawyer_id != null && a.status !== 'cancelled'
+  ).forEach((a) => lawyerIds.add(Number(a.lawyer_id)));
+
+  return Array.from(lawyerIds)
+    .map((id) => db.findById('lawyers', id))
+    .filter(Boolean)
+    .map((l) => ({ id: l.id, name: l.name, courtLevel: l.courtLevel }));
+}
+
+export function hasClientFixedCaseWithLawyer(user) {
+  return getClientFixedLawyers(user).length > 0;
+}
+
 export function getUserCases(user) {
   let cases = [];
   if (user.role === 'client') {
