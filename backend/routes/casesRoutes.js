@@ -97,7 +97,7 @@ router.get('/', authenticate, requireEligibleClient, (req, res) => {
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   const unreadCount = notifications.filter(
-    (n) => !(n.read_by || []).includes(Number(req.user.id))
+    (n) => !(n.read_by || []).includes(Number(activeUser.id))
   ).length;
 
   res.json({
@@ -108,9 +108,10 @@ router.get('/', authenticate, requireEligibleClient, (req, res) => {
   });
 });
 
-// Get notifications for current user's cases
-router.get('/notifications', authenticate, (req, res) => {
-  const cases = getUserCases(req.user);
+// Get notifications for eligible client's cases
+router.get('/notifications', authenticate, requireEligibleClient, (req, res) => {
+  const activeUser = req.user;
+  const cases = getUserCases(activeUser);
   ensureInitialNotifications(cases);
   const caseIds = new Set(cases.map((c) => Number(c.id)));
 
@@ -119,7 +120,7 @@ router.get('/notifications', authenticate, (req, res) => {
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     .map((n) => ({
       ...n,
-      read: (n.read_by || []).includes(Number(req.user.id))
+      read: (n.read_by || []).includes(Number(activeUser.id))
     }));
 
   res.json({
@@ -129,11 +130,12 @@ router.get('/notifications', authenticate, (req, res) => {
   });
 });
 
-// Mark all notifications read for current user
-router.patch('/notifications/read-all', authenticate, (req, res) => {
-  const cases = getUserCases(req.user);
+// Mark all notifications read for eligible client
+router.patch('/notifications/read-all', authenticate, requireEligibleClient, (req, res) => {
+  const activeUser = req.user;
+  const cases = getUserCases(activeUser);
   const caseIds = new Set(cases.map((c) => Number(c.id)));
-  const userId = Number(req.user.id);
+  const userId = Number(activeUser.id);
 
   const userNotifs = db.find('case_notifications', (n) => caseIds.has(Number(n.case_id)));
   userNotifs.forEach((n) => {
@@ -147,13 +149,14 @@ router.patch('/notifications/read-all', authenticate, (req, res) => {
 });
 
 // Mark a single notification as read
-router.patch('/notifications/:notifId/read', authenticate, (req, res) => {
+router.patch('/notifications/:notifId/read', authenticate, requireEligibleClient, (req, res) => {
+  const activeUser = req.user;
   const notif = db.findById('case_notifications', req.params.notifId);
   if (!notif) {
     return res.status(404).json({ success: false, error: 'Notification not found' });
   }
 
-  const userId = Number(req.user.id);
+  const userId = Number(activeUser.id);
   const readBy = Array.isArray(notif.read_by) ? notif.read_by : [];
   if (!readBy.includes(userId)) {
     db.update('case_notifications', notif.id, { read_by: [...readBy, userId] });
@@ -162,8 +165,9 @@ router.patch('/notifications/:notifId/read', authenticate, (req, res) => {
   res.json({ success: true, message: 'Notification marked as read' });
 });
 
-// Create new case
-router.post('/', authenticate, (req, res) => {
+// Create new case (only eligible client; links to fixed lawyer)
+router.post('/', authenticate, requireEligibleClient, (req, res) => {
+  const activeUser = req.user;
   try {
     const {
       title,
