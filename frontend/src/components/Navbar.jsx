@@ -296,7 +296,7 @@ export default function Navbar() {
                     <Link
                       key={link.to}
                       to={link.to}
-                      className={`px-2 py-1.5 text-[11px] 2xl:text-xs font-bold rounded-xl border transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 shadow-2xs ${
+                      className={`px-2 py-1.5 text-xs 2xl:text-sm font-bold rounded-xl border transition-all relative inline-flex items-center gap-1 whitespace-nowrap shrink-0 shadow-2xs ${
                         isActive
                           ? 'bg-emerald-50 text-bdGreen-900 border-emerald-300'
                           : 'bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border-slate-200 hover:border-emerald-300'
