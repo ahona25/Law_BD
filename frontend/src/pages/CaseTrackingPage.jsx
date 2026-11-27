@@ -494,6 +494,10 @@ export default function CaseTrackingPage() {
   };
 
   const handleMarkAllRead = async () => {
+    if (demoMode) {
+      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+      return;
+    }
     try {
       await api.markAllCaseNotificationsRead();
       setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
@@ -507,56 +511,28 @@ export default function CaseTrackingPage() {
     setPreviewDoc(null);
   };
 
+  const activeMeta = activeSection ? PANEL_META[activeSection] : null;
+  const ActiveIcon = activeMeta?.icon || Scale;
+
   return (
-    <div className="min-h-screen bg-[#F8FAF9] py-8 sm:py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-bdGreen-900 text-xs font-bold">
-              <Scale className="w-3.5 h-3.5 text-bdGreen-700" />
-              <span>{isBn ? 'রিয়েল-টাইম মামলা পর্যবেক্ষণ' : 'Live Legal Case Tracking'}</span>
-            </div>
-            <h1 className="font-serif font-bold text-2xl sm:text-3xl text-slate-900">
-              {isBn ? 'মামলা ট্র্যাকিং ও শুনানি ব্যবস্থাপনা' : 'Case Tracking & Hearing Manager'}
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-500 max-w-2xl">
-              {isBn
-                ? 'আপনার মামলার বর্তমান অবস্থা, পরবর্তী শুনানির তারিখ ও সময়, কালানুক্রমিক ইতিহাস, আদালতের আদেশ ও নথি এবং তাৎক্ষণিক নোটিফিকেশন এক জায়গায় দেখুন।'
-                : 'Monitor live case status, upcoming hearing dates & times, chronological case history, court orders & documents, and instant case notifications.'}
-            </p>
-          </div>
-
-          {isAuthenticated && (
-            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-              <button
-                type="button"
-                onClick={() => setNotifDrawerOpen((prev) => !prev)}
-                className="relative inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 text-bdGreen-900 border border-slate-200 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs"
-              >
-                {unreadCount > 0 ? (
-                  <BellRing className="w-4 h-4 text-bdRed-500" />
-                ) : (
-                  <Bell className="w-4 h-4 text-bdGreen-800" />
-                )}
-                <span>{isBn ? 'নোটিফিকেশন' : 'Notifications'}</span>
-                {unreadCount > 0 && (
-                  <span className="px-1.5 py-0.5 text-[10px] font-bold bg-bdRed-500 text-white rounded-full leading-none">
-                    {unreadCount}
-                  </span>
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setShowCreateModal(true)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-bdGreen-800 hover:bg-bdGreen-700 text-white text-xs font-bold transition-all shadow-sm"
-              >
-                <Plus className="w-4 h-4" />
-                <span>{isBn ? 'নতুন মামলা যোগ করুন' : 'Register New Case'}</span>
-              </button>
-            </div>
-          )}
-        </div>
+    <div className="min-h-screen bg-[#F8FAF9] py-6 sm:py-10">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6">
+        {/* Top Visual Flow Diagram */}
+        <CaseTrackingFlowHeader
+          isAuthenticated={isAuthenticated}
+          user={user}
+          eligible={eligible}
+          eligibilityReason={eligibilityReason}
+          demoMode={demoMode}
+          onToggleDemo={handleToggleDemo}
+          casesCount={cases.length}
+          selectedCase={selectedCase}
+          unreadCount={unreadCount}
+          activeSection={activeSection}
+          onSelectSection={handleSelectFlowCard}
+          onOpenCreate={() => setShowCreateModal(true)}
+          isBn={isBn}
+        />
 
         {feedback && (
           <div className="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-bdGreen-900 text-xs font-semibold">
