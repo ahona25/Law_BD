@@ -68,7 +68,7 @@ export default function CaseDocumentsPanel({
           <button
             type="submit"
             disabled={uploadingDoc || (!docFile && !docTitle.trim())}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-bdGreen-800 hover:bg-bdGreen-700 disabled:opacity-50 text-white text-xs font-bold transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 disabled:opacity-50 text-white text-xs font-bold transition-colors cursor-pointer"
           >
             {uploadingDoc ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -88,10 +88,10 @@ export default function CaseDocumentsPanel({
           <button
             type="button"
             onClick={() => onFilterChange('all')}
-            className={`px-3 py-1 rounded-lg font-bold border ${
+            className={`px-3 py-1 rounded-lg font-bold border cursor-pointer transition-colors ${
               docFilter === 'all'
-                ? 'bg-emerald-50 border-emerald-300 text-bdGreen-900'
-                : 'bg-white border-slate-200 text-slate-600'
+                ? 'bg-cyan-50 border-cyan-500 text-cyan-900'
+                : 'bg-white border-slate-200 text-slate-600 hover:border-cyan-300'
             }`}
           >
             {isBn ? 'সব নথি' : 'All Documents'}
@@ -99,10 +99,10 @@ export default function CaseDocumentsPanel({
           <button
             type="button"
             onClick={() => onFilterChange('orders')}
-            className={`px-3 py-1 rounded-lg font-bold border ${
+            className={`px-3 py-1 rounded-lg font-bold border cursor-pointer transition-colors ${
               docFilter === 'orders'
-                ? 'bg-emerald-50 border-emerald-300 text-bdGreen-900'
-                : 'bg-white border-slate-200 text-slate-600'
+                ? 'bg-cyan-50 border-cyan-500 text-cyan-900'
+                : 'bg-white border-slate-200 text-slate-600 hover:border-cyan-300'
             }`}
           >
             {isBn ? 'আদালতের আদেশ' : 'Court Orders'}
@@ -117,7 +117,7 @@ export default function CaseDocumentsPanel({
             className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
           >
             <div className="flex items-start gap-3 min-w-0">
-              <div className="p-2 rounded-xl bg-white border border-slate-200 text-bdGreen-800 shrink-0">
+              <div className="p-2 rounded-xl bg-white border border-cyan-200 text-cyan-700 shrink-0">
                 <FileText className="w-4 h-4" />
               </div>
               <div className="min-w-0">
