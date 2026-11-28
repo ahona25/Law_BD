@@ -27,10 +27,10 @@ export default function CaseDocumentsPanel({
     <div className="space-y-6">
       <form
         onSubmit={onUpload}
-        className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-cyan-50/60 to-slate-50 border border-cyan-200/80 space-y-3"
+        className="ct-surface p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-cyan-50/60 to-slate-50 border border-cyan-200/80 space-y-3"
       >
         <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
-          <Upload className="w-4 h-4 text-cyan-700" />
+          <Upload className="w-4 h-4 text-cyan-700 dark:text-cyan-400" />
           <span>
             {isBn
               ? 'মামলার নথি বা আদালতের আদেশ আপলোড করুন'
@@ -60,7 +60,7 @@ export default function CaseDocumentsPanel({
           <input
             type="file"
             onChange={(e) => onDocFileChange(e.target.files?.[0] || null)}
-            className="px-2.5 py-1.5 rounded-xl border border-slate-200 bg-white text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-cyan-50 file:text-cyan-900 file:font-bold"
+            className="px-2.5 py-1.5 rounded-xl border border-slate-200 bg-white text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-cyan-50 dark:file:bg-cyan-950 file:text-cyan-900 dark:file:text-cyan-200 file:font-bold"
           />
         </div>
 
@@ -90,8 +90,8 @@ export default function CaseDocumentsPanel({
             onClick={() => onFilterChange('all')}
             className={`px-3 py-1 rounded-lg font-bold border cursor-pointer transition-colors ${
               docFilter === 'all'
-                ? 'bg-cyan-50 border-cyan-500 text-cyan-900'
-                : 'bg-white border-slate-200 text-slate-600 hover:border-cyan-300'
+                ? 'bg-cyan-50 dark:bg-cyan-950/75 border-cyan-500 dark:border-cyan-400 text-cyan-900 dark:text-cyan-200'
+                : 'bg-white dark:bg-[#122720] border-slate-200 dark:border-[#1F4034] text-slate-600 dark:text-slate-300 hover:border-cyan-300 dark:hover:border-cyan-400'
             }`}
           >
             {isBn ? 'সব নথি' : 'All Documents'}
@@ -101,8 +101,8 @@ export default function CaseDocumentsPanel({
             onClick={() => onFilterChange('orders')}
             className={`px-3 py-1 rounded-lg font-bold border cursor-pointer transition-colors ${
               docFilter === 'orders'
-                ? 'bg-cyan-50 border-cyan-500 text-cyan-900'
-                : 'bg-white border-slate-200 text-slate-600 hover:border-cyan-300'
+                ? 'bg-cyan-50 dark:bg-cyan-950/75 border-cyan-500 dark:border-cyan-400 text-cyan-900 dark:text-cyan-200'
+                : 'bg-white dark:bg-[#122720] border-slate-200 dark:border-[#1F4034] text-slate-600 dark:text-slate-300 hover:border-cyan-300 dark:hover:border-cyan-400'
             }`}
           >
             {isBn ? 'আদালতের আদেশ' : 'Court Orders'}
@@ -117,7 +117,7 @@ export default function CaseDocumentsPanel({
             className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
           >
             <div className="flex items-start gap-3 min-w-0">
-              <div className="p-2 rounded-xl bg-white border border-cyan-200 text-cyan-700 shrink-0">
+              <div className="p-2 rounded-xl bg-white dark:bg-[#142D26] border border-cyan-200 dark:border-cyan-500/35 text-cyan-700 dark:text-cyan-400 shrink-0">
                 <FileText className="w-4 h-4" />
               </div>
               <div className="min-w-0">
@@ -126,8 +126,8 @@ export default function CaseDocumentsPanel({
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                       doc.isCourtOrder || doc.category === 'Court Order'
-                        ? 'bg-amber-100 text-amber-900'
-                        : 'bg-cyan-100 text-cyan-900'
+                        ? 'bg-amber-100 text-amber-900 dark:bg-amber-950/75 dark:text-amber-300'
+                        : 'bg-cyan-100 text-cyan-900 dark:bg-cyan-950/75 dark:text-cyan-300'
                     }`}
                   >
                     {doc.category}
@@ -145,7 +145,7 @@ export default function CaseDocumentsPanel({
                 type="button"
                 disabled={previewLoading}
                 onClick={() => onView(doc)}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white hover:bg-cyan-50 border border-slate-200 hover:border-cyan-300 text-xs font-bold text-cyan-900 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white dark:bg-[#142D26] hover:bg-cyan-50 dark:hover:bg-cyan-950/60 border border-slate-200 dark:border-cyan-500/35 hover:border-cyan-300 text-xs font-bold text-cyan-900 dark:text-cyan-200 transition-colors cursor-pointer"
               >
                 <Eye className="w-3.5 h-3.5" />
                 <span>{isBn ? 'দেখুন' : 'View'}</span>
