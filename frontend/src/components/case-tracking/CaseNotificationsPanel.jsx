@@ -16,7 +16,7 @@ export default function CaseNotificationsPanel({
           <button
             type="button"
             onClick={onMarkAllRead}
-            className="text-xs font-bold text-bdGreen-800 hover:underline"
+            className="px-3 py-1 rounded-lg bg-violet-50 border border-violet-200 text-xs font-bold text-violet-800 hover:bg-violet-100 transition-colors cursor-pointer"
           >
             {isBn ? 'সব পঠিত করুন' : 'Mark all read'}
           </button>
