@@ -21,13 +21,14 @@ import {
   Cpu
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { api } from '../services/api';
 
 /**
  * Custom Legal Text Formatter
  * Nicely structures markdown headers (###), bold spans (**), lists (•, -), and alert quotes (> )
  */
-function FormattedLegalContent({ text }) {
+function FormattedLegalContent({ text, isDark }) {
   if (!text) return null;
 
   const lines = text.split('\n');
@@ -40,8 +41,19 @@ function FormattedLegalContent({ text }) {
       elements.push(
         <ul key={`list-${listKey++}`} className="space-y-1.5 my-2.5 pl-1">
           {currentList.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-200 leading-relaxed">
-              <span className="text-emerald-400 font-bold shrink-0 mt-0.5">•</span>
+            <li
+              key={idx}
+              className={`flex items-start gap-2 text-xs sm:text-sm leading-relaxed ${
+                isDark ? 'text-slate-200' : 'text-slate-700'
+              }`}
+            >
+              <span
+                className={`font-bold shrink-0 mt-0.5 ${
+                  isDark ? 'text-emerald-400' : 'text-bdGreen-700'
+                }`}
+              >
+                •
+              </span>
               <div>{renderInline(item)}</div>
             </li>
           ))}
@@ -56,7 +68,14 @@ function FormattedLegalContent({ text }) {
     const parts = str.split(/(\*\*[^*]+\*\*)/g);
     return parts.map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={i} className="font-bold text-emerald-300">{part.slice(2, -2)}</strong>;
+        return (
+          <strong
+            key={i}
+            className={`font-bold ${isDark ? 'text-emerald-300' : 'text-bdGreen-900'}`}
+          >
+            {part.slice(2, -2)}
+          </strong>
+        );
       }
       return part;
     });
@@ -75,8 +94,17 @@ function FormattedLegalContent({ text }) {
       flushList();
       const headerText = trimmed.replace(/^###\s+/, '');
       elements.push(
-        <div key={`h3-${lineIdx}`} className="pt-3 pb-1 border-b border-emerald-800/60 mb-2 mt-2">
-          <h4 className="font-serif font-bold text-sm sm:text-base text-emerald-400 flex items-center gap-1.5">
+        <div
+          key={`h3-${lineIdx}`}
+          className={`pt-3 pb-1 border-b mb-2 mt-2 ${
+            isDark ? 'border-emerald-800/60' : 'border-emerald-200'
+          }`}
+        >
+          <h4
+            className={`font-serif font-bold text-sm sm:text-base flex items-center gap-1.5 ${
+              isDark ? 'text-emerald-400' : 'text-bdGreen-800'
+            }`}
+          >
             {renderInline(headerText)}
           </h4>
         </div>
@@ -87,7 +115,12 @@ function FormattedLegalContent({ text }) {
     // Horizontal Rule (---)
     if (trimmed === '---') {
       flushList();
-      elements.push(<hr key={`hr-${lineIdx}`} className="my-3 border-emerald-800/40" />);
+      elements.push(
+        <hr
+          key={`hr-${lineIdx}`}
+          className={`my-3 ${isDark ? 'border-emerald-800/40' : 'border-slate-200'}`}
+        />
+      );
       return;
     }
 
@@ -98,9 +131,17 @@ function FormattedLegalContent({ text }) {
       elements.push(
         <div
           key={`quote-${lineIdx}`}
-          className="my-3 p-3 rounded-xl bg-amber-950/40 border border-amber-600/40 text-amber-200 text-xs sm:text-[13px] leading-relaxed flex items-start gap-2 shadow-2xs"
+          className={`my-3 p-3 rounded-xl border text-xs sm:text-[13px] leading-relaxed flex items-start gap-2 shadow-2xs ${
+            isDark
+              ? 'bg-amber-950/40 border-amber-600/40 text-amber-200'
+              : 'bg-amber-50 border-amber-200 text-amber-900'
+          }`}
         >
-          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <AlertTriangle
+            className={`w-4 h-4 shrink-0 mt-0.5 ${
+              isDark ? 'text-amber-400' : 'text-amber-600'
+            }`}
+          />
           <div className="flex-1">{renderInline(quoteText)}</div>
         </div>
       );
@@ -117,7 +158,12 @@ function FormattedLegalContent({ text }) {
     // Regular paragraph
     flushList();
     elements.push(
-      <p key={`p-${lineIdx}`} className="text-xs sm:text-sm text-slate-200 leading-relaxed my-1.5">
+      <p
+        key={`p-${lineIdx}`}
+        className={`text-xs sm:text-sm leading-relaxed my-1.5 ${
+          isDark ? 'text-slate-200' : 'text-slate-700'
+        }`}
+      >
         {renderInline(trimmed)}
       </p>
     );
@@ -129,6 +175,7 @@ function FormattedLegalContent({ text }) {
 
 export default function AiAssistantPage() {
   const { lang, t } = useLanguage();
+  const { isDark } = useTheme();
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -281,11 +328,21 @@ Describe your legal matter below to begin:`
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-bdDark-950 via-bdDark-900 to-bdGreen-950 text-slate-100 py-8 sm:py-10 flex flex-col justify-between">
+    <div
+      className={`min-h-screen py-8 sm:py-10 flex flex-col justify-between transition-colors duration-300 ${
+        isDark
+          ? 'bg-gradient-to-b from-bdDark-950 via-bdDark-900 to-bdGreen-950 text-slate-100'
+          : 'bg-[#F8FAF9] text-slate-800'
+      }`}
+    >
       <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 w-full flex-1 flex flex-col">
         
         {/* Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-emerald-900/60 mb-5">
+        <div
+          className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b mb-5 ${
+            isDark ? 'border-emerald-900/60' : 'border-slate-200'
+          }`}
+        >
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bdGreen-800 to-bdGreen-950 text-white flex items-center justify-center shadow-lg relative shrink-0 border border-emerald-600/40">
               <div className="absolute w-4 h-4 rounded-full bg-bdRed-500 opacity-90 -mr-0.5"></div>
@@ -293,21 +350,43 @@ Describe your legal matter below to begin:`
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="font-serif font-bold text-xl sm:text-2xl text-white tracking-tight">
+                <h1
+                  className={`font-serif font-bold text-xl sm:text-2xl tracking-tight ${
+                    isDark ? 'text-white' : 'text-slate-900'
+                  }`}
+                >
                   {lang === 'bn' ? 'Law_BD এআই লিগ্যাল অ্যাসিস্ট্যান্ট' : 'Law_BD AI Legal Assistant'}
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] uppercase font-bold bg-emerald-950/80 text-emerald-300 rounded-md border border-emerald-700/60">
+                <span
+                  className={`px-2 py-0.5 text-[10px] uppercase font-bold rounded-md border ${
+                    isDark
+                      ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/60'
+                      : 'bg-emerald-50 text-bdGreen-900 border-emerald-200'
+                  }`}
+                >
                   Grounded in BD Code
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-400 font-medium mt-0.5">
+              <div
+                className={`flex items-center gap-2 text-xs font-medium mt-0.5 ${
+                  isDark ? 'text-slate-400' : 'text-slate-500'
+                }`}
+              >
                 <span className="flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <ShieldCheck
+                    className={`w-3.5 h-3.5 ${isDark ? 'text-emerald-400' : 'text-bdGreen-700'}`}
+                  />
                   Official Bangladesh Statutes & Procedural Intelligence
                 </span>
                 {aiStatus?.activeProvider && (
-                  <span className="hidden md:inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-bdDark-950/80 text-emerald-300 border border-emerald-800/40 font-semibold">
-                    <Cpu className="w-3 h-3 text-emerald-400" />
+                  <span
+                    className={`hidden md:inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full border font-semibold ${
+                      isDark
+                        ? 'bg-bdDark-950/80 text-emerald-300 border-emerald-800/40'
+                        : 'bg-white text-bdGreen-800 border-emerald-200'
+                    }`}
+                  >
+                    <Cpu className={`w-3 h-3 ${isDark ? 'text-emerald-400' : 'text-bdGreen-700'}`} />
                     {aiStatus.activeProvider}
                   </span>
                 )}
@@ -319,10 +398,14 @@ Describe your legal matter below to begin:`
             <button
               type="button"
               onClick={handleResetChat}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-bdDark-900 hover:bg-bdDark-800 border border-emerald-800/60 hover:border-emerald-700 text-xs font-bold text-slate-300 hover:text-white transition-all shadow-sm"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all shadow-sm cursor-pointer ${
+                isDark
+                  ? 'bg-bdDark-900 hover:bg-bdDark-800 border-emerald-800/60 hover:border-emerald-700 text-slate-300 hover:text-white'
+                  : 'bg-white hover:bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700 hover:text-slate-900'
+              }`}
               title="Reset Chat and Start New Incident"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
+              <RotateCcw className={`w-3.5 h-3.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`} />
               <span>{lang === 'bn' ? 'নতুন করে শুরু' : 'Reset Chat'}</span>
             </button>
           </div>
@@ -331,8 +414,12 @@ Describe your legal matter below to begin:`
         {/* Quick Sample Prompts Section */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span
+              className={`text-xs font-bold flex items-center gap-1.5 ${
+                isDark ? 'text-slate-400' : 'text-slate-600'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               {lang === 'bn' ? 'প্রস্তাবিত আইনি প্রশ্নসমূহ (ক্লিক করে জানুন):' : 'Suggested legal scenarios:'}
             </span>
           </div>
@@ -343,7 +430,11 @@ Describe your legal matter below to begin:`
                 type="button"
                 onClick={() => handleSend(p.prompt)}
                 disabled={loading}
-                className="px-3 py-1.5 rounded-xl bg-bdDark-900/90 hover:bg-bdDark-800 border border-emerald-800/60 hover:border-emerald-500 text-xs text-slate-300 hover:text-emerald-300 font-semibold transition-all shadow-sm text-left"
+                className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all shadow-sm text-left cursor-pointer ${
+                  isDark
+                    ? 'bg-bdDark-900/90 hover:bg-bdDark-800 border-emerald-800/60 hover:border-emerald-500 text-slate-300 hover:text-emerald-300'
+                    : 'bg-white hover:bg-emerald-50 border-slate-200 hover:border-bdGreen-700 text-slate-700 hover:text-bdGreen-900'
+                }`}
               >
                 {p.label}
               </button>
@@ -352,7 +443,14 @@ Describe your legal matter below to begin:`
         </div>
 
         {/* Chat Conversation Container */}
-        <div ref={chatContainerRef} className="flex-1 bg-bdDark-950/90 backdrop-blur-md rounded-3xl border border-emerald-800/50 shadow-2xl p-4 sm:p-6 overflow-y-auto max-h-[620px] space-y-6">
+        <div
+          ref={chatContainerRef}
+          className={`flex-1 backdrop-blur-md rounded-3xl border p-4 sm:p-6 overflow-y-auto max-h-[620px] space-y-6 transition-colors ${
+            isDark
+              ? 'bg-bdDark-950/90 border-emerald-800/50 shadow-2xl'
+              : 'bg-white border-slate-200 shadow-lg'
+          }`}
+        >
           {messages.map((msg, index) => {
             const isUser = msg.role === 'user';
             return (
@@ -370,7 +468,9 @@ Describe your legal matter below to begin:`
                   className={`max-w-3xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm leading-relaxed ${
                     isUser
                       ? 'bg-gradient-to-br from-bdGreen-800 to-bdGreen-900 text-white shadow-md border border-emerald-600/40 font-medium'
-                      : 'bg-bdDark-900/95 border border-emerald-700/40 text-slate-200 shadow-md'
+                      : isDark
+                      ? 'bg-bdDark-900/95 border border-emerald-700/40 text-slate-200 shadow-md'
+                      : 'bg-slate-50 border border-slate-200 text-slate-800 shadow-xs'
                   }`}
                 >
                   {/* Formatted Message Content */}
@@ -379,23 +479,45 @@ Describe your legal matter below to begin:`
                       {msg.text}
                     </div>
                   ) : (
-                    <FormattedLegalContent text={msg.text} />
+                    <FormattedLegalContent text={msg.text} isDark={isDark} />
                   )}
 
                   {/* Grounded Bangladesh Statute Badge & Link */}
                   {msg.groundedLaw && (
-                    <div className="mt-4 pt-3.5 border-t border-emerald-800/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-bdDark-950/90 p-3 rounded-xl border border-emerald-600/50">
+                    <div
+                      className={`mt-4 pt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs p-3 rounded-xl border ${
+                        isDark
+                          ? 'bg-bdDark-950/90 border-emerald-600/50'
+                          : 'bg-white border-emerald-200'
+                      }`}
+                    >
                       <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <ShieldCheck
+                          className={`w-4 h-4 shrink-0 ${
+                            isDark ? 'text-emerald-400' : 'text-bdGreen-700'
+                          }`}
+                        />
                         <div>
-                          <span className="text-[10px] uppercase font-bold text-emerald-400 block">
+                          <span
+                            className={`text-[10px] uppercase font-bold block ${
+                              isDark ? 'text-emerald-400' : 'text-bdGreen-700'
+                            }`}
+                          >
                             {lang === 'bn' ? 'সংশ্লিষ্ট বাংলাদেশ আইন ও ধারা:' : 'Verified Statutory Source:'}
                           </span>
-                          <span className="font-bold text-white text-xs">
+                          <span
+                            className={`font-bold text-xs ${isDark ? 'text-white' : 'text-slate-900'}`}
+                          >
                             {lang === 'bn' && msg.groundedLaw.banglaTitle ? msg.groundedLaw.banglaTitle : msg.groundedLaw.title}
                           </span>
                           {msg.groundedLaw.actNoYear && (
-                            <span className="text-[11px] text-slate-400 ml-1">({msg.groundedLaw.actNoYear})</span>
+                            <span
+                              className={`text-[11px] ml-1 ${
+                                isDark ? 'text-slate-400' : 'text-slate-500'
+                              }`}
+                            >
+                              ({msg.groundedLaw.actNoYear})
+                            </span>
                           )}
                         </div>
                       </div>
@@ -411,13 +533,30 @@ Describe your legal matter below to begin:`
 
                   {/* Recommended Advocates Section */}
                   {msg.recommendedLawyers && msg.recommendedLawyers.length > 0 && (
-                    <div className="mt-4 pt-4 border-t border-emerald-800/40 space-y-3">
+                    <div
+                      className={`mt-4 pt-4 border-t space-y-3 ${
+                        isDark ? 'border-emerald-800/40' : 'border-slate-200'
+                      }`}
+                    >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5 uppercase tracking-wide">
-                          <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
+                        <span
+                          className={`text-xs font-bold flex items-center gap-1.5 uppercase tracking-wide ${
+                            isDark ? 'text-emerald-400' : 'text-bdGreen-800'
+                          }`}
+                        >
+                          <Briefcase
+                            className={`w-3.5 h-3.5 ${
+                              isDark ? 'text-emerald-400' : 'text-bdGreen-700'
+                            }`}
+                          />
                           {lang === 'bn' ? 'এই বিষয়ের বিশেষায়িত আইনজীবীগণ (Law_BD Verified):' : 'Recommended Specialized Advocates:'}
                         </span>
-                        <Link to="/lawyers" className="text-[11px] font-bold text-emerald-400 hover:underline flex items-center gap-0.5">
+                        <Link
+                          to="/lawyers"
+                          className={`text-[11px] font-bold hover:underline flex items-center gap-0.5 ${
+                            isDark ? 'text-emerald-400' : 'text-bdGreen-800'
+                          }`}
+                        >
                           <span>{lang === 'bn' ? 'সকল দেখুন' : 'View All'}</span>
                           <ChevronRight className="w-3 h-3" />
                         </Link>
@@ -427,7 +566,11 @@ Describe your legal matter below to begin:`
                         {msg.recommendedLawyers.map((lawyer) => (
                           <div
                             key={lawyer.id}
-                            className="p-3.5 bg-bdDark-950/90 rounded-2xl border border-emerald-800/50 hover:border-emerald-500/70 hover:shadow-lg transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                            className={`p-3.5 rounded-2xl border hover:shadow-lg transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                              isDark
+                                ? 'bg-bdDark-950/90 border-emerald-800/50 hover:border-emerald-500/70'
+                                : 'bg-white border-slate-200 hover:border-emerald-300'
+                            }`}
                           >
                             <div className="flex items-start gap-3">
                               {/* Avatar Initials */}
@@ -436,31 +579,70 @@ Describe your legal matter below to begin:`
                               </div>
                               <div className="space-y-1">
                                 <div className="flex items-center gap-1.5 flex-wrap">
-                                  <h5 className="font-bold text-xs sm:text-sm text-white">{lawyer.name}</h5>
+                                  <h5
+                                    className={`font-bold text-xs sm:text-sm ${
+                                      isDark ? 'text-white' : 'text-slate-900'
+                                    }`}
+                                  >
+                                    {lawyer.name}
+                                  </h5>
                                   {lawyer.verified && (
-                                    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-700/60">
+                                    <span
+                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold border ${
+                                        isDark
+                                          ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/60'
+                                          : 'bg-emerald-50 text-bdGreen-800 border-emerald-200'
+                                      }`}
+                                    >
                                       <ShieldCheck className="w-3 h-3" />
                                       Enrolled
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-[11px] text-slate-400 font-medium">
+                                <p
+                                  className={`text-[11px] font-medium ${
+                                    isDark ? 'text-slate-400' : 'text-slate-500'
+                                  }`}
+                                >
                                   {lawyer.courtLevel} • {lawyer.district || lawyer.location}
                                 </p>
-                                <div className="flex items-center gap-2 text-[11px] text-slate-400 flex-wrap">
-                                  <span className="font-bold text-amber-400 flex items-center gap-0.5">
+                                <div
+                                  className={`flex items-center gap-2 text-[11px] flex-wrap ${
+                                    isDark ? 'text-slate-400' : 'text-slate-500'
+                                  }`}
+                                >
+                                  <span className="font-bold text-amber-500 flex items-center gap-0.5">
                                     <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                                     {lawyer.rating || '4.9'} ({lawyer.reviewsCount || '30+'})
                                   </span>
                                   <span>•</span>
-                                  <span className="font-semibold text-slate-300">{lawyer.experienceYears}+ Yrs Exp</span>
+                                  <span
+                                    className={`font-semibold ${
+                                      isDark ? 'text-slate-300' : 'text-slate-700'
+                                    }`}
+                                  >
+                                    {lawyer.experienceYears}+ Yrs Exp
+                                  </span>
                                   <span>•</span>
-                                  <span className="font-bold text-emerald-300">{lawyer.feeDisplay || '৳1,500'}</span>
+                                  <span
+                                    className={`font-bold ${
+                                      isDark ? 'text-emerald-300' : 'text-bdGreen-800'
+                                    }`}
+                                  >
+                                    {lawyer.feeDisplay || '৳1,500'}
+                                  </span>
                                 </div>
                                 {lawyer.specialties && lawyer.specialties.length > 0 && (
                                   <div className="flex gap-1 flex-wrap pt-0.5">
                                     {lawyer.specialties.slice(0, 3).map((spec, sIdx) => (
-                                      <span key={sIdx} className="px-1.5 py-0.5 rounded bg-bdDark-800 text-slate-300 border border-emerald-900/60 text-[10px] font-semibold">
+                                      <span
+                                        key={sIdx}
+                                        className={`px-1.5 py-0.5 rounded border text-[10px] font-semibold ${
+                                          isDark
+                                            ? 'bg-bdDark-800 text-slate-300 border-emerald-900/60'
+                                            : 'bg-slate-100 text-slate-700 border-slate-200'
+                                        }`}
+                                      >
                                         {spec}
                                       </span>
                                     ))}
@@ -470,10 +652,18 @@ Describe your legal matter below to begin:`
                             </div>
 
                             {/* Dual Action Buttons: View Profile & Book Appointment */}
-                            <div className="flex items-center gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-emerald-900/40 justify-end">
+                            <div
+                              className={`flex items-center gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 justify-end ${
+                                isDark ? 'border-emerald-900/40' : 'border-slate-100'
+                              }`}
+                            >
                               <Link
                                 to={`/lawyers/${lawyer.id}`}
-                                className="px-3 py-1.5 bg-bdDark-900 hover:bg-bdDark-800 border border-emerald-700/50 text-slate-200 hover:text-white rounded-xl text-xs font-bold transition-all shadow-xs whitespace-nowrap"
+                                className={`px-3 py-1.5 border rounded-xl text-xs font-bold transition-all shadow-xs whitespace-nowrap ${
+                                  isDark
+                                    ? 'bg-bdDark-900 hover:bg-bdDark-800 border-emerald-700/50 text-slate-200 hover:text-white'
+                                    : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700 hover:text-slate-900'
+                                }`}
                               >
                                 {lang === 'bn' ? 'প্রোফাইল দেখুন' : 'View Profile'}
                               </Link>
@@ -493,9 +683,21 @@ Describe your legal matter below to begin:`
 
                   {/* Dynamic Suggested Follow-up Questions Chips */}
                   {msg.suggestedQueries && msg.suggestedQueries.length > 0 && (
-                    <div className="mt-4 pt-3.5 border-t border-emerald-800/40">
-                      <span className="text-[11px] font-bold text-slate-400 block mb-2 flex items-center gap-1">
-                        <HelpCircle className="w-3.5 h-3.5 text-emerald-400" />
+                    <div
+                      className={`mt-4 pt-3.5 border-t ${
+                        isDark ? 'border-emerald-800/40' : 'border-slate-200'
+                      }`}
+                    >
+                      <span
+                        className={`text-[11px] font-bold block mb-2 flex items-center gap-1 ${
+                          isDark ? 'text-slate-400' : 'text-slate-500'
+                        }`}
+                      >
+                        <HelpCircle
+                          className={`w-3.5 h-3.5 ${
+                            isDark ? 'text-emerald-400' : 'text-bdGreen-700'
+                          }`}
+                        />
                         {lang === 'bn' ? 'প্রস্তাবিত পরবর্তী পদক্ষেপ বা প্রশ্ন:' : 'Suggested follow-up inquiries:'}
                       </span>
                       <div className="flex flex-col gap-1.5">
@@ -505,10 +707,18 @@ Describe your legal matter below to begin:`
                             type="button"
                             onClick={() => handleSend(q)}
                             disabled={loading}
-                            className="text-left px-3 py-1.5 rounded-xl bg-bdDark-950/70 hover:bg-bdDark-800 border border-emerald-800/60 hover:border-emerald-500 text-xs font-semibold text-slate-300 hover:text-emerald-300 transition-all shadow-xs flex items-center justify-between gap-2"
+                            className={`text-left px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all shadow-xs flex items-center justify-between gap-2 cursor-pointer ${
+                              isDark
+                                ? 'bg-bdDark-950/70 hover:bg-bdDark-800 border-emerald-800/60 hover:border-emerald-500 text-slate-300 hover:text-emerald-300'
+                                : 'bg-white hover:bg-emerald-50 border-slate-200 hover:border-bdGreen-700 text-slate-700 hover:text-bdGreen-900'
+                            }`}
                           >
                             <span>{q}</span>
-                            <ChevronRight className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                            <ChevronRight
+                              className={`w-3.5 h-3.5 shrink-0 ${
+                                isDark ? 'text-emerald-400' : 'text-bdGreen-700'
+                              }`}
+                            />
                           </button>
                         ))}
                       </div>
@@ -517,8 +727,14 @@ Describe your legal matter below to begin:`
                 </div>
 
                 {isUser && (
-                  <div className="w-9 h-9 rounded-xl bg-bdDark-800 text-slate-300 flex items-center justify-center shrink-0 mt-1 shadow-xs border border-emerald-800/40">
-                    <User className="w-4 h-4 text-emerald-400" />
+                  <div
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-1 shadow-xs border ${
+                      isDark
+                        ? 'bg-bdDark-800 text-slate-300 border-emerald-800/40'
+                        : 'bg-emerald-50 text-bdGreen-800 border-emerald-200'
+                    }`}
+                  >
+                    <User className={`w-4 h-4 ${isDark ? 'text-emerald-400' : 'text-bdGreen-700'}`} />
                   </div>
                 )}
               </div>
@@ -531,16 +747,30 @@ Describe your legal matter below to begin:`
               <div className="w-9 h-9 rounded-xl bg-bdGreen-800 text-white flex items-center justify-center shrink-0 shadow-xs border border-emerald-600/40">
                 <Scale className="w-4 h-4 animate-spin text-emerald-300" />
               </div>
-              <div className="p-4 rounded-2xl bg-bdDark-900/90 border border-emerald-700/50 text-slate-200 text-xs sm:text-sm shadow-md space-y-1.5">
-                <div className="flex items-center gap-2 font-bold text-emerald-400">
-                  <RefreshCw className="w-4 h-4 animate-spin text-emerald-400" />
+              <div
+                className={`p-4 rounded-2xl border text-xs sm:text-sm shadow-md space-y-1.5 ${
+                  isDark
+                    ? 'bg-bdDark-900/90 border-emerald-700/50 text-slate-200'
+                    : 'bg-slate-50 border-slate-200 text-slate-800'
+                }`}
+              >
+                <div
+                  className={`flex items-center gap-2 font-bold ${
+                    isDark ? 'text-emerald-400' : 'text-bdGreen-800'
+                  }`}
+                >
+                  <RefreshCw
+                    className={`w-4 h-4 animate-spin ${
+                      isDark ? 'text-emerald-400' : 'text-bdGreen-700'
+                    }`}
+                  />
                   <span>
                     {lang === 'bn'
                       ? 'বাংলাদেশের সংশ্লিষ্ট আইন ও ধারা অনুসন্ধান করা হচ্ছে...'
                       : 'Analyzing incident and cross-referencing Bangladesh Legal Code...'}
                   </span>
                 </div>
-                <p className="text-slate-400 text-xs pl-6">
+                <p className={`text-xs pl-6 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                   {lang === 'bn'
                     ? 'সরকারি গেজেট, প্রযোজ্য দণ্ডবিধি ও উপযুক্ত আইনজীবীদের তালিকা প্রস্তুত হচ্ছে।'
                     : 'Retrieving statutory penalties, litigation procedures, and verified Bar Council advocates.'}
@@ -551,16 +781,24 @@ Describe your legal matter below to begin:`
 
           {/* Error Message & Retry */}
           {errorMessage && (
-            <div className="p-4 rounded-2xl bg-rose-950/50 border border-rose-800/60 text-rose-300 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-md">
+            <div
+              className={`p-4 rounded-2xl border text-xs sm:text-sm flex items-center justify-between gap-3 shadow-md ${
+                isDark
+                  ? 'bg-rose-950/50 border-rose-800/60 text-rose-300'
+                  : 'bg-rose-50 border-rose-200 text-rose-700'
+              }`}
+            >
               <div className="flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
+                <AlertTriangle
+                  className={`w-4 h-4 shrink-0 ${isDark ? 'text-rose-400' : 'text-rose-600'}`}
+                />
                 <span>{errorMessage}</span>
               </div>
               {lastFailedMessage && (
                 <button
                   type="button"
                   onClick={() => handleSend(lastFailedMessage)}
-                  className="px-3 py-1 bg-bdRed-600 hover:bg-bdRed-700 text-white rounded-lg text-xs font-bold transition-colors shrink-0"
+                  className="px-3 py-1 bg-bdRed-600 hover:bg-bdRed-700 text-white rounded-lg text-xs font-bold transition-colors shrink-0 cursor-pointer"
                 >
                   {lang === 'bn' ? 'পুনরায় চেষ্টা' : 'Retry'}
                 </button>
@@ -577,7 +815,11 @@ Describe your legal matter below to begin:`
               e.preventDefault();
               handleSend();
             }}
-            className="flex items-center gap-2 bg-bdDark-900/95 rounded-2xl border-2 border-emerald-800/60 focus-within:border-emerald-500 p-2 shadow-xl transition-all"
+            className={`flex items-center gap-2 rounded-2xl border-2 p-2 shadow-xl transition-all ${
+              isDark
+                ? 'bg-bdDark-900/95 border-emerald-800/60 focus-within:border-emerald-500'
+                : 'bg-white border-slate-200 focus-within:border-bdGreen-800'
+            }`}
           >
             <input
               type="text"
@@ -589,12 +831,14 @@ Describe your legal matter below to begin:`
                   ? 'আপনার আইনি সমস্যা বা ঘটনাটি বিস্তারিত লিখুন (বাংলা বা ইংরেজি)...'
                   : 'Describe your legal incident or ask about any Bangladesh statute in English or Bengali...'
               }
-              className="flex-1 px-4 py-3 text-xs sm:text-sm focus:outline-none bg-transparent placeholder-slate-500 text-white"
+              className={`flex-1 px-4 py-3 text-xs sm:text-sm focus:outline-none bg-transparent ${
+                isDark ? 'placeholder-slate-500 text-white' : 'placeholder-slate-400 text-slate-900'
+              }`}
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="p-3 bg-bdGreen-700 hover:bg-bdGreen-600 disabled:opacity-40 text-white rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center border border-emerald-500/30"
+              className="p-3 bg-bdGreen-700 hover:bg-bdGreen-600 disabled:opacity-40 text-white rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center border border-emerald-500/30 cursor-pointer"
               title="Send Message"
             >
               <Send className="w-4 h-4" />
@@ -602,7 +846,7 @@ Describe your legal matter below to begin:`
           </form>
 
           {/* Legal Disclaimer Pill */}
-          <p className="text-[11px] text-slate-500 text-center mt-2.5">
+          <p className={`text-[11px] text-center mt-2.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
             ⚠️ Grounded strictly in official Bangladesh statutory data (Penal Code, CrPC, CPC, Land Crime Act 2023). Does not substitute formal advocate legal advice.
           </p>
         </div>
