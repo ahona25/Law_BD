@@ -13,8 +13,8 @@ export default function CaseStatusCards({ statusCounts, statusFilter, onToggleFi
             onClick={() => onToggleFilter(isSelected ? 'all' : key)}
             className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 shadow-2xs cursor-pointer ${
               isSelected
-                ? 'bg-gradient-to-br from-indigo-50 to-blue-50/70 border-indigo-500 ring-2 ring-indigo-500/20 -translate-y-0.5'
-                : 'bg-white border-slate-200 hover:border-indigo-300 hover:-translate-y-0.5'
+                ? 'ct-surface-active bg-gradient-to-br from-indigo-50 to-blue-50/70 border-indigo-500 dark:border-indigo-400 ring-2 ring-indigo-500/20 -translate-y-0.5'
+                : 'ct-surface bg-white border-slate-200 hover:border-indigo-300 dark:hover:border-indigo-400/60 hover:-translate-y-0.5'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
