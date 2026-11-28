@@ -617,20 +617,20 @@ export default function CaseTrackingPage() {
         {((isAuthenticated && eligible) || demoMode) && activeSection && (
           <div
             ref={workspaceRef}
-            className="bg-white rounded-2xl sm:rounded-3xl border border-[#CFE2FF] shadow-sm overflow-hidden scroll-mt-24"
+            className={`bg-white/95 backdrop-blur-xs rounded-2xl sm:rounded-3xl border ${activeMeta.border} shadow-[0_18px_40px_-18px_rgba(15,23,42,0.14)] overflow-hidden scroll-mt-24`}
           >
             {/* Panel Header */}
-            <div className="bg-[#F5F9FF] px-4 sm:px-6 py-4 border-b border-[#CFE2FF] flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-white border border-[#CFE2FF] text-[#2563EB] flex items-center justify-center shrink-0">
-                  <ActiveIcon className="w-4 h-4" />
+            <div className={`${activeMeta.headerBg} px-4 sm:px-6 py-4 border-b flex flex-wrap items-center justify-between gap-3`}>
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-xl ${activeMeta.iconBox} flex items-center justify-center shrink-0`}>
+                  <ActiveIcon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="font-bold text-sm sm:text-base text-slate-900">
+                  <h2 className="font-serif font-bold text-base sm:text-lg text-slate-900">
                     {isBn ? activeMeta.bn : activeMeta.en}
                   </h2>
                   {selectedCase && activeSection !== 'status' && activeSection !== 'notifications' && (
-                    <p className="text-[11px] text-slate-500 truncate max-w-xs sm:max-w-md">
+                    <p className="text-[11px] text-slate-600 font-medium truncate max-w-xs sm:max-w-md">
                       {selectedCase.title}
                     </p>
                   )}
@@ -642,7 +642,7 @@ export default function CaseTrackingPage() {
                   <button
                     type="button"
                     onClick={() => openEditModal(selectedCase)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-xs font-bold transition-colors"
+                    className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl ${activeMeta.btn} text-white text-xs font-bold transition-colors shadow-2xs cursor-pointer`}
                   >
                     <Gavel className="w-3.5 h-3.5" />
                     <span>
@@ -660,7 +660,7 @@ export default function CaseTrackingPage() {
                   type="button"
                   onClick={() => setActiveSection(null)}
                   aria-label="Close details"
-                  className="p-1.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-100 text-slate-500"
+                  className="p-1.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-100 text-slate-500 cursor-pointer transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
