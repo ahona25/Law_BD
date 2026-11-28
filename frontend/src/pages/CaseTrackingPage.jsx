@@ -843,10 +843,10 @@ export default function CaseTrackingPage() {
                           <button
                             type="button"
                             onClick={() => setNotifScope('all')}
-                            className={`px-3 py-1.5 rounded-lg font-bold border ${
+                            className={`px-3 py-1.5 rounded-lg font-bold border cursor-pointer transition-colors ${
                               notifScope === 'all'
-                                ? 'bg-[#EBF4FF] border-[#2563EB] text-[#1D4ED8]'
-                                : 'bg-white border-slate-200 text-slate-600'
+                                ? 'bg-violet-50 border-violet-600 text-violet-800'
+                                : 'bg-white border-slate-200 text-slate-600 hover:border-violet-300'
                             }`}
                           >
                             {isBn ? `সকল মামলা (${notifications.length})` : `All Cases (${notifications.length})`}
@@ -855,10 +855,10 @@ export default function CaseTrackingPage() {
                             <button
                               type="button"
                               onClick={() => setNotifScope('case')}
-                              className={`px-3 py-1.5 rounded-lg font-bold border truncate max-w-[220px] ${
+                              className={`px-3 py-1.5 rounded-lg font-bold border truncate max-w-[220px] cursor-pointer transition-colors ${
                                 notifScope === 'case'
-                                  ? 'bg-[#EBF4FF] border-[#2563EB] text-[#1D4ED8]'
-                                  : 'bg-white border-slate-200 text-slate-600'
+                                  ? 'bg-violet-50 border-violet-600 text-violet-800'
+                                  : 'bg-white border-slate-200 text-slate-600 hover:border-violet-300'
                               }`}
                             >
                               #{selectedCase.id} ({selectedCaseNotifications.length})
