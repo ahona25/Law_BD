@@ -192,6 +192,34 @@ html.dark .bg-white {
   background-color: #0e221b !important;
 }
 
+html.dark .ct-shell,
+html.dark .ct-workspace {
+  background-color: #0e221b !important;
+  border-color: #1e3d32 !important;
+}
+
+html.dark .ct-surface {
+  background-image: none !important;
+  background-color: #142c24 !important;
+  border-color: #1e3d32 !important;
+}
+
+html.dark .ct-surface-active {
+  background-image: none !important;
+  background-color: #19352c !important;
+}
+
+html.dark .ct-dashboard-hub {
+  background-image: linear-gradient(to right, #0a241c, #0f2e24, #142c24) !important;
+  border: 1px solid #1e3d32 !important;
+}
+
+html.dark .ct-workspace-header {
+  background-image: none !important;
+  background-color: #142c24 !important;
+  border-color: #1e3d32 !important;
+}
+
 html.dark .bg-slate-50,
 html.dark .bg-slate-50\/60,
 html.dark .bg-slate-50\/40 {
