@@ -12,7 +12,7 @@ export default function DocumentPreviewModal({ previewDoc, onClose }) {
             <h3 className="font-bold text-sm text-slate-900">{previewDoc.name}</h3>
             <span className="text-[11px] text-bdGreen-800 font-semibold">{previewDoc.category}</span>
           </div>
-          <button type="button" onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100">
+          <button type="button" onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[#19352C] text-slate-500 dark:text-slate-300 cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
