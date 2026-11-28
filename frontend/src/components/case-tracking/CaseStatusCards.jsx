@@ -11,10 +11,10 @@ export default function CaseStatusCards({ statusCounts, statusFilter, onToggleFi
             key={key}
             type="button"
             onClick={() => onToggleFilter(isSelected ? 'all' : key)}
-            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all shadow-2xs ${
+            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 shadow-2xs cursor-pointer ${
               isSelected
-                ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-500/20'
-                : 'bg-white border-slate-200 hover:border-emerald-300'
+                ? 'bg-gradient-to-br from-indigo-50 to-blue-50/70 border-indigo-500 ring-2 ring-indigo-500/20 -translate-y-0.5'
+                : 'bg-white border-slate-200 hover:border-indigo-300 hover:-translate-y-0.5'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
