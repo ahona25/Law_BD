@@ -670,7 +670,7 @@ export default function CaseTrackingPage() {
             <div className="p-4 sm:p-6 space-y-5">
               {loading ? (
                 <div className="py-10 text-center space-y-2">
-                  <Loader2 className="w-7 h-7 animate-spin text-[#2563EB] mx-auto" />
+                  <Loader2 className="w-7 h-7 animate-spin text-bdGreen-800 mx-auto" />
                   <p className="text-xs font-semibold text-slate-500">
                     {isBn ? 'তথ্য লোড হচ্ছে...' : 'Loading details...'}
                   </p>
@@ -693,10 +693,10 @@ export default function CaseTrackingPage() {
                               key={c.id}
                               type="button"
                               onClick={() => setSelectedCaseId(c.id)}
-                              className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all text-left truncate max-w-[260px] ${
+                              className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all text-left truncate max-w-[260px] cursor-pointer ${
                                 isCurrent
-                                  ? 'bg-[#EBF4FF] border-[#2563EB] text-[#1D4ED8]'
-                                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-[#93C5FD]'
+                                  ? activeMeta.pillActive
+                                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
                               }`}
                             >
                               #{c.id} · {c.title}
@@ -734,10 +734,10 @@ export default function CaseTrackingPage() {
                         <button
                           type="button"
                           onClick={() => setStatusFilter('all')}
-                          className={`px-3 py-2 rounded-xl text-xs font-bold border transition-colors whitespace-nowrap ${
+                          className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-colors whitespace-nowrap cursor-pointer ${
                             statusFilter === 'all'
-                              ? 'bg-[#2563EB] text-white border-[#2563EB]'
-                              : 'bg-white text-slate-600 border-slate-200 hover:border-[#93C5FD]'
+                              ? 'bg-indigo-600 text-white border-indigo-600 shadow-2xs'
+                              : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300'
                           }`}
                         >
                           {isBn ? `সবগুলো (${cases.length})` : `All Cases (${cases.length})`}
