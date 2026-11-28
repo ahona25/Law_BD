@@ -127,7 +127,7 @@ export default function CaseDocumentsPanel({
                     className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                       doc.isCourtOrder || doc.category === 'Court Order'
                         ? 'bg-amber-100 text-amber-900'
-                        : 'bg-emerald-100 text-bdGreen-900'
+                        : 'bg-cyan-100 text-cyan-900'
                     }`}
                   >
                     {doc.category}
@@ -145,7 +145,7 @@ export default function CaseDocumentsPanel({
                 type="button"
                 disabled={previewLoading}
                 onClick={() => onView(doc)}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-xs font-bold text-bdGreen-900 transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white hover:bg-cyan-50 border border-slate-200 hover:border-cyan-300 text-xs font-bold text-cyan-900 transition-colors cursor-pointer"
               >
                 <Eye className="w-3.5 h-3.5" />
                 <span>{isBn ? 'দেখুন' : 'View'}</span>
@@ -153,7 +153,7 @@ export default function CaseDocumentsPanel({
               <button
                 type="button"
                 onClick={() => onDownload(doc)}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-bdGreen-800 hover:bg-bdGreen-700 text-white text-xs font-bold transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>{isBn ? 'ডাউনলোড' : 'Download'}</span>
