@@ -1,4 +1,4 @@
-# Law_BD (ল_বিডি)
+# Law_BD (ল_বিডি) 
 ## Complete Bangladesh Legal Information, Victim Support & Advocate Management Platform
 
 **Law_BD** is a production-quality, full-stack digital legal assistance platform built specifically for the legal architecture of Bangladesh. It connects ordinary citizens, victims of harassment or crime, law students, and businesses with verified Bangladesh Bar Council enrolled advocates, provides plain-language explanations of statutory laws in both **বাংলা (Bengali)** and **English**, and offers smart incident triage and automated consultation booking.
