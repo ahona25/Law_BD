@@ -39,11 +39,56 @@ const INITIAL_NEW_CASE = {
 };
 
 const PANEL_META = {
-  status: { icon: Scale, en: 'Case Status', bn: 'মামলার অবস্থা' },
-  hearings: { icon: Calendar, en: 'Hearing Dates', bn: 'শুনানির তারিখ' },
-  history: { icon: History, en: 'Case History', bn: 'মামলার ইতিহাস' },
-  notifications: { icon: Bell, en: 'Notifications', bn: 'নোটিফিকেশন' },
-  documents: { icon: FolderOpen, en: 'Document Management & Court Orders', bn: 'নথি ও আদালতের আদেশ' }
+  status: {
+    icon: Scale,
+    en: 'Case Status',
+    bn: 'মামলার অবস্থা',
+    border: 'border-indigo-200',
+    headerBg: 'bg-gradient-to-r from-indigo-50/90 via-blue-50/60 to-white border-indigo-200/80',
+    iconBox: 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/25',
+    btn: 'bg-indigo-600 hover:bg-indigo-700',
+    pillActive: 'bg-indigo-50 border-indigo-600 text-indigo-800'
+  },
+  hearings: {
+    icon: Calendar,
+    en: 'Hearing Dates',
+    bn: 'শুনানির তারিখ',
+    border: 'border-teal-200',
+    headerBg: 'bg-gradient-to-r from-teal-50/90 via-emerald-50/60 to-white border-teal-200/80',
+    iconBox: 'bg-teal-600 text-white shadow-sm shadow-teal-600/25',
+    btn: 'bg-teal-600 hover:bg-teal-700',
+    pillActive: 'bg-teal-50 border-teal-600 text-teal-800'
+  },
+  history: {
+    icon: History,
+    en: 'Case History',
+    bn: 'মামলার ইতিহাস',
+    border: 'border-amber-200',
+    headerBg: 'bg-gradient-to-r from-amber-50/90 via-orange-50/50 to-white border-amber-200/80',
+    iconBox: 'bg-amber-600 text-white shadow-sm shadow-amber-600/25',
+    btn: 'bg-amber-600 hover:bg-amber-700',
+    pillActive: 'bg-amber-50 border-amber-600 text-amber-800'
+  },
+  notifications: {
+    icon: Bell,
+    en: 'Notifications',
+    bn: 'নোটিফিকেশন',
+    border: 'border-violet-200',
+    headerBg: 'bg-gradient-to-r from-violet-50/90 via-fuchsia-50/50 to-white border-violet-200/80',
+    iconBox: 'bg-violet-600 text-white shadow-sm shadow-violet-600/25',
+    btn: 'bg-violet-600 hover:bg-violet-700',
+    pillActive: 'bg-violet-50 border-violet-600 text-violet-800'
+  },
+  documents: {
+    icon: FolderOpen,
+    en: 'Document Management & Court Orders',
+    bn: 'নথি ও আদালতের আদেশ',
+    border: 'border-cyan-200',
+    headerBg: 'bg-gradient-to-r from-cyan-50/90 via-sky-50/60 to-white border-cyan-200/80',
+    iconBox: 'bg-cyan-600 text-white shadow-sm shadow-cyan-600/25',
+    btn: 'bg-cyan-600 hover:bg-cyan-700',
+    pillActive: 'bg-cyan-50 border-cyan-600 text-cyan-800'
+  }
 };
 
 export default function CaseTrackingPage() {
@@ -515,8 +560,18 @@ export default function CaseTrackingPage() {
   const ActiveIcon = activeMeta?.icon || Scale;
 
   return (
-    <div className="min-h-screen bg-[#F8FAF9] py-6 sm:py-10">
-      <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#EEF6F3] via-[#F6F8FB] to-[#ECF2F4] py-6 sm:py-10 overflow-hidden">
+      {/* Subtle Ambient Portal Accents */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 left-1/4 w-96 h-96 rounded-full bg-emerald-200/30 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-40 right-1/5 w-96 h-96 rounded-full bg-indigo-200/25 blur-3xl"
+      />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6">
         {/* Top Visual Flow Diagram */}
         <CaseTrackingFlowHeader
           isAuthenticated={isAuthenticated}
