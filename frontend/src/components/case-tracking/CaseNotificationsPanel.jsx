@@ -33,8 +33,10 @@ export default function CaseNotificationsPanel({
         notifications.map((n) => (
           <div
             key={n.id}
-            className={`p-4 rounded-2xl border flex items-start justify-between gap-3 ${
-              n.read ? 'bg-slate-50 border-slate-200' : 'bg-emerald-50/70 border-emerald-300'
+            className={`p-4 rounded-2xl border flex items-start justify-between gap-3 transition-colors ${
+              n.read
+                ? 'bg-slate-50 border-slate-200'
+                : 'bg-gradient-to-r from-violet-50/80 to-fuchsia-50/40 border-violet-300'
             }`}
           >
             <div className="space-y-1">
@@ -51,7 +53,7 @@ export default function CaseNotificationsPanel({
               <button
                 type="button"
                 onClick={() => onMarkRead(n.id)}
-                className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-bdGreen-900 hover:border-emerald-300 shrink-0"
+                className="px-2.5 py-1 rounded-lg bg-white border border-violet-200 text-[11px] font-bold text-violet-800 hover:bg-violet-50 shrink-0 cursor-pointer transition-colors"
               >
                 {isBn ? 'পঠিত' : 'Mark read'}
               </button>
