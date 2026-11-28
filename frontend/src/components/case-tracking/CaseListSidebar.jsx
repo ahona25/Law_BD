@@ -28,12 +28,12 @@ export default function CaseListSidebar({ cases, selectedCase, onSelectCase, isB
             onClick={() => onSelectCase(c.id)}
             className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 space-y-2.5 cursor-pointer ${
               active
-                ? 'bg-gradient-to-br from-indigo-50/70 to-white border-indigo-600 ring-2 ring-indigo-500/15 shadow-md'
-                : 'bg-white border-slate-200 hover:border-indigo-300 hover:-translate-y-0.5 shadow-2xs'
+                ? 'ct-surface-active bg-gradient-to-br from-indigo-50/70 to-white border-indigo-600 dark:border-indigo-400 ring-2 ring-indigo-500/15 shadow-md'
+                : 'ct-surface bg-white border-slate-200 hover:border-indigo-300 dark:hover:border-indigo-400/60 hover:-translate-y-0.5 shadow-2xs'
             }`}
           >
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 dark:bg-[#173028] text-slate-700 dark:text-slate-200">
                 {c.category}
               </span>
               <span
@@ -61,7 +61,7 @@ export default function CaseListSidebar({ cases, selectedCase, onSelectCase, isB
                     </span>
                   </span>
                   {daysLeft !== null && daysLeft >= 0 && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 text-bdRed-600 font-bold">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-950/70 text-bdRed-600 dark:text-rose-300 font-bold">
                       {daysLeft === 0 ? 'Today' : `${daysLeft}d`}
                     </span>
                   )}
