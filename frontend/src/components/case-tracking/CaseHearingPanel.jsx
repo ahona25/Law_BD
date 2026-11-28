@@ -8,14 +8,14 @@ export default function CaseHearingPanel({ selectedCase, hearingNotifications, i
 
   return (
     <div className="space-y-6">
-      <div className="p-5 rounded-2xl bg-gradient-to-br from-teal-50/80 to-emerald-50/60 border border-teal-200 space-y-4">
+      <div className="ct-surface p-5 rounded-2xl bg-gradient-to-br from-teal-50/80 to-emerald-50/60 border border-teal-200 space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-sm text-teal-900 flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-teal-700" />
+          <h3 className="font-bold text-sm text-teal-900 dark:text-teal-200 flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-teal-700 dark:text-teal-400" />
             <span>{isBn ? 'শুনানির তারিখ ব্যবস্থাপনা' : 'Hearing Date Management'}</span>
           </h3>
           {daysLeft !== null && (
-            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white border border-teal-300 text-teal-900 shadow-2xs">
+            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white dark:bg-[#132E27] border border-teal-300 dark:border-teal-500/40 text-teal-900 dark:text-teal-200 shadow-2xs">
               {daysLeft < 0
                 ? isBn
                   ? 'অতীত তারিখ'
@@ -32,7 +32,7 @@ export default function CaseHearingPanel({ selectedCase, hearingNotifications, i
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="p-3.5 rounded-xl bg-white border border-emerald-200/80">
+          <div className="p-3.5 rounded-xl bg-white dark:bg-[#10231D] border border-emerald-200/80 dark:border-teal-500/25">
             <span className="text-[10px] uppercase font-bold text-slate-400 block">
               {isBn ? 'পরবর্তী শুনানির তারিখ' : 'Next Hearing Date'}
             </span>
@@ -41,19 +41,19 @@ export default function CaseHearingPanel({ selectedCase, hearingNotifications, i
             </span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-white border border-emerald-200/80">
+          <div className="p-3.5 rounded-xl bg-white dark:bg-[#10231D] border border-emerald-200/80 dark:border-teal-500/25">
             <span className="text-[10px] uppercase font-bold text-slate-400 block">
               {isBn ? 'শুনানির সময়' : 'Hearing Time'}
             </span>
             <span className="text-sm font-bold text-slate-900 mt-1 flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-bdGreen-700" />
+              <Clock className="w-3.5 h-3.5 text-bdGreen-700 dark:text-teal-400" />
               <span>
                 {selectedCase.next_hearing_time || (isBn ? 'উল্লেখ নেই' : 'To be announced')}
               </span>
             </span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-white border border-emerald-200/80">
+          <div className="p-3.5 rounded-xl bg-white dark:bg-[#10231D] border border-emerald-200/80 dark:border-teal-500/25">
             <span className="text-[10px] uppercase font-bold text-slate-400 block">
               {isBn ? 'আদালতের নাম' : 'Court Name'}
             </span>
@@ -64,14 +64,14 @@ export default function CaseHearingPanel({ selectedCase, hearingNotifications, i
         </div>
 
         {hearingNotifications.length > 0 && (
-          <div className="pt-2 border-t border-emerald-200/70 space-y-2">
-            <span className="text-[11px] font-bold text-bdGreen-900 block">
+          <div className="pt-2 border-t border-emerald-200/70 dark:border-teal-500/25 space-y-2">
+            <span className="text-[11px] font-bold text-bdGreen-900 dark:text-teal-300 block">
               {isBn ? 'শুনানির তারিখ পরিবর্তনের বিজ্ঞপ্তি:' : 'Hearing Schedule Change Alerts:'}
             </span>
             {hearingNotifications.slice(0, 2).map((hn) => (
               <div
                 key={hn.id}
-                className="p-2.5 rounded-xl bg-white/90 border border-emerald-200 text-xs text-slate-700 flex items-center justify-between gap-2"
+                className="p-2.5 rounded-xl bg-white/90 dark:bg-[#10231D] border border-emerald-200 dark:border-teal-500/25 text-xs text-slate-700 dark:text-slate-200 flex items-center justify-between gap-2"
               >
                 <span>{hn.message}</span>
                 <span className="text-[10px] text-slate-400 shrink-0">
