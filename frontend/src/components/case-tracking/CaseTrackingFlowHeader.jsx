@@ -70,35 +70,38 @@ export default function CaseTrackingFlowHeader({
       id: 'status',
       icon: FileText,
       title: isBn ? 'মামলার অবস্থা' : 'Case Status',
-      meta: canUse && selectedCase
-        ? isBn
-          ? statusInfo.bnLabel
-          : statusInfo.enLabel
-        : isBn
-        ? 'চলমান · শুনানি · পর্যালোচনা · নিষ্পত্তি'
-        : 'Pending · Hearing · Review · Disposed'
+      meta:
+        canUse && selectedCase
+          ? isBn
+            ? statusInfo.bnLabel
+            : statusInfo.enLabel
+          : isBn
+          ? 'চলমান · শুনানি · পর্যালোচনা · নিষ্পত্তি'
+          : 'Pending · Hearing · Review · Disposed'
     },
     {
       id: 'hearings',
       icon: Calendar,
       title: isBn ? 'শুনানির তারিখ' : 'Hearing Dates',
-      meta: canUse && selectedCase?.next_hearing_date
-        ? `${selectedCase.next_hearing_date}${
-            selectedCase.next_hearing_time ? ` · ${selectedCase.next_hearing_time}` : ''
-          }`
-        : isBn
-        ? 'তারিখ, আদালত ও সময় দেখুন'
-        : 'Next date, court & time'
+      meta:
+        canUse && selectedCase?.next_hearing_date
+          ? `${selectedCase.next_hearing_date}${
+              selectedCase.next_hearing_time ? ` · ${selectedCase.next_hearing_time}` : ''
+            }`
+          : isBn
+          ? 'তারিখ, আদালত ও সময় দেখুন'
+          : 'Next date, court & time'
     },
     {
       id: 'history',
       icon: History,
       title: isBn ? 'মামলার ইতিহাস' : 'Case History',
-      meta: canUse && selectedCase
-        ? `${selectedCase.history?.length || 0} ${isBn ? 'টি কার্যক্রম' : 'activities'}`
-        : isBn
-        ? 'নিবন্ধন থেকে সর্বশেষ আপডেট'
-        : 'Registration to latest update'
+      meta:
+        canUse && selectedCase
+          ? `${selectedCase.history?.length || 0} ${isBn ? 'টি কার্যক্রম' : 'activities'}`
+          : isBn
+          ? 'নিবন্ধন থেকে সর্বশেষ আপডেট'
+          : 'Registration to latest update'
     },
     {
       id: 'notifications',
@@ -139,197 +142,245 @@ export default function CaseTrackingFlowHeader({
   };
 
   return (
-    <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-xs p-4 sm:p-7 space-y-2.5 sm:space-y-3">
-      {/* Node 1: Clients */}
-      <div className="rounded-2xl bg-[#EBF4FF] border border-[#CFE2FF] px-4 sm:px-6 py-4 sm:py-5 text-center space-y-2 transition-all">
-        <div className="w-9 h-9 rounded-xl bg-white/85 border border-[#CFE2FF] text-[#2563EB] flex items-center justify-center mx-auto shadow-2xs">
-          <User className="w-5 h-5" />
-        </div>
-        <div>
-          <h1 className="font-bold text-base sm:text-lg text-slate-900">
-            {isBn ? 'ক্লায়েন্ট' : 'Clients'}
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
-            {isBn ? 'মামলার তথ্য যাচাই করতে চান' : 'Wants to check case information'}
-          </p>
-        </div>
+    <div className="relative bg-white/95 backdrop-blur-xs rounded-3xl border border-slate-200/90 shadow-[0_20px_50px_-20px_rgba(6,78,59,0.14)] overflow-hidden">
+      {/* Signature Top Multi-Tone Judicial Accent Bar */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-bdGreen-800 via-teal-500 via-50% to-indigo-600" />
 
-        <div className="pt-1 flex flex-wrap items-center justify-center gap-2 text-xs">
-          {demoMode ? (
-            <>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 font-bold text-amber-900">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                <span>{isBn ? `ডেমো প্রদর্শনী (${casesCount} টি মামলা)` : `Demo Showcase (${casesCount} Cases)`}</span>
-              </span>
-              <button
-                type="button"
-                onClick={onOpenCreate}
-                className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold transition-colors shadow-2xs cursor-pointer"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>{isBn ? 'নতুন মামলা যোগ করুন' : 'New Case'}</span>
-              </button>
-              <button
-                type="button"
-                onClick={onToggleDemo}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold transition-colors cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-                <span>{isBn ? 'ডেমো বন্ধ করুন' : 'Exit Demo'}</span>
-              </button>
-            </>
-          ) : !isAuthenticated ? (
-            <>
-              <Link
-                to="/login?from=/case-tracking"
-                state={{ from: '/case-tracking' }}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold transition-colors shadow-2xs"
-              >
-                <LogIn className="w-3.5 h-3.5" />
-                <span>{isBn ? 'সাইন ইন' : 'Sign In'}</span>
-              </Link>
-              <button
-                type="button"
-                onClick={onToggleDemo}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-amber-50 text-slate-800 border border-amber-300 font-bold transition-colors shadow-2xs cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                <span>{isBn ? 'ডেমো দেখুন' : 'Try Demo'}</span>
-              </button>
-            </>
-          ) : canUse ? (
-            <>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-[#CFE2FF] font-semibold text-slate-700">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>
-                  {user?.name} ({casesCount} {isBn ? 'টি মামলা' : 'Cases'})
+      <div className="p-4 sm:p-7 space-y-2.5 sm:space-y-3">
+        {/* Node 1: Clients */}
+        <div className="rounded-2xl bg-gradient-to-br from-emerald-50/90 via-teal-50/70 to-cyan-50/70 border border-emerald-200/80 px-4 sm:px-6 py-4 sm:py-5 text-center space-y-2.5 transition-all">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-bdGreen-800 to-teal-600 text-white flex items-center justify-center mx-auto shadow-md shadow-emerald-900/15">
+            <User className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="font-serif font-bold text-lg sm:text-xl text-slate-900 tracking-tight">
+              {isBn ? 'ক্লায়েন্ট' : 'Clients'}
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+              {isBn ? 'মামলার তথ্য যাচাই করতে চান' : 'Wants to check case information'}
+            </p>
+          </div>
+
+          <div className="pt-1 flex flex-wrap items-center justify-center gap-2 text-xs">
+            {demoMode ? (
+              <>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-300 font-bold text-amber-900 shadow-2xs">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                  <span>
+                    {isBn
+                      ? `ডেমো প্রদর্শনী (${casesCount} টি মামলা)`
+                      : `Demo Showcase (${casesCount} Cases)`}
+                  </span>
                 </span>
-              </span>
-              <button
-                type="button"
-                onClick={onOpenCreate}
-                className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold transition-colors shadow-2xs cursor-pointer"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>{isBn ? 'নতুন মামলা যোগ করুন' : 'New Case'}</span>
-              </button>
-            </>
-          ) : (
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 font-semibold text-amber-900">
-                <Lock className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                <span>{user?.name}</span>
-              </span>
-              {eligibilityReason === 'no_lawyer_case' && (
-                <Link
-                  to="/lawyers"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold transition-colors shadow-2xs"
+                <button
+                  type="button"
+                  onClick={onOpenCreate}
+                  className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-bdGreen-800 to-teal-700 hover:from-bdGreen-700 hover:to-teal-600 text-white font-bold transition-all shadow-sm cursor-pointer"
                 >
-                  <Briefcase className="w-3.5 h-3.5" />
-                  <span>{isBn ? 'আইনজীবী নির্বাচন করুন' : 'Fix Case with a Lawyer'}</span>
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>{isBn ? 'নতুন মামলা যোগ করুন' : 'New Case'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onToggleDemo}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold transition-colors cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>{isBn ? 'ডেমো বন্ধ করুন' : 'Exit Demo'}</span>
+                </button>
+              </>
+            ) : !isAuthenticated ? (
+              <>
+                <Link
+                  to="/login?from=/case-tracking"
+                  state={{ from: '/case-tracking' }}
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-bdGreen-800 to-teal-700 hover:from-bdGreen-700 hover:to-teal-600 text-white font-bold transition-all shadow-sm"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>{isBn ? 'সাইন ইন' : 'Sign In'}</span>
                 </Link>
-              )}
-              <button
-                type="button"
-                onClick={onToggleDemo}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-amber-50 text-slate-800 border border-amber-300 font-bold transition-colors shadow-2xs cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                <span>{isBn ? 'ডেমো দেখুন' : 'Try Demo'}</span>
-              </button>
-            </div>
-          )}
-        </div>
-
-        {!canUse && (
-          <p className="text-[11px] sm:text-xs font-medium text-amber-800 bg-amber-50/90 border border-amber-200 rounded-xl px-3 py-2 max-w-xl mx-auto">
-            {getAccessMessage()}
-          </p>
-        )}
-      </div>
-
-      {/* Connector Arrow 1 */}
-      <div className="flex justify-center">
-        <ArrowDown className="w-4 h-4 text-slate-500" />
-      </div>
-
-      {/* Node 2: Case Tracking Dashboard */}
-      <div className="rounded-2xl bg-[#EBF4FF] border border-[#CFE2FF] px-4 sm:px-6 py-4 sm:py-5 text-center space-y-1">
-        <div className="w-9 h-9 rounded-xl bg-white/85 border border-[#CFE2FF] text-[#2563EB] flex items-center justify-center mx-auto shadow-2xs">
-          <LayoutGrid className="w-5 h-5" />
-        </div>
-        <h2 className="font-bold text-base sm:text-lg text-slate-900">
-          {isBn ? 'কেস ট্র্যাকিং ড্যাশবোর্ড' : 'Case Tracking Dashboard'}
-        </h2>
-        <p className="text-xs sm:text-sm text-slate-600">
-          {isBn ? 'মামলার বিস্তারিত ও আপডেট প্রদর্শন করে' : 'Displays case details and updates'}
-        </p>
-      </div>
-
-      {/* Connector Arrow 2 */}
-      <div className="flex justify-center">
-        <ArrowDown className="w-4 h-4 text-slate-500" />
-      </div>
-
-      {/* 2x2 Module Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-        {cards.map((card) => {
-          const Icon = card.icon;
-          const isActive = canUse && activeSection === card.id;
-          return (
-            <button
-              key={card.id}
-              type="button"
-              disabled={!canUse}
-              onClick={() => canUse && onSelectSection(card.id)}
-              className={`rounded-2xl border px-4 sm:px-5 py-4 sm:py-5 text-center transition-all flex flex-col items-center justify-center gap-1.5 relative ${
-                !canUse
-                  ? 'bg-slate-50/80 border-slate-200 opacity-60 cursor-not-allowed'
-                  : isActive
-                  ? 'bg-[#F5F9FF] border-[#2563EB] ring-2 ring-[#2563EB]/20 shadow-sm cursor-pointer'
-                  : 'bg-white border-slate-200 hover:border-[#93C5FD] hover:bg-slate-50/70 shadow-2xs cursor-pointer'
-              }`}
-            >
-              {!canUse && (
-                <Lock className="w-3.5 h-3.5 text-slate-400 absolute top-3 right-3" aria-hidden="true" />
-              )}
-              {card.badge > 0 && (
-                <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-bold bg-bdRed-500 text-white rounded-full">
-                  {card.badge}
+                <button
+                  type="button"
+                  onClick={onToggleDemo}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-amber-50 text-slate-800 border border-amber-300 font-bold transition-colors shadow-2xs cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <span>{isBn ? 'ডেমো দেখুন' : 'Try Demo'}</span>
+                </button>
+              </>
+            ) : canUse ? (
+              <>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 border border-emerald-200 font-semibold text-slate-700 shadow-2xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>
+                    {user?.name} ({casesCount} {isBn ? 'টি মামলা' : 'Cases'})
+                  </span>
                 </span>
-              )}
-              <Icon className={`w-5 h-5 ${canUse ? 'text-[#2563EB]' : 'text-slate-400'}`} />
-              <span className="font-bold text-sm sm:text-base text-slate-900">{card.title}</span>
-              <span className="text-[11px] sm:text-xs font-medium text-slate-500">{card.meta}</span>
-            </button>
-          );
-        })}
-      </div>
+                <button
+                  type="button"
+                  onClick={onOpenCreate}
+                  className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-bdGreen-800 to-teal-700 hover:from-bdGreen-700 hover:to-teal-600 text-white font-bold transition-all shadow-sm cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>{isBn ? 'নতুন মামলা যোগ করুন' : 'New Case'}</span>
+                </button>
+              </>
+            ) : (
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 font-semibold text-amber-900">
+                  <Lock className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                  <span>{user?.name}</span>
+                </span>
+                {eligibilityReason === 'no_lawyer_case' && (
+                  <Link
+                    to="/lawyers"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-bdGreen-800 to-teal-700 hover:from-bdGreen-700 hover:to-teal-600 text-white font-bold transition-all shadow-sm"
+                  >
+                    <Briefcase className="w-3.5 h-3.5" />
+                    <span>{isBn ? 'আইনজীবী নির্বাচন করুন' : 'Fix Case with a Lawyer'}</span>
+                  </Link>
+                )}
+                <button
+                  type="button"
+                  onClick={onToggleDemo}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-amber-50 text-slate-800 border border-amber-300 font-bold transition-colors shadow-2xs cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <span>{isBn ? 'ডেমো দেখুন' : 'Try Demo'}</span>
+                </button>
+              </div>
+            )}
+          </div>
 
-      {/* Document Management Quick Button */}
-      <div className="pt-1 flex justify-center">
-        <button
-          type="button"
-          disabled={!canUse}
-          onClick={() => canUse && onSelectSection('documents')}
-          className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition-all ${
-            !canUse
-              ? 'bg-slate-50 border-slate-200 text-slate-400 opacity-60 cursor-not-allowed'
-              : activeSection === 'documents'
-              ? 'bg-[#EBF4FF] border-[#2563EB] text-[#1D4ED8] ring-2 ring-[#2563EB]/15 cursor-pointer'
-              : 'bg-slate-50 hover:bg-[#EBF4FF] border-slate-200 hover:border-[#93C5FD] text-slate-700 cursor-pointer'
-          }`}
-        >
-          {!canUse ? (
-            <Lock className="w-3.5 h-3.5 shrink-0" />
-          ) : (
-            <FolderOpen className="w-4 h-4 text-[#2563EB] shrink-0" />
+          {!canUse && (
+            <p className="text-[11px] sm:text-xs font-medium text-amber-900 bg-amber-50/95 border border-amber-200 rounded-xl px-3.5 py-2 max-w-xl mx-auto">
+              {getAccessMessage()}
+            </p>
           )}
-          <span>
-            {isBn ? 'নথি ও আদালতের আদেশ ব্যবস্থাপনা' : 'Document Management & Court Orders'}
-            {canUse && selectedCase ? ` (${selectedCase.documents?.length || 0})` : ''}
-          </span>
-        </button>
+        </div>
+
+        {/* Connector Arrow 1 */}
+        <div className="flex justify-center">
+          <div className="w-7 h-7 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-bdGreen-800 shadow-2xs">
+            <ArrowDown className="w-3.5 h-3.5" />
+          </div>
+        </div>
+
+        {/* Node 2: Case Tracking Dashboard — Executive Midnight Emerald-Navy Hub */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#072E25] via-[#0B3B3A] to-[#142D4C] text-white px-4 sm:px-6 py-4 sm:py-5 text-center space-y-1.5 shadow-md">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-10 -right-10 w-36 h-36 rounded-full bg-teal-400/15 blur-2xl"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-indigo-400/15 blur-2xl"
+          />
+          <div className="relative z-10 flex flex-col items-center space-y-1.5">
+            <div className="w-10 h-10 rounded-xl bg-white/12 border border-white/20 backdrop-blur-xs text-amber-300 flex items-center justify-center shadow-inner">
+              <LayoutGrid className="w-5 h-5" />
+            </div>
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <h2 className="font-serif font-bold text-lg sm:text-xl text-white tracking-tight">
+                {isBn ? 'কেস ট্র্যাকিং ড্যাশবোর্ড' : 'Case Tracking Dashboard'}
+              </h2>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-semibold text-emerald-200">
+                <ShieldCheck className="w-3 h-3 text-emerald-300" />
+                {isBn ? 'ভেরিফায়েড পোর্টাল' : 'Verified Portal'}
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-200/90">
+              {isBn
+                ? 'মামলার বিস্তারিত ও আপডেট প্রদর্শন করে — যেকোনো মডিউলে ক্লিক করুন'
+                : 'Displays case details and updates — select any module below to inspect'}
+            </p>
+          </div>
+        </div>
+
+        {/* Connector Arrow 2 */}
+        <div className="flex justify-center">
+          <div className="w-7 h-7 rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 shadow-2xs">
+            <ArrowDown className="w-3.5 h-3.5" />
+          </div>
+        </div>
+
+        {/* 2x2 Color-Coded Module Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          {cards.map((card) => {
+            const Icon = card.icon;
+            const isActive = canUse && activeSection === card.id;
+            const theme = CARD_STYLES[card.id];
+            return (
+              <button
+                key={card.id}
+                type="button"
+                disabled={!canUse}
+                onClick={() => canUse && onSelectSection(card.id)}
+                className={`group rounded-2xl border px-4 sm:px-5 py-4 sm:py-5 text-center transition-all duration-200 flex flex-col items-center justify-center gap-2 relative ${
+                  !canUse
+                    ? 'bg-slate-50/85 border-slate-200 opacity-65 cursor-not-allowed'
+                    : isActive
+                    ? `${theme.active} -translate-y-0.5 cursor-pointer`
+                    : `${theme.idle} hover:-translate-y-0.5 hover:shadow-sm cursor-pointer`
+                }`}
+              >
+                {!canUse && (
+                  <Lock className="w-3.5 h-3.5 text-slate-400 absolute top-3 right-3" aria-hidden="true" />
+                )}
+                {card.badge > 0 && (
+                  <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-bold bg-bdRed-500 text-white rounded-full shadow-xs">
+                    {card.badge}
+                  </span>
+                )}
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-200 ${
+                    canUse
+                      ? `${theme.iconWrap} group-hover:scale-105`
+                      : 'bg-slate-200 text-slate-500'
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
+                </div>
+                <span className="font-bold text-sm sm:text-base text-slate-900">{card.title}</span>
+                <span
+                  className={`text-[11px] sm:text-xs font-semibold ${
+                    isActive ? theme.metaActive : 'text-slate-500'
+                  }`}
+                >
+                  {card.meta}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Document Management & Court Orders Action Bar */}
+        <div className="pt-1 flex justify-center">
+          <button
+            type="button"
+            disabled={!canUse}
+            onClick={() => canUse && onSelectSection('documents')}
+            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border text-xs font-bold transition-all duration-200 ${
+              !canUse
+                ? 'bg-slate-50 border-slate-200 text-slate-400 opacity-65 cursor-not-allowed'
+                : activeSection === 'documents'
+                ? 'bg-gradient-to-r from-cyan-50 to-sky-50 border-cyan-600 text-cyan-900 ring-2 ring-cyan-500/20 shadow-sm cursor-pointer'
+                : 'bg-gradient-to-r from-slate-50 to-cyan-50/40 hover:from-cyan-50 hover:to-sky-50 border-slate-200 hover:border-cyan-400 text-slate-700 cursor-pointer'
+            }`}
+          >
+            {!canUse ? (
+              <Lock className="w-3.5 h-3.5 shrink-0" />
+            ) : (
+              <span className="w-6 h-6 rounded-lg bg-cyan-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                <FolderOpen className="w-3.5 h-3.5" />
+              </span>
+            )}
+            <span>
+              {isBn ? 'নথি ও আদালতের আদেশ ব্যবস্থাপনা' : 'Document Management & Court Orders'}
+              {canUse && selectedCase ? ` (${selectedCase.documents?.length || 0})` : ''}
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
