@@ -27,10 +27,10 @@ export default function CaseDocumentsPanel({
     <div className="space-y-6">
       <form
         onSubmit={onUpload}
-        className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3"
+        className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-cyan-50/60 to-slate-50 border border-cyan-200/80 space-y-3"
       >
         <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
-          <Upload className="w-4 h-4 text-bdGreen-800" />
+          <Upload className="w-4 h-4 text-cyan-700" />
           <span>
             {isBn
               ? 'মামলার নথি বা আদালতের আদেশ আপলোড করুন'
@@ -44,12 +44,12 @@ export default function CaseDocumentsPanel({
             value={docTitle}
             onChange={(e) => onDocTitleChange(e.target.value)}
             placeholder={isBn ? 'নথির নাম (ঐচ্ছিক)' : 'Document Title (e.g., Stay Order)'}
-            className="px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs focus:outline-none focus:border-bdGreen-800"
+            className="px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs focus:outline-none focus:border-cyan-600"
           />
           <select
             value={docCategory}
             onChange={(e) => onDocCategoryChange(e.target.value)}
-            className="px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs focus:outline-none focus:border-bdGreen-800"
+            className="px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs focus:outline-none focus:border-cyan-600"
           >
             {DOC_CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>
@@ -60,7 +60,7 @@ export default function CaseDocumentsPanel({
           <input
             type="file"
             onChange={(e) => onDocFileChange(e.target.files?.[0] || null)}
-            className="px-2.5 py-1.5 rounded-xl border border-slate-200 bg-white text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-emerald-50 file:text-bdGreen-900 file:font-bold"
+            className="px-2.5 py-1.5 rounded-xl border border-slate-200 bg-white text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-cyan-50 file:text-cyan-900 file:font-bold"
           />
         </div>
 
