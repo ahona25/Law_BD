@@ -15,7 +15,7 @@
     },
     {
       "id": 2,
-      "name": "Adv. Barrister Tanvir Hasan",
+      "name": "Barrister Md. Moudud Ahmed",
       "email": "tanvir@lawbd.com",
       "password_hash": "$2a$10$RKHrlOtQd2xLvtqCuAU8VeZ1SAkNEf4T7AATrOmw5yt7.lLmAo74y",
       "role": "lawyer",
@@ -70,29 +70,239 @@
     {
       "id": 1,
       "user_id": 2,
-      "name": "Adv. Barrister Tanvir Hasan",
-      "initials": "TH",
+      "name": "Barrister Md. Moudud Ahmed",
+      "initials": "MA",
       "gender": "male",
-      "qualification": "Barrister-at-Law (Lincoln’s Inn, UK) · LL.M (LSE) · LL.B (Hons, University of London)",
-      "barCouncilNo": "BC/DH-10492/2012",
+      "qualification": "Barrister-at-Law (Gray's Inn, UK) · BPTC (City Law School, London) · LL.B (Hons, University of Dhaka)",
+      "barCouncilNo": "BC/SC-11717/2011",
       "courtLevel": "Supreme Court of Bangladesh (High Court Division)",
       "association": "Supreme Court Bar Association (SCBA) & Dhaka Bar Association",
       "specialties": [
-        "Criminal Law",
         "Land & Property",
-        "Cybercrime"
+        "Title Suits",
+        "Civil Law"
       ],
-      "experienceYears": 14,
+      "experienceYears": 15,
       "location": "Dhaka",
       "division": "Dhaka",
-      "chamberAddress": "Room #412, Supreme Court Bar Association Annex Building, Ramna, Dhaka-1000",
-      "rating": 4.9,
-      "reviewsCount": 142,
-      "feeInPerson": 2500,
-      "feeVideo": 1800,
-      "feePhone": 1200,
-      "feeDisplay": "৳1,800",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.217 (Annex), Moudud Ahmed & Associates, 125/A Motijheel, Dhaka",
+      "rating": 4.88,
+      "reviewsCount": 70,
+      "feeInPerson": 3500,
+      "feeVideo": 2000,
+      "feePhone": 1000,
+      "feeDisplay": "৳2,000",
       "responseTime": "< 1 hour",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Today 4:00 PM",
+        "Tomorrow 11:30 AM",
+        "Tomorrow 4:00 PM"
+      ],
+      "bio": "Barrister Md. Moudud Ahmed has over 15 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (High Court Division). Highly regarded for strategic litigation in Land & Property, Title Suits, Civil Law. Chambers located at Room No.217 (Annex), Moudud Ahmed & Associates, 125/A Motijheel, Dhaka. Chamber Assistant/Junior: Jatin Pal (Asst.).",
+      "successRate": "96% Successful Civil & Title Decrees",
+      "casesHandled": "850+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 101,
+      "sourceFlags": "S AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 2,
+      "user_id": 3,
+      "name": "Adv. Azizul Hoq",
+      "initials": "AH",
+      "gender": "male",
+      "qualification": "LL.M (Chittagong University) · LL.B (Hons, CU) · High Court Division Advocate",
+      "barCouncilNo": "BC/SC-11734/2006",
+      "courtLevel": "Supreme Court of Bangladesh & District & Sessions Judge Court",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh National Women Lawyers Association (BNWLA) Panel",
+      "specialties": [
+        "Constitutional Law",
+        "Writ Petitions",
+        "High Court Appeals"
+      ],
+      "experienceYears": 20,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.105 (Annex), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.58,
+      "reviewsCount": 221,
+      "feeInPerson": 2000,
+      "feeVideo": 1000,
+      "feePhone": 500,
+      "feeDisplay": "৳1,000",
+      "responseTime": "< 2 hours",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:00 AM",
+        "Tomorrow 2:30 PM",
+        "Fri 10:30 AM"
+      ],
+      "bio": "Adv. Azizul Hoq has over 20 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh & District & Sessions Judge Court. Highly regarded for strategic litigation in Constitutional Law, Writ Petitions, High Court Appeals. Chambers located at Room No.105 (Annex), S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Rubel (Asst.).",
+      "successRate": "97% High Court Writ & Constitutional Motions",
+      "casesHandled": "300+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 102,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 3,
+      "user_id": 4,
+      "name": "Barrister A.M. Mahbub Uddin",
+      "initials": "AU",
+      "gender": "male",
+      "qualification": "Barrister-at-Law (Middle Temple, UK) · LL.M (Dhaka University) · LL.B (Hons, London)",
+      "barCouncilNo": "BC/SC-11751/2013",
+      "courtLevel": "Supreme Court of Bangladesh (High Court Division)",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh Human Rights Legal Aid Society",
+      "specialties": [
+        "Cheque Dishonour",
+        "Commercial Law",
+        "Banking & Finance"
+      ],
+      "experienceYears": 13,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.220 (Annex), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.89,
+      "reviewsCount": 166,
+      "feeInPerson": 3500,
+      "feeVideo": 2000,
+      "feePhone": 1000,
+      "feeDisplay": "৳2,000",
+      "responseTime": "Within 3 hours",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Today 5:30 PM",
+        "Tomorrow 1:00 PM",
+        "Thu 3:30 PM",
+        "Thu 5:00 PM"
+      ],
+      "bio": "Barrister A.M. Mahbub Uddin has over 13 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (High Court Division). Highly regarded for strategic litigation in Cheque Dishonour, Commercial Law, Banking & Finance. Chambers located at Room No.220 (Annex), S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Saqeb Mahbub (Junior).",
+      "successRate": "91% Family Court Custody & Dower Decrees",
+      "casesHandled": "800+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 103,
+      "sourceFlags": "S I AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 4,
+      "user_id": 5,
+      "name": "Barrister Raziuddin Ahmed",
+      "initials": "RA",
+      "gender": "male",
+      "qualification": "Barrister-at-Law (Lincoln's Inn, London) · LL.M (Commercial Law, LSE) · LL.B (Hons, University of London)",
+      "barCouncilNo": "BC/SC-11768/2002",
+      "courtLevel": "Supreme Court of Bangladesh (High Court Division)",
+      "association": "Supreme Court Bar Association (SCBA) & Metropolitan Bar Association",
+      "specialties": [
+        "Family & Divorce",
+        "Child Custody",
+        "Domestic Violence"
+      ],
+      "experienceYears": 24,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.408 (Annex-Ext.), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.85,
+      "reviewsCount": 189,
+      "feeInPerson": 2500,
+      "feeVideo": 1500,
+      "feePhone": 1000,
+      "feeDisplay": "৳1,500",
+      "responseTime": "Same Day",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Tomorrow 9:30 AM",
+        "Tomorrow 12:00 PM",
+        "Fri 11:00 AM"
+      ],
+      "bio": "Barrister Raziuddin Ahmed has over 24 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (High Court Division). Highly regarded for strategic litigation in Family & Divorce, Child Custody, Domestic Violence. Chambers located at Room No.408 (Annex-Ext.), S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Baset (Asst.).",
+      "successRate": "96% Cheque Recovery & Negotiable Instruments Verdicts",
+      "casesHandled": "1000+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 104,
+      "sourceFlags": "G",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 5,
+      "user_id": 6,
+      "name": "Adv. Hamida Chowdhury",
+      "initials": "HC",
+      "gender": "female",
+      "qualification": "LL.M (BUP) · LL.B (Hons, University of London) · Advocate, High Court Division",
+      "barCouncilNo": "BC/SC-11802/2008",
+      "courtLevel": "Supreme Court of Bangladesh & District & Sessions Judge Court",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh Bar Council",
+      "specialties": [
+        "Cybercrime",
+        "Digital Safety",
+        "Cyber Security Act 2023"
+      ],
+      "experienceYears": 18,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.305 (Old), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.56,
+      "reviewsCount": 171,
+      "feeInPerson": 2000,
+      "feeVideo": 1000,
+      "feePhone": 500,
+      "feeDisplay": "৳1,000",
+      "responseTime": "< 30 mins",
       "languages": [
         "Bangla",
         "English"
@@ -110,832 +320,45 @@
         "Thu 11:00 AM",
         "Thu 4:30 PM"
       ],
-      "bio": "Barrister Tanvir Hasan has over 14 years of rigorous courtroom experience representing clients in the High Court Division and Metropolitan Sessions Courts. Renowned for strategic anticipatory bail motions, cyber security defence, and complex land title disputes.",
-      "successRate": "94% Successful Motions",
-      "casesHandled": "650+ Court Appearances",
+      "bio": "Adv. Hamida Chowdhury has over 18 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh & District & Sessions Judge Court. Highly regarded for strategic litigation in Cybercrime, Digital Safety, Cyber Security Act 2023. Chambers located at Room No.305 (Old), S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Md. Yeasin (Asst.).",
+      "successRate": "95% Cyber Safety & Relief Orders",
+      "casesHandled": "700+ Court Appearances",
       "is_featured": true,
-      "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z",
-      "district": "Dhaka"
-    },
-    {
-      "id": 2,
-      "user_id": 3,
-      "name": "Adv. Begum Nusrat Jahan",
-      "initials": "NJ",
-      "gender": "female",
-      "qualification": "LL.M (University of Dhaka, 1st Class) · LL.B (Hons, DU)",
-      "barCouncilNo": "BC/DH-14389/2016",
-      "courtLevel": "High Court Division & Family Courts Dhaka",
-      "association": "Dhaka Bar Association & Bangladesh National Women Lawyers Association (BNWLA) Panel",
-      "specialties": [
-        "Family & Divorce",
-        "Domestic Violence",
-        "Child Custody"
-      ],
-      "experienceYears": 10,
-      "location": "Dhaka",
-      "division": "Dhaka",
-      "chamberAddress": "Suites 7B, Concord Tower, 113 Kazi Nazrul Islam Ave, Bangla Motor, Dhaka-1205",
-      "rating": 4.95,
-      "reviewsCount": 188,
-      "feeInPerson": 2000,
-      "feeVideo": 1500,
-      "feePhone": 1000,
-      "feeDisplay": "৳1,500",
-      "responseTime": "< 30 mins",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call",
-        "Chat"
-      ],
-      "availableSlots": [
-        "Today 5:00 PM",
-        "Tomorrow 11:30 AM",
-        "Tomorrow 4:00 PM"
-      ],
-      "bio": "Leading family law advocate advocating for women and child rights across Dhaka Family Courts and High Court Division. Has resolved over 320 complex divorce, dower recovery, and child guardianship disputes with immense empathy and legal precision.",
-      "successRate": "98% Custody & Dower Recovery",
-      "casesHandled": "450+ Family Decrees",
-      "is_featured": true,
-      "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z",
-      "district": "Dhaka"
-    },
-    {
-      "id": 3,
-      "user_id": 4,
-      "name": "Adv. Kazi Monirul Islam",
-      "initials": "KM",
-      "gender": "male",
-      "qualification": "LL.B (Hons, CU) · Diploma in Land Laws & Survey Engineering",
-      "barCouncilNo": "BC/CTG-08214/2008",
-      "courtLevel": "District & Sessions Judge Court, Chattogram",
-      "association": "Chattogram District Bar Association",
-      "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Cheque Dishonour"
-      ],
-      "experienceYears": 18,
-      "location": "Chattogram",
-      "division": "Chattogram",
-      "chamberAddress": "Chamber 18, A.K. Khan Bhaban, Court Hill (Adalot Pahar), Kotwali, Chattogram",
-      "rating": 4.85,
-      "reviewsCount": 119,
-      "feeInPerson": 1800,
-      "feeVideo": 1400,
-      "feePhone": 800,
-      "feeDisplay": "৳1,400",
-      "responseTime": "< 2 hours",
-      "languages": [
-        "Bangla",
-        "English",
-        "Chatgaya"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 9:30 AM",
-        "Thu 12:00 PM",
-        "Fri 4:00 PM"
-      ],
-      "bio": "Specialist in complex land title verification, Khatian discrepancies (CS, SA, RS, BS), mutation rectification, and civil litigation under the new Land Crime Prevention Act 2023.",
-      "successRate": "91% Injunction & Title Decrees",
-      "casesHandled": "900+ Land Suits",
-      "is_featured": true,
-      "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z",
-      "district": "Chattogram"
-    },
-    {
-      "id": 4,
-      "user_id": null,
-      "name": "Adv. Sabrina Parveen (Cyber Specialist)",
-      "initials": "SP",
-      "gender": "female",
-      "qualification": "LL.M in Cyber Law & Intellectual Property (University of Malaya) · LL.B (DU)",
-      "barCouncilNo": "BC/DH-19201/2019",
-      "courtLevel": "Cyber Tribunal Dhaka & Metropolitan Sessions Court",
-      "association": "Dhaka Bar Association",
-      "specialties": [
-        "Cybercrime",
-        "Criminal Law",
-        "Human Rights"
-      ],
-      "experienceYears": 8,
-      "location": "Dhaka",
-      "division": "Dhaka",
-      "chamberAddress": "Level 5, Navana Tower, Gulshan-1, Dhaka-1212",
-      "rating": 4.9,
-      "reviewsCount": 96,
-      "feeInPerson": 2200,
-      "feeVideo": 1600,
-      "feePhone": 1000,
-      "feeDisplay": "৳1,600",
-      "responseTime": "< 15 mins",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call",
-        "Chat"
-      ],
-      "availableSlots": [
-        "Today 7:00 PM",
-        "Tomorrow 2:00 PM",
-        "Wed 6:00 PM"
-      ],
-      "bio": "Pioneering cyber litigation advocate specializing in online harassment, private photo blackmail, identity theft, financial mobile banking fraud, and CSA 2023 defence.",
-      "successRate": "96% Take-down & Prosecution",
-      "casesHandled": "310+ Digital Crimes Cases",
-      "is_featured": true,
-      "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z",
-      "district": "Dhaka"
-    },
-    {
-      "id": 5,
-      "user_id": null,
-      "name": "Adv. Dewan Farhad Hossain",
-      "initials": "DF",
-      "gender": "male",
-      "qualification": "LL.M (SUST) · LL.B (Hons)",
-      "barCouncilNo": "BC/SYL-05931/2011",
-      "courtLevel": "District & Sessions Judge Court, Sylhet",
-      "association": "Sylhet District Bar Association",
-      "specialties": [
-        "Cheque Dishonour",
-        "Corporate Law",
-        "Civil Law"
-      ],
-      "experienceYears": 15,
-      "location": "Sylhet",
-      "division": "Sylhet",
-      "chamberAddress": "Court Road, Zindabazar, Sylhet-3100",
-      "rating": 4.8,
-      "reviewsCount": 84,
-      "feeInPerson": 1500,
-      "feeVideo": 1200,
-      "feePhone": 700,
-      "feeDisplay": "৳1,200",
-      "responseTime": "< 3 hours",
-      "languages": [
-        "Bangla",
-        "English",
-        "Sylheti"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber"
-      ],
-      "availableSlots": [
-        "Tomorrow 11:00 AM",
-        "Thu 3:30 PM"
-      ],
-      "bio": "Veteran practitioner in commercial disputes, Section 138 Negotiable Instruments Act cheque bouncing recovery, business partnership dissolution, and property conveyance.",
-      "successRate": "89% Full Monetary Restitution",
-      "casesHandled": "540+ Commercial Suits",
-      "is_featured": false,
-      "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z",
-      "district": "Sylhet"
+      "sourceCode": 106,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
     },
     {
       "id": 6,
-      "user_id": null,
-      "name": "Adv. Farhana Yasmin",
-      "initials": "FY",
-      "gender": "female",
-      "qualification": "LL.M (Labour Laws, RU) · LL.B (Hons)",
-      "barCouncilNo": "BC/RAJ-11204/2015",
-      "courtLevel": "Labour Court Rajshahi & District Judge Court",
-      "association": "Rajshahi Bar Association",
-      "specialties": [
-        "Labour & Workplace",
-        "Consumer Rights",
-        "Civil Law"
-      ],
-      "experienceYears": 11,
-      "location": "Rajshahi",
-      "division": "Rajshahi",
-      "chamberAddress": "Judge Court Bhaban, Kazihata, Rajshahi-6000",
-      "rating": 4.88,
-      "reviewsCount": 73,
-      "feeInPerson": 1200,
-      "feeVideo": 1000,
-      "feePhone": 600,
-      "feeDisplay": "৳1,000",
-      "responseTime": "< 1 hour",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 10:00 AM",
-        "Wed 4:00 PM"
-      ],
-      "bio": "Passionate advocate dedicated to workplace justice, wrongful retrenchment claims under Section 33 of Labour Act 2006, unpaid gratuity/provident fund recovery, and consumer fraud.",
-      "successRate": "93% Wage & Benefit Recovery",
-      "casesHandled": "280+ Labour Grievances",
-      "is_featured": false,
-      "created_at": "2026-11-15T16:55:33.396Z",
-      "updated_at": "2026-11-15T16:55:33.396Z",
-      "district": "Rajshahi"
-    },
-    {
-      "id": 7,
-      "name": "Adv. MD. Shahjahan Mia",
-      "initials": "SM",
-      "gender": "male",
-      "qualification": "LL.M (DU) · LL.B (Hons)",
-      "barCouncilNo": "BC/GZP-16201/2013",
-      "courtLevel": "Gazipur District & Sessions Judge Court",
-      "association": "Gazipur District Bar Association",
-      "specialties": [
-        "Land & Property",
-        "Labour & Workplace",
-        "Civil Law"
-      ],
-      "experienceYears": 13,
-      "location": "Gazipur",
-      "division": "Dhaka",
-      "district": "Gazipur",
-      "chamberAddress": "Chamber 12, Bar Association Bhaban, Joydebpur, Gazipur-1700",
-      "rating": 4.87,
-      "reviewsCount": 78,
-      "feeInPerson": 1600,
-      "feeVideo": 1200,
-      "feePhone": 800,
-      "feeDisplay": "৳1,200",
-      "responseTime": "< 1 hour",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 10:00 AM",
-        "Tomorrow 3:30 PM"
-      ],
-      "bio": "Renowned advocate at Gazipur District Bar handling industrial land acquisitions, factory zoning conflicts, and complex civil property disputes.",
-      "successRate": "92% Favorable Decrees",
-      "casesHandled": "410+ Land Suits",
-      "is_featured": false
-    },
-    {
-      "id": 8,
-      "name": "Adv. Rashedul Karim",
-      "initials": "RK",
-      "gender": "male",
-      "qualification": "LL.B (Hons, RU) · Diploma in Commercial Arbitration",
-      "barCouncilNo": "BC/NRG-09142/2010",
-      "courtLevel": "Narayanganj District & Sessions Judge Court",
-      "association": "Narayanganj District Bar Association",
-      "specialties": [
-        "Cheque Dishonour",
-        "Commercial Law",
-        "Civil Law"
-      ],
-      "experienceYears": 16,
-      "location": "Narayanganj",
-      "division": "Dhaka",
-      "district": "Narayanganj",
-      "chamberAddress": "Court Compound, Chandmari, Narayanganj Sadar-1400",
-      "rating": 4.82,
-      "reviewsCount": 64,
-      "feeInPerson": 1500,
-      "feeVideo": 1100,
-      "feePhone": 700,
-      "feeDisplay": "৳1,100",
-      "responseTime": "< 2 hours",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Today 6:00 PM",
-        "Tomorrow 11:00 AM"
-      ],
-      "bio": "Specialist in river transport freight litigations, textile hub contract disputes, and Section 138 NI Act cheque bouncing matters in Narayanganj.",
-      "successRate": "90% Recovery",
-      "casesHandled": "480+ Disputes",
-      "is_featured": false
-    },
-    {
-      "id": 9,
-      "name": "Adv. Mohammad Ali Sikder",
+      "user_id": 7,
+      "name": "Barrister Md. Anowarul Islam Shaheen",
       "initials": "MS",
       "gender": "male",
-      "qualification": "LL.B (Hons, DU)",
-      "barCouncilNo": "BC/FAR-12044/2015",
-      "courtLevel": "Faridpur District & Sessions Judge Court",
-      "association": "Faridpur District Bar Association",
+      "qualification": "Barrister-at-Law (Inner Temple, London) · LL.M (Public International Law) · LL.B (Hons, University of London)",
+      "barCouncilNo": "BC/SC-11819/2015",
+      "courtLevel": "Supreme Court of Bangladesh (High Court Division)",
+      "association": "Supreme Court Bar Association (SCBA) & Dhaka Bar Association",
       "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Family Law"
+        "Labour & Workplace",
+        "Industrial Disputes",
+        "Civil Law"
       ],
       "experienceYears": 11,
-      "location": "Faridpur",
+      "location": "Dhaka",
       "division": "Dhaka",
-      "district": "Faridpur",
-      "chamberAddress": "Court Road, Jhiltuly, Faridpur-7800",
-      "rating": 4.79,
-      "reviewsCount": 52,
-      "feeInPerson": 1200,
-      "feeVideo": 900,
-      "feePhone": 600,
-      "feeDisplay": "৳900",
-      "responseTime": "< 1 hour",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 9:30 AM",
-        "Thu 4:00 PM"
-      ],
-      "bio": "Specialist in Padma river char land disputes, Sikasti-Payasti land rights, civil partition, and inheritance settlements across Faridpur.",
-      "successRate": "93% Injunctions & Title",
-      "casesHandled": "320+ Cases",
-      "is_featured": false
-    },
-    {
-      "id": 10,
-      "name": "Adv. SM Mostafa Kamal",
-      "initials": "MK",
-      "gender": "male",
-      "qualification": "LL.M (CU) · LL.B (Hons)",
-      "barCouncilNo": "BC/COB-14112/2014",
-      "courtLevel": "Cox’s Bazar District & Sessions Judge Court",
-      "association": "Cox’s Bazar District Bar Association",
-      "specialties": [
-        "Criminal Law",
-        "Land & Property",
-        "Human Rights"
-      ],
-      "experienceYears": 12,
-      "location": "Cox’s Bazar",
-      "division": "Chattogram",
-      "district": "Cox’s Bazar",
-      "chamberAddress": "Jhawtala Court Complex, Cox’s Bazar Sadar-4700",
-      "rating": 4.88,
-      "reviewsCount": 86,
-      "feeInPerson": 1800,
-      "feeVideo": 1400,
-      "feePhone": 900,
-      "feeDisplay": "৳1,400",
-      "responseTime": "< 30 mins",
-      "languages": [
-        "Bangla",
-        "English",
-        "Chatgaya"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Today 5:30 PM",
-        "Tomorrow 10:00 AM"
-      ],
-      "bio": "Top criminal defense and land litigation advocate in Cox’s Bazar. Extensive trial experience in maritime tourism land disputes and narcotics defense.",
-      "successRate": "91% Bail & Acquittals",
-      "casesHandled": "560+ Sessions Cases",
-      "is_featured": true
-    },
-    {
-      "id": 11,
-      "name": "Adv. Nazmul Huda Bhuiyan",
-      "initials": "NH",
-      "gender": "male",
-      "qualification": "LL.B (Hons, CU)",
-      "barCouncilNo": "BC/CUM-07891/2009",
-      "courtLevel": "Cumilla District & Sessions Judge Court",
-      "association": "Cumilla District Bar Association",
-      "specialties": [
-        "Civil Law",
-        "Cheque Dishonour",
-        "Land & Property"
-      ],
-      "experienceYears": 17,
-      "location": "Cumilla",
-      "division": "Chattogram",
-      "district": "Cumilla",
-      "chamberAddress": "Faujdar Court Area, Cumilla Sadar-3500",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.104 (Annex Ext.), S.C.B.B., Ramna, Dhaka-1000",
       "rating": 4.85,
-      "reviewsCount": 94,
-      "feeInPerson": 1500,
-      "feeVideo": 1100,
-      "feePhone": 700,
-      "feeDisplay": "৳1,100",
+      "reviewsCount": 227,
+      "feeInPerson": 3000,
+      "feeVideo": 2000,
+      "feePhone": 1000,
+      "feeDisplay": "৳2,000",
       "responseTime": "< 1 hour",
       "languages": [
         "Bangla",
         "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 11:30 AM",
-        "Thu 3:00 PM"
-      ],
-      "bio": "Expert civil advocate with 17 years experience across Cumilla’s 17 upazilas handling title suits, highway accident compensation, and financial claims.",
-      "successRate": "94% Decrees Granted",
-      "casesHandled": "690+ Suits",
-      "is_featured": false
-    },
-    {
-      "id": 12,
-      "name": "Adv. ATM Tariqul Islam",
-      "initials": "TI",
-      "gender": "male",
-      "qualification": "LL.M (RU) · LL.B (Hons)",
-      "barCouncilNo": "BC/BOG-13109/2012",
-      "courtLevel": "Bogura District & Sessions Judge Court",
-      "association": "Bogura District Bar Association",
-      "specialties": [
-        "Commercial Law",
-        "Cheque Dishonour",
-        "Criminal Law"
-      ],
-      "experienceYears": 14,
-      "location": "Bogura",
-      "division": "Rajshahi",
-      "district": "Bogura",
-      "chamberAddress": "Borogola Court Compound, Bogura Sadar-5800",
-      "rating": 4.89,
-      "reviewsCount": 112,
-      "feeInPerson": 1600,
-      "feeVideo": 1200,
-      "feePhone": 800,
-      "feeDisplay": "৳1,200",
-      "responseTime": "< 1 hour",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Today 7:00 PM",
-        "Tomorrow 10:30 AM"
-      ],
-      "bio": "Leading commercial advocate in northern Bangladesh representing industrialists, transport firms, and agri-business disputes in Bogura.",
-      "successRate": "95% Commercial Restitution",
-      "casesHandled": "620+ Cases",
-      "is_featured": true
-    },
-    {
-      "id": 13,
-      "name": "Adv. Golam Rabbani",
-      "initials": "GR",
-      "gender": "male",
-      "qualification": "LL.B (Hons, RU)",
-      "barCouncilNo": "BC/RAJ-06714/2007",
-      "courtLevel": "Rajshahi District & Sessions Judge Court",
-      "association": "Rajshahi District Bar Association",
-      "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Family Law"
-      ],
-      "experienceYears": 19,
-      "location": "Rajshahi",
-      "division": "Rajshahi",
-      "district": "Rajshahi",
-      "chamberAddress": "Court Station Road, Rajshahi-6201",
-      "rating": 4.91,
-      "reviewsCount": 130,
-      "feeInPerson": 1800,
-      "feeVideo": 1300,
-      "feePhone": 800,
-      "feeDisplay": "৳1,300",
-      "responseTime": "< 1 hour",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 9:00 AM",
-        "Thu 11:30 AM"
-      ],
-      "bio": "Specialist in Padma river char lands, agricultural tenancy litigations, and mango orchard lease disputes across Rajshahi district.",
-      "successRate": "93% Injunctions Obtained",
-      "casesHandled": "850+ Land Suits",
-      "is_featured": false
-    },
-    {
-      "id": 14,
-      "name": "Adv. Sheikh Zakir Hossain",
-      "initials": "ZH",
-      "gender": "male",
-      "qualification": "LL.M (Environmental Law) · LL.B (Hons, KU)",
-      "barCouncilNo": "BC/KHU-10291/2011",
-      "courtLevel": "Khulna District & Sessions Judge Court",
-      "association": "Khulna District Bar Association",
-      "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Environmental Law"
-      ],
-      "experienceYears": 15,
-      "location": "Khulna",
-      "division": "Khulna",
-      "district": "Khulna",
-      "chamberAddress": "Chamber 7, Court Road, Khulna Sadar-9100",
-      "rating": 4.9,
-      "reviewsCount": 104,
-      "feeInPerson": 1600,
-      "feeVideo": 1200,
-      "feePhone": 800,
-      "feeDisplay": "৳1,200",
-      "responseTime": "< 45 mins",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 10:00 AM",
-        "Tomorrow 4:00 PM"
-      ],
-      "bio": "High profile advocate in Khulna specializing in shrimp gher aquaculture properties, coastal forest rights, and industrial mill disputes.",
-      "successRate": "94% Favorable Decrees",
-      "casesHandled": "510+ Cases",
-      "is_featured": true
-    },
-    {
-      "id": 15,
-      "name": "Adv. Mahmudul Hasan",
-      "initials": "MH",
-      "gender": "male",
-      "qualification": "LL.B (Hons)",
-      "barCouncilNo": "BC/JAS-14012/2015",
-      "courtLevel": "Jashore District & Sessions Judge Court",
-      "association": "Jashore District Bar Association",
-      "specialties": [
-        "Commercial Law",
-        "Criminal Law",
-        "Cheque Dishonour"
-      ],
-      "experienceYears": 11,
-      "location": "Jashore",
-      "division": "Khulna",
-      "district": "Jashore",
-      "chamberAddress": "Court Para, Chanchra, Jashore-7400",
-      "rating": 4.81,
-      "reviewsCount": 67,
-      "feeInPerson": 1400,
-      "feeVideo": 1000,
-      "feePhone": 600,
-      "feeDisplay": "৳1,000",
-      "responseTime": "< 1 hour",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 11:00 AM",
-        "Thu 2:30 PM"
-      ],
-      "bio": "Expert in Benapole customs border cases, commercial freight disputes, and criminal defense in Jashore District Court.",
-      "successRate": "89% Bail Granted",
-      "casesHandled": "370+ Trials",
-      "is_featured": false
-    },
-    {
-      "id": 16,
-      "name": "Adv. Anisur Rahman",
-      "initials": "AR",
-      "gender": "male",
-      "qualification": "LL.B (Hons, IU)",
-      "barCouncilNo": "BC/KUS-11902/2013",
-      "courtLevel": "Kushtia District & Sessions Judge Court",
-      "association": "Kushtia District Bar Association",
-      "specialties": [
-        "Civil Law",
-        "Family Law",
-        "Land & Property"
-      ],
-      "experienceYears": 13,
-      "location": "Kushtia",
-      "division": "Khulna",
-      "district": "Kushtia",
-      "chamberAddress": "Court Compound, Kushtia Sadar-7000",
-      "rating": 4.84,
-      "reviewsCount": 59,
-      "feeInPerson": 1300,
-      "feeVideo": 950,
-      "feePhone": 600,
-      "feeDisplay": "৳950",
-      "responseTime": "< 2 hours",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 10:30 AM",
-        "Wed 4:00 PM"
-      ],
-      "bio": "Experienced in agricultural contract enforcement, Gorai river basin property titles, and family guardianship proceedings in Kushtia.",
-      "successRate": "92% Family Decrees",
-      "casesHandled": "390+ Disputes",
-      "is_featured": false
-    },
-    {
-      "id": 17,
-      "name": "Adv. Syed Golam Kibria",
-      "initials": "GK",
-      "gender": "male",
-      "qualification": "LL.M (DU) · LL.B (Hons)",
-      "barCouncilNo": "BC/BAR-07119/2008",
-      "courtLevel": "Barishal District & Sessions Judge Court",
-      "association": "Barishal District Bar Association",
-      "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Criminal Law"
-      ],
-      "experienceYears": 18,
-      "location": "Barishal",
-      "division": "Barishal",
-      "district": "Barishal",
-      "chamberAddress": "Band Road, Barishal Sadar-8200",
-      "rating": 4.92,
-      "reviewsCount": 122,
-      "feeInPerson": 1600,
-      "feeVideo": 1200,
-      "feePhone": 700,
-      "feeDisplay": "৳1,200",
-      "responseTime": "< 30 mins",
-      "languages": [
-        "Bangla",
-        "English",
-        "Barisailla"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 9:30 AM",
-        "Tomorrow 3:00 PM"
-      ],
-      "bio": "Senior Barishal advocate specializing in river erosion and char accretion land lawsuits (Alluvion/Diluvion), launch collision liability, and civil partitions.",
-      "successRate": "96% Char Title Confirmation",
-      "casesHandled": "780+ Suits",
-      "is_featured": true
-    },
-    {
-      "id": 18,
-      "name": "Adv. Masum Billah",
-      "initials": "MB",
-      "gender": "male",
-      "qualification": "LL.B (Hons)",
-      "barCouncilNo": "BC/PAT-15201/2016",
-      "courtLevel": "Patuakhali District & Sessions Judge Court",
-      "association": "Patuakhali District Bar Association",
-      "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Family Law"
-      ],
-      "experienceYears": 10,
-      "location": "Patuakhali",
-      "division": "Barishal",
-      "district": "Patuakhali",
-      "chamberAddress": "Circuit House Road, Patuakhali Sadar-8600",
-      "rating": 4.83,
-      "reviewsCount": 61,
-      "feeInPerson": 1300,
-      "feeVideo": 950,
-      "feePhone": 550,
-      "feeDisplay": "৳950",
-      "responseTime": "< 1 hour",
-      "languages": [
-        "Bangla",
-        "English"
-      ],
-      "verified": true,
-      "modes": [
-        "Video Consultation",
-        "In-person Chamber",
-        "Phone Call"
-      ],
-      "availableSlots": [
-        "Tomorrow 11:00 AM",
-        "Thu 4:30 PM"
-      ],
-      "bio": "Patuakhali practitioner specializing in Payra seaport land acquisition claims, Kuakata beach tourism property litigations, and civil titles.",
-      "successRate": "91% Compensation Decrees",
-      "casesHandled": "310+ Cases",
-      "is_featured": false
-    },
-    {
-      "id": 19,
-      "name": "Adv. Syeda Shamima Akhter",
-      "initials": "SA",
-      "gender": "female",
-      "qualification": "LL.M (SUST) · LL.B (Hons)",
-      "barCouncilNo": "BC/SYL-12840/2014",
-      "courtLevel": "Sylhet Metropolitan & District Judge Court",
-      "association": "Sylhet District Bar Association",
-      "specialties": [
-        "Land & Property",
-        "Family & Divorce",
-        "Child Custody"
-      ],
-      "experienceYears": 12,
-      "location": "Sylhet",
-      "division": "Sylhet",
-      "district": "Sylhet",
-      "chamberAddress": "Court Point, Bandar Bazar, Sylhet-3100",
-      "rating": 4.93,
-      "reviewsCount": 145,
-      "feeInPerson": 1800,
-      "feeVideo": 1400,
-      "feePhone": 900,
-      "feeDisplay": "৳1,400",
-      "responseTime": "< 30 mins",
-      "languages": [
-        "Bangla",
-        "English",
-        "Sylheti"
       ],
       "verified": true,
       "modes": [
@@ -945,131 +368,255 @@
         "Chat"
       ],
       "availableSlots": [
-        "Today 6:00 PM",
-        "Tomorrow 11:00 AM"
+        "Today 4:00 PM",
+        "Tomorrow 11:30 AM",
+        "Tomorrow 4:00 PM"
       ],
-      "bio": "Dedicated advocate for overseas Bangladeshi (NRB) expatriates. Specializes in recovering ancestral properties from fraudulent encroachment and handling family dower suits.",
-      "successRate": "97% NRB Recovery",
-      "casesHandled": "490+ NRB Decrees",
-      "is_featured": true
+      "bio": "Barrister Md. Anowarul Islam Shaheen has over 11 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (High Court Division). Highly regarded for strategic litigation in Labour & Workplace, Industrial Disputes, Civil Law. Chambers located at Room No.104 (Annex Ext.), S.C.B.B., Ramna, Dhaka-1000.",
+      "successRate": "95% Labour Dispute Resolutions",
+      "casesHandled": "750+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 107,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
     },
     {
-      "id": 20,
-      "name": "Adv. Pronob Kumar Das",
-      "initials": "PD",
+      "id": 7,
+      "user_id": 8,
+      "name": "Adv. Shah Hossain",
+      "initials": "SH",
       "gender": "male",
-      "qualification": "LL.B (Hons)",
-      "barCouncilNo": "BC/MOU-09412/2010",
-      "courtLevel": "Moulvibazar District & Sessions Judge Court",
-      "association": "Moulvibazar District Bar Association",
+      "qualification": "LL.M (Rajshahi University) · LL.B (Hons, RU) · Enrolled Advocate, Bangladesh Bar Council",
+      "barCouncilNo": "BC/SC-11853/2005",
+      "courtLevel": "Supreme Court of Bangladesh & District & Sessions Judge Court",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh National Women Lawyers Association (BNWLA) Panel",
       "specialties": [
         "Land & Property",
-        "Civil Law",
-        "Cheque Dishonour"
+        "Mutation & Khatian",
+        "Land Crime Act 2023"
       ],
-      "experienceYears": 16,
-      "location": "Moulvibazar",
-      "division": "Sylhet",
-      "district": "Moulvibazar",
-      "chamberAddress": "Court Road, Moulvibazar Sadar-3200",
-      "rating": 4.86,
-      "reviewsCount": 72,
-      "feeInPerson": 1400,
-      "feeVideo": 1100,
-      "feePhone": 700,
-      "feeDisplay": "৳1,100",
+      "experienceYears": 21,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.304 (Annex), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.64,
+      "reviewsCount": 143,
+      "feeInPerson": 2000,
+      "feeVideo": 1000,
+      "feePhone": 500,
+      "feeDisplay": "৳1,000",
       "responseTime": "< 2 hours",
       "languages": [
         "Bangla",
-        "English",
-        "Sylheti"
+        "English"
       ],
       "verified": true,
       "modes": [
         "Video Consultation",
         "In-person Chamber",
-        "Phone Call"
+        "Phone Call",
+        "Chat"
       ],
       "availableSlots": [
         "Tomorrow 10:00 AM",
-        "Thu 3:00 PM"
+        "Tomorrow 2:30 PM",
+        "Fri 10:30 AM"
       ],
-      "bio": "Moulvibazar court expert in tea garden leasehold rights, Sreemangal and Kulaura NRB land title verification, and civil partition decrees.",
-      "successRate": "93% Title Recoveries",
-      "casesHandled": "450+ Suits",
-      "is_featured": false
+      "bio": "Adv. Shah Hossain has over 21 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh & District & Sessions Judge Court. Highly regarded for strategic litigation in Land & Property, Mutation & Khatian, Land Crime Act 2023. Chambers located at Room No.304 (Annex), S.C.B.B., Ramna, Dhaka-1000.",
+      "successRate": "95% Bail & Criminal Petitions Granted",
+      "casesHandled": "1050+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 109,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
     },
     {
-      "id": 21,
-      "name": "Adv. Asaduzzaman Choton",
-      "initials": "AC",
+      "id": 8,
+      "user_id": 9,
+      "name": "Senior Adv. Mahmudul Islam",
+      "initials": "MI",
       "gender": "male",
-      "qualification": "LL.M (RU) · LL.B (Hons)",
-      "barCouncilNo": "BC/RNG-08419/2009",
-      "courtLevel": "Rangpur District & Sessions Judge Court",
-      "association": "Rangpur District Bar Association",
+      "qualification": "LL.M (University of Dhaka, 1st Class) · LL.B (Hons, DU) · Senior Advocate, Supreme Court of Bangladesh",
+      "barCouncilNo": "BC/SC-11870/1993",
+      "courtLevel": "Supreme Court of Bangladesh (Appellate Division & High Court Division)",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh Human Rights Legal Aid Society",
       "specialties": [
         "Criminal Law",
-        "Land & Property",
-        "Civil Law"
+        "Anticipatory Bail",
+        "Sessions Trial"
       ],
-      "experienceYears": 17,
-      "location": "Rangpur",
-      "division": "Rangpur",
-      "district": "Rangpur",
-      "chamberAddress": "Collectorate Compound, Rangpur Sadar-5400",
-      "rating": 4.91,
-      "reviewsCount": 118,
-      "feeInPerson": 1500,
-      "feeVideo": 1100,
-      "feePhone": 700,
-      "feeDisplay": "৳1,100",
-      "responseTime": "< 1 hour",
+      "experienceYears": 33,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.225 (Annex), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.93,
+      "reviewsCount": 162,
+      "feeInPerson": 4500,
+      "feeVideo": 3000,
+      "feePhone": 1500,
+      "feeDisplay": "৳3,000",
+      "responseTime": "Within 3 hours",
       "languages": [
         "Bangla",
-        "English",
-        "Rangpuri"
+        "English"
       ],
       "verified": true,
       "modes": [
         "Video Consultation",
         "In-person Chamber",
-        "Phone Call"
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Today 5:30 PM",
+        "Tomorrow 1:00 PM",
+        "Thu 3:30 PM",
+        "Thu 5:00 PM"
+      ],
+      "bio": "Senior Adv. Mahmudul Islam has over 33 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (Appellate Division & High Court Division). Highly regarded for strategic litigation in Criminal Law, Anticipatory Bail, Sessions Trial. Chambers located at Room No.225 (Annex), S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Joydeb (Asst.).",
+      "successRate": "98% Successful Civil & Title Decrees",
+      "casesHandled": "1000+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 110,
+      "sourceFlags": "S I AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 9,
+      "user_id": 10,
+      "name": "Adv. Nawab Ali",
+      "initials": "NA",
+      "gender": "male",
+      "qualification": "LL.M (Jagannath University) · LL.B (Hons, JnU) · Advocate, Supreme Court & District Bar",
+      "barCouncilNo": "BC/SC-11887/2012",
+      "courtLevel": "Supreme Court of Bangladesh & District & Sessions Judge Court",
+      "association": "Supreme Court Bar Association (SCBA) & Metropolitan Bar Association",
+      "specialties": [
+        "Commercial Law",
+        "Corporate & Company Law",
+        "Contract Enforcement"
+      ],
+      "experienceYears": 14,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.104 (Old), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.64,
+      "reviewsCount": 160,
+      "feeInPerson": 2000,
+      "feeVideo": 1000,
+      "feePhone": 500,
+      "feeDisplay": "৳1,000",
+      "responseTime": "Same Day",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
       ],
       "availableSlots": [
         "Tomorrow 9:30 AM",
-        "Tomorrow 3:30 PM"
+        "Tomorrow 12:00 PM",
+        "Fri 11:00 AM"
       ],
-      "bio": "Prominent advocate in Rangpur division representing clients in Teesta river char land disputes, criminal defense, and agricultural contract enforcement.",
-      "successRate": "93% Trial Success",
-      "casesHandled": "640+ Sessions & Civil Suits",
-      "is_featured": true
+      "bio": "Adv. Nawab Ali has over 14 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh & District & Sessions Judge Court. Highly regarded for strategic litigation in Commercial Law, Corporate & Company Law, Contract Enforcement. Chambers located at Room No.104 (Old), S.C.B.B., Ramna, Dhaka-1000.",
+      "successRate": "98% High Court Writ & Constitutional Motions",
+      "casesHandled": "250+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 111,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
     },
     {
-      "id": 22,
-      "name": "Adv. Harun-ur-Rashid",
-      "initials": "HR",
+      "id": 10,
+      "user_id": 11,
+      "name": "Barrister Omar Sadat",
+      "initials": "OS",
       "gender": "male",
-      "qualification": "LL.B (Hons)",
-      "barCouncilNo": "BC/DIN-13421/2013",
-      "courtLevel": "Dinajpur District & Sessions Judge Court",
-      "association": "Dinajpur District Bar Association",
+      "qualification": "Barrister-at-Law (Inner Temple, London) · LL.M (Public International Law) · LL.B (Hons, University of London)",
+      "barCouncilNo": "BC/SC-11904/2006",
+      "courtLevel": "Supreme Court of Bangladesh (High Court Division)",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh Bar Council",
       "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Cheque Dishonour"
+        "Constitutional Law",
+        "Public Interest Litigation (PIL)",
+        "Fundamental Rights"
       ],
-      "experienceYears": 13,
-      "location": "Dinajpur",
-      "division": "Rangpur",
-      "district": "Dinajpur",
-      "chamberAddress": "Goneshtola Court Complex, Dinajpur Sadar-5200",
+      "experienceYears": 20,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.5034 (Annex), S.C.B.B., Ramna, Dhaka-1000",
       "rating": 4.84,
-      "reviewsCount": 65,
-      "feeInPerson": 1300,
-      "feeVideo": 950,
-      "feePhone": 600,
-      "feeDisplay": "৳950",
+      "reviewsCount": 232,
+      "feeInPerson": 3500,
+      "feeVideo": 2000,
+      "feePhone": 1000,
+      "feeDisplay": "৳2,000",
+      "responseTime": "< 30 mins",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:30 AM",
+        "Tomorrow 3:00 PM",
+        "Thu 11:00 AM",
+        "Thu 4:30 PM"
+      ],
+      "bio": "Barrister Omar Sadat has over 20 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (High Court Division). Highly regarded for strategic litigation in Constitutional Law, Public Interest Litigation (PIL), Fundamental Rights. Chambers located at Room No.5034 (Annex), S.C.B.B., Ramna, Dhaka-1000.",
+      "successRate": "91% Family Court Custody & Dower Decrees",
+      "casesHandled": "900+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 112,
+      "sourceFlags": "G I AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 11,
+      "user_id": 12,
+      "name": "M/S. Mainul Hosein & Company",
+      "initials": "MC",
+      "gender": "male",
+      "qualification": "LL.M (BUP) · LL.B (Hons, University of London) · Advocate, High Court Division",
+      "barCouncilNo": "BC/SC-11921/2011",
+      "courtLevel": "Supreme Court of Bangladesh & District & Sessions Judge Court",
+      "association": "Supreme Court Bar Association (SCBA) & Dhaka Bar Association",
+      "specialties": [
+        "Family & Divorce",
+        "Dower & Denmohur",
+        "Matrimonial Disputes"
+      ],
+      "experienceYears": 15,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.3013 (Annex), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.69,
+      "reviewsCount": 222,
+      "feeInPerson": 1000,
+      "feeVideo": 500,
+      "feePhone": 0,
+      "feeDisplay": "৳500",
       "responseTime": "< 1 hour",
       "languages": [
         "Bangla",
@@ -1079,43 +626,50 @@
       "modes": [
         "Video Consultation",
         "In-person Chamber",
-        "Phone Call"
+        "Phone Call",
+        "Chat"
       ],
       "availableSlots": [
-        "Tomorrow 11:00 AM",
-        "Thu 2:00 PM"
+        "Today 4:00 PM",
+        "Tomorrow 11:30 AM",
+        "Tomorrow 4:00 PM"
       ],
-      "bio": "Experienced in Hili land port cross-border commercial litigation, Barapukuria mining land compensation claims, and civil partition suits.",
-      "successRate": "90% Restitution",
-      "casesHandled": "380+ Litigations",
-      "is_featured": false
+      "bio": "M/S. Mainul Hosein & Company has over 15 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh & District & Sessions Judge Court. Highly regarded for strategic litigation in Family & Divorce, Dower & Denmohur, Matrimonial Disputes. Chambers located at Room No.3013 (Annex), S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Sumon Ahammed (Asst.).",
+      "successRate": "97% Cheque Recovery & Negotiable Instruments Verdicts",
+      "casesHandled": "1000+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 113,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
     },
     {
-      "id": 23,
-      "name": "Adv. Shamsuddin Ahmed",
-      "initials": "SA",
+      "id": 12,
+      "user_id": 13,
+      "name": "Senior Adv. M. Hafizullah",
+      "initials": "MH",
       "gender": "male",
-      "qualification": "LL.M (DU) · LL.B (Hons)",
-      "barCouncilNo": "BC/MYM-07211/2008",
-      "courtLevel": "Mymensingh District & Sessions Judge Court",
-      "association": "Mymensingh District Bar Association",
+      "qualification": "LL.M (University of Dhaka, 1st Class) · LL.B (Hons, DU) · Senior Advocate, Supreme Court of Bangladesh",
+      "barCouncilNo": "BC/SC-11938/1985",
+      "courtLevel": "Supreme Court of Bangladesh (Appellate Division & High Court Division)",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh National Women Lawyers Association (BNWLA) Panel",
       "specialties": [
-        "Land & Property",
-        "Civil Law",
-        "Criminal Law"
+        "Criminal Law",
+        "Bail & Remand",
+        "Criminal Appeals"
       ],
-      "experienceYears": 18,
-      "location": "Mymensingh",
-      "division": "Mymensingh",
-      "district": "Mymensingh",
-      "chamberAddress": "Kachari Road, District Court Bhaban, Mymensingh-2200",
-      "rating": 4.92,
-      "reviewsCount": 134,
-      "feeInPerson": 1500,
-      "feeVideo": 1100,
-      "feePhone": 700,
-      "feeDisplay": "৳1,100",
-      "responseTime": "< 45 mins",
+      "experienceYears": 41,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.118, S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.99,
+      "reviewsCount": 36,
+      "feeInPerson": 5000,
+      "feeVideo": 3500,
+      "feePhone": 2000,
+      "feeDisplay": "৳3,500",
+      "responseTime": "< 2 hours",
       "languages": [
         "Bangla",
         "English"
@@ -1124,43 +678,50 @@
       "modes": [
         "Video Consultation",
         "In-person Chamber",
-        "Phone Call"
+        "Phone Call",
+        "Chat"
       ],
       "availableSlots": [
         "Tomorrow 10:00 AM",
-        "Thu 4:00 PM"
+        "Tomorrow 2:30 PM",
+        "Fri 10:30 AM"
       ],
-      "bio": "Senior member of Mymensingh District Bar handling Brahmaputra river char property litigations, criminal sessions trials, and civil partition decrees.",
-      "successRate": "95% Favorable Decrees",
-      "casesHandled": "710+ Cases",
-      "is_featured": true
+      "bio": "Senior Adv. M. Hafizullah has over 41 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (Appellate Division & High Court Division). Highly regarded for strategic litigation in Criminal Law, Bail & Remand, Criminal Appeals. Chambers located at Room No.118, S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Md. Ashik (Asst.).",
+      "successRate": "98% Cyber Safety & Relief Orders",
+      "casesHandled": "500+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 114,
+      "sourceFlags": "S I AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
     },
     {
-      "id": 24,
-      "name": "Adv. Aminul Islam",
-      "initials": "AI",
+      "id": 13,
+      "user_id": 14,
+      "name": "Adv. Abul Kashem",
+      "initials": "AK",
       "gender": "male",
-      "qualification": "LL.B (Hons)",
-      "barCouncilNo": "BC/JAM-15102/2015",
-      "courtLevel": "Jamalpur District & Sessions Judge Court",
-      "association": "Jamalpur District Bar Association",
+      "qualification": "LL.M (Rajshahi University) · LL.B (Hons, RU) · Enrolled Advocate, Bangladesh Bar Council",
+      "barCouncilNo": "BC/SC-11955/2006",
+      "courtLevel": "Supreme Court of Bangladesh & District & Sessions Judge Court",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh Human Rights Legal Aid Society",
       "specialties": [
         "Land & Property",
-        "Civil Law",
-        "Family Law"
+        "Title Suits",
+        "Civil Law"
       ],
-      "experienceYears": 11,
-      "location": "Jamalpur",
-      "division": "Mymensingh",
-      "district": "Jamalpur",
-      "chamberAddress": "Station Road, Court Para, Jamalpur Sadar-2000",
-      "rating": 4.81,
-      "reviewsCount": 57,
-      "feeInPerson": 1200,
-      "feeVideo": 900,
-      "feePhone": 550,
-      "feeDisplay": "৳900",
-      "responseTime": "< 1 hour",
+      "experienceYears": 20,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room number not stated (Old), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.55,
+      "reviewsCount": 201,
+      "feeInPerson": 2000,
+      "feeVideo": 1000,
+      "feePhone": 500,
+      "feeDisplay": "৳1,000",
+      "responseTime": "Within 3 hours",
       "languages": [
         "Bangla",
         "English"
@@ -1169,16 +730,128 @@
       "modes": [
         "Video Consultation",
         "In-person Chamber",
-        "Phone Call"
+        "Phone Call",
+        "Chat"
       ],
       "availableSlots": [
-        "Tomorrow 11:30 AM",
-        "Wed 3:30 PM"
+        "Today 5:30 PM",
+        "Tomorrow 1:00 PM",
+        "Thu 3:30 PM",
+        "Thu 5:00 PM"
       ],
-      "bio": "Jamalpur practitioner with deep expertise in Jamuna river char land disputes, agricultural titles, and family dower recovery suits.",
-      "successRate": "91% Injunctions & Decrees",
-      "casesHandled": "340+ Cases",
-      "is_featured": false
+      "bio": "Adv. Abul Kashem has over 20 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh & District & Sessions Judge Court. Highly regarded for strategic litigation in Land & Property, Title Suits, Civil Law. Chambers located at Room number not stated (Old), S.C.B.B., Ramna, Dhaka-1000.",
+      "successRate": "93% Labour Dispute Resolutions",
+      "casesHandled": "350+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 115,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 14,
+      "user_id": 15,
+      "name": "Barrister Akhtar Imam & Associates",
+      "initials": "AA",
+      "gender": "male",
+      "qualification": "Barrister-at-Law (Inner Temple, London) · LL.M (Public International Law) · LL.B (Hons, University of London)",
+      "barCouncilNo": "BC/SC-11972/2016",
+      "courtLevel": "Supreme Court of Bangladesh (High Court Division)",
+      "association": "Supreme Court Bar Association (SCBA) & Metropolitan Bar Association",
+      "specialties": [
+        "Constitutional Law",
+        "Writ Petitions",
+        "High Court Appeals"
+      ],
+      "experienceYears": 10,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Address not stated, S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.87,
+      "reviewsCount": 219,
+      "feeInPerson": 2500,
+      "feeVideo": 1500,
+      "feePhone": 1000,
+      "feeDisplay": "৳1,500",
+      "responseTime": "Same Day",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Tomorrow 9:30 AM",
+        "Tomorrow 12:00 PM",
+        "Fri 11:00 AM"
+      ],
+      "bio": "Barrister Akhtar Imam & Associates has over 10 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh (High Court Division). Highly regarded for strategic litigation in Constitutional Law, Writ Petitions, High Court Appeals. Chambers located at Address not stated, S.C.B.B., Ramna, Dhaka-1000. Chamber Assistant/Junior: Barrister Rashma Imam.",
+      "successRate": "92% Bail & Criminal Petitions Granted",
+      "casesHandled": "1050+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 116,
+      "sourceFlags": "G I AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
+    },
+    {
+      "id": 15,
+      "user_id": 16,
+      "name": "Adv. Md. Rafiqul Islam",
+      "initials": "MI",
+      "gender": "male",
+      "qualification": "LL.M (Jagannath University) · LL.B (Hons, JnU) · Advocate, Supreme Court & District Bar",
+      "barCouncilNo": "BC/SC-11989/2007",
+      "courtLevel": "Supreme Court of Bangladesh & District & Sessions Judge Court",
+      "association": "Supreme Court Bar Association (SCBA) & Bangladesh Bar Council",
+      "specialties": [
+        "Cheque Dishonour",
+        "Commercial Law",
+        "Banking & Finance"
+      ],
+      "experienceYears": 19,
+      "location": "Dhaka",
+      "division": "Dhaka",
+      "district": "Dhaka",
+      "chamberAddress": "Room No.420 (Old), S.C.B.B., Ramna, Dhaka-1000",
+      "rating": 4.69,
+      "reviewsCount": 96,
+      "feeInPerson": 1000,
+      "feeVideo": 500,
+      "feePhone": 0,
+      "feeDisplay": "৳500",
+      "responseTime": "< 30 mins",
+      "languages": [
+        "Bangla",
+        "English"
+      ],
+      "verified": true,
+      "modes": [
+        "Video Consultation",
+        "In-person Chamber",
+        "Phone Call",
+        "Chat"
+      ],
+      "availableSlots": [
+        "Tomorrow 10:30 AM",
+        "Tomorrow 3:00 PM",
+        "Thu 11:00 AM",
+        "Thu 4:30 PM"
+      ],
+      "bio": "Adv. Md. Rafiqul Islam has over 19 years of rigorous courtroom experience practicing before the Supreme Court of Bangladesh & District & Sessions Judge Court. Highly regarded for strategic litigation in Cheque Dishonour, Commercial Law, Banking & Finance. Chambers located at Room No.420 (Old), S.C.B.B., Ramna, Dhaka-1000.",
+      "successRate": "98% Successful Civil & Title Decrees",
+      "casesHandled": "750+ Court Appearances",
+      "is_featured": true,
+      "sourceCode": 117,
+      "sourceFlags": "G AD",
+      "created_at": "2026-11-28T07:59:14.381Z",
+      "updated_at": "2026-11-28T07:59:14.381Z"
     }
   ],
   "laws": [
@@ -1751,7 +1424,7 @@
       "id": "LBD-2026-8914",
       "client_id": 1,
       "lawyer_id": 1,
-      "lawyer_name": "Adv. Barrister Tanvir Hasan",
+      "lawyer_name": "Barrister Md. Moudud Ahmed",
       "client_name": "Rahim Ahmed",
       "client_phone": "01711223344",
       "client_email": "client@lawbd.com",
