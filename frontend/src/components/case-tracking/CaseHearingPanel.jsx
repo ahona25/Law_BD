@@ -8,14 +8,14 @@ export default function CaseHearingPanel({ selectedCase, hearingNotifications, i
 
   return (
     <div className="space-y-6">
-      <div className="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-4">
+      <div className="p-5 rounded-2xl bg-gradient-to-br from-teal-50/80 to-emerald-50/60 border border-teal-200 space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-sm text-bdGreen-900 flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-bdGreen-700" />
+          <h3 className="font-bold text-sm text-teal-900 flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-teal-700" />
             <span>{isBn ? 'শুনানির তারিখ ব্যবস্থাপনা' : 'Hearing Date Management'}</span>
           </h3>
           {daysLeft !== null && (
-            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white border border-emerald-300 text-bdGreen-900">
+            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white border border-teal-300 text-teal-900 shadow-2xs">
               {daysLeft < 0
                 ? isBn
                   ? 'অতীত তারিখ'
