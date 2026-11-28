@@ -15,9 +15,37 @@ import {
   Lock,
   Briefcase,
   Sparkles,
-  X
+  X,
+  ShieldCheck
 } from 'lucide-react';
 import { getStatusInfo } from './caseConstants';
+
+const CARD_STYLES = {
+  status: {
+    iconWrap: 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/25',
+    idle: 'bg-gradient-to-br from-white to-indigo-50/45 border-slate-200 hover:border-indigo-300 hover:from-indigo-50/70 hover:to-blue-50/60',
+    active: 'bg-gradient-to-br from-indigo-50 to-blue-50/80 border-indigo-600 ring-2 ring-indigo-500/20 shadow-md',
+    metaActive: 'text-indigo-700'
+  },
+  hearings: {
+    iconWrap: 'bg-teal-600 text-white shadow-sm shadow-teal-600/25',
+    idle: 'bg-gradient-to-br from-white to-teal-50/45 border-slate-200 hover:border-teal-300 hover:from-teal-50/70 hover:to-emerald-50/60',
+    active: 'bg-gradient-to-br from-teal-50 to-emerald-50/80 border-teal-600 ring-2 ring-teal-500/20 shadow-md',
+    metaActive: 'text-teal-700'
+  },
+  history: {
+    iconWrap: 'bg-amber-600 text-white shadow-sm shadow-amber-600/25',
+    idle: 'bg-gradient-to-br from-white to-amber-50/45 border-slate-200 hover:border-amber-300 hover:from-amber-50/70 hover:to-orange-50/50',
+    active: 'bg-gradient-to-br from-amber-50 to-orange-50/70 border-amber-600 ring-2 ring-amber-500/20 shadow-md',
+    metaActive: 'text-amber-700'
+  },
+  notifications: {
+    iconWrap: 'bg-violet-600 text-white shadow-sm shadow-violet-600/25',
+    idle: 'bg-gradient-to-br from-white to-violet-50/45 border-slate-200 hover:border-violet-300 hover:from-violet-50/70 hover:to-fuchsia-50/50',
+    active: 'bg-gradient-to-br from-violet-50 to-fuchsia-50/70 border-violet-600 ring-2 ring-violet-500/20 shadow-md',
+    metaActive: 'text-violet-700'
+  }
+};
 
 export default function CaseTrackingFlowHeader({
   isAuthenticated,
