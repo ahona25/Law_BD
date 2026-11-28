@@ -16,7 +16,7 @@ export default function CaseNotificationsPanel({
           <button
             type="button"
             onClick={onMarkAllRead}
-            className="px-3 py-1 rounded-lg bg-violet-50 border border-violet-200 text-xs font-bold text-violet-800 hover:bg-violet-100 transition-colors cursor-pointer"
+            className="px-3 py-1 rounded-lg bg-violet-50 dark:bg-violet-950/60 border border-violet-200 dark:border-violet-500/40 text-xs font-bold text-violet-800 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/50 transition-colors cursor-pointer"
           >
             {isBn ? 'সব পঠিত করুন' : 'Mark all read'}
           </button>
@@ -35,8 +35,8 @@ export default function CaseNotificationsPanel({
             key={n.id}
             className={`p-4 rounded-2xl border flex items-start justify-between gap-3 transition-colors ${
               n.read
-                ? 'bg-slate-50 border-slate-200'
-                : 'bg-gradient-to-r from-violet-50/80 to-fuchsia-50/40 border-violet-300'
+                ? 'ct-surface bg-slate-50 border-slate-200'
+                : 'ct-surface-active bg-gradient-to-r from-violet-50/80 to-fuchsia-50/40 border-violet-300 dark:border-violet-400/60'
             }`}
           >
             <div className="space-y-1">
@@ -53,7 +53,7 @@ export default function CaseNotificationsPanel({
               <button
                 type="button"
                 onClick={() => onMarkRead(n.id)}
-                className="px-2.5 py-1 rounded-lg bg-white border border-violet-200 text-[11px] font-bold text-violet-800 hover:bg-violet-50 shrink-0 cursor-pointer transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#182E26] border border-violet-200 dark:border-violet-500/40 text-[11px] font-bold text-violet-800 dark:text-violet-200 hover:bg-violet-50 dark:hover:bg-violet-950/60 shrink-0 cursor-pointer transition-colors"
               >
                 {isBn ? 'পঠিত' : 'Mark read'}
               </button>
