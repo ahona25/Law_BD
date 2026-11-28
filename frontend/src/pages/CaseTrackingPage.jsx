@@ -43,51 +43,61 @@ const PANEL_META = {
     icon: Scale,
     en: 'Case Status',
     bn: 'মামলার অবস্থা',
-    border: 'border-indigo-200',
-    headerBg: 'bg-gradient-to-r from-indigo-50/90 via-blue-50/60 to-white border-indigo-200/80',
+    border: 'border-indigo-200 dark:border-indigo-500/35',
+    headerBg:
+      'bg-gradient-to-r from-indigo-50/90 via-blue-50/60 to-white dark:from-[#151D36] dark:via-[#111B2E] dark:to-[#0B1D17] border-indigo-200/80 dark:border-indigo-500/30',
     iconBox: 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/25',
     btn: 'bg-indigo-600 hover:bg-indigo-700',
-    pillActive: 'bg-indigo-50 border-indigo-600 text-indigo-800'
+    pillActive:
+      'bg-indigo-50 border-indigo-600 text-indigo-800 dark:bg-indigo-950/80 dark:border-indigo-400 dark:text-indigo-200'
   },
   hearings: {
     icon: Calendar,
     en: 'Hearing Dates',
     bn: 'শুনানির তারিখ',
-    border: 'border-teal-200',
-    headerBg: 'bg-gradient-to-r from-teal-50/90 via-emerald-50/60 to-white border-teal-200/80',
+    border: 'border-teal-200 dark:border-teal-500/35',
+    headerBg:
+      'bg-gradient-to-r from-teal-50/90 via-emerald-50/60 to-white dark:from-[#0B2924] dark:via-[#0D2522] dark:to-[#0B1D17] border-teal-200/80 dark:border-teal-500/30',
     iconBox: 'bg-teal-600 text-white shadow-sm shadow-teal-600/25',
     btn: 'bg-teal-600 hover:bg-teal-700',
-    pillActive: 'bg-teal-50 border-teal-600 text-teal-800'
+    pillActive:
+      'bg-teal-50 border-teal-600 text-teal-800 dark:bg-teal-950/80 dark:border-teal-400 dark:text-teal-200'
   },
   history: {
     icon: History,
     en: 'Case History',
     bn: 'মামলার ইতিহাস',
-    border: 'border-amber-200',
-    headerBg: 'bg-gradient-to-r from-amber-50/90 via-orange-50/50 to-white border-amber-200/80',
+    border: 'border-amber-200 dark:border-amber-500/35',
+    headerBg:
+      'bg-gradient-to-r from-amber-50/90 via-orange-50/50 to-white dark:from-[#261D0D] dark:via-[#1E1A12] dark:to-[#0B1D17] border-amber-200/80 dark:border-amber-500/30',
     iconBox: 'bg-amber-600 text-white shadow-sm shadow-amber-600/25',
     btn: 'bg-amber-600 hover:bg-amber-700',
-    pillActive: 'bg-amber-50 border-amber-600 text-amber-800'
+    pillActive:
+      'bg-amber-50 border-amber-600 text-amber-800 dark:bg-amber-950/80 dark:border-amber-400 dark:text-amber-200'
   },
   notifications: {
     icon: Bell,
     en: 'Notifications',
     bn: 'নোটিফিকেশন',
-    border: 'border-violet-200',
-    headerBg: 'bg-gradient-to-r from-violet-50/90 via-fuchsia-50/50 to-white border-violet-200/80',
+    border: 'border-violet-200 dark:border-violet-500/35',
+    headerBg:
+      'bg-gradient-to-r from-violet-50/90 via-fuchsia-50/50 to-white dark:from-[#211536] dark:via-[#19152B] dark:to-[#0B1D17] border-violet-200/80 dark:border-violet-500/30',
     iconBox: 'bg-violet-600 text-white shadow-sm shadow-violet-600/25',
     btn: 'bg-violet-600 hover:bg-violet-700',
-    pillActive: 'bg-violet-50 border-violet-600 text-violet-800'
+    pillActive:
+      'bg-violet-50 border-violet-600 text-violet-800 dark:bg-violet-950/80 dark:border-violet-400 dark:text-violet-200'
   },
   documents: {
     icon: FolderOpen,
     en: 'Document Management & Court Orders',
     bn: 'নথি ও আদালতের আদেশ',
-    border: 'border-cyan-200',
-    headerBg: 'bg-gradient-to-r from-cyan-50/90 via-sky-50/60 to-white border-cyan-200/80',
+    border: 'border-cyan-200 dark:border-cyan-500/35',
+    headerBg:
+      'bg-gradient-to-r from-cyan-50/90 via-sky-50/60 to-white dark:from-[#0C2533] dark:via-[#0D202B] dark:to-[#0B1D17] border-cyan-200/80 dark:border-cyan-500/30',
     iconBox: 'bg-cyan-600 text-white shadow-sm shadow-cyan-600/25',
     btn: 'bg-cyan-600 hover:bg-cyan-700',
-    pillActive: 'bg-cyan-50 border-cyan-600 text-cyan-800'
+    pillActive:
+      'bg-cyan-50 border-cyan-600 text-cyan-800 dark:bg-cyan-950/80 dark:border-cyan-400 dark:text-cyan-200'
   }
 };
 
@@ -560,18 +570,8 @@ export default function CaseTrackingPage() {
   const ActiveIcon = activeMeta?.icon || Scale;
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#EEF6F3] via-[#F6F8FB] to-[#ECF2F4] py-6 sm:py-10 overflow-hidden">
-      {/* Subtle Ambient Portal Accents */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-1/4 w-96 h-96 rounded-full bg-emerald-200/30 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-40 right-1/5 w-96 h-96 rounded-full bg-indigo-200/25 blur-3xl"
-      />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6">
+    <div className="min-h-screen bg-[#F8FAF9] py-6 sm:py-10 transition-colors duration-300">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6">
         {/* Top Visual Flow Diagram */}
         <CaseTrackingFlowHeader
           isAuthenticated={isAuthenticated}
@@ -590,24 +590,24 @@ export default function CaseTrackingPage() {
         />
 
         {feedback && (
-          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-bdGreen-900 text-xs font-semibold">
+          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-700/60 text-bdGreen-900 dark:text-emerald-200 text-xs font-semibold">
             <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>{feedback}</span>
             </span>
-            <button type="button" onClick={() => setFeedback('')} className="p-1 hover:bg-emerald-100 rounded-lg">
+            <button type="button" onClick={() => setFeedback('')} className="p-1 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 rounded-lg cursor-pointer">
               <X className="w-4 h-4" />
             </button>
           </div>
         )}
 
         {error && (
-          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-bdRed-600 text-xs font-semibold">
+          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-700/60 text-bdRed-600 dark:text-rose-300 text-xs font-semibold">
             <span className="flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </span>
-            <button type="button" onClick={() => setError('')} className="p-1 hover:bg-rose-100 rounded-lg">
+            <button type="button" onClick={() => setError('')} className="p-1 hover:bg-rose-100 dark:hover:bg-rose-900/60 rounded-lg cursor-pointer">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -617,10 +617,10 @@ export default function CaseTrackingPage() {
         {((isAuthenticated && eligible) || demoMode) && activeSection && (
           <div
             ref={workspaceRef}
-            className={`bg-white/95 backdrop-blur-xs rounded-2xl sm:rounded-3xl border ${activeMeta.border} shadow-[0_18px_40px_-18px_rgba(15,23,42,0.14)] overflow-hidden scroll-mt-24`}
+            className={`ct-workspace bg-white rounded-2xl sm:rounded-3xl border ${activeMeta.border} shadow-[0_18px_40px_-18px_rgba(15,23,42,0.14)] overflow-hidden scroll-mt-24 transition-colors`}
           >
             {/* Panel Header */}
-            <div className={`${activeMeta.headerBg} px-4 sm:px-6 py-4 border-b flex flex-wrap items-center justify-between gap-3`}>
+            <div className={`ct-workspace-header ${activeMeta.headerBg} px-4 sm:px-6 py-4 border-b flex flex-wrap items-center justify-between gap-3`}>
               <div className="flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-xl ${activeMeta.iconBox} flex items-center justify-center shrink-0`}>
                   <ActiveIcon className="w-5 h-5" />
@@ -660,7 +660,7 @@ export default function CaseTrackingPage() {
                   type="button"
                   onClick={() => setActiveSection(null)}
                   aria-label="Close details"
-                  className="p-1.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-100 text-slate-500 cursor-pointer transition-colors"
+                  className="p-1.5 rounded-xl bg-white dark:bg-[#142C24] border border-slate-200 dark:border-[#244A3D] hover:bg-slate-100 dark:hover:bg-[#1B3A30] text-slate-500 dark:text-slate-300 cursor-pointer transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -682,7 +682,7 @@ export default function CaseTrackingPage() {
                     (activeSection === 'hearings' ||
                       activeSection === 'history' ||
                       activeSection === 'documents') && (
-                      <div className="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-100">
+                      <div className="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-100 dark:border-[#1E3D32]">
                         <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">
                           {isBn ? 'মামলা নির্বাচন:' : 'Case:'}
                         </span>
@@ -696,7 +696,7 @@ export default function CaseTrackingPage() {
                               className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all text-left truncate max-w-[260px] cursor-pointer ${
                                 isCurrent
                                   ? activeMeta.pillActive
-                                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                                  : 'bg-slate-50 dark:bg-[#122720] border-slate-200 dark:border-[#1F4034] text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-500'
                               }`}
                             >
                               #{c.id} · {c.title}
@@ -737,7 +737,7 @@ export default function CaseTrackingPage() {
                           className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-colors whitespace-nowrap cursor-pointer ${
                             statusFilter === 'all'
                               ? 'bg-indigo-600 text-white border-indigo-600 shadow-2xs'
-                              : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300'
+                              : 'bg-white dark:bg-[#122720] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F4034] hover:border-indigo-300 dark:hover:border-indigo-400'
                           }`}
                         >
                           {isBn ? `সবগুলো (${cases.length})` : `All Cases (${cases.length})`}
@@ -845,8 +845,8 @@ export default function CaseTrackingPage() {
                             onClick={() => setNotifScope('all')}
                             className={`px-3 py-1.5 rounded-lg font-bold border cursor-pointer transition-colors ${
                               notifScope === 'all'
-                                ? 'bg-violet-50 border-violet-600 text-violet-800'
-                                : 'bg-white border-slate-200 text-slate-600 hover:border-violet-300'
+                                ? 'bg-violet-50 border-violet-600 text-violet-800 dark:bg-violet-950/80 dark:border-violet-400 dark:text-violet-200'
+                                : 'bg-white dark:bg-[#122720] border-slate-200 dark:border-[#1F4034] text-slate-600 dark:text-slate-300 hover:border-violet-300 dark:hover:border-violet-400'
                             }`}
                           >
                             {isBn ? `সকল মামলা (${notifications.length})` : `All Cases (${notifications.length})`}
@@ -857,8 +857,8 @@ export default function CaseTrackingPage() {
                               onClick={() => setNotifScope('case')}
                               className={`px-3 py-1.5 rounded-lg font-bold border truncate max-w-[220px] cursor-pointer transition-colors ${
                                 notifScope === 'case'
-                                  ? 'bg-violet-50 border-violet-600 text-violet-800'
-                                  : 'bg-white border-slate-200 text-slate-600 hover:border-violet-300'
+                                  ? 'bg-violet-50 border-violet-600 text-violet-800 dark:bg-violet-950/80 dark:border-violet-400 dark:text-violet-200'
+                                  : 'bg-white dark:bg-[#122720] border-slate-200 dark:border-[#1F4034] text-slate-600 dark:text-slate-300 hover:border-violet-300 dark:hover:border-violet-400'
                               }`}
                             >
                               #{selectedCase.id} ({selectedCaseNotifications.length})
