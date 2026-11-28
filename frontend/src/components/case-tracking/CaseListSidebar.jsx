@@ -26,10 +26,10 @@ export default function CaseListSidebar({ cases, selectedCase, onSelectCase, isB
             key={c.id}
             type="button"
             onClick={() => onSelectCase(c.id)}
-            className={`w-full text-left p-4 rounded-2xl border transition-all space-y-2.5 ${
+            className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 space-y-2.5 cursor-pointer ${
               active
-                ? 'bg-white border-bdGreen-800 ring-2 ring-bdGreen-800/15 shadow-md'
-                : 'bg-white border-slate-200 hover:border-emerald-300 shadow-2xs'
+                ? 'bg-gradient-to-br from-indigo-50/70 to-white border-indigo-600 ring-2 ring-indigo-500/15 shadow-md'
+                : 'bg-white border-slate-200 hover:border-indigo-300 hover:-translate-y-0.5 shadow-2xs'
             }`}
           >
             <div className="flex items-center justify-between gap-2">
